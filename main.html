@@ -1,0 +1,59 @@
+<head>
+    <title>Time Entry</title>
+</head>
+
+<body>
+<h1>Charge Numbers</h1>
+<h2>Active</h2>
+{{> charge_number_list}}
+<br>
+{{> add_charge_number}}
+<br>
+<h2>Archived</h2>
+{{ archived_list}}
+</body>
+
+<template name="charge_number_list">
+    <table id="charge_number_table">
+        <td>Charge Number</td>
+        <td>Project Name</td>
+        <td>Start Date</td>
+        <td>End Date</td>
+        <td>Manager</td>
+        {{#each charge_numbers}}
+            {{> charge_number_info}}
+        {{else}}
+            No charge numbers yet.
+        {{/each}}
+    </table>
+</template>
+
+<template name="add_charge_number">
+    <input type="text" id="charge_number_to_add">
+    <input type="text" id="project_name_to_add">
+    <input type="date" id="start_date_to_add">
+    <input type="date" id="end_date_to_add">
+    {{> employees_list}}
+    <button>Add</button>
+</template>
+
+<template name="employees_list">
+    <select id="manager_to_add">
+        {{#each employees}}
+            <option value={{name}}>{{name}}</option>
+        {{/each}}
+    </select>
+</template>
+
+<template name="charge_number_info">
+    <tr>
+        <td> <input type="text" value={{id}} readonly></td>
+        <td> <input type="text" value={{name}}></td>
+        <td> <input type="date" value={{start_date}}></td>
+        <td> <input type="date" value={{end_date}}></td>
+        <td> <input type="text" value={{manager}}></td>
+    </tr>
+</template>
+
+<template name="archived_list">
+</template>

@@ -1,0 +1,21 @@
+/* CSS declarations go here */
+table, th, td {
+    border: 1px solid black;
+}
+
+th, td {
+    padding: 15px;
+}
+
+td > input {
+    border: none;
+}
+
+td > input:focus{
+    border: thin;
+}
+
+#charge_number_to_add, #project_name_to_add, #start_date_to_add, #end_date_to_add {
+    margin-right: 35px;
+}
+
