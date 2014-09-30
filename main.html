@@ -3,14 +3,32 @@
 </head>
 
 <body>
-<h1>Charge Numbers</h1>
-<h2>Active</h2>
-{{> charge_number_list}}
-<br>
-{{> add_charge_number}}
-<br>
-<h2>Archived</h2>
-{{ archived_list}}
+<div id="top-selection">
+    <div class="tag">
+        Charge Numbers
+    </div>
+    <div class="tag">
+        Employees
+    </div>
+</div>
+<div id="main-pane">
+    <h1>Charge Numbers</h1>
+    <h2>Active</h2>
+    {{> charge_number_list}}
+    <br>
+    {{> add_charge_number}}
+    <br>
+    <h2>Archived</h2>
+    {{ archived_list}}
+</div>
+<div id="side-pane">
+        <div class="tag" style="top:40px; left:10px">
+            Time Sheet
+        </div>
+        <div class="tag" style="top:40px;left:10px">
+            Admin Settings
+        </div>
+</div>
 </body>
 
 <template name="charge_number_list">

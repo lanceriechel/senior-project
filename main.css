@@ -1,4 +1,3 @@
-/* CSS declarations go here */
 table, th, td {
     border: 1px solid black;
 }
@@ -18,4 +17,54 @@ td > input:focus{
 #charge_number_to_add, #project_name_to_add, #start_date_to_add, #end_date_to_add {
     margin-right: 35px;
 }
+
+#top-selection, #main-pane, #side-pane {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+
+#top-selection {
+    left: 200px;
+    height: 44px;
+    bottom: auto;
+    background: #ddd;
+    border-bottom: 1px solid #999;
+}
+
+#main-pane {
+    top: 45px;
+    bottom: 0;
+    left: 220px;
+    overflow: auto;
+}
+
+#side-pane {
+    width: 200px;
+    right: auto;
+    overflow: auto;
+    background: #eee;
+    border-right: 1px solid #999;
+    background: #ddd;
+}
+
+.tag {
+    cursor: pointer;
+    float: left;
+    margin: 5px;
+    padding: 5px 5px;
+    font-size: 120%;
+    background: #999999;
+    color: orange;
+    border-radius: 4px;
+    opacity: 1;
+    transition: opacity 0.3s linear;
+    position: relative;
+}
+
+
+
 
