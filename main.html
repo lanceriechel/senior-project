@@ -19,7 +19,7 @@
     {{> add_charge_number}}
     <br>
     <h2>Archived</h2>
-    {{ archived_list}}
+    {{> archived_list}}
 </div>
 <div id="side-pane">
         <div class="tag" style="top:40px; left:10px">
@@ -39,11 +39,21 @@
         <td>End Date</td>
         <td>Manager</td>
         {{#each charge_numbers}}
-            {{> charge_number_info}}
-        {{else}}
-            No charge numbers yet.
+            {{#if active end_date}}
+                {{> charge_number_info}}
+            {{/if}}
         {{/each}}
     </table>
+</template>
+
+<template name="charge_number_info">
+    <tr>
+        <td> <input type="text" value={{id}} readonly></td>
+        <td> <input type="text" value={{name}}></td>
+        <td> <input type="date" value={{start_date}}></td>
+        <td> <input type="date" value={{end_date}}></td>
+        <td> <input type="text" value={{manager}}></td>
+    </tr>
 </template>
 
 <template name="add_charge_number">
@@ -63,15 +73,17 @@
     </select>
 </template>
 
-<template name="charge_number_info">
-    <tr>
-        <td> <input type="text" value={{id}} readonly></td>
-        <td> <input type="text" value={{name}}></td>
-        <td> <input type="date" value={{start_date}}></td>
-        <td> <input type="date" value={{end_date}}></td>
-        <td> <input type="text" value={{manager}}></td>
-    </tr>
-</template>
-
 <template name="archived_list">
+    <table id="charge_number_table">
+        <td>Charge Number</td>
+        <td>Project Name</td>
+        <td>Start Date</td>
+        <td>End Date</td>
+        <td>Manager</td>
+        {{#each charge_numbers}}
+            {{#if archived end_date}}
+                {{> charge_number_info}}
+            {{/if}}
+        {{/each}}
+    </table>
 </template>

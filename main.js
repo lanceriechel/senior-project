@@ -42,6 +42,23 @@ if (Meteor.isClient) {
         }
     };
 
+    Template.charge_number_list.active = function(date) {
+        date = date.split('-');
+        var dateObj = new Date(date[0], parseInt(date[1]) - 1, date[2]);
+        return dateObj.getTime() >= Date.now();
+    }
+
+
+    Template.archived_list.charge_numbers = function() {
+        return ChargeNumbers.find({});
+    };
+
+    Template.archived_list.archived = function(date){
+        date = date.split('-');
+        var dateObj = new Date(date[0], parseInt(date[1]) - 1, date[2]);
+        return dateObj.getTime() < Date.now();
+    }
+
     Template.employees_list.employees = function(){
         return Employees.find({});
     }
