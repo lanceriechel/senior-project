@@ -2,6 +2,8 @@ ChargeNumbers = new Meteor.Collection('charge_numbers');
 Employees = new Meteor.Collection('employees');
 
 if (Meteor.isClient) {
+    Session.setDefault('current_page', 'time_sheet');
+
     Template.charge_number_list.charge_numbers = function() {
         return ChargeNumbers.find({});
     };
@@ -61,6 +63,20 @@ if (Meteor.isClient) {
 
     Template.employees_list.employees = function(){
         return Employees.find({});
+    }
+
+    Template.pages.events({
+        'mousedown .tag': function (evt) {
+            Session.set('current_page', evt.currentTarget.id);
+        }
+    });
+
+    Template.main_selector.isAdminSettings = function() {
+        return Session.equals('current_page', 'admin_settings');
+    }
+
+    Template.main_selector.isTimesheet = function() {
+        return Session.equals('current_page', 'time_sheet');
     }
 }
 
