@@ -4,12 +4,7 @@
 
 <body>
 <div id="top-selection">
-    <div class="tag">
-        Charge Numbers
-    </div>
-    <div class="tag">
-        Employees
-    </div>
+
 </div>
 <div id="main-pane">
     {{> main_selector}}
@@ -24,7 +19,10 @@
         Time Sheet
     </div>
     <div id='admin_settings' class="tag" style="top:40px;left:10px">
-        Admin Settings
+        Charge Numbers
+    </div>
+    <div id='employees_settings' class="tag" style="top:40px;left:10px">
+        Employees
     </div>
 </template>
 
@@ -37,6 +35,9 @@
             Add time sheet template here in place of the div
         </div>
     {{/if}}
+        {{#if isEmployees}}
+        {{> employees_settings}}
+        {{/if}}
 </template>
 
 <template name="admin_settings">
@@ -48,6 +49,37 @@
     <br>
     <h2>Archived</h2>
     {{> archived_list}}
+</template>
+
+<template name="employees_settings">
+    <h1>Employees</h1>
+    <table>
+        <tr>
+            <th>Employee Name</th>
+            <th>Projects</th>
+            <th>Full-time/Part-time</th>
+        </tr>
+    {{#each employees}}
+    <tr>
+        <td value={{name}}>{{name}}</td>
+        <td>{{> charge_number_associations}}</td>
+        <td>
+            <div>
+                <input name="{{id}}" type="radio" class="full" checked="{{full}}">
+                <input name="{{id}}" type="radio" class="part" checked="{{part}}">
+            </div>
+        </td>
+    </tr>
+    {{/each}}
+    </table>
+</template>
+
+<template name="charge_number_associations">
+    <div id="items-view">
+        <ul id="item-list">
+            {{> charge_number_item}}
+        </ul>
+    </div>
 </template>
 
 <template name="charge_number_list">
@@ -63,6 +95,35 @@
             {{/if}}
         {{/each}}
     </table>
+</template>
+
+<template name="charge_number_item">
+    <li class="todo {{done_class}}">
+        <div class="item-tags">
+            {{#each projects}}
+                <div class="tag removable_tag">
+                    <div class="name">{{name}}</div>
+                    <div class="remove"></div>
+                </div>
+            {{/each}}
+            {{#if adding_tag}}
+                <div class="tag edittag">
+                    <select id="edittag-input">
+                        {{#each charge_numbers}}
+                            {{#if active end_date}}
+                                <option value={{name}}>{{name}}</option>
+                            {{/if}}
+                        {{/each}}
+                    </select>
+                    <!--<input type="text" id="edittag-input" value="" />-->
+                </div>
+            {{else}}
+                <div class="tag addtag">
+                    +tag
+                </div>
+            {{/if}}
+        </div>
+    </li>
 </template>
 
 <template name="charge_number_info">
