@@ -165,7 +165,7 @@ if (Meteor.isClient) {
     };
 
     Template.charge_number_item.projects = function () {
-        var todo_id = this._id;
+        var todo_id = this.id;
         return _.map(this.projects || [], function (item) {
             return {id: todo_id, name: item.project, project: item};
         });
@@ -176,23 +176,23 @@ if (Meteor.isClient) {
     };
 
     Template.charge_number_item.editing = function () {
-        return Session.equals('editing_itemname', this._id);
+        return Session.equals('editing_itemname', this.id);
     };
 
     Template.charge_number_item.adding_tag = function () {
-        return Session.equals('editing_addtag', this._id);
+        return Session.equals('editing_addtag', this.id);
     };
 
     Template.charge_number_item.events({
 
         'click .addtag': function (evt, tmpl) {
-            Session.set('editing_addtag', this._id);
+            Session.set('editing_addtag', this.id);
             Deps.flush(); // update DOM before focus
             activateInput(tmpl.find("#edittag-input"));
         },
 
         'dblclick .display .todo-text': function (evt, tmpl) {
-            Session.set('editing_itemname', this._id);
+            Session.set('editing_itemname', this.id);
             Deps.flush(); // update DOM before focus
             activateInput(tmpl.find("#todo-input"));
         },
