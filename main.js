@@ -4,6 +4,10 @@ Employees = new Meteor.Collection('employees');
 if (Meteor.isClient) {
     Session.setDefault('current_page', 'time_sheet');
 
+    Accounts.ui.config({
+        passwordSignupFields: 'USERNAME_ONLY'
+    });
+
     Template.charge_number_list.charge_numbers = function() {
         return ChargeNumbers.find({});
     };
