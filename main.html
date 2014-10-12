@@ -31,9 +31,7 @@
         {{> admin_settings}}
     {{/if}}
     {{#if isTimesheet}}
-        <div>
-            Add time sheet template here in place of the div
-        </div>
+        {{> timesheet}}
     {{/if}}
         {{#if isEmployees}}
         {{> employees_settings}}
@@ -149,7 +147,7 @@
     <select id="manager_to_add">
         {{#each employees}}
             <option value={{name}}>{{name}}</option>
-        {{/each}}
+        {{/each}}charge_number_info
     </select>
 </template>
 
@@ -167,3 +165,31 @@
         {{/each}}
     </table>
 </template>
+
+<template name="timesheet">
+    <table>
+        <tr>
+            <td>Projects</td>
+            <td>Sun</td>
+            <td>Mon</td>
+            <td>Tue</td>
+            <td>Wed</td>
+            <td>Thu</td>
+            <td>Fri</td>
+            <td>Sat</td>
+            <td>Total</td>
+        </tr>
+        <tr>
+            <td>Project1</td>
+            <td><input class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
+            <td><input class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
+            <td><input class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
+            <td><input class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
+            <td><input class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
+            <td><input class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
+            <td><input class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
+            <td><input class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
+        </tr>
+    </table>
+</template>
+
