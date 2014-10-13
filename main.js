@@ -246,7 +246,7 @@ if (Meteor.isClient) {
         },
 
         'click .weekly-description-button': function(evt, tmpl) {
-            alert("clicked weekly");
+            $('#weekly-description').modal('show')
         },
 
         'click .btn-primary': function(){
