@@ -33,9 +33,9 @@
     {{#if isTimesheet}}
         {{> timesheet}}
     {{/if}}
-        {{#if isEmployees}}
+    {{#if isEmployees}}
         {{> employees_settings}}
-        {{/if}}
+    {{/if}}
 </template>
 
 <template name="admin_settings">
@@ -57,18 +57,18 @@
             <th>Projects</th>
             <th>Full-time/Part-time</th>
         </tr>
-    {{#each employees}}
-    <tr>
-        <td value={{name}}>{{name}}</td>
-        <td>{{> charge_number_associations}}</td>
-        <td>
-            <div>
-                <input name="{{id}}" type="radio" class="full" checked="{{full}}">
-                <input name="{{id}}" type="radio" class="part" checked="{{part}}">
-            </div>
-        </td>
-    </tr>
-    {{/each}}
+        {{#each employees}}
+            <tr>
+                <td value={{name}}>{{name}}</td>
+                <td>{{> charge_number_associations}}</td>
+                <td>
+                    <div>
+                        <input name="{{id}}" type="radio" class="full" checked="{{full}}">
+                        <input name="{{id}}" type="radio" class="part" checked="{{part}}">
+                    </div>
+                </td>
+            </tr>
+        {{/each}}
     </table>
 </template>
 
@@ -146,7 +146,7 @@
 <template name="employees_list">
     <select id="manager_to_add">
         {{#each employees}}
-            <option value={{name}}>{{name}}</option>
+            <option value={{username}}>{{username}}</option>
         {{/each}}charge_number_info
     </select>
 </template>
@@ -179,17 +179,19 @@
             <td>Sat</td>
             <td>Total</td>
         </tr>
-        <tr>
-            <td>Project1</td>
-            <td><input class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
-            <td><input class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
-            <td><input class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
-            <td><input class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
-            <td><input class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
-            <td><input class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
-            <td><input class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
-            <td><input class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
-        </tr>
+        {{#each projects}}
+            <tr>
+                <td>{{.}}</td>
+                <td><input class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
+                <td><input class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
+                <td><input class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
+                <td><input class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
+                <td><input class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
+                <td><input class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
+                <td><input class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
+                <td><input class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
+            </tr>
+        {{/each}}
     </table>
 </template>
 

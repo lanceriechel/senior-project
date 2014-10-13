@@ -1,7 +1,12 @@
 ChargeNumbers = new Meteor.Collection('charge_numbers');
-Employees = new Meteor.Collection('employees');
+//Employees = new Meteor.Collection('employees');
 
 if (Meteor.isClient) {
+    // used to get extra fields from Meteor.users client side
+    Deps.autorun(function(){
+        Meteor.subscribe('userData');
+    });
+
     Session.setDefault('current_page', 'time_sheet');
 
     Accounts.ui.config({
@@ -75,15 +80,15 @@ if (Meteor.isClient) {
     };
 
     Template.employees_list.employees = function(){
-        return Employees.find({});
+        return Meteor.users.find({});
     };
 
     Template.employees_settings.employees = function(){
         var employees = [];
 
-        Employees.find({})
+        Meteor.users.find({})
             .forEach( function(item) {
-                employees.push({id: item._id, name: item.name, full: item.full, part: !item.full, projects: item.projects});
+                employees.push({id: item._id, name: item.username, full: item.full, part: !item.full, projects: item.projects});
             } );
 
         return employees;
@@ -110,11 +115,11 @@ if (Meteor.isClient) {
     Template.employees_settings.events({
         'click .full': function (evt) {
             var thisname = this.id;
-            Employees.update({_id: thisname}, {$set: {full: true}});
+            Meteor.users.update({_id: thisname}, {$set: {full: true}});
         },
         'click .part': function (evt) {
             var thisname = this.id;
-            Employees.update({_id: thisname}, {$set: {full: false}});
+            Meteor.users.update({_id: thisname}, {$set: {full: false}});
         }
     });
 
@@ -198,7 +203,7 @@ if (Meteor.isClient) {
         'dblclick .display .todo-text': function (evt, tmpl) {
             Session.set('editing_itemname', this.id);
             Deps.flush(); // update DOM before focus
-            activateInput(tmpl.find("#todo-input"));
+            activateInput(tmpl.find("#todo-iactivateInputnput"));
         },
 
         'click .remove': function (evt) {
@@ -208,7 +213,7 @@ if (Meteor.isClient) {
             //evt.target.parentNode.style.opacity = 0;
             // wait for CSS animation to finish
             Meteor.setTimeout(function () {
-                Employees.update({_id: id}, {$pull: {projects: project}});
+                Meteor.users.update({_id: id}, {$pull: {projects: project}});
             }, 300);
         }
     });
@@ -217,13 +222,24 @@ if (Meteor.isClient) {
         '#edittag-input',
         {
             ok: function (value) {
-                Employees.update({_id: this.id}, {$addToSet: {projects : {project:value}}});
+                Meteor.users.update({_id: this.id}, {$addToSet: {projects : {project:value}}});
                 Session.set('editing_addtag', null);
             },
             cancel: function () {
                 Session.set('editing_addtag', null);
             }
         }));
+
+    Template.timesheet.projects = function(){
+        return Meteor.user().projects;
+    }
 }
 
+// used to get extra fields from Meteor.users server side
+Meteor.publish('userData', function() {
+    if(!this.userId) return null;
+    return Meteor.users.find(this.userId, {fields: {
+        projects: 1
+    }});
+});
 
