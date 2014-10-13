@@ -233,13 +233,38 @@ if (Meteor.isClient) {
     Template.timesheet.projects = function(){
         return Meteor.user().projects;
     }
+
+    Template.timesheet.events({
+        'click .description-button': function(evt, tmpl) {
+            var index = evt.currentTarget.parentElement.cellIndex;
+            var day = evt.currentTarget.parentElement.parentElement.parentElement.children[0].children[index].innerHTML;
+            var project = evt.currentTarget.parentElement.parentElement.children[0].innerHTML;
+            Session.set('current_day', day);
+            Session.set('current_project', project);
+            $('#daily-description .modal-title').text('Daily description for ' + project + ' on ' + day);
+            $('#daily-description').modal('show')
+        },
+
+        'click .weekly-description-button': function(evt, tmpl) {
+            alert("clicked weekly");
+        },
+
+        'click .btn-primary': function(){
+            $('#daily-description').modal('toggle')
+            Meteor.users.update({_id: Meteor.userId()}, {$addToSet: {timesheet: {project:Session.get('current-project')}}})
+        }
+    })
 }
 
+if (Meteor.isServer) {
 // used to get extra fields from Meteor.users server side
-Meteor.publish('userData', function() {
-    if(!this.userId) return null;
-    return Meteor.users.find(this.userId, {fields: {
-        projects: 1
-    }});
-});
-
+    Meteor.publish('userData', function () {
+        if (!this.userId) return null;
+        return Meteor.users.find(this.userId, {
+            fields: {
+                projects: 1,
+                timesheet: 1
+            }
+        });
+    });
+}

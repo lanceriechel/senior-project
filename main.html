@@ -146,7 +146,7 @@
 <template name="employees_list">
     <select id="manager_to_add">
         {{#each employees}}
-            <option value={{username}}>{{username}}</option>
+            <option value={{name}}>{{name}}</option>
         {{/each}}charge_number_info
     </select>
 </template>
@@ -182,16 +182,34 @@
         {{#each projects}}
             <tr>
                 <td>{{.}}</td>
-                <td><input class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
-                <td><input class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
-                <td><input class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
-                <td><input class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
-                <td><input class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
-                <td><input class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
-                <td><input class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
-                <td><input class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
+                <td><input headers="Sun" class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
+                <td><input headers="Mon" class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
+                <td><input headers="Tue" class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
+                <td><input headers="Wed" class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
+                <td><input headers="Thu" class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
+                <td><input headers="Fri" class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
+                <td><input headers="Sat" class="span1 middle" type="text" value=0><input type="image" src="description.png" class="description-button"></td>
+                <td><input headers="Total" class="span1 middle" type="text" value=0><input type="image" src="description.png" class="weekly-description-button"></td>
             </tr>
         {{/each}}
     </table>
+
+    <div class="modal fade" id="daily-description">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <textarea class="form-control all-div" rows="2"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
