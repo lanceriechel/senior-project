@@ -2,6 +2,15 @@ ChargeNumbers = new Meteor.Collection('charge_numbers');
 Employees = new Meteor.Collection('employees');
 
 if (Meteor.isClient) {
+
+    Deps.autorun(function(){
+        Meteor.subscribe('userData');
+    });
+
+    Accounts.ui.config({
+        passwordSignupFields: 'USERNAME_ONLY'
+    });
+
     Session.setDefault('current_page', 'time_sheet');
 
     Template.charge_number_list.charge_numbers = function() {
@@ -77,9 +86,9 @@ if (Meteor.isClient) {
     Template.employees_settings.employees = function(){
         var employees = [];
 
-        Employees.find({})
+        Meteor.users.find({})
             .forEach( function(item) {
-                employees.push({id: item._id, name: item.name, full: item.full, part: !item.full, projects: item.projects});
+                employees.push({id: item._id, name: item.username, full: item.fulltime, part: !item.fulltime, projects: item.projects});
             } );
 
         return employees;
@@ -105,12 +114,10 @@ if (Meteor.isClient) {
 
     Template.employees_settings.events({
         'click .full': function (evt) {
-            var thisname = this.id;
-            Employees.update({_id: thisname}, {$set: {full: true}});
+            Meteor.users.update({_id: this.id}, {$set: {fulltime: true}});
         },
         'click .part': function (evt) {
-            var thisname = this.id;
-            Employees.update({_id: thisname}, {$set: {full: false}});
+            Meteor.users.update({_id: this.id}, {$set: {fulltime: false}});
         }
     });
 
@@ -222,4 +229,32 @@ if (Meteor.isClient) {
         }));
 }
 
+if (Meteor.isServer) {
+    Accounts.onCreateUser(function (options, user) {
+        user.manager = false;
+        user.admin = false;
+        user.projects = [];
+        user.fulltime = true;
+        if (options.profile)
+            user.profile = options.profile;
+        return user;
+    });
+
+    Meteor.publish('userData', function() {
+        // add admin rule here
+        return Meteor.users.find({}, {fields: {
+            fulltime: 1,
+            admin: 1,
+            manager: 1,
+            projects: 1
+        }});
+    });
+
+    Meteor.users.allow({
+        // add admin rule here
+        update: function (userId, user, fields, modifier) {
+            return Meteor.users.update({_id: user._id}, modifier);
+        }
+    });
+}
 
