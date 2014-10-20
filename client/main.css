@@ -18,7 +18,7 @@ td > input:focus{
     margin-right: 35px;
 }
 
-#top-selection, #main-pane, #side-pane {
+#main-pane, #side-pane {
     position: absolute;
     left: 0;
     right: 0;
@@ -27,23 +27,20 @@ td > input:focus{
     overflow: hidden;
 }
 
-#top-selection {
-    left: 200px;
-    height: 44px;
-    bottom: auto;
-    background: #ddd;
-    border-bottom: 1px solid #999;
-}
-
 #main-pane {
-    top: 45px;
+    top: 10px;
     bottom: 0;
-    left: 220px;
+    left: 180px;
+    right: 30px;
     overflow: auto;
 }
 
+#login {
+    float: right;
+}
+
 #side-pane {
-    width: 200px;
+    width: 150px;
     right: auto;
     overflow: auto;
     background: #eee;
@@ -63,6 +60,11 @@ td > input:focus{
     opacity: 1;
     transition: opacity 0.3s linear;
     position: relative;
+}
+
+.menu-options {
+    padding-top: 40px;
+    padding-left: 10px;
 }
 
 ul {
@@ -175,6 +177,9 @@ ul {
 #edittag-input {
     width: 80px;
 }
+
+
+
 
 
 

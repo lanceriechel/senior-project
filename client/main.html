@@ -1,0 +1,170 @@
+<head>
+    <title>Time Entry</title>
+</head>
+
+<body>
+<div id="main-pane">
+    <div id="login">
+        {{> loginButtons align="right"}}
+    </div>
+    {{> mainSelector}}
+</div>
+<div id="side-pane">
+    {{> pages}}
+</div>
+</body>
+
+<template name="pages">
+    <div class="menu-options">
+        <div id='time_sheet' class="tag">
+            Time Sheet
+        </div>
+        <div id='project_settings' class="tag">
+            Projects
+        </div>
+        <div id='employees_settings' class="tag">
+            Employees
+        </div>
+    </div>
+</template>
+
+<template name="mainSelector">
+    {{#if isTimesheet}}
+        <div>
+            Add time sheet template here in place of the div
+        </div>
+    {{/if}}
+    {{#if isProjectSettings}}
+        {{> projectSettings}}
+    {{/if}}
+    {{#if isEmployeeSettings}}
+        {{> employeeSettings}}
+    {{/if}}
+</template>
+
+<template name="projectSettings">
+    <h1>Charge Numbers</h1>
+    <h2>Active</h2>
+    {{> activeProjects}}
+    <br>
+    {{> addProject}}
+    <br>
+    <h2>Archived</h2>
+    {{> archivedProjects}}
+</template>
+
+<template name="activeProjects">
+    <table>
+        <td>Charge Number</td>
+        <td>Project Name</td>
+        <td>Start Date</td>
+        <td>End Date</td>
+        <td>Manager</td>
+        {{#each projects}}
+            {{#if isActive end_date}}
+                {{> projectInfo}}
+            {{/if}}
+        {{/each}}
+    </table>
+</template>
+
+<template name="projectInfo">
+    <tr>
+        <td> <input type="text" value={{id}} readonly></td>
+        <td> <input type="text" value={{name}}></td>
+        <td> <input type="date" value={{start_date}}></td>
+        <td> <input type="date" value={{end_date}}></td>
+        <td> <input type="text" value={{manager}}></td>
+    </tr>
+</template>
+
+<template name="addProject">
+    <input type="text" id="charge_number_to_add">
+    <input type="text" id="project_name_to_add">
+    <input type="date" id="start_date_to_add">
+    <input type="date" id="end_date_to_add">
+    {{> employeesListDropDown}}
+    <button>Add</button>
+</template>
+
+<template name="employeesListDropDown">
+    <select id="manager_to_add">
+        {{#each employees}}
+            <option value={{username}}>{{username}}</option>
+        {{/each}}
+    </select>
+</template>
+
+<template name="archivedProjects">
+    <table>
+        <td>Charge Number</td>
+        <td>Project Name</td>
+        <td>Start Date</td>
+        <td>End Date</td>
+        <td>Manager</td>
+        {{#each projects}}
+            {{#if isArchived end_date}}
+                {{> projectInfo}}
+            {{/if}}
+        {{/each}}
+    </table>
+</template>
+
+<template name="employeeSettings">
+    <h1>Employees</h1>
+    <table>
+        <tr>
+            <th>Employee Name</th>
+            <th>Projects</th>
+            <th>Full-time/Part-time</th>
+        </tr>
+        {{#each employees}}
+            <tr>
+                <td value={{name}}>{{name}}</td>
+                <td>
+                    <div id="items-view">
+                        <ul id="item-list">
+                            {{> associatedProjects}}
+                        </ul>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input name="{{id}}" type="radio" class="full" checked="{{full}}">
+                        <input name="{{id}}" type="radio" class="part" checked="{{part}}">
+                    </div>
+                </td>
+            </tr>
+        {{/each}}
+    </table>
+</template>
+
+<template name="associatedProjects">
+    <li class="todo {{doneClass}}">
+        <div class="item-tags">
+            {{#each projects}}
+                <div class="tag removable_tag">
+                    <div class="name">{{name}}</div>
+                    <div class="remove"></div>
+                </div>
+            {{/each}}
+            {{#if addingTag}}
+                <div class="tag edittag">
+                    <select id="edittag-input">
+                        {{#each chargeNumbers}}
+                            {{#if isActive end_date}}
+                                <option value={{name}}>{{name}}</option>
+                            {{/if}}
+                        {{/each}}
+                    </select>
+                </div>
+            {{else}}
+                <div class="tag addtag">
+                    +tag
+                </div>
+            {{/if}}
+        </div>
+    </li>
+</template>
+
+
