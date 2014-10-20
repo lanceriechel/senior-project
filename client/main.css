@@ -30,7 +30,7 @@ td > input:focus{
 #main-pane {
     top: 10px;
     bottom: 0;
-    left: 220px;
+    left: 180px;
     right: 30px;
     overflow: auto;
 }
@@ -40,7 +40,7 @@ td > input:focus{
 }
 
 #side-pane {
-    width: 200px;
+    width: 150px;
     right: auto;
     overflow: auto;
     background: #eee;
@@ -60,6 +60,11 @@ td > input:focus{
     opacity: 1;
     transition: opacity 0.3s linear;
     position: relative;
+}
+
+.menu-options {
+    padding-top: 40px;
+    padding-left: 10px;
 }
 
 ul {

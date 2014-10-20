@@ -12,29 +12,36 @@ Accounts.ui.config({
 
 Session.setDefault('current_page', 'time_sheet');
 
-Template.charge_number_list.charge_numbers = function() {
-    return ChargeNumbers.find({});
-};
-
-Template.add_charge_number.events = {
-    'click button': function(){
-        ChargeNumbers.insert({
-            "id": document.getElementById("charge_number_to_add").value,
-            "name": document.getElementById("project_name_to_add").value,
-            "start_date": document.getElementById("start_date_to_add").value,
-            "end_date": document.getElementById("end_date_to_add").value,
-            "manager": document.getElementById("manager_to_add").value
-        });
-        document.getElementById("charge_number_to_add").value = "";
-        document.getElementById("project_name_to_add").value = "";
-        document.getElementById("start_date_to_add").value = "";
-        document.getElementById("end_date_to_add").value = "";
-        document.getElementById("manager_to_add").value = "";
-
+Template.pages.events({
+    'mousedown .tag': function (evt) {
+        Session.set('current_page', evt.currentTarget.id);
     }
-};
+});
 
-Template.charge_number_info.events = {
+Template.mainSelector.helpers({
+    isTimesheet: function(){
+        return Session.equals('current_page', 'time_sheet');
+    },
+    isProjectSettings: function(){
+        return Session.equals('current_page', 'project_settings');
+    },
+    isEmployeeSettings: function(){
+        return Session.equals('current_page', 'employees_settings');
+    }
+});
+
+Template.activeProjects.helpers({
+    projects: function(){
+        return ChargeNumbers.find({});
+    },
+    isActive: function(date){
+        date = date.split('-');
+        var dateObj = new Date(date[0], parseInt(date[1]) - 1, date[2]);
+        return dateObj.getTime() >= Date.now();
+    }
+});
+
+Template.projectInfo.events = {
     'blur': function(event){
         var row = event.currentTarget.parentNode.parentNode;
         ChargeNumbers.update(
@@ -52,66 +59,55 @@ Template.charge_number_info.events = {
     }
 };
 
-Template.charge_number_list.active = function(date) {
-    date = date.split('-');
-    var dateObj = new Date(date[0], parseInt(date[1]) - 1, date[2]);
-    return dateObj.getTime() >= Date.now();
+Template.addProject.events = {
+    'click button': function(){
+        ChargeNumbers.insert({
+            "id": document.getElementById("charge_number_to_add").value,
+            "name": document.getElementById("project_name_to_add").value,
+            "start_date": document.getElementById("start_date_to_add").value,
+            "end_date": document.getElementById("end_date_to_add").value,
+            "manager": document.getElementById("manager_to_add").value
+        });
+        document.getElementById("charge_number_to_add").value = "";
+        document.getElementById("project_name_to_add").value = "";
+        document.getElementById("start_date_to_add").value = "";
+        document.getElementById("end_date_to_add").value = "";
+        document.getElementById("manager_to_add").value = "";
+
+    }
 };
 
-Template.archived_list.charge_numbers = function() {
-    return ChargeNumbers.find({});
-};
-
-Template.charge_number_item.charge_numbers = function() {
-    return ChargeNumbers.find({});
-};
-
-Template.charge_number_item.active = function(date) {
-    date = date.split('-');
-    var dateObj = new Date(date[0], parseInt(date[1]) - 1, date[2]);
-    return dateObj.getTime() >= Date.now();
-};
-
-Template.archived_list.archived = function(date){
-    date = date.split('-');
-    var dateObj = new Date(date[0], parseInt(date[1]) - 1, date[2]);
-    return dateObj.getTime() < Date.now();
-};
-
-Template.employees_list.employees = function(){
-    return Employees.find({});
-};
-
-Template.employees_settings.employees = function(){
-    var employees = [];
-
-    Meteor.users.find({})
-        .forEach( function(item) {
-            employees.push({id: item._id, name: item.username, full: item.fulltime, part: !item.fulltime, projects: item.projects});
-        } );
-
-    return employees;
-};
-
-Template.pages.events({
-    'mousedown .tag': function (evt) {
-        Session.set('current_page', evt.currentTarget.id);
+Template.employeesListDropDown.helpers({
+    employees: function() {
+        return Meteor.users.find({});
     }
 });
 
-Template.main_selector.isAdminSettings = function() {
-    return Session.equals('current_page', 'admin_settings');
-};
+Template.archivedProjects.helpers({
+    projects: function() {
+        return ChargeNumbers.find({});
+    },
+    isArchived: function(date) {
+        date = date.split('-');
+        var dateObj = new Date(date[0], parseInt(date[1]) - 1, date[2]);
+        return dateObj.getTime() >= Date.now();
+    }
+});
 
-Template.main_selector.isTimesheet = function() {
-    return Session.equals('current_page', 'time_sheet');
-};
+Template.employeeSettings.helpers({
+    employees: function() {
+        var employees = [];
 
-Template.main_selector.isEmployees = function() {
-    return Session.equals('current_page', 'employees_settings');
-}
+        Meteor.users.find({})
+            .forEach( function(item) {
+                employees.push({id: item._id, name: item.username, full: item.fulltime, part: !item.fulltime, projects: item.projects});
+            } );
 
-Template.employees_settings.events({
+        return employees;
+    }
+});
+
+Template.employeeSettings.events({
     'click .full': function (evt) {
         Meteor.users.update({_id: this.id}, {$set: {fulltime: true}});
     },
@@ -120,7 +116,55 @@ Template.employees_settings.events({
     }
 });
 
-//////////////////charge_number_associations//////////////////////////////////
+Template.associatedProjects.helpers({
+    projects: function() {
+        var todo_id = this.id;
+        return _.map(this.projects || [], function (item) {
+            return {id: todo_id, name: item.project, project: item};
+        });
+    },
+    addingTag: function() {
+        return Session.equals('editing_addtag', this.id);
+    },
+    doneClass: function() {
+        return this.done ? 'done' : '';
+    },
+    chargeNumbers: function() {
+        return ChargeNumbers.find({});
+    },
+    // DRY
+    isActive: function(date){
+        date = date.split('-');
+        var dateObj = new Date(date[0], parseInt(date[1]) - 1, date[2]);
+        return dateObj.getTime() >= Date.now();
+    }
+});
+
+Template.associatedProjects.events({
+    'click .addtag': function (evt, tmpl) {
+        Session.set('editing_addtag', this.id);
+        Deps.flush(); // update DOM before focus
+        activateInput(tmpl.find("#edittag-input"));
+    },
+
+    'dblclick .display .todo-text': function (evt, tmpl) {
+        Session.set('editing_itemname', this.id);
+        Deps.flush(); // update DOM before focus
+        activateInput(tmpl.find("#todo-input"));
+    },
+
+    'click .remove': function (evt) {
+        var id = this.id;
+        var project = this.project;
+
+        //evt.target.parentNode.style.opacity = 0;
+        // wait for CSS animation to finish
+        Meteor.setTimeout(function () {
+            Employees.update({_id: id}, {$pull: {projects: project}});
+        }, 300);
+    }
+});
+
 var okCancelEvents = function (selector, callbacks) {
     var ok = callbacks.ok || function () {};
     var cancel = callbacks.cancel || function () {};
@@ -150,72 +194,7 @@ var activateInput = function (input) {
     input.focus();
 };
 
-Template.charge_number_associations.any_list_selected = function () {
-    return !Session.equals('list_id', null);
-};
-
-Template.charge_number_associations.todos = function () {
-    // Determine which todos to display in main pane,
-    // selected based on list_id and tag_filter.
-
-    var list_id = Session.get('list_id');
-    if (!list_id)
-        return [];
-
-    var sel = {list_id: list_id};
-    var tag_filter = Session.get('tag_filter');
-    if (tag_filter)
-        sel.tags = tag_filter;
-
-    return ChargeNumbers.find(sel, {sort: {timestamp: 1}});
-};
-
-Template.charge_number_item.projects = function () {
-    var todo_id = this.id;
-    return _.map(this.projects || [], function (item) {
-        return {id: todo_id, name: item.project, project: item};
-    });
-};
-
-Template.charge_number_item.done_class = function () {
-    return this.done ? 'done' : '';
-};
-
-Template.charge_number_item.editing = function () {
-    return Session.equals('editing_itemname', this.id);
-};
-
-Template.charge_number_item.adding_tag = function () {
-    return Session.equals('editing_addtag', this.id);
-};
-
-Template.charge_number_item.events({
-
-    'click .addtag': function (evt, tmpl) {
-        Session.set('editing_addtag', this.id);
-        Deps.flush(); // update DOM before focus
-        activateInput(tmpl.find("#edittag-input"));
-    },
-
-    'dblclick .display .todo-text': function (evt, tmpl) {
-        Session.set('editing_itemname', this.id);
-        Deps.flush(); // update DOM before focus
-        activateInput(tmpl.find("#todo-input"));
-    },
-
-    'click .remove': function (evt) {
-        var id = this.id;
-        var project = this.project;
-
-        //evt.target.parentNode.style.opacity = 0;
-        // wait for CSS animation to finish
-        Meteor.setTimeout(function () {
-            Employees.update({_id: id}, {$pull: {projects: project}});
-        }, 300);
-    }
-});
-
-Template.charge_number_item.events(okCancelEvents(
+Template.associatedProjects.events(okCancelEvents(
     '#edittag-input',
     {
         ok: function (value) {
@@ -226,3 +205,5 @@ Template.charge_number_item.events(okCancelEvents(
             Session.set('editing_addtag', null);
         }
     }));
+
+
