@@ -12,6 +12,7 @@ boilerplate-generator@1.0.1
 bootstrap@1.0.1
 callback-hook@1.0.1
 check@1.0.2
+clinical:nightwatch@1.3.4
 ctl-helper@1.0.4
 ctl@1.0.2
 ddp@1.0.10

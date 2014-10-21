@@ -8,3 +8,5 @@ insecure
 bootstrap
 accounts-password
 accounts-ui
+clinical:nightwatch
+
