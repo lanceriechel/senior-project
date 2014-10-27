@@ -1,6 +1,6 @@
 Template.activeProjects.helpers({
     projects: function(){
-        return ChargeNumbers.find({});
+        return DatabaseService.getProjects();
     },
     isActive: function(date){
         return ProjectService.isActive(date);
@@ -61,13 +61,13 @@ Template.addProject.events = {
 
 Template.employeesListDropDown.helpers({
     employees: function() {
-        return Meteor.users.find({});
+        return DatabaseService.getEmployees();
     }
 });
 
 Template.archivedProjects.helpers({
     projects: function() {
-        return ChargeNumbers.find({});
+        return DatabaseService.getProjects();
     },
     isArchived: function(date) {
         return !ProjectService.isActive(date);
