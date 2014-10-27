@@ -43,71 +43,75 @@
 </template>
 
 <template name="projectSettings">
-    <h1>Charge Numbers</h1>
-    <h2>Active</h2>
-    {{> activeProjects}}
-    <br>
-    {{> addProject}}
-    <br>
-    <h2>Archived</h2>
-    {{> archivedProjects}}
+    <div class="container">
+        <h1>Charge Numbers</h1>
+        <h2>Active</h2>
+        {{> activeProjects}}
+        <br>
+        {{> addProject}}
+        <br>
+        <h2>Archived</h2>
+        {{> archivedProjects}}
+    </div>
 </template>
 
 <template name="activeProjects">
-    <table>
-        <td>Charge Number</td>
-        <td>Project Name</td>
-        <td>Start Date</td>
-        <td>End Date</td>
-        <td>Manager</td>
+    <div class="row">
+        <div class="col-md-2">Charge Number</div>
+        <div class="col-md-2">Project Name</div>
+        <div class="col-md-2">Start Date</div>
+        <div class="col-md-2">End Date</div>
+        <div class="col-md-2">Manager</div>
         {{#each projects}}
             {{#if isActive end_date}}
                 {{> projectInfo}}
             {{/if}}
         {{/each}}
-    </table>
+    </div>
 </template>
 
 <template name="projectInfo">
-    <tr>
-        <td> <input type="text" value={{id}} readonly></td>
-        <td> <input type="text" value={{name}}></td>
-        <td> <input type="date" value={{start_date}}></td>
-        <td> <input type="date" value={{end_date}}></td>
-        <td> <input type="text" value={{manager}}></td>
-    </tr>
+    <div class="row">
+        <div class="col-md-2"> <input type="text" value={{id}} readonly></div>
+        <div class="col-md-2"> <input type="text" value={{name}}></div>
+        <div class="col-md-2"> <input type="date" value={{start_date}}></div>
+        <div class="col-md-2"> <input type="date" value={{end_date}}></div>
+        <div class="col-md-2"> <input type="text" value={{manager}}></div>
+    </div>
 </template>
 
 <template name="addProject">
-    <input type="text" id="charge_number_to_add">
-    <input type="text" id="project_name_to_add">
-    <input type="date" id="start_date_to_add">
-    <input type="date" id="end_date_to_add">
-    {{> employeesListDropDown}}
+    <div class="row">
+        <div class="col-md-2"> <input type="text" id="charge_number_to_add"></div>
+        <div class="col-md-2"> <input type="text" id="project_name_to_add"></div>
+        <div class="col-md-2"> <input type="text" class="form-control" id="start_date_to_add"></div>
+        <div class="col-md-2"> <input type="text" class="form-control" id="end_date_to_add"></div>
+    <div class="col-md-2">{{> employeesListDropDown}}</div>
     <button>Add</button>
+    </div>
 </template>
 
 <template name="employeesListDropDown">
-    <select id="manager_to_add">
-        {{#each employees}}
-            <option value={{username}}>{{username}}</option>
-        {{/each}}
-    </select>
+        <select id="manager_to_add">
+            {{#each employees}}
+                <option value={{username}}>{{username}}</option>
+            {{/each}}
+        </select>
 </template>
 
 <template name="archivedProjects">
-    <table>
-        <td>Charge Number</td>
-        <td>Project Name</td>
-        <td>Start Date</td>
-        <td>End Date</td>
-        <td>Manager</td>
+    <div class="row">
+        <div class="col-md-2">Charge Number</div>
+        <div class="col-md-2">Project Name</div>
+        <div class="col-md-2">Start Date</div>
+        <div class="col-md-2">End Date</div>
+        <div class="col-md-2">Manager</div>
         {{#each projects}}
             {{#if isArchived end_date}}
                 {{> projectInfo}}
             {{/if}}
         {{/each}}
-    </table>
+    </div>
 </template>
 
 <template name="employeeSettings">

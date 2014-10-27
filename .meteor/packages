@@ -9,4 +9,8 @@ bootstrap
 accounts-password
 accounts-ui
 clinical:nightwatch
+jasmine-unit
+velocity-html-reporter
+mizzao:bootstrap-3
+rajit:bootstrap3-datepicker
 

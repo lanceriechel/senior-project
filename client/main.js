@@ -59,6 +59,11 @@ Template.projectInfo.events = {
     }
 };
 
+Template.addProject.rendered = function(){
+    $('#start_date_to_add').datepicker({});
+    $('#end_date_to_add').datepicker({});
+}
+
 Template.addProject.events = {
     'click button': function(){
         ChargeNumbers.insert({
