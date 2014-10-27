@@ -48,6 +48,10 @@ td > input:focus{
     background: #ddd;
 }
 
+#error{
+    color:red;
+}
+
 .tag {
     cursor: pointer;
     float: left;

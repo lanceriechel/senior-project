@@ -36,7 +36,7 @@ Template.activeProjects.helpers({
     },
     isActive: function(date){
         date = date.split('/');
-        var dateObj = new Date(date[0], parseInt(date[1]) - 1, date[2]);
+        var dateObj = new Date(date[2], parseInt(date[0]) - 1, date[1]);
         return dateObj.getTime() >= Date.now();
     }
 });
@@ -66,19 +66,30 @@ Template.addProject.rendered = function(){
 
 Template.addProject.events = {
     'click button': function(){
-        ChargeNumbers.insert({
-            "id": document.getElementById("charge_number_to_add").value,
-            "name": document.getElementById("project_name_to_add").value,
-            "start_date": document.getElementById("start_date_to_add").value,
-            "end_date": document.getElementById("end_date_to_add").value,
-            "manager": document.getElementById("manager_to_add").value
-        });
-        document.getElementById("charge_number_to_add").value = "";
-        document.getElementById("project_name_to_add").value = "";
-        document.getElementById("start_date_to_add").value = "";
-        document.getElementById("end_date_to_add").value = "";
-        document.getElementById("manager_to_add").value = "";
+        var val1 = document.getElementById("charge_number_to_add").value;
+        var val2 = document.getElementById("project_name_to_add").value;
+        var val3 = document.getElementById("start_date_to_add").value;
+        var val4 = document.getElementById("end_date_to_add").value;
+        var val5 = document.getElementById("manager_to_add").value;
 
+        if(val1 == "" || val2 == "" || val3 == "" || val4 == "" || val5==""){
+             document.getElementById("error").innerHTML = "One or more fields is empty.";
+        }else{
+
+            ChargeNumbers.insert({
+                "id": document.getElementById("charge_number_to_add").value,
+                "name": document.getElementById("project_name_to_add").value,
+                "start_date": document.getElementById("start_date_to_add").value,
+                "end_date": document.getElementById("end_date_to_add").value,
+                "manager": document.getElementById("manager_to_add").value
+            });
+            document.getElementById("charge_number_to_add").value = "";
+            document.getElementById("project_name_to_add").value = "";
+            document.getElementById("start_date_to_add").value = "";
+            document.getElementById("end_date_to_add").value = "";
+            document.getElementById("manager_to_add").value = "";
+
+        }
     }
 };
 
@@ -94,9 +105,8 @@ Template.archivedProjects.helpers({
     },
     isArchived: function(date) {
         date = date.split('/');
-        var dateObj = new Date(date[0], parseInt(date[1]) - 1, date[2]);
-        console.log(dateObj)
-        return dateObj.getTime() >= Date.now();
+        var dateObj = new Date(date[2], parseInt(date[0]) - 1, date[1]);
+        return dateObj.getTime() <= Date.now();
     }
 });
 
@@ -141,7 +151,7 @@ Template.associatedProjects.helpers({
     // DRY
     isActive: function(date){
         date = date.split('-');
-        var dateObj = new Date(date[0], parseInt(date[1]) - 1, date[2]);
+        var dateObj = new Date(date[2], parseInt(date[1]) - 1, date[0]);
         return dateObj.getTime() >= Date.now();
     }
 });
