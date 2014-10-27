@@ -95,6 +95,7 @@ Template.archivedProjects.helpers({
     isArchived: function(date) {
         date = date.split('/');
         var dateObj = new Date(date[0], parseInt(date[1]) - 1, date[2]);
+        console.log(dateObj)
         return dateObj.getTime() >= Date.now();
     }
 });
