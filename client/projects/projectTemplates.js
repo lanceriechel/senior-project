@@ -28,33 +28,54 @@ Template.projectInfo.events = {
 Template.addProject.rendered = function(){
     $('#start_date_to_add').datepicker({});
     $('#end_date_to_add').datepicker({});
+    $('#start_date').datepicker({});
+    $('#end_date').datepicker({});
 }
 
 Template.addProject.events = {
     'click button': function(){
-        var val1 = document.getElementById("charge_number_to_add").value;
-        var val2 = document.getElementById("project_name_to_add").value;
-        var val3 = document.getElementById("start_date_to_add").value;
-        var val4 = document.getElementById("end_date_to_add").value;
-        var val5 = document.getElementById("manager_to_add").value;
+        var chargeNumber = document.getElementById("charge_number_to_add").value;
+        var name = document.getElementById("project_name_to_add").value;
+        var startDate = document.getElementById("start_date_to_add").value;
+        var endDate = document.getElementById("end_date_to_add").value;
+        var manager = document.getElementById("manager_to_add").value;
 
-        if(val1 == "" || val2 == "" || val3 == "" || val4 == "" || val5==""){
-            document.getElementById("error").innerHTML = "One or more fields is empty.";
-        }else{
+        var error = document.getElementById("add_charge_number_error");
 
-            ChargeNumbers.insert({
-                "id": document.getElementById("charge_number_to_add").value,
-                "name": document.getElementById("project_name_to_add").value,
-                "start_date": document.getElementById("start_date_to_add").value,
-                "end_date": document.getElementById("end_date_to_add").value,
-                "manager": document.getElementById("manager_to_add").value
+        if(ProjectService.areValidProjectParams(chargeNumber, name, startDate, endDate, manager)){
+            error.hidden = true;
+            DatabaseService.addNewProject({
+                "id": chargeNumber,
+                "name": name,
+                "start_date": startDate,
+                "end_date": endDate,
+                "manager": manager
             });
+            // add ui test
             document.getElementById("charge_number_to_add").value = "";
             document.getElementById("project_name_to_add").value = "";
             document.getElementById("start_date_to_add").value = "";
             document.getElementById("end_date_to_add").value = "";
             document.getElementById("manager_to_add").value = "";
-
+        } else {
+            // add ui test
+            error.hidden = false;
+            error.innerHTML =  "";
+            if(chargeNumber == ""){
+                $( "#add_charge_number_error" ).append("Missing charge number<br>");
+            }
+            if(name == ""){
+                $( "#add_charge_number_error" ).append("Missing project name<br>");
+            }
+            if(startDate == ""){
+                $( "#add_charge_number_error" ).append("Missing start date<br>");
+            }
+            if(endDate == ""){
+                $( "#add_charge_number_error" ).append("Missing end date<br>");
+            }
+            if(manager == ""){
+                $( "#add_charge_number_error" ).append("Missing manager<br>");
+            }
         }
     }
 };
