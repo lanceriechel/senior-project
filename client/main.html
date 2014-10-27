@@ -62,12 +62,12 @@
         <div class="col-md-2">Start Date</div>
         <div class="col-md-2">End Date</div>
         <div class="col-md-2">Manager</div>
+    </div>
         {{#each projects}}
             {{#if isActive end_date}}
                 {{> projectInfo}}
             {{/if}}
         {{/each}}
-    </div>
 </template>
 
 <template name="projectInfo">
@@ -87,7 +87,7 @@
         <div class="col-md-2"> <input type="text" class="form-control" id="start_date_to_add"></div>
         <div class="col-md-2"> <input type="text" class="form-control" id="end_date_to_add"></div>
     <div class="col-md-2">{{> employeesListDropDown}}</div>
-    <button>Add</button>
+    <div class="col-md-2"><button>Add</button></div>
     </div>
 </template>
 
@@ -106,12 +106,12 @@
         <div class="col-md-2">Start Date</div>
         <div class="col-md-2">End Date</div>
         <div class="col-md-2">Manager</div>
+    </div>
         {{#each projects}}
             {{#if isArchived end_date}}
                 {{> projectInfo}}
             {{/if}}
         {{/each}}
-    </div>
 </template>
 
 <template name="employeeSettings">

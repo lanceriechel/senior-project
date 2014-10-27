@@ -35,7 +35,7 @@ Template.activeProjects.helpers({
         return ChargeNumbers.find({});
     },
     isActive: function(date){
-        date = date.split('-');
+        date = date.split('/');
         var dateObj = new Date(date[0], parseInt(date[1]) - 1, date[2]);
         return dateObj.getTime() >= Date.now();
     }
@@ -93,7 +93,7 @@ Template.archivedProjects.helpers({
         return ChargeNumbers.find({});
     },
     isArchived: function(date) {
-        date = date.split('-');
+        date = date.split('/');
         var dateObj = new Date(date[0], parseInt(date[1]) - 1, date[2]);
         return dateObj.getTime() >= Date.now();
     }
