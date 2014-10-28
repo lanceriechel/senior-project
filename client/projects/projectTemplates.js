@@ -28,8 +28,12 @@ Template.projectInfo.events = {
 Template.addProject.rendered = function(){
     $('#start_date_to_add').datepicker({});
     $('#end_date_to_add').datepicker({});
-    $('#start_date').datepicker({});
-    $('#end_date').datepicker({});
+    $.each($('[id=start_date]'), function(index, value){
+        value.datepicker({});
+    });
+    $.each($('[id=end_date]'), function(index, value){
+        value.datepicker({});
+    });
 }
 
 Template.addProject.events = {
