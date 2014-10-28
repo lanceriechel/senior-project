@@ -48,6 +48,10 @@ td > input:focus{
     background: #ddd;
 }
 
+#error{
+    color:red;
+}
+
 .tag {
     cursor: pointer;
     float: left;
@@ -177,10 +181,6 @@ ul {
 #edittag-input {
     width: 80px;
 }
-
-
-
-
 
 
 

@@ -43,48 +43,62 @@
 </template>
 
 <template name="projectSettings">
-    <h1>Charge Numbers</h1>
-    <h2>Active</h2>
-    {{> activeProjects}}
-    <br>
-    {{> addProject}}
-    <br>
-    <h2>Archived</h2>
-    {{> archivedProjects}}
+    <div class="container-fluid">
+        <h1>Projects</h1>
+        <h2>Active</h2>
+        {{> activeProjects}}
+        <div class="alert alert-danger col-md-10" role="alert" hidden="true">
+            <a href="#" class="alert-link"></a>
+        </div>
+        <br>
+        <h2>Add a Project</h2>
+        {{> addProject}}
+        <div class="row">
+            <div class="alert alert-danger col-md-10" role="alert" hidden="true" id="add_charge_number_error">
+            </div>
+        </div>
+        <h2>Archived</h2>
+        {{> archivedProjects}}
+        <div class="alert alert-danger col-md-10" role="alert" hidden="true">
+            <a href="#" class="alert-link"></a>
+        </div>
+    </div>
 </template>
 
 <template name="activeProjects">
-    <table>
-        <td>Charge Number</td>
-        <td>Project Name</td>
-        <td>Start Date</td>
-        <td>End Date</td>
-        <td>Manager</td>
-        {{#each projects}}
-            {{#if isActive end_date}}
-                {{> projectInfo}}
-            {{/if}}
-        {{/each}}
-    </table>
+    <div class="row">
+        <div class="col-md-2">Charge Number</div>
+        <div class="col-md-2">Project Name</div>
+        <div class="col-md-2">Start Date</div>
+        <div class="col-md-2">End Date</div>
+        <div class="col-md-2">Manager</div>
+    </div>
+    {{#each projects}}
+        {{#if isActive end_date}}
+            {{> projectInfo}}
+        {{/if}}
+    {{/each}}
 </template>
 
 <template name="projectInfo">
-    <tr>
-        <td> <input type="text" value={{id}} readonly></td>
-        <td> <input type="text" value={{name}}></td>
-        <td> <input type="date" value={{start_date}}></td>
-        <td> <input type="date" value={{end_date}}></td>
-        <td> <input type="text" value={{manager}}></td>
-    </tr>
+    <div class="row">
+        <div class="col-md-2"> <input type="text" class="charge_number" value={{id}}></div>
+        <div class="col-md-2"> <input type="text" class="project_name" value={{name}}></div>
+        <div class="col-md-2"> <input type="text" class="form-control date" id="start_date" value={{start_date}}></div>
+        <div class="col-md-2"> <input type="text" class="form-control date" id="end_date" value={{end_date}}></div>
+        <div class="col-md-2"> <input type="text" class="manager" value={{manager}}></div>
+    </div>
 </template>
 
 <template name="addProject">
-    <input type="text" id="charge_number_to_add">
-    <input type="text" id="project_name_to_add">
-    <input type="date" id="start_date_to_add">
-    <input type="date" id="end_date_to_add">
-    {{> employeesListDropDown}}
-    <button>Add</button>
+    <div class="row">
+        <div class="col-md-2"> <input type="text" id="charge_number_to_add" placeholder="Charge Number"></div>
+        <div class="col-md-2"> <input type="text" id="project_name_to_add" placeholder="Project Name"></div>
+        <div class="col-md-2"> <input type="text" class="form-control" id="start_date_to_add" placeholder="Start Date"></div>
+        <div class="col-md-2"> <input type="text" class="form-control" id="end_date_to_add" placeholder="End Date"></div>
+        <div class="col-md-2">{{> employeesListDropDown}}</div>
+        <div class="col-md-2"><button type="button" class="btn btn-primary">Add</button></div>
+    </div>
 </template>
 
 <template name="employeesListDropDown">
@@ -96,18 +110,18 @@
 </template>
 
 <template name="archivedProjects">
-    <table>
-        <td>Charge Number</td>
-        <td>Project Name</td>
-        <td>Start Date</td>
-        <td>End Date</td>
-        <td>Manager</td>
-        {{#each projects}}
-            {{#if isArchived end_date}}
-                {{> projectInfo}}
-            {{/if}}
-        {{/each}}
-    </table>
+    <div class="row">
+        <div class="col-md-2">Charge Number</div>
+        <div class="col-md-2">Project Name</div>
+        <div class="col-md-2">Start Date</div>
+        <div class="col-md-2">End Date</div>
+        <div class="col-md-2">Manager</div>
+    </div>
+    {{#each projects}}
+        {{#if isArchived end_date}}
+            {{> projectInfo}}
+        {{/if}}
+    {{/each}}
 </template>
 
 <template name="employeeSettings">
