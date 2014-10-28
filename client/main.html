@@ -82,11 +82,11 @@
 
 <template name="projectInfo">
     <div class="row">
-        <div class="col-md-2"> <input type="text" value={{id}} readonly></div>
-        <div class="col-md-2"> <input type="text" value={{name}}></div>
-        <div class="col-md-2"> <input type="text" class="form-control" id="start_date" value={{start_date}}></div>
-        <div class="col-md-2"> <input type="text" class="form-control" id="end_date" value={{end_date}}></div>
-        <div class="col-md-2"> <input type="text" value={{manager}}></div>
+        <div class="col-md-2"> <input type="text" class="charge_number" value={{id}}></div>
+        <div class="col-md-2"> <input type="text" class="project_name" value={{name}}></div>
+        <div class="col-md-2"> <input type="text" class="form-control date" id="start_date" value={{start_date}}></div>
+        <div class="col-md-2"> <input type="text" class="form-control date" id="end_date" value={{end_date}}></div>
+        <div class="col-md-2"> <input type="text" class="manager" value={{manager}}></div>
     </div>
 </template>
 

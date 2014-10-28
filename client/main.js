@@ -12,6 +12,14 @@ Accounts.ui.config({
 
 Session.setDefault('current_page', 'time_sheet');
 
+ChargeNumbersService = {
+    isActive: function(date){
+        date = date.split('-');
+        var dateObj = new Date(date[0], parseInt(date[1]) - 1, date[2]);
+        return dateObj.getTime() >= Date.now();
+    }
+}
+
 Template.pages.events({
     'mousedown .tag': function (evt) {
         Session.set('current_page', evt.currentTarget.id);

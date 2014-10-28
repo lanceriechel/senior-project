@@ -8,7 +8,7 @@ Template.activeProjects.helpers({
 });
 
 Template.projectInfo.events = {
-    'blur': function(event){
+    'blur .charge_number .project_name': function(event){
         var row = event.currentTarget.parentNode.parentNode;
         ChargeNumbers.update(
             {
@@ -22,6 +22,10 @@ Template.projectInfo.events = {
                 "manager": row.children[4].children[0].value
             }
         )
+    },
+    'click .manager': function(evt){
+        var parent = evt.currentTarget.parentNode;
+        parent.innerHTML = '<select id="manager_to_change">' + $('#manager_to_add').html() + "</select>";
     }
 };
 
