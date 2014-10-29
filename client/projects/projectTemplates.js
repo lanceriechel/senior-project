@@ -19,18 +19,8 @@ Template.projectInfo.events = {
         ProjectService.removeErrorClasses(row, '#charge_number', '#project_name', '#start_date', '#end_date','#manager');
 
         if(ProjectService.areValidProjectParams(chargeNumber, name, startDate, endDate, manager)) {
-            ChargeNumbers.update(
-                {
-                    '_id': this._id
-                },
-                {
-                    'id': chargeNumber,
-                    'name': name,
-                    'start_date': startDate,
-                    'end_date': endDate,
-                    'manager': manager
-                }
-            );
+            // update project in DB
+            DatabaseService.updateProject(this._id, chargeNumber, name, startDate, endDate, manager);
         } else {
             // add ui test
             if(chargeNumber === ''){
@@ -52,19 +42,15 @@ Template.projectInfo.events = {
     },
     'blur .manager-dropdown': function(event){
         var row = event.currentTarget.parentNode.parentNode;
+
+        var chargeNumber = $(row).find('#charge_number')[0].value;
+        var name = $(row).find('#project_name')[0].value;
+        var startDate = $(row).find('#start_date')[0].value;
+        var endDate = $(row).find('#end_date')[0].value;
         var manager = $(row).find('select')[0].value;
-        ChargeNumbers.update(
-            {
-                '_id': this._id
-            },
-            {
-                'id' : $(row).find('#charge_number')[0].value,
-                'name': $(row).find('#project_name')[0].value,
-                'start_date': $(row).find('#start_date')[0].value,
-                'end_date': $(row).find('#end_date')[0].value,
-                'manager': manager
-            }
-        );
+
+        DatabaseService.updateProject(this._id, chargeNumber, name, startDate, endDate, manager);
+        
         var parent = event.currentTarget.parentNode;
         parent.innerHTML = '<input type="text" class="manager" id="manager" value=' + manager + '>';
     },
