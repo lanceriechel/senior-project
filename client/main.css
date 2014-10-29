@@ -39,6 +39,10 @@ div[id="TopBar"]{
     padding-top: 8px;
 }
 
+#error{
+    color:red;
+}
+
 .tag {
     cursor: pointer;
     float: left;
@@ -170,10 +174,3 @@ ul {
 #edittag-input {
     width: 80px;
 }
-
-
-
-
-
-
-
