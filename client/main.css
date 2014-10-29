@@ -29,6 +29,7 @@ div[id="TopBar"]{
     bottom: 10px;
     left: 30px;
     right: 30px;
+    padding-top: 10px;
     overflow: auto;
     position: absolute;
 }
@@ -36,7 +37,9 @@ div[id="TopBar"]{
 #login {
     float: right;
     vertical-align: middle;
-    padding-top: 8px;
+    padding-top: 10px;
+    right: 0px;
+    position: absolute;
 }
 
 #error{
@@ -60,6 +63,7 @@ div[id="TopBar"]{
 .menu-options {
     padding-left: 10px;
     vertical-align: middle;
+    position: absolute;
 }
 
 
