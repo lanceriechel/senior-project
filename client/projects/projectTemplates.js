@@ -18,7 +18,9 @@ Template.projectInfo.events = {
 
         ProjectService.removeErrorClasses(row, '#charge_number', '#project_name', '#start_date', '#end_date','#manager');
 
-        if(ProjectService.areValidProjectParams(chargeNumber, name, startDate, endDate, manager)) {
+        var fieldsNotNull = ProjectService.areValidProjectParams(chargeNumber, name, startDate, endDate, manager);
+        var datesValid = ProjectService.datesValid(startDate, endDate);
+        if(fieldsNotNull && datesValid) {
             // update project in DB
             DatabaseService.updateProject(this._id, chargeNumber, name, startDate, endDate, manager);
         } else {
@@ -29,10 +31,10 @@ Template.projectInfo.events = {
             if(name === ''){
                 $(row).find('#project_name').parent().addClass('has-error');
             }
-            if(startDate === ''){
+            if(startDate === '' || !datesValid){
                 $(row).find('#start_date').parent().addClass('has-error');
             }
-            if(endDate === ''){
+            if(endDate === '' || !datesValid){
                 $(row).find('#end_date').parent().addClass('has-error');
             }
             if(manager === ''){
@@ -56,7 +58,7 @@ Template.projectInfo.events = {
     },
     'click .manager': function(evt){
         var parent = evt.currentTarget.parentNode;
-        parent.innerHTML = '<select class="manager-dropdown" id="manager_to_change">' + $('#manager_to_add').html() + "</select>";
+        parent.innerHTML = '<select class="manager-dropdown form-control" id="manager_to_change">' + $('#manager_to_add').html() + "</select>";
     }
 };
 
