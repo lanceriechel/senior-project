@@ -47,21 +47,11 @@
         <h1>Projects</h1>
         <h2>Active</h2>
         {{> activeProjects}}
-        <div class="alert alert-danger col-md-10" role="alert" hidden="true">
-            <a href="#" class="alert-link"></a>
-        </div>
         <br>
         <h2>Add a Project</h2>
         {{> addProject}}
-        <div class="row">
-            <div class="alert alert-danger col-md-10" role="alert" hidden="true" id="add_charge_number_error">
-            </div>
-        </div>
         <h2>Archived</h2>
         {{> archivedProjects}}
-        <div class="alert alert-danger col-md-10" role="alert" hidden="true">
-            <a href="#" class="alert-link"></a>
-        </div>
     </div>
 </template>
 
@@ -82,8 +72,8 @@
 
 <template name="projectInfo">
     <div class="row">
-        <div class="col-md-2"> <input type="text" class="charge_number" id="charge_number" value={{id}}></div>
-        <div class="col-md-2"> <input type="text" class="project_name" id="project_name" value={{name}}></div>
+        <div class="col-md-2"> <input type="text" class="form-control charge_number" id="charge_number" value={{id}}></div>
+        <div class="col-md-2"> <input type="text" class="form-control  project_name" id="project_name" value={{name}}></div>
         <div class="col-md-2"> <input type="text" class="form-control date" id="start_date" value={{start_date}}></div>
         <div class="col-md-2"> <input type="text" class="form-control date" id="end_date" value={{end_date}}></div>
         <div class="col-md-2"> <input type="text" class="manager" id="manager" value={{manager}}></div>
@@ -92,8 +82,7 @@
 
 <template name="addProject">
     <div class="row">
-        <div class="col-md-2"> <input type="text" id="charge_number_to_add" placeholder="Charge Number"></div>
-        <div class="col-md-2"> <input type="text" id="project_name_to_add" placeholder="Project Name"></div>
+        <div class="col-md-2"> <input type="text" class="form-control" id="charge_number_to_add" placeholder="Charge Number"></div>
         <div class="col-md-2"> <input type="text" class="form-control" id="start_date_to_add" placeholder="Start Date"></div>
         <div class="col-md-2"> <input type="text" class="form-control" id="end_date_to_add" placeholder="End Date"></div>
         <div class="col-md-2">{{> employeesListDropDown}}</div>
