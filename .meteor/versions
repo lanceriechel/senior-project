@@ -51,7 +51,7 @@ reactive-var@1.0.3
 reload@1.1.1
 retry@1.0.1
 routepolicy@1.0.2
-sanjo:jasmine@0.4.16
+sanjo:jasmine@0.4.19
 service-configuration@1.0.2
 session@1.0.3
 sha@1.0.1
@@ -64,6 +64,6 @@ ui@1.0.4
 underscore@1.0.1
 url@1.0.1
 velocity:core@0.2.14
-velocity:html-reporter@0.2.4
+velocity:html-reporter@0.2.5
 webapp-hashing@1.0.1
 webapp@1.1.3
