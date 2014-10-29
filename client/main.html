@@ -3,15 +3,29 @@
 </head>
 
 <body>
+
+
+
+
 <div id="main-pane">
+<div id="TopBar">
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <span>{{> pages}}</span>
+      <span>
     <div id="login">
         {{> loginButtons align="right"}}
     </div>
+      </span>
+    </div>
+  </div>
+</nav>
+</div>
     {{> mainSelector}}
 </div>
-<div id="side-pane">
-    {{> pages}}
-</div>
+
 </body>
 
 <template name="pages">
@@ -27,6 +41,8 @@
         </div>
     </div>
 </template>
+
+
 
 <template name="mainSelector">
     {{#if isTimesheet}}
