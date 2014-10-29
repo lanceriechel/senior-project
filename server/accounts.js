@@ -3,7 +3,8 @@ Accounts.onCreateUser(function (options, user) {
     user.admin = false;
     user.projects = [];
     user.fulltime = true;
-    if (options.profile)
+    if (options.profile) {
         user.profile = options.profile;
+    }
     return user;
 });
