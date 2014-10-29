@@ -99,7 +99,9 @@ Template.addProject.events = {
 
         ProjectService.removeErrorClasses(row, '#charge_number_to_add', '#project_name_to_add', '#start_date_to_add', '#end_date_to_add','#manager_to_add');
 
-        if(ProjectService.areValidProjectParams(chargeNumber, name, startDate, endDate, manager)){
+        var fieldsNotNull = ProjectService.areValidProjectParams(chargeNumber, name, startDate, endDate, manager);
+        var datesValid = ProjectService.datesValid(startDate, endDate);
+        if(fieldsNotNull && datesValid){
             DatabaseService.addNewProject({
                 'id': chargeNumber,
                 'name': name,
@@ -121,10 +123,10 @@ Template.addProject.events = {
             if(name === ''){
                 $( '#project_name_to_add' ).parent().addClass('has-error');
             }
-            if(startDate === ''){
+            if(startDate === '' || !datesValid){
                 $( '#start_date_to_add' ).parent().addClass('has-error');
             }
-            if(endDate === ''){
+            if(endDate === '' || !datesValid){
                 $( '#end_date_to_add' ).parent().addClass('has-error');
             }
             if(manager === ''){
