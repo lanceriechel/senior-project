@@ -8,6 +8,24 @@ describe("projectService", function() {
             var date = new Date("October 13, 2010");
             expect(ProjectService.isActive(date.toLocaleDateString())).toBe(false);
         });
+        it("returns true for the current date", function() {
+            var date = new Date();
+            var d = date.getDate();
+            var m = date.getMonth()+1;
+            var year = date.getFullYear();
+
+            if(d<10) {
+                d='0'+d
+            } 
+
+            if(m<10) {
+                m='0'+m
+            } 
+
+            date = m+'/'+d+'/'+year;
+            var date1 = new Date(date);
+            expect(ProjectService.isActive(date1.toLocaleDateString())).toBe(true);
+        });
     });
     describe(".areValidProjectParams", function(){
         it("false if missing charge number", function(){
