@@ -125,40 +125,49 @@
 </template>
 
 <template name="employeeSettings">
-    <h1>Employees</h1>
-    <table>
-        <tr>
-            <th>Employee Name</th>
-            <th>Projects</th>
-            <th>Full-time/Part-time</th>
-        </tr>
-        {{#each employees}}
-            <tr>
-                <td value={{name}}>{{name}}</td>
-                <td>
-                    <div id="items-view">
-                        <ul id="item-list">
-                            {{> associatedProjects}}
-                        </ul>
-                    </div>
-                </td>
-                <td>
-                    <div>
-                        <input name="{{id}}" type="radio" class="full" checked="{{full}}">
-                        <input name="{{id}}" type="radio" class="part" checked="{{part}}">
-                    </div>
-                </td>
-            </tr>
-        {{/each}}
-    </table>
+    <div class="container-fluid">
+        <h1>Employees</h1>
+        {{>employees_Template}}
+    </div>
+</template>
+
+<template name="employees_Template">
+    <div class="row">
+        <div class="col-md-2">Employee Name</div>
+        <div class="col-md-2">Projects</div>
+        <div class="col-md-2">Full-time/Part-time</div>
+    </div>
+
+    {{#each employees}}
+        <div class="row">
+            <div class="col-md-2" value={{username}}>{{username}}</div>
+            <div class="col-md-2">
+                <div id="items-view">
+                    <ul id="item-list">
+                        {{> associatedProjects}}
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div>
+                    <input name="{{id}}" type="radio" class="full" checked="{{fulltime}}">
+                    {{#if fulltime }}
+                        <input name="{{id}}" type="radio" class="part">
+                    {{else}}
+                        <input name="{{id}}" type="radio" class="part" checked>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    {{/each}}
 </template>
 
 <template name="associatedProjects">
     <li class="todo {{doneClass}}">
-        <div class="item-tags">
+        <div class="item-tags" id="{{_id}}">
             {{#each projects}}
                 <div class="tag removable_tag">
-                    <div class="name">{{name}}</div>
+                    <div class="name" id="test">{{this}}</div>
                     <div class="remove"></div>
                 </div>
             {{/each}}
@@ -167,7 +176,7 @@
                     <select id="edittag-input">
                         {{#each chargeNumbers}}
                             {{#if isActive end_date}}
-                                <option value={{name}}>{{name}}</option>
+                                <option value="{{id}}">{{id}}</option>
                             {{/if}}
                         {{/each}}
                     </select>
