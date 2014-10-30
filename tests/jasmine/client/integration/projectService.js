@@ -8,6 +8,35 @@ describe("projectService", function() {
             var date = new Date("October 13, 2010");
             expect(ProjectService.isActive(date.toLocaleDateString())).toBe(false);
         });
+        it("returns true for the current date", function() {
+            var date = new Date();
+            var d = date.getDate();
+            var m = date.getMonth()+1;
+            var year = date.getFullYear();
+
+            if(d<10) {
+                d='0'+d
+            } 
+
+            if(m<10) {
+                m='0'+m
+            } 
+
+            date = m+'/'+d+'/'+year;
+            var date1 = new Date(date);
+            expect(ProjectService.isActive(date1.toLocaleDateString())).toBe(true);
+        });
+    });
+    describe(".datesValid", function(){
+        it("true if endDate after startDate", function(){
+            expect(ProjectService.datesValid("10/16/2014", "10/23/2014")).toBe(true);
+        });
+        it("true if endDate same as startDate", function(){
+            expect(ProjectService.datesValid("10/23/2014", "10/23/2014")).toBe(true);
+        });
+        it("false if endDate before startDate", function(){
+            expect(ProjectService.datesValid("10/16/2014", "10/10/2014")).toBe(false);
+        });
     });
     describe(".areValidProjectParams", function(){
         it("false if missing charge number", function(){

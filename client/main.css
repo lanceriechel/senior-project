@@ -14,38 +14,32 @@ td > input:focus{
     border: thin;
 }
 
+div[id="TopBar"]{
+    background: #eeeeee;
+    box-shadow: 0 1px 10px rgba(0,0,0,0.2);
+    
+}
+
 #charge_number_to_add, #project_name_to_add, #start_date_to_add, #end_date_to_add {
     margin-right: 35px;
 }
 
-#main-pane, #side-pane {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    overflow: hidden;
-}
-
 #main-pane {
     top: 10px;
-    bottom: 0;
-    left: 180px;
+    bottom: 10px;
+    left: 30px;
     right: 30px;
+    padding-top: 10px;
     overflow: auto;
+    position: absolute;
 }
 
 #login {
     float: right;
-}
-
-#side-pane {
-    width: 150px;
-    right: auto;
-    overflow: auto;
-    background: #eee;
-    border-right: 1px solid #999;
-    background: #ddd;
+    vertical-align: middle;
+    padding-top: 10px;
+    right: 0px;
+    position: absolute;
 }
 
 #error{
@@ -67,9 +61,12 @@ td > input:focus{
 }
 
 .menu-options {
-    padding-top: 40px;
     padding-left: 10px;
+    vertical-align: middle;
+    position: absolute;
 }
+
+
 
 ul {
     list-style-type: none;
@@ -181,6 +178,3 @@ ul {
 #edittag-input {
     width: 80px;
 }
-
-
-

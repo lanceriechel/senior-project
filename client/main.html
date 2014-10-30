@@ -3,15 +3,29 @@
 </head>
 
 <body>
+
+
+
+
 <div id="main-pane">
+<div id="TopBar">
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <span>{{> pages}}</span>
+      <span>
     <div id="login">
         {{> loginButtons align="right"}}
     </div>
+      </span>
+    </div>
+  </div>
+</nav>
+</div>
     {{> mainSelector}}
 </div>
-<div id="side-pane">
-    {{> pages}}
-</div>
+
 </body>
 
 <template name="pages">
@@ -27,6 +41,8 @@
         </div>
     </div>
 </template>
+
+
 
 <template name="mainSelector">
     {{#if isTimesheet}}
@@ -47,31 +63,21 @@
         <h1>Projects</h1>
         <h2>Active</h2>
         {{> activeProjects}}
-        <div class="alert alert-danger col-md-10" role="alert" hidden="true">
-            <a href="#" class="alert-link"></a>
-        </div>
         <br>
         <h2>Add a Project</h2>
         {{> addProject}}
-        <div class="row">
-            <div class="alert alert-danger col-md-10" role="alert" hidden="true" id="add_charge_number_error">
-            </div>
-        </div>
         <h2>Archived</h2>
         {{> archivedProjects}}
-        <div class="alert alert-danger col-md-10" role="alert" hidden="true">
-            <a href="#" class="alert-link"></a>
-        </div>
     </div>
 </template>
 
 <template name="activeProjects">
     <div class="row">
-        <div class="col-md-2">Charge Number</div>
-        <div class="col-md-2">Project Name</div>
-        <div class="col-md-2">Start Date</div>
-        <div class="col-md-2">End Date</div>
-        <div class="col-md-2">Manager</div>
+        <div class="col-md-2 col-sm-2 col-xs-2">Charge Number</div>
+        <div class="col-md-2 col-sm-2 col-xs-2">Project Name</div>
+        <div class="col-md-2 col-sm-2 col-xs-2">Start Date</div>
+        <div class="col-md-2 col-sm-2 col-xs-2">End Date</div>
+        <div class="col-md-2 col-sm-2 col-xs-2">Manager</div>
     </div>
     {{#each projects}}
         {{#if isActive end_date}}
@@ -82,27 +88,27 @@
 
 <template name="projectInfo">
     <div class="row">
-        <div class="col-md-2"> <input type="text" class="charge_number" value={{id}}></div>
-        <div class="col-md-2"> <input type="text" class="project_name" value={{name}}></div>
-        <div class="col-md-2"> <input type="text" class="form-control date" id="start_date" value={{start_date}}></div>
-        <div class="col-md-2"> <input type="text" class="form-control date" id="end_date" value={{end_date}}></div>
-        <div class="col-md-2"> <input type="text" class="manager" value={{manager}}></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="form-control charge_number" id="charge_number" value={{id}}></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="form-control  project_name" id="project_name" value={{name}}></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="form-control date" id="start_date" value={{start_date}}></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="form-control date" id="end_date" value={{end_date}}></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="form-control manager" id="manager" value={{manager}}></div>
     </div>
 </template>
 
 <template name="addProject">
     <div class="row">
-        <div class="col-md-2"> <input type="text" id="charge_number_to_add" placeholder="Charge Number"></div>
-        <div class="col-md-2"> <input type="text" id="project_name_to_add" placeholder="Project Name"></div>
-        <div class="col-md-2"> <input type="text" class="form-control" id="start_date_to_add" placeholder="Start Date"></div>
-        <div class="col-md-2"> <input type="text" class="form-control" id="end_date_to_add" placeholder="End Date"></div>
-        <div class="col-md-2">{{> employeesListDropDown}}</div>
-        <div class="col-md-2"><button type="button" class="btn btn-primary">Add</button></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="form-control" id="charge_number_to_add" placeholder="Charge Number"></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="form-control" id="project_name_to_add" placeholder="Project Name"></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="form-control" id="start_date_to_add" placeholder="Start Date"></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="form-control" id="end_date_to_add" placeholder="End Date"></div>
+        <div class="col-md-2 col-sm-2 col-xs-2">{{> employeesListDropDown}}</div>
+        <div class="col-md-2 col-sm-2 col-xs-2"><button type="button" class="btn btn-primary">Add</button></div>
     </div>
 </template>
 
 <template name="employeesListDropDown">
-    <select id="manager_to_add">
+    <select id="manager_to_add" class="form-control">
         {{#each employees}}
             <option value={{username}}>{{username}}</option>
         {{/each}}
@@ -111,11 +117,11 @@
 
 <template name="archivedProjects">
     <div class="row">
-        <div class="col-md-2">Charge Number</div>
-        <div class="col-md-2">Project Name</div>
-        <div class="col-md-2">Start Date</div>
-        <div class="col-md-2">End Date</div>
-        <div class="col-md-2">Manager</div>
+        <div class="col-md-2 col-sm-2 col-xs-2">Charge Number</div>
+        <div class="col-md-2 col-sm-2 col-xs-2">Project Name</div>
+        <div class="col-md-2 col-sm-2 col-xs-2">Start Date</div>
+        <div class="col-md-2 col-sm-2 col-xs-2">End Date</div>
+        <div class="col-md-2 col-sm-2 col-xs-2">Manager</div>
     </div>
     {{#each projects}}
         {{#if isArchived end_date}}
