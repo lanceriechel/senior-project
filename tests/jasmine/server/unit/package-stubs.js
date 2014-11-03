@@ -7007,7 +7007,7 @@ var packageMetadata = {
                 },
                 "version": {
                   "type": "constant",
-                  "value": "42cb926d1b882db12eea7f7675b0f8926627c0f5"
+                  "value": "75b9ef15468fba215e304d73d4d769cd1633442d"
                 },
                 "PUBLIC_SETTINGS": {
                   "type": "undefined"
@@ -7242,7 +7242,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/underscore.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/underscore.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7259,7 +7259,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/underscore.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/underscore.js.map"
                 }
               }
             },
@@ -7268,7 +7268,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/meteor.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/meteor.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7285,7 +7285,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/meteor.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/meteor.js.map"
                 }
               }
             },
@@ -7294,7 +7294,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/json.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/json.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7311,7 +7311,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/json.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/json.js.map"
                 }
               }
             },
@@ -7320,7 +7320,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/base64.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/base64.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7337,7 +7337,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/base64.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/base64.js.map"
                 }
               }
             },
@@ -7346,7 +7346,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/ejson.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/ejson.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7363,7 +7363,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/ejson.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/ejson.js.map"
                 }
               }
             },
@@ -7372,7 +7372,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/logging.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/logging.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7389,7 +7389,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/logging.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/logging.js.map"
                 }
               }
             },
@@ -7398,7 +7398,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/reload.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/reload.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7415,7 +7415,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/reload.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/reload.js.map"
                 }
               }
             },
@@ -7424,7 +7424,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/tracker.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/tracker.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7441,7 +7441,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/tracker.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/tracker.js.map"
                 }
               }
             },
@@ -7450,7 +7450,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/random.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/random.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7467,7 +7467,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/random.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/random.js.map"
                 }
               }
             },
@@ -7476,7 +7476,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/retry.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/retry.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7493,7 +7493,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/retry.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/retry.js.map"
                 }
               }
             },
@@ -7502,7 +7502,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/check.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/check.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7519,7 +7519,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/check.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/check.js.map"
                 }
               }
             },
@@ -7528,7 +7528,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/id-map.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/id-map.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7545,7 +7545,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/id-map.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/id-map.js.map"
                 }
               }
             },
@@ -7554,7 +7554,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/ordered-dict.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/ordered-dict.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7571,7 +7571,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/ordered-dict.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/ordered-dict.js.map"
                 }
               }
             },
@@ -7580,7 +7580,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/geojson-utils.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/geojson-utils.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7597,7 +7597,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/geojson-utils.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/geojson-utils.js.map"
                 }
               }
             },
@@ -7606,7 +7606,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/minimongo.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/minimongo.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7623,7 +7623,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/minimongo.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/minimongo.js.map"
                 }
               }
             },
@@ -7632,7 +7632,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/ddp.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/ddp.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7649,7 +7649,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/ddp.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/ddp.js.map"
                 }
               }
             },
@@ -7658,7 +7658,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/follower-livedata.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/follower-livedata.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7675,7 +7675,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/follower-livedata.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/follower-livedata.js.map"
                 }
               }
             },
@@ -7684,7 +7684,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/application-configuration.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/application-configuration.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7701,7 +7701,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/application-configuration.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/application-configuration.js.map"
                 }
               }
             },
@@ -7710,7 +7710,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/insecure.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/insecure.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7727,7 +7727,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/insecure.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/insecure.js.map"
                 }
               }
             },
@@ -7736,7 +7736,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/mongo.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/mongo.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7753,7 +7753,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/mongo.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/mongo.js.map"
                 }
               }
             },
@@ -7762,7 +7762,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/autoupdate.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/autoupdate.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7779,7 +7779,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/autoupdate.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/autoupdate.js.map"
                 }
               }
             },
@@ -7788,7 +7788,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/meteor-platform.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/meteor-platform.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7805,7 +7805,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/meteor-platform.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/meteor-platform.js.map"
                 }
               }
             },
@@ -7814,7 +7814,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/jquery.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/jquery.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7831,7 +7831,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/jquery.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/jquery.js.map"
                 }
               }
             },
@@ -7840,7 +7840,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/bootstrap.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/bootstrap.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7857,7 +7857,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/bootstrap.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/bootstrap.js.map"
                 }
               }
             },
@@ -7866,7 +7866,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/localstorage.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/localstorage.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7883,7 +7883,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/localstorage.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/localstorage.js.map"
                 }
               }
             },
@@ -7892,7 +7892,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/deps.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/deps.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7909,7 +7909,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/deps.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/deps.js.map"
                 }
               }
             },
@@ -7918,7 +7918,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/htmljs.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/htmljs.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7935,7 +7935,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/htmljs.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/htmljs.js.map"
                 }
               }
             },
@@ -7944,7 +7944,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/observe-sequence.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/observe-sequence.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7961,7 +7961,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/observe-sequence.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/observe-sequence.js.map"
                 }
               }
             },
@@ -7970,7 +7970,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/reactive-var.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/reactive-var.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7987,7 +7987,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/reactive-var.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/reactive-var.js.map"
                 }
               }
             },
@@ -7996,7 +7996,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/blaze.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/blaze.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8013,7 +8013,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/blaze.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/blaze.js.map"
                 }
               }
             },
@@ -8022,7 +8022,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/accounts-base.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/accounts-base.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8039,7 +8039,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/accounts-base.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/accounts-base.js.map"
                 }
               }
             },
@@ -8048,7 +8048,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/sha.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/sha.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8065,7 +8065,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/sha.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/sha.js.map"
                 }
               }
             },
@@ -8074,7 +8074,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/srp.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/srp.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8091,7 +8091,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/srp.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/srp.js.map"
                 }
               }
             },
@@ -8100,7 +8100,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/accounts-password.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/accounts-password.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8117,7 +8117,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/accounts-password.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/accounts-password.js.map"
                 }
               }
             },
@@ -8126,7 +8126,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/service-configuration.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/service-configuration.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8143,7 +8143,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/service-configuration.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/service-configuration.js.map"
                 }
               }
             },
@@ -8152,7 +8152,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/templating.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/templating.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8169,7 +8169,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/templating.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/templating.js.map"
                 }
               }
             },
@@ -8178,7 +8178,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/reactive-dict.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/reactive-dict.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8195,7 +8195,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/reactive-dict.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/reactive-dict.js.map"
                 }
               }
             },
@@ -8204,7 +8204,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/session.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/session.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8221,7 +8221,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/session.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/session.js.map"
                 }
               }
             },
@@ -8230,7 +8230,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/accounts-ui-unstyled.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/accounts-ui-unstyled.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8247,7 +8247,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/accounts-ui-unstyled.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/accounts-ui-unstyled.js.map"
                 }
               }
             },
@@ -8256,7 +8256,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/less.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/less.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8273,7 +8273,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/less.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/less.js.map"
                 }
               }
             },
@@ -8282,7 +8282,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/accounts-ui.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/accounts-ui.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8299,7 +8299,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/accounts-ui.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/accounts-ui.js.map"
                 }
               }
             },
@@ -8308,11 +8308,11 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/mizzao_bootstrap-3.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/mizzao_bootstrap-3.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
-                  "value": "/packages/22b8c020a13542fe69c5ffae82f6b6ab7944b181.map"
+                  "value": "/packages/1b23876192e931cc8703ffdc2f4e3aad02e57421.map"
                 },
                 "type": {
                   "type": "constant",
@@ -8320,12 +8320,12 @@ var packageMetadata = {
                 }
               }
             },
-            "/packages/22b8c020a13542fe69c5ffae82f6b6ab7944b181.map": {
+            "/packages/1b23876192e931cc8703ffdc2f4e3aad02e57421.map": {
               "type": "object",
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/mizzao_bootstrap-3.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/mizzao_bootstrap-3.js.map"
                 }
               }
             },
@@ -8334,7 +8334,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/rajit_bootstrap3-datepicker.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/rajit_bootstrap3-datepicker.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8351,7 +8351,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/rajit_bootstrap3-datepicker.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/rajit_bootstrap3-datepicker.js.map"
                 }
               }
             },
@@ -8360,7 +8360,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/sanjo_jasmine.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/sanjo_jasmine.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8377,7 +8377,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/sanjo_jasmine.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/sanjo_jasmine.js.map"
                 }
               }
             },
@@ -8386,7 +8386,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/url.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/url.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8403,7 +8403,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/url.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/url.js.map"
                 }
               }
             },
@@ -8412,7 +8412,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/http.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/http.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8429,7 +8429,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/http.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/http.js.map"
                 }
               }
             },
@@ -8438,7 +8438,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/velocity_core.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/velocity_core.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8455,7 +8455,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/velocity_core.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/velocity_core.js.map"
                 }
               }
             },
@@ -8464,7 +8464,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/amplify.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/amplify.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8481,7 +8481,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/amplify.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/amplify.js.map"
                 }
               }
             },
@@ -8490,7 +8490,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/velocity_html-reporter.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/velocity_html-reporter.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8507,7 +8507,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/velocity_html-reporter.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/velocity_html-reporter.js.map"
                 }
               }
             },
@@ -8516,7 +8516,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/webapp.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/webapp.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8533,7 +8533,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/webapp.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/webapp.js.map"
                 }
               }
             },
@@ -8542,7 +8542,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/livedata.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/livedata.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8559,7 +8559,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/livedata.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/livedata.js.map"
                 }
               }
             },
@@ -8568,7 +8568,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/ui.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/ui.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8585,7 +8585,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/ui.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/ui.js.map"
                 }
               }
             },
@@ -8594,7 +8594,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/spacebars.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/spacebars.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8611,7 +8611,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/spacebars.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/spacebars.js.map"
                 }
               }
             },
@@ -8620,7 +8620,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/launch-screen.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/launch-screen.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8637,7 +8637,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/launch-screen.js.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/launch-screen.js.map"
                 }
               }
             },
@@ -8646,7 +8646,23 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/global-imports.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/global-imports.js"
+                },
+                "sourceMapUrl": {
+                  "type": "undefined"
+                },
+                "type": {
+                  "type": "constant",
+                  "value": "js"
+                }
+              }
+            },
+            "/client/projects/template.project.js": {
+              "type": "object",
+              "members": {
+                "absolutePath": {
+                  "type": "constant",
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/app/client/projects/template.project.js"
                 },
                 "sourceMapUrl": {
                   "type": "undefined"
@@ -8662,7 +8678,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/app/client/template.main.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/app/client/template.main.js"
                 },
                 "sourceMapUrl": {
                   "type": "undefined"
@@ -8678,7 +8694,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/app/client/employees/employeesService.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/app/client/employees/employeesService.js"
                 },
                 "sourceMapUrl": {
                   "type": "undefined"
@@ -8694,7 +8710,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/app/client/employees/employeesTemplate.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/app/client/employees/employeesTemplate.js"
                 },
                 "sourceMapUrl": {
                   "type": "undefined"
@@ -8710,7 +8726,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/app/client/projects/projectService.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/app/client/projects/projectService.js"
                 },
                 "sourceMapUrl": {
                   "type": "undefined"
@@ -8726,7 +8742,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/app/client/projects/projectTemplates.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/app/client/projects/projectTemplates.js"
                 },
                 "sourceMapUrl": {
                   "type": "undefined"
@@ -8742,7 +8758,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/app/client/databaseService.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/app/client/databaseService.js"
                 },
                 "sourceMapUrl": {
                   "type": "undefined"
@@ -8758,7 +8774,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/app/client/main.js"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/app/client/main.js"
                 },
                 "sourceMapUrl": {
                   "type": "undefined"
@@ -8769,16 +8785,16 @@ var packageMetadata = {
                 }
               }
             },
-            "/bb072762413d4d9d3e6d7ab03facb68fd4d21800.css": {
+            "/9ee0061b27a2b9d956f1e85b8e90f1e8ab51122a.css": {
               "type": "object",
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/bb072762413d4d9d3e6d7ab03facb68fd4d21800.css"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/9ee0061b27a2b9d956f1e85b8e90f1e8ab51122a.css"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
-                  "value": "/bb072762413d4d9d3e6d7ab03facb68fd4d21800.map"
+                  "value": "/9ee0061b27a2b9d956f1e85b8e90f1e8ab51122a.map"
                 },
                 "type": {
                   "type": "constant",
@@ -8786,12 +8802,12 @@ var packageMetadata = {
                 }
               }
             },
-            "/bb072762413d4d9d3e6d7ab03facb68fd4d21800.map": {
+            "/9ee0061b27a2b9d956f1e85b8e90f1e8ab51122a.map": {
               "type": "object",
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/bb072762413d4d9d3e6d7ab03facb68fd4d21800.css.map"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/9ee0061b27a2b9d956f1e85b8e90f1e8ab51122a.css.map"
                 }
               }
             },
@@ -8800,7 +8816,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/bootstrap/img/glyphicons-halflings.png"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/bootstrap/img/glyphicons-halflings.png"
                 },
                 "sourceMapUrl": {
                   "type": "undefined"
@@ -8816,7 +8832,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/bootstrap/img/glyphicons-halflings-white.png"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/bootstrap/img/glyphicons-halflings-white.png"
                 },
                 "sourceMapUrl": {
                   "type": "undefined"
@@ -8832,7 +8848,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/mizzao_bootstrap-3/bootstrap-3/fonts/glyphicons-halflings-regular.eot"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/mizzao_bootstrap-3/bootstrap-3/fonts/glyphicons-halflings-regular.eot"
                 },
                 "sourceMapUrl": {
                   "type": "undefined"
@@ -8848,7 +8864,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/mizzao_bootstrap-3/bootstrap-3/fonts/glyphicons-halflings-regular.ttf"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/mizzao_bootstrap-3/bootstrap-3/fonts/glyphicons-halflings-regular.ttf"
                 },
                 "sourceMapUrl": {
                   "type": "undefined"
@@ -8864,7 +8880,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/mizzao_bootstrap-3/bootstrap-3/fonts/glyphicons-halflings-regular.svg"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/mizzao_bootstrap-3/bootstrap-3/fonts/glyphicons-halflings-regular.svg"
                 },
                 "sourceMapUrl": {
                   "type": "undefined"
@@ -8880,7 +8896,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/mizzao_bootstrap-3/bootstrap-3/fonts/glyphicons-halflings-regular.woff"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/mizzao_bootstrap-3/bootstrap-3/fonts/glyphicons-halflings-regular.woff"
                 },
                 "sourceMapUrl": {
                   "type": "undefined"
@@ -8896,7 +8912,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/velocity_html-reporter/lib/velocity_logo.svg"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/velocity_html-reporter/lib/velocity_logo.svg"
                 },
                 "sourceMapUrl": {
                   "type": "undefined"
@@ -8912,7 +8928,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/velocity_html-reporter/lib/velocity_cog.svg"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/velocity_html-reporter/lib/velocity_cog.svg"
                 },
                 "sourceMapUrl": {
                   "type": "undefined"
@@ -8928,7 +8944,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/packages/velocity_html-reporter/lib/icon-time.png"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/packages/velocity_html-reporter/lib/icon-time.png"
                 },
                 "sourceMapUrl": {
                   "type": "undefined"
@@ -8944,7 +8960,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/app/close_16.png"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/app/close_16.png"
                 },
                 "sourceMapUrl": {
                   "type": "undefined"
@@ -8960,7 +8976,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/sternetj/senior-project/.meteor/local/build/programs/web.browser/app/destroy.png"
+                  "value": "/home/joakes/senior-project/.meteor/local/build/programs/web.browser/app/destroy.png"
                 },
                 "sourceMapUrl": {
                   "type": "undefined"
@@ -8976,7 +8992,7 @@ var packageMetadata = {
               "members": {
                 "content": {
                   "type": "constant",
-                  "value": "{\"manifest\":[{\"path\":\"packages/underscore.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/underscore.js?0a80a8623e1b40b5df5a05582f288ddd586eaa18\",\"sourceMap\":\"packages/underscore.js.map\",\"sourceMapUrl\":\"/packages/0a80a8623e1b40b5df5a05582f288ddd586eaa18.map\",\"size\":150686,\"hash\":\"0a80a8623e1b40b5df5a05582f288ddd586eaa18\"},{\"path\":\"packages/meteor.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/meteor.js?61916b1060b33931a21f104fbffb67c2f3d493c5\",\"sourceMap\":\"packages/meteor.js.map\",\"sourceMapUrl\":\"/packages/61916b1060b33931a21f104fbffb67c2f3d493c5.map\",\"size\":108989,\"hash\":\"61916b1060b33931a21f104fbffb67c2f3d493c5\"},{\"path\":\"packages/json.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/json.js?e22856eae714c681199eabc5c0710b904b125554\",\"sourceMap\":\"packages/json.js.map\",\"sourceMapUrl\":\"/packages/e22856eae714c681199eabc5c0710b904b125554.map\",\"size\":58343,\"hash\":\"e22856eae714c681199eabc5c0710b904b125554\"},{\"path\":\"packages/base64.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/base64.js?1a63019243b73298e2964e6d4680f25bca657726\",\"sourceMap\":\"packages/base64.js.map\",\"sourceMapUrl\":\"/packages/1a63019243b73298e2964e6d4680f25bca657726.map\",\"size\":15685,\"hash\":\"1a63019243b73298e2964e6d4680f25bca657726\"},{\"path\":\"packages/ejson.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/ejson.js?71047b64b5196348bdbe5fd5eea9ac97a5a9eb14\",\"sourceMap\":\"packages/ejson.js.map\",\"sourceMapUrl\":\"/packages/71047b64b5196348bdbe5fd5eea9ac97a5a9eb14.map\",\"size\":81471,\"hash\":\"71047b64b5196348bdbe5fd5eea9ac97a5a9eb14\"},{\"path\":\"packages/logging.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/logging.js?07e201b648f16be8435a4f666156995eeda0c750\",\"sourceMap\":\"packages/logging.js.map\",\"sourceMapUrl\":\"/packages/07e201b648f16be8435a4f666156995eeda0c750.map\",\"size\":27996,\"hash\":\"07e201b648f16be8435a4f666156995eeda0c750\"},{\"path\":\"packages/reload.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/reload.js?da8974b7231dd8c0caccb5f322dcf97329d486d1\",\"sourceMap\":\"packages/reload.js.map\",\"sourceMapUrl\":\"/packages/da8974b7231dd8c0caccb5f322dcf97329d486d1.map\",\"size\":25926,\"hash\":\"da8974b7231dd8c0caccb5f322dcf97329d486d1\"},{\"path\":\"packages/tracker.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/tracker.js?192a05cc46b867dadbe8bf90dd961f6f8fd1574f\",\"sourceMap\":\"packages/tracker.js.map\",\"sourceMapUrl\":\"/packages/192a05cc46b867dadbe8bf90dd961f6f8fd1574f.map\",\"size\":66854,\"hash\":\"192a05cc46b867dadbe8bf90dd961f6f8fd1574f\"},{\"path\":\"packages/random.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/random.js?fe7b46080c91ce482acf6fc326afbc5b176f0502\",\"sourceMap\":\"packages/random.js.map\",\"sourceMapUrl\":\"/packages/fe7b46080c91ce482acf6fc326afbc5b176f0502.map\",\"size\":24099,\"hash\":\"fe7b46080c91ce482acf6fc326afbc5b176f0502\"},{\"path\":\"packages/retry.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/retry.js?1f1dd2c35d300110fdaba51ce4473583bc3bf031\",\"sourceMap\":\"packages/retry.js.map\",\"sourceMapUrl\":\"/packages/1f1dd2c35d300110fdaba51ce4473583bc3bf031.map\",\"size\":7245,\"hash\":\"1f1dd2c35d300110fdaba51ce4473583bc3bf031\"},{\"path\":\"packages/check.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/check.js?803a2be518a0c6c3949e45cf65c4ad627a3d603a\",\"sourceMap\":\"packages/check.js.map\",\"sourceMapUrl\":\"/packages/803a2be518a0c6c3949e45cf65c4ad627a3d603a.map\",\"size\":35207,\"hash\":\"803a2be518a0c6c3949e45cf65c4ad627a3d603a\"},{\"path\":\"packages/id-map.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/id-map.js?9ea6eaae8d74693ce2505a858d9a5e60cf191298\",\"sourceMap\":\"packages/id-map.js.map\",\"sourceMapUrl\":\"/packages/9ea6eaae8d74693ce2505a858d9a5e60cf191298.map\",\"size\":8584,\"hash\":\"9ea6eaae8d74693ce2505a858d9a5e60cf191298\"},{\"path\":\"packages/ordered-dict.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/ordered-dict.js?bf8af2f26c8d96bf8b2e6b407d3ed69f23c2cd37\",\"sourceMap\":\"packages/ordered-dict.js.map\",\"sourceMapUrl\":\"/packages/bf8af2f26c8d96bf8b2e6b407d3ed69f23c2cd37.map\",\"size\":20395,\"hash\":\"bf8af2f26c8d96bf8b2e6b407d3ed69f23c2cd37\"},{\"path\":\"packages/geojson-utils.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/geojson-utils.js?81b79d5cf96d00b4b7a28987debcffb665c17526\",\"sourceMap\":\"packages/geojson-utils.js.map\",\"sourceMapUrl\":\"/packages/81b79d5cf96d00b4b7a28987debcffb665c17526.map\",\"size\":48339,\"hash\":\"81b79d5cf96d00b4b7a28987debcffb665c17526\"},{\"path\":\"packages/minimongo.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/minimongo.js?9adf0102ce60b3df01914155826e1661f636e91d\",\"sourceMap\":\"packages/minimongo.js.map\",\"sourceMapUrl\":\"/packages/9adf0102ce60b3df01914155826e1661f636e91d.map\",\"size\":455764,\"hash\":\"9adf0102ce60b3df01914155826e1661f636e91d\"},{\"path\":\"packages/ddp.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/ddp.js?1f971b2ac9f4bdab7372cb5098ed1e26ff98dfb2\",\"sourceMap\":\"packages/ddp.js.map\",\"sourceMapUrl\":\"/packages/1f971b2ac9f4bdab7372cb5098ed1e26ff98dfb2.map\",\"size\":616556,\"hash\":\"1f971b2ac9f4bdab7372cb5098ed1e26ff98dfb2\"},{\"path\":\"packages/follower-livedata.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/follower-livedata.js?74156c6baa89da861fc4ddb58ef158eac71e58e0\",\"sourceMap\":\"packages/follower-livedata.js.map\",\"sourceMapUrl\":\"/packages/74156c6baa89da861fc4ddb58ef158eac71e58e0.map\",\"size\":1490,\"hash\":\"74156c6baa89da861fc4ddb58ef158eac71e58e0\"},{\"path\":\"packages/application-configuration.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/application-configuration.js?dcbf1f0774460fccf098a4c9e8fad4c3a0f2952f\",\"sourceMap\":\"packages/application-configuration.js.map\",\"sourceMapUrl\":\"/packages/dcbf1f0774460fccf098a4c9e8fad4c3a0f2952f.map\",\"size\":1485,\"hash\":\"dcbf1f0774460fccf098a4c9e8fad4c3a0f2952f\"},{\"path\":\"packages/insecure.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/insecure.js?3dc9d4a2dad55999b5b15a447d57f3d5fb66b290\",\"sourceMap\":\"packages/insecure.js.map\",\"sourceMapUrl\":\"/packages/3dc9d4a2dad55999b5b15a447d57f3d5fb66b290.map\",\"size\":1290,\"hash\":\"3dc9d4a2dad55999b5b15a447d57f3d5fb66b290\"},{\"path\":\"packages/mongo.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/mongo.js?9bc2c5a8b2796fab86b51660ca643e5a49a30c84\",\"sourceMap\":\"packages/mongo.js.map\",\"sourceMapUrl\":\"/packages/9bc2c5a8b2796fab86b51660ca643e5a49a30c84.map\",\"size\":146178,\"hash\":\"9bc2c5a8b2796fab86b51660ca643e5a49a30c84\"},{\"path\":\"packages/autoupdate.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/autoupdate.js?c823646e93561d86e6bcb3cbd2457a8540e519c1\",\"sourceMap\":\"packages/autoupdate.js.map\",\"sourceMapUrl\":\"/packages/c823646e93561d86e6bcb3cbd2457a8540e519c1.map\",\"size\":17152,\"hash\":\"c823646e93561d86e6bcb3cbd2457a8540e519c1\"},{\"path\":\"packages/meteor-platform.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/meteor-platform.js?499a2f8522e25820b1153c69a92751ccaae507b3\",\"sourceMap\":\"packages/meteor-platform.js.map\",\"sourceMapUrl\":\"/packages/499a2f8522e25820b1153c69a92751ccaae507b3.map\",\"size\":1384,\"hash\":\"499a2f8522e25820b1153c69a92751ccaae507b3\"},{\"path\":\"packages/jquery.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/jquery.js?265926494aaa3929cd2e30da265211c5929f37a4\",\"sourceMap\":\"packages/jquery.js.map\",\"sourceMapUrl\":\"/packages/265926494aaa3929cd2e30da265211c5929f37a4.map\",\"size\":1295407,\"hash\":\"265926494aaa3929cd2e30da265211c5929f37a4\"},{\"path\":\"packages/bootstrap.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/bootstrap.js?ec8a7746b798984dd1df9eb6ae62114dcf98f504\",\"sourceMap\":\"packages/bootstrap.js.map\",\"sourceMapUrl\":\"/packages/ec8a7746b798984dd1df9eb6ae62114dcf98f504.map\",\"size\":282505,\"hash\":\"ec8a7746b798984dd1df9eb6ae62114dcf98f504\"},{\"path\":\"packages/localstorage.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/localstorage.js?9ec7d68858d2e33aa807e5cfd5e12bb4d62fe00c\",\"sourceMap\":\"packages/localstorage.js.map\",\"sourceMapUrl\":\"/packages/9ec7d68858d2e33aa807e5cfd5e12bb4d62fe00c.map\",\"size\":7092,\"hash\":\"9ec7d68858d2e33aa807e5cfd5e12bb4d62fe00c\"},{\"path\":\"packages/deps.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/deps.js?504589e1e9585dec8f9f6094e5a87b22de3783a1\",\"sourceMap\":\"packages/deps.js.map\",\"sourceMapUrl\":\"/packages/504589e1e9585dec8f9f6094e5a87b22de3783a1.map\",\"size\":1442,\"hash\":\"504589e1e9585dec8f9f6094e5a87b22de3783a1\"},{\"path\":\"packages/htmljs.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/htmljs.js?539b5fc23cf5e63bc8e324543a1026b138316a8c\",\"sourceMap\":\"packages/htmljs.js.map\",\"sourceMapUrl\":\"/packages/539b5fc23cf5e63bc8e324543a1026b138316a8c.map\",\"size\":110444,\"hash\":\"539b5fc23cf5e63bc8e324543a1026b138316a8c\"},{\"path\":\"packages/observe-sequence.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/observe-sequence.js?2fd807ea171ead273b9e6458607cb226012d9240\",\"sourceMap\":\"packages/observe-sequence.js.map\",\"sourceMapUrl\":\"/packages/2fd807ea171ead273b9e6458607cb226012d9240.map\",\"size\":30271,\"hash\":\"2fd807ea171ead273b9e6458607cb226012d9240\"},{\"path\":\"packages/reactive-var.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/reactive-var.js?20335b7b37165980ddd9f23943b2e5b00aae1cc2\",\"sourceMap\":\"packages/reactive-var.js.map\",\"sourceMapUrl\":\"/packages/20335b7b37165980ddd9f23943b2e5b00aae1cc2.map\",\"size\":13963,\"hash\":\"20335b7b37165980ddd9f23943b2e5b00aae1cc2\"},{\"path\":\"packages/blaze.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/blaze.js?77c0809654ee3a10dcd5a4f961fb1437e7957d33\",\"sourceMap\":\"packages/blaze.js.map\",\"sourceMapUrl\":\"/packages/77c0809654ee3a10dcd5a4f961fb1437e7957d33.map\",\"size\":385864,\"hash\":\"77c0809654ee3a10dcd5a4f961fb1437e7957d33\"},{\"path\":\"packages/accounts-base.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/accounts-base.js?6ed32803c332f93f65e36a195f42e58a62ed028d\",\"sourceMap\":\"packages/accounts-base.js.map\",\"sourceMapUrl\":\"/packages/6ed32803c332f93f65e36a195f42e58a62ed028d.map\",\"size\":108969,\"hash\":\"6ed32803c332f93f65e36a195f42e58a62ed028d\"},{\"path\":\"packages/sha.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/sha.js?65ef52f7221944768bfc2049d6b7e163c8ae2615\",\"sourceMap\":\"packages/sha.js.map\",\"sourceMapUrl\":\"/packages/65ef52f7221944768bfc2049d6b7e163c8ae2615.map\",\"size\":19584,\"hash\":\"65ef52f7221944768bfc2049d6b7e163c8ae2615\"},{\"path\":\"packages/srp.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/srp.js?e2e28156e8c912d504a3586351c8a1119f664cfd\",\"sourceMap\":\"packages/srp.js.map\",\"sourceMapUrl\":\"/packages/e2e28156e8c912d504a3586351c8a1119f664cfd.map\",\"size\":173470,\"hash\":\"e2e28156e8c912d504a3586351c8a1119f664cfd\"},{\"path\":\"packages/accounts-password.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/accounts-password.js?6c517b689e15ab07dd443895b7ed801683dda159\",\"sourceMap\":\"packages/accounts-password.js.map\",\"sourceMapUrl\":\"/packages/6c517b689e15ab07dd443895b7ed801683dda159.map\",\"size\":33053,\"hash\":\"6c517b689e15ab07dd443895b7ed801683dda159\"},{\"path\":\"packages/service-configuration.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/service-configuration.js?262da6fb1e9c97be84333c429c9a2929c80f8e3b\",\"sourceMap\":\"packages/service-configuration.js.map\",\"sourceMapUrl\":\"/packages/262da6fb1e9c97be84333c429c9a2929c80f8e3b.map\",\"size\":5082,\"hash\":\"262da6fb1e9c97be84333c429c9a2929c80f8e3b\"},{\"path\":\"packages/templating.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/templating.js?599ba307216da826d8b335332ebcc9a497a369a0\",\"sourceMap\":\"packages/templating.js.map\",\"sourceMapUrl\":\"/packages/599ba307216da826d8b335332ebcc9a497a369a0.map\",\"size\":11910,\"hash\":\"599ba307216da826d8b335332ebcc9a497a369a0\"},{\"path\":\"packages/reactive-dict.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/reactive-dict.js?6b25309b1f0dcf775b44984324878d6f8ad1abc2\",\"sourceMap\":\"packages/reactive-dict.js.map\",\"sourceMapUrl\":\"/packages/6b25309b1f0dcf775b44984324878d6f8ad1abc2.map\",\"size\":19802,\"hash\":\"6b25309b1f0dcf775b44984324878d6f8ad1abc2\"},{\"path\":\"packages/session.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/session.js?e436deefadc999c21b6fd16e8e1ecce55c3c3a55\",\"sourceMap\":\"packages/session.js.map\",\"sourceMapUrl\":\"/packages/e436deefadc999c21b6fd16e8e1ecce55c3c3a55.map\",\"size\":6497,\"hash\":\"e436deefadc999c21b6fd16e8e1ecce55c3c3a55\"},{\"path\":\"packages/accounts-ui-unstyled.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/accounts-ui-unstyled.js?aef74b5fc84ea5cc2da87963bf496cfe692fbebb\",\"sourceMap\":\"packages/accounts-ui-unstyled.js.map\",\"sourceMapUrl\":\"/packages/aef74b5fc84ea5cc2da87963bf496cfe692fbebb.map\",\"size\":249509,\"hash\":\"aef74b5fc84ea5cc2da87963bf496cfe692fbebb\"},{\"path\":\"packages/less.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/less.js?7d1bf981a25a449d6270558bcfc983313c40cd26\",\"sourceMap\":\"packages/less.js.map\",\"sourceMapUrl\":\"/packages/7d1bf981a25a449d6270558bcfc983313c40cd26.map\",\"size\":1286,\"hash\":\"7d1bf981a25a449d6270558bcfc983313c40cd26\"},{\"path\":\"packages/accounts-ui.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/accounts-ui.js?1ff79db616cce9b320fe8aed6103eded31248467\",\"sourceMap\":\"packages/accounts-ui.js.map\",\"sourceMapUrl\":\"/packages/1ff79db616cce9b320fe8aed6103eded31248467.map\",\"size\":1346,\"hash\":\"1ff79db616cce9b320fe8aed6103eded31248467\"},{\"path\":\"packages/mizzao_bootstrap-3.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/mizzao_bootstrap-3.js?22b8c020a13542fe69c5ffae82f6b6ab7944b181\",\"sourceMap\":\"packages/mizzao_bootstrap-3.js.map\",\"sourceMapUrl\":\"/packages/22b8c020a13542fe69c5ffae82f6b6ab7944b181.map\",\"size\":269800,\"hash\":\"22b8c020a13542fe69c5ffae82f6b6ab7944b181\"},{\"path\":\"packages/rajit_bootstrap3-datepicker.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/rajit_bootstrap3-datepicker.js?822806a6bbf9e439f7ddaace893bf390c25431b9\",\"sourceMap\":\"packages/rajit_bootstrap3-datepicker.js.map\",\"sourceMapUrl\":\"/packages/822806a6bbf9e439f7ddaace893bf390c25431b9.map\",\"size\":198438,\"hash\":\"822806a6bbf9e439f7ddaace893bf390c25431b9\"},{\"path\":\"packages/sanjo_jasmine.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/sanjo_jasmine.js?12c4a1ab0116b6cd1764ac1c05a7a430ec4e7b73\",\"sourceMap\":\"packages/sanjo_jasmine.js.map\",\"sourceMapUrl\":\"/packages/12c4a1ab0116b6cd1764ac1c05a7a430ec4e7b73.map\",\"size\":562176,\"hash\":\"12c4a1ab0116b6cd1764ac1c05a7a430ec4e7b73\"},{\"path\":\"packages/url.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/url.js?2312d739008b2ffa52f13c77c5d6fc59c9e17d56\",\"sourceMap\":\"packages/url.js.map\",\"sourceMapUrl\":\"/packages/2312d739008b2ffa52f13c77c5d6fc59c9e17d56.map\",\"size\":6642,\"hash\":\"2312d739008b2ffa52f13c77c5d6fc59c9e17d56\"},{\"path\":\"packages/http.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/http.js?9c5d152169ba9a5a57b6b8ec28e64bbd0d308077\",\"sourceMap\":\"packages/http.js.map\",\"sourceMapUrl\":\"/packages/9c5d152169ba9a5a57b6b8ec28e64bbd0d308077.map\",\"size\":37036,\"hash\":\"9c5d152169ba9a5a57b6b8ec28e64bbd0d308077\"},{\"path\":\"packages/velocity_core.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/velocity_core.js?6ca46c76b400ce620d5a99a1a6edfec60ca0ba1a\",\"sourceMap\":\"packages/velocity_core.js.map\",\"sourceMapUrl\":\"/packages/6ca46c76b400ce620d5a99a1a6edfec60ca0ba1a.map\",\"size\":6854,\"hash\":\"6ca46c76b400ce620d5a99a1a6edfec60ca0ba1a\"},{\"path\":\"packages/amplify.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/amplify.js?0943ecb804169b991257a319fa92b9e6f34e2d1b\",\"sourceMap\":\"packages/amplify.js.map\",\"sourceMapUrl\":\"/packages/0943ecb804169b991257a319fa92b9e6f34e2d1b.map\",\"size\":88428,\"hash\":\"0943ecb804169b991257a319fa92b9e6f34e2d1b\"},{\"path\":\"packages/velocity_html-reporter.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/velocity_html-reporter.js?8f5f07408181c410b8a9a73386eec5ab76a7c91f\",\"sourceMap\":\"packages/velocity_html-reporter.js.map\",\"sourceMapUrl\":\"/packages/8f5f07408181c410b8a9a73386eec5ab76a7c91f.map\",\"size\":87778,\"hash\":\"8f5f07408181c410b8a9a73386eec5ab76a7c91f\"},{\"path\":\"packages/webapp.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/webapp.js?e1be090051b82f046484dccc2de7d747e50c7328\",\"sourceMap\":\"packages/webapp.js.map\",\"sourceMapUrl\":\"/packages/e1be090051b82f046484dccc2de7d747e50c7328.map\",\"size\":3106,\"hash\":\"e1be090051b82f046484dccc2de7d747e50c7328\"},{\"path\":\"packages/livedata.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/livedata.js?718526445deb4d9baacb6d92c551adea1d36c1e1\",\"sourceMap\":\"packages/livedata.js.map\",\"sourceMapUrl\":\"/packages/718526445deb4d9baacb6d92c551adea1d36c1e1.map\",\"size\":1413,\"hash\":\"718526445deb4d9baacb6d92c551adea1d36c1e1\"},{\"path\":\"packages/ui.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/ui.js?5a663333fd30f8fd913f110e0ef779e84f67c4b8\",\"sourceMap\":\"packages/ui.js.map\",\"sourceMapUrl\":\"/packages/5a663333fd30f8fd913f110e0ef779e84f67c4b8.map\",\"size\":1529,\"hash\":\"5a663333fd30f8fd913f110e0ef779e84f67c4b8\"},{\"path\":\"packages/spacebars.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/spacebars.js?3c496d2950151d744a8574297b46d2763a123bdf\",\"sourceMap\":\"packages/spacebars.js.map\",\"sourceMapUrl\":\"/packages/3c496d2950151d744a8574297b46d2763a123bdf.map\",\"size\":42134,\"hash\":\"3c496d2950151d744a8574297b46d2763a123bdf\"},{\"path\":\"packages/launch-screen.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/launch-screen.js?13e1092ebecdb7208762500188f1dc2dea5603e9\",\"sourceMap\":\"packages/launch-screen.js.map\",\"sourceMapUrl\":\"/packages/13e1092ebecdb7208762500188f1dc2dea5603e9.map\",\"size\":9707,\"hash\":\"13e1092ebecdb7208762500188f1dc2dea5603e9\"},{\"path\":\"packages/global-imports.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/global-imports.js?624b54846399e6e8ca0954ad8f283df192b7c1d1\",\"size\":764,\"hash\":\"624b54846399e6e8ca0954ad8f283df192b7c1d1\"},{\"path\":\"app/client/template.main.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/client/template.main.js?2541e0223fad4594fee1efd2d167df4190780531\",\"size\":12076,\"hash\":\"2541e0223fad4594fee1efd2d167df4190780531\"},{\"path\":\"app/client/employees/employeesService.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/client/employees/employeesService.js?9a8c894034ab2c37d4d0c4ebe4c7e5686b9bebde\",\"size\":415,\"hash\":\"9a8c894034ab2c37d4d0c4ebe4c7e5686b9bebde\"},{\"path\":\"app/client/employees/employeesTemplate.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/client/employees/employeesTemplate.js?d92adfcd9176d41886272bb15e926bf00fa11006\",\"size\":2910,\"hash\":\"d92adfcd9176d41886272bb15e926bf00fa11006\"},{\"path\":\"app/client/projects/projectService.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/client/projects/projectService.js?aa7db83fb22636ef831671699031640c21cce9f3\",\"size\":478,\"hash\":\"aa7db83fb22636ef831671699031640c21cce9f3\"},{\"path\":\"app/client/projects/projectTemplates.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/client/projects/projectTemplates.js?0cd415658ac59964900b6f60ef6879c2fada46a4\",\"size\":3695,\"hash\":\"0cd415658ac59964900b6f60ef6879c2fada46a4\"},{\"path\":\"app/client/databaseService.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/client/databaseService.js?565693cc11691cfd2e3942f4700cacde15d2aa70\",\"size\":359,\"hash\":\"565693cc11691cfd2e3942f4700cacde15d2aa70\"},{\"path\":\"app/client/main.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/client/main.js?b4e278bbb73296441652087d51e45aeb75c569b4\",\"size\":1045,\"hash\":\"b4e278bbb73296441652087d51e45aeb75c569b4\"},{\"path\":\"bb072762413d4d9d3e6d7ab03facb68fd4d21800.css\",\"where\":\"client\",\"type\":\"css\",\"cacheable\":true,\"url\":\"/bb072762413d4d9d3e6d7ab03facb68fd4d21800.css\",\"sourceMap\":\"bb072762413d4d9d3e6d7ab03facb68fd4d21800.css.map\",\"sourceMapUrl\":\"/bb072762413d4d9d3e6d7ab03facb68fd4d21800.map\",\"size\":341404,\"hash\":\"bb072762413d4d9d3e6d7ab03facb68fd4d21800\"},{\"path\":\"packages/bootstrap/img/glyphicons-halflings.png\",\"where\":\"client\",\"type\":\"asset\",\"cacheable\":false,\"url\":\"/packages/bootstrap/img/glyphicons-halflings.png\",\"size\":12799,\"hash\":\"84f613631b07d4fe22acbab50e551c0fe04bd78b\"},{\"path\":\"packages/bootstrap/img/glyphicons-halflings-white.png\",\"where\":\"client\",\"type\":\"asset\",\"cacheable\":false,\"url\":\"/packages/bootstrap/img/glyphicons-halflings-white.png\",\"size\":8777,\"hash\":\"a25c4705320fd63c33790e666872910e702b9bf6\"},{\"path\":\"packages/mizzao_bootstrap-3/bootstrap-3/fonts/glyphicons-halflings-regular.eot\",\"where\":\"client\",\"type\":\"asset\",\"cacheable\":false,\"url\":\"/packages/mizzao_bootstrap-3/bootstrap-3/fonts/glyphicons-halflings-regular.eot\",\"size\":20335,\"hash\":\"f3a9a3b609133c3d21d6b42abbf7f43bd111df72\"},{\"path\":\"packages/mizzao_bootstrap-3/bootstrap-3/fonts/glyphicons-halflings-regular.ttf\",\"where\":\"client\",\"type\":\"asset\",\"cacheable\":false,\"url\":\"/packages/mizzao_bootstrap-3/bootstrap-3/fonts/glyphicons-halflings-regular.ttf\",\"size\":41280,\"hash\":\"aafafdc09404c4aa4447d7e898a2183def9cc1b1\"},{\"path\":\"packages/mizzao_bootstrap-3/bootstrap-3/fonts/glyphicons-halflings-regular.svg\",\"where\":\"client\",\"type\":\"asset\",\"cacheable\":false,\"url\":\"/packages/mizzao_bootstrap-3/bootstrap-3/fonts/glyphicons-halflings-regular.svg\",\"size\":62927,\"hash\":\"3ef91859cbec165ac97df6957b176f69e8d6a04d\"},{\"path\":\"packages/mizzao_bootstrap-3/bootstrap-3/fonts/glyphicons-halflings-regular.woff\",\"where\":\"client\",\"type\":\"asset\",\"cacheable\":false,\"url\":\"/packages/mizzao_bootstrap-3/bootstrap-3/fonts/glyphicons-halflings-regular.woff\",\"size\":23320,\"hash\":\"22037a3455914e5662fa51a596677bdb329e2c5c\"},{\"path\":\"packages/velocity_html-reporter/lib/velocity_logo.svg\",\"where\":\"client\",\"type\":\"asset\",\"cacheable\":false,\"url\":\"/packages/velocity_html-reporter/lib/velocity_logo.svg\",\"size\":3723,\"hash\":\"bd19ecdc8eb1084f7bb562c298e4ce41f9cdc698\"},{\"path\":\"packages/velocity_html-reporter/lib/velocity_cog.svg\",\"where\":\"client\",\"type\":\"asset\",\"cacheable\":false,\"url\":\"/packages/velocity_html-reporter/lib/velocity_cog.svg\",\"size\":987,\"hash\":\"6e74acfffcbd2bafdc8a95d9db7762ece07b1e81\"},{\"path\":\"packages/velocity_html-reporter/lib/icon-time.png\",\"where\":\"client\",\"type\":\"asset\",\"cacheable\":false,\"url\":\"/packages/velocity_html-reporter/lib/icon-time.png\",\"size\":2834,\"hash\":\"868f492022a4dab0f1522de6aae0773531bc6e85\"},{\"path\":\"app/close_16.png\",\"where\":\"client\",\"type\":\"asset\",\"cacheable\":false,\"url\":\"/close_16.png\",\"size\":192,\"hash\":\"0fcb8e56b98c367d8dc913dac08c4c141e6fd87f\"},{\"path\":\"app/destroy.png\",\"where\":\"client\",\"type\":\"asset\",\"cacheable\":false,\"url\":\"/destroy.png\",\"size\":383,\"hash\":\"d2a85c80f4103658505e43e8ba1bb1cc713052ee\"},{\"path\":\"head.html\",\"where\":\"internal\",\"type\":\"head\",\"hash\":\"516428228a0202e51985a801279c8c783f618208\"}],\"version\":\"42cb926d1b882db12eea7f7675b0f8926627c0f5\"}"
+                  "value": "{\"manifest\":[{\"path\":\"packages/underscore.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/underscore.js?0a80a8623e1b40b5df5a05582f288ddd586eaa18\",\"sourceMap\":\"packages/underscore.js.map\",\"sourceMapUrl\":\"/packages/0a80a8623e1b40b5df5a05582f288ddd586eaa18.map\",\"size\":150686,\"hash\":\"0a80a8623e1b40b5df5a05582f288ddd586eaa18\"},{\"path\":\"packages/meteor.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/meteor.js?61916b1060b33931a21f104fbffb67c2f3d493c5\",\"sourceMap\":\"packages/meteor.js.map\",\"sourceMapUrl\":\"/packages/61916b1060b33931a21f104fbffb67c2f3d493c5.map\",\"size\":108989,\"hash\":\"61916b1060b33931a21f104fbffb67c2f3d493c5\"},{\"path\":\"packages/json.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/json.js?e22856eae714c681199eabc5c0710b904b125554\",\"sourceMap\":\"packages/json.js.map\",\"sourceMapUrl\":\"/packages/e22856eae714c681199eabc5c0710b904b125554.map\",\"size\":58343,\"hash\":\"e22856eae714c681199eabc5c0710b904b125554\"},{\"path\":\"packages/base64.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/base64.js?1a63019243b73298e2964e6d4680f25bca657726\",\"sourceMap\":\"packages/base64.js.map\",\"sourceMapUrl\":\"/packages/1a63019243b73298e2964e6d4680f25bca657726.map\",\"size\":15685,\"hash\":\"1a63019243b73298e2964e6d4680f25bca657726\"},{\"path\":\"packages/ejson.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/ejson.js?71047b64b5196348bdbe5fd5eea9ac97a5a9eb14\",\"sourceMap\":\"packages/ejson.js.map\",\"sourceMapUrl\":\"/packages/71047b64b5196348bdbe5fd5eea9ac97a5a9eb14.map\",\"size\":81471,\"hash\":\"71047b64b5196348bdbe5fd5eea9ac97a5a9eb14\"},{\"path\":\"packages/logging.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/logging.js?07e201b648f16be8435a4f666156995eeda0c750\",\"sourceMap\":\"packages/logging.js.map\",\"sourceMapUrl\":\"/packages/07e201b648f16be8435a4f666156995eeda0c750.map\",\"size\":27996,\"hash\":\"07e201b648f16be8435a4f666156995eeda0c750\"},{\"path\":\"packages/reload.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/reload.js?da8974b7231dd8c0caccb5f322dcf97329d486d1\",\"sourceMap\":\"packages/reload.js.map\",\"sourceMapUrl\":\"/packages/da8974b7231dd8c0caccb5f322dcf97329d486d1.map\",\"size\":25926,\"hash\":\"da8974b7231dd8c0caccb5f322dcf97329d486d1\"},{\"path\":\"packages/tracker.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/tracker.js?192a05cc46b867dadbe8bf90dd961f6f8fd1574f\",\"sourceMap\":\"packages/tracker.js.map\",\"sourceMapUrl\":\"/packages/192a05cc46b867dadbe8bf90dd961f6f8fd1574f.map\",\"size\":66854,\"hash\":\"192a05cc46b867dadbe8bf90dd961f6f8fd1574f\"},{\"path\":\"packages/random.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/random.js?fe7b46080c91ce482acf6fc326afbc5b176f0502\",\"sourceMap\":\"packages/random.js.map\",\"sourceMapUrl\":\"/packages/fe7b46080c91ce482acf6fc326afbc5b176f0502.map\",\"size\":24099,\"hash\":\"fe7b46080c91ce482acf6fc326afbc5b176f0502\"},{\"path\":\"packages/retry.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/retry.js?1f1dd2c35d300110fdaba51ce4473583bc3bf031\",\"sourceMap\":\"packages/retry.js.map\",\"sourceMapUrl\":\"/packages/1f1dd2c35d300110fdaba51ce4473583bc3bf031.map\",\"size\":7245,\"hash\":\"1f1dd2c35d300110fdaba51ce4473583bc3bf031\"},{\"path\":\"packages/check.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/check.js?803a2be518a0c6c3949e45cf65c4ad627a3d603a\",\"sourceMap\":\"packages/check.js.map\",\"sourceMapUrl\":\"/packages/803a2be518a0c6c3949e45cf65c4ad627a3d603a.map\",\"size\":35207,\"hash\":\"803a2be518a0c6c3949e45cf65c4ad627a3d603a\"},{\"path\":\"packages/id-map.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/id-map.js?9ea6eaae8d74693ce2505a858d9a5e60cf191298\",\"sourceMap\":\"packages/id-map.js.map\",\"sourceMapUrl\":\"/packages/9ea6eaae8d74693ce2505a858d9a5e60cf191298.map\",\"size\":8584,\"hash\":\"9ea6eaae8d74693ce2505a858d9a5e60cf191298\"},{\"path\":\"packages/ordered-dict.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/ordered-dict.js?bf8af2f26c8d96bf8b2e6b407d3ed69f23c2cd37\",\"sourceMap\":\"packages/ordered-dict.js.map\",\"sourceMapUrl\":\"/packages/bf8af2f26c8d96bf8b2e6b407d3ed69f23c2cd37.map\",\"size\":20395,\"hash\":\"bf8af2f26c8d96bf8b2e6b407d3ed69f23c2cd37\"},{\"path\":\"packages/geojson-utils.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/geojson-utils.js?81b79d5cf96d00b4b7a28987debcffb665c17526\",\"sourceMap\":\"packages/geojson-utils.js.map\",\"sourceMapUrl\":\"/packages/81b79d5cf96d00b4b7a28987debcffb665c17526.map\",\"size\":48339,\"hash\":\"81b79d5cf96d00b4b7a28987debcffb665c17526\"},{\"path\":\"packages/minimongo.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/minimongo.js?9adf0102ce60b3df01914155826e1661f636e91d\",\"sourceMap\":\"packages/minimongo.js.map\",\"sourceMapUrl\":\"/packages/9adf0102ce60b3df01914155826e1661f636e91d.map\",\"size\":455764,\"hash\":\"9adf0102ce60b3df01914155826e1661f636e91d\"},{\"path\":\"packages/ddp.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/ddp.js?1f971b2ac9f4bdab7372cb5098ed1e26ff98dfb2\",\"sourceMap\":\"packages/ddp.js.map\",\"sourceMapUrl\":\"/packages/1f971b2ac9f4bdab7372cb5098ed1e26ff98dfb2.map\",\"size\":616556,\"hash\":\"1f971b2ac9f4bdab7372cb5098ed1e26ff98dfb2\"},{\"path\":\"packages/follower-livedata.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/follower-livedata.js?74156c6baa89da861fc4ddb58ef158eac71e58e0\",\"sourceMap\":\"packages/follower-livedata.js.map\",\"sourceMapUrl\":\"/packages/74156c6baa89da861fc4ddb58ef158eac71e58e0.map\",\"size\":1490,\"hash\":\"74156c6baa89da861fc4ddb58ef158eac71e58e0\"},{\"path\":\"packages/application-configuration.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/application-configuration.js?dcbf1f0774460fccf098a4c9e8fad4c3a0f2952f\",\"sourceMap\":\"packages/application-configuration.js.map\",\"sourceMapUrl\":\"/packages/dcbf1f0774460fccf098a4c9e8fad4c3a0f2952f.map\",\"size\":1485,\"hash\":\"dcbf1f0774460fccf098a4c9e8fad4c3a0f2952f\"},{\"path\":\"packages/insecure.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/insecure.js?3dc9d4a2dad55999b5b15a447d57f3d5fb66b290\",\"sourceMap\":\"packages/insecure.js.map\",\"sourceMapUrl\":\"/packages/3dc9d4a2dad55999b5b15a447d57f3d5fb66b290.map\",\"size\":1290,\"hash\":\"3dc9d4a2dad55999b5b15a447d57f3d5fb66b290\"},{\"path\":\"packages/mongo.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/mongo.js?9bc2c5a8b2796fab86b51660ca643e5a49a30c84\",\"sourceMap\":\"packages/mongo.js.map\",\"sourceMapUrl\":\"/packages/9bc2c5a8b2796fab86b51660ca643e5a49a30c84.map\",\"size\":146178,\"hash\":\"9bc2c5a8b2796fab86b51660ca643e5a49a30c84\"},{\"path\":\"packages/autoupdate.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/autoupdate.js?c823646e93561d86e6bcb3cbd2457a8540e519c1\",\"sourceMap\":\"packages/autoupdate.js.map\",\"sourceMapUrl\":\"/packages/c823646e93561d86e6bcb3cbd2457a8540e519c1.map\",\"size\":17152,\"hash\":\"c823646e93561d86e6bcb3cbd2457a8540e519c1\"},{\"path\":\"packages/meteor-platform.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/meteor-platform.js?499a2f8522e25820b1153c69a92751ccaae507b3\",\"sourceMap\":\"packages/meteor-platform.js.map\",\"sourceMapUrl\":\"/packages/499a2f8522e25820b1153c69a92751ccaae507b3.map\",\"size\":1384,\"hash\":\"499a2f8522e25820b1153c69a92751ccaae507b3\"},{\"path\":\"packages/jquery.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/jquery.js?265926494aaa3929cd2e30da265211c5929f37a4\",\"sourceMap\":\"packages/jquery.js.map\",\"sourceMapUrl\":\"/packages/265926494aaa3929cd2e30da265211c5929f37a4.map\",\"size\":1295407,\"hash\":\"265926494aaa3929cd2e30da265211c5929f37a4\"},{\"path\":\"packages/bootstrap.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/bootstrap.js?ec8a7746b798984dd1df9eb6ae62114dcf98f504\",\"sourceMap\":\"packages/bootstrap.js.map\",\"sourceMapUrl\":\"/packages/ec8a7746b798984dd1df9eb6ae62114dcf98f504.map\",\"size\":282505,\"hash\":\"ec8a7746b798984dd1df9eb6ae62114dcf98f504\"},{\"path\":\"packages/localstorage.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/localstorage.js?9ec7d68858d2e33aa807e5cfd5e12bb4d62fe00c\",\"sourceMap\":\"packages/localstorage.js.map\",\"sourceMapUrl\":\"/packages/9ec7d68858d2e33aa807e5cfd5e12bb4d62fe00c.map\",\"size\":7092,\"hash\":\"9ec7d68858d2e33aa807e5cfd5e12bb4d62fe00c\"},{\"path\":\"packages/deps.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/deps.js?504589e1e9585dec8f9f6094e5a87b22de3783a1\",\"sourceMap\":\"packages/deps.js.map\",\"sourceMapUrl\":\"/packages/504589e1e9585dec8f9f6094e5a87b22de3783a1.map\",\"size\":1442,\"hash\":\"504589e1e9585dec8f9f6094e5a87b22de3783a1\"},{\"path\":\"packages/htmljs.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/htmljs.js?539b5fc23cf5e63bc8e324543a1026b138316a8c\",\"sourceMap\":\"packages/htmljs.js.map\",\"sourceMapUrl\":\"/packages/539b5fc23cf5e63bc8e324543a1026b138316a8c.map\",\"size\":110444,\"hash\":\"539b5fc23cf5e63bc8e324543a1026b138316a8c\"},{\"path\":\"packages/observe-sequence.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/observe-sequence.js?2fd807ea171ead273b9e6458607cb226012d9240\",\"sourceMap\":\"packages/observe-sequence.js.map\",\"sourceMapUrl\":\"/packages/2fd807ea171ead273b9e6458607cb226012d9240.map\",\"size\":30271,\"hash\":\"2fd807ea171ead273b9e6458607cb226012d9240\"},{\"path\":\"packages/reactive-var.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/reactive-var.js?20335b7b37165980ddd9f23943b2e5b00aae1cc2\",\"sourceMap\":\"packages/reactive-var.js.map\",\"sourceMapUrl\":\"/packages/20335b7b37165980ddd9f23943b2e5b00aae1cc2.map\",\"size\":13963,\"hash\":\"20335b7b37165980ddd9f23943b2e5b00aae1cc2\"},{\"path\":\"packages/blaze.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/blaze.js?77c0809654ee3a10dcd5a4f961fb1437e7957d33\",\"sourceMap\":\"packages/blaze.js.map\",\"sourceMapUrl\":\"/packages/77c0809654ee3a10dcd5a4f961fb1437e7957d33.map\",\"size\":385864,\"hash\":\"77c0809654ee3a10dcd5a4f961fb1437e7957d33\"},{\"path\":\"packages/accounts-base.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/accounts-base.js?6ed32803c332f93f65e36a195f42e58a62ed028d\",\"sourceMap\":\"packages/accounts-base.js.map\",\"sourceMapUrl\":\"/packages/6ed32803c332f93f65e36a195f42e58a62ed028d.map\",\"size\":108969,\"hash\":\"6ed32803c332f93f65e36a195f42e58a62ed028d\"},{\"path\":\"packages/sha.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/sha.js?65ef52f7221944768bfc2049d6b7e163c8ae2615\",\"sourceMap\":\"packages/sha.js.map\",\"sourceMapUrl\":\"/packages/65ef52f7221944768bfc2049d6b7e163c8ae2615.map\",\"size\":19584,\"hash\":\"65ef52f7221944768bfc2049d6b7e163c8ae2615\"},{\"path\":\"packages/srp.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/srp.js?e2e28156e8c912d504a3586351c8a1119f664cfd\",\"sourceMap\":\"packages/srp.js.map\",\"sourceMapUrl\":\"/packages/e2e28156e8c912d504a3586351c8a1119f664cfd.map\",\"size\":173470,\"hash\":\"e2e28156e8c912d504a3586351c8a1119f664cfd\"},{\"path\":\"packages/accounts-password.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/accounts-password.js?6c517b689e15ab07dd443895b7ed801683dda159\",\"sourceMap\":\"packages/accounts-password.js.map\",\"sourceMapUrl\":\"/packages/6c517b689e15ab07dd443895b7ed801683dda159.map\",\"size\":33053,\"hash\":\"6c517b689e15ab07dd443895b7ed801683dda159\"},{\"path\":\"packages/service-configuration.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/service-configuration.js?262da6fb1e9c97be84333c429c9a2929c80f8e3b\",\"sourceMap\":\"packages/service-configuration.js.map\",\"sourceMapUrl\":\"/packages/262da6fb1e9c97be84333c429c9a2929c80f8e3b.map\",\"size\":5082,\"hash\":\"262da6fb1e9c97be84333c429c9a2929c80f8e3b\"},{\"path\":\"packages/templating.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/templating.js?599ba307216da826d8b335332ebcc9a497a369a0\",\"sourceMap\":\"packages/templating.js.map\",\"sourceMapUrl\":\"/packages/599ba307216da826d8b335332ebcc9a497a369a0.map\",\"size\":11910,\"hash\":\"599ba307216da826d8b335332ebcc9a497a369a0\"},{\"path\":\"packages/reactive-dict.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/reactive-dict.js?6b25309b1f0dcf775b44984324878d6f8ad1abc2\",\"sourceMap\":\"packages/reactive-dict.js.map\",\"sourceMapUrl\":\"/packages/6b25309b1f0dcf775b44984324878d6f8ad1abc2.map\",\"size\":19802,\"hash\":\"6b25309b1f0dcf775b44984324878d6f8ad1abc2\"},{\"path\":\"packages/session.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/session.js?e436deefadc999c21b6fd16e8e1ecce55c3c3a55\",\"sourceMap\":\"packages/session.js.map\",\"sourceMapUrl\":\"/packages/e436deefadc999c21b6fd16e8e1ecce55c3c3a55.map\",\"size\":6497,\"hash\":\"e436deefadc999c21b6fd16e8e1ecce55c3c3a55\"},{\"path\":\"packages/accounts-ui-unstyled.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/accounts-ui-unstyled.js?aef74b5fc84ea5cc2da87963bf496cfe692fbebb\",\"sourceMap\":\"packages/accounts-ui-unstyled.js.map\",\"sourceMapUrl\":\"/packages/aef74b5fc84ea5cc2da87963bf496cfe692fbebb.map\",\"size\":249509,\"hash\":\"aef74b5fc84ea5cc2da87963bf496cfe692fbebb\"},{\"path\":\"packages/less.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/less.js?7d1bf981a25a449d6270558bcfc983313c40cd26\",\"sourceMap\":\"packages/less.js.map\",\"sourceMapUrl\":\"/packages/7d1bf981a25a449d6270558bcfc983313c40cd26.map\",\"size\":1286,\"hash\":\"7d1bf981a25a449d6270558bcfc983313c40cd26\"},{\"path\":\"packages/accounts-ui.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/accounts-ui.js?1ff79db616cce9b320fe8aed6103eded31248467\",\"sourceMap\":\"packages/accounts-ui.js.map\",\"sourceMapUrl\":\"/packages/1ff79db616cce9b320fe8aed6103eded31248467.map\",\"size\":1346,\"hash\":\"1ff79db616cce9b320fe8aed6103eded31248467\"},{\"path\":\"packages/mizzao_bootstrap-3.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/mizzao_bootstrap-3.js?1b23876192e931cc8703ffdc2f4e3aad02e57421\",\"sourceMap\":\"packages/mizzao_bootstrap-3.js.map\",\"sourceMapUrl\":\"/packages/1b23876192e931cc8703ffdc2f4e3aad02e57421.map\",\"size\":290322,\"hash\":\"1b23876192e931cc8703ffdc2f4e3aad02e57421\"},{\"path\":\"packages/rajit_bootstrap3-datepicker.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/rajit_bootstrap3-datepicker.js?822806a6bbf9e439f7ddaace893bf390c25431b9\",\"sourceMap\":\"packages/rajit_bootstrap3-datepicker.js.map\",\"sourceMapUrl\":\"/packages/822806a6bbf9e439f7ddaace893bf390c25431b9.map\",\"size\":198438,\"hash\":\"822806a6bbf9e439f7ddaace893bf390c25431b9\"},{\"path\":\"packages/sanjo_jasmine.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/sanjo_jasmine.js?12c4a1ab0116b6cd1764ac1c05a7a430ec4e7b73\",\"sourceMap\":\"packages/sanjo_jasmine.js.map\",\"sourceMapUrl\":\"/packages/12c4a1ab0116b6cd1764ac1c05a7a430ec4e7b73.map\",\"size\":562176,\"hash\":\"12c4a1ab0116b6cd1764ac1c05a7a430ec4e7b73\"},{\"path\":\"packages/url.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/url.js?2312d739008b2ffa52f13c77c5d6fc59c9e17d56\",\"sourceMap\":\"packages/url.js.map\",\"sourceMapUrl\":\"/packages/2312d739008b2ffa52f13c77c5d6fc59c9e17d56.map\",\"size\":6642,\"hash\":\"2312d739008b2ffa52f13c77c5d6fc59c9e17d56\"},{\"path\":\"packages/http.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/http.js?9c5d152169ba9a5a57b6b8ec28e64bbd0d308077\",\"sourceMap\":\"packages/http.js.map\",\"sourceMapUrl\":\"/packages/9c5d152169ba9a5a57b6b8ec28e64bbd0d308077.map\",\"size\":37036,\"hash\":\"9c5d152169ba9a5a57b6b8ec28e64bbd0d308077\"},{\"path\":\"packages/velocity_core.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/velocity_core.js?6ca46c76b400ce620d5a99a1a6edfec60ca0ba1a\",\"sourceMap\":\"packages/velocity_core.js.map\",\"sourceMapUrl\":\"/packages/6ca46c76b400ce620d5a99a1a6edfec60ca0ba1a.map\",\"size\":6854,\"hash\":\"6ca46c76b400ce620d5a99a1a6edfec60ca0ba1a\"},{\"path\":\"packages/amplify.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/amplify.js?0943ecb804169b991257a319fa92b9e6f34e2d1b\",\"sourceMap\":\"packages/amplify.js.map\",\"sourceMapUrl\":\"/packages/0943ecb804169b991257a319fa92b9e6f34e2d1b.map\",\"size\":88428,\"hash\":\"0943ecb804169b991257a319fa92b9e6f34e2d1b\"},{\"path\":\"packages/velocity_html-reporter.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/velocity_html-reporter.js?8f5f07408181c410b8a9a73386eec5ab76a7c91f\",\"sourceMap\":\"packages/velocity_html-reporter.js.map\",\"sourceMapUrl\":\"/packages/8f5f07408181c410b8a9a73386eec5ab76a7c91f.map\",\"size\":87778,\"hash\":\"8f5f07408181c410b8a9a73386eec5ab76a7c91f\"},{\"path\":\"packages/webapp.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/webapp.js?e1be090051b82f046484dccc2de7d747e50c7328\",\"sourceMap\":\"packages/webapp.js.map\",\"sourceMapUrl\":\"/packages/e1be090051b82f046484dccc2de7d747e50c7328.map\",\"size\":3106,\"hash\":\"e1be090051b82f046484dccc2de7d747e50c7328\"},{\"path\":\"packages/livedata.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/livedata.js?718526445deb4d9baacb6d92c551adea1d36c1e1\",\"sourceMap\":\"packages/livedata.js.map\",\"sourceMapUrl\":\"/packages/718526445deb4d9baacb6d92c551adea1d36c1e1.map\",\"size\":1413,\"hash\":\"718526445deb4d9baacb6d92c551adea1d36c1e1\"},{\"path\":\"packages/ui.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/ui.js?5a663333fd30f8fd913f110e0ef779e84f67c4b8\",\"sourceMap\":\"packages/ui.js.map\",\"sourceMapUrl\":\"/packages/5a663333fd30f8fd913f110e0ef779e84f67c4b8.map\",\"size\":1529,\"hash\":\"5a663333fd30f8fd913f110e0ef779e84f67c4b8\"},{\"path\":\"packages/spacebars.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/spacebars.js?3c496d2950151d744a8574297b46d2763a123bdf\",\"sourceMap\":\"packages/spacebars.js.map\",\"sourceMapUrl\":\"/packages/3c496d2950151d744a8574297b46d2763a123bdf.map\",\"size\":42134,\"hash\":\"3c496d2950151d744a8574297b46d2763a123bdf\"},{\"path\":\"packages/launch-screen.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/launch-screen.js?13e1092ebecdb7208762500188f1dc2dea5603e9\",\"sourceMap\":\"packages/launch-screen.js.map\",\"sourceMapUrl\":\"/packages/13e1092ebecdb7208762500188f1dc2dea5603e9.map\",\"size\":9707,\"hash\":\"13e1092ebecdb7208762500188f1dc2dea5603e9\"},{\"path\":\"packages/global-imports.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/global-imports.js?624b54846399e6e8ca0954ad8f283df192b7c1d1\",\"size\":764,\"hash\":\"624b54846399e6e8ca0954ad8f283df192b7c1d1\"},{\"path\":\"app/client/projects/template.project.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/client/projects/template.project.js?8921e2264d43d4b458f01492adb3375ec8646de7\",\"size\":5634,\"hash\":\"8921e2264d43d4b458f01492adb3375ec8646de7\"},{\"path\":\"app/client/template.main.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/client/template.main.js?e455a5be6e3e9bb598da27513e144985f7a60c07\",\"size\":6893,\"hash\":\"e455a5be6e3e9bb598da27513e144985f7a60c07\"},{\"path\":\"app/client/employees/employeesService.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/client/employees/employeesService.js?9a8c894034ab2c37d4d0c4ebe4c7e5686b9bebde\",\"size\":415,\"hash\":\"9a8c894034ab2c37d4d0c4ebe4c7e5686b9bebde\"},{\"path\":\"app/client/employees/employeesTemplate.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/client/employees/employeesTemplate.js?899db3578191d330e01cdb9add14fc8e25a9899b\",\"size\":2543,\"hash\":\"899db3578191d330e01cdb9add14fc8e25a9899b\"},{\"path\":\"app/client/projects/projectService.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/client/projects/projectService.js?504ca3a67fabc90617d5e666e018cb13cf17b9a4\",\"size\":1282,\"hash\":\"504ca3a67fabc90617d5e666e018cb13cf17b9a4\"},{\"path\":\"app/client/projects/projectTemplates.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/client/projects/projectTemplates.js?363a5e8c3014de7388100c5c45194d63fca27afd\",\"size\":5703,\"hash\":\"363a5e8c3014de7388100c5c45194d63fca27afd\"},{\"path\":\"app/client/databaseService.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/client/databaseService.js?22612f155c31daa2aff1cb1eaf58cbac277f76eb\",\"size\":666,\"hash\":\"22612f155c31daa2aff1cb1eaf58cbac277f76eb\"},{\"path\":\"app/client/main.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/client/main.js?b4e278bbb73296441652087d51e45aeb75c569b4\",\"size\":1045,\"hash\":\"b4e278bbb73296441652087d51e45aeb75c569b4\"},{\"path\":\"9ee0061b27a2b9d956f1e85b8e90f1e8ab51122a.css\",\"where\":\"client\",\"type\":\"css\",\"cacheable\":true,\"url\":\"/9ee0061b27a2b9d956f1e85b8e90f1e8ab51122a.css\",\"sourceMap\":\"9ee0061b27a2b9d956f1e85b8e90f1e8ab51122a.css.map\",\"sourceMapUrl\":\"/9ee0061b27a2b9d956f1e85b8e90f1e8ab51122a.map\",\"size\":346379,\"hash\":\"9ee0061b27a2b9d956f1e85b8e90f1e8ab51122a\"},{\"path\":\"packages/bootstrap/img/glyphicons-halflings.png\",\"where\":\"client\",\"type\":\"asset\",\"cacheable\":false,\"url\":\"/packages/bootstrap/img/glyphicons-halflings.png\",\"size\":12799,\"hash\":\"84f613631b07d4fe22acbab50e551c0fe04bd78b\"},{\"path\":\"packages/bootstrap/img/glyphicons-halflings-white.png\",\"where\":\"client\",\"type\":\"asset\",\"cacheable\":false,\"url\":\"/packages/bootstrap/img/glyphicons-halflings-white.png\",\"size\":8777,\"hash\":\"a25c4705320fd63c33790e666872910e702b9bf6\"},{\"path\":\"packages/mizzao_bootstrap-3/bootstrap-3/fonts/glyphicons-halflings-regular.eot\",\"where\":\"client\",\"type\":\"asset\",\"cacheable\":false,\"url\":\"/packages/mizzao_bootstrap-3/bootstrap-3/fonts/glyphicons-halflings-regular.eot\",\"size\":20335,\"hash\":\"f3a9a3b609133c3d21d6b42abbf7f43bd111df72\"},{\"path\":\"packages/mizzao_bootstrap-3/bootstrap-3/fonts/glyphicons-halflings-regular.ttf\",\"where\":\"client\",\"type\":\"asset\",\"cacheable\":false,\"url\":\"/packages/mizzao_bootstrap-3/bootstrap-3/fonts/glyphicons-halflings-regular.ttf\",\"size\":41280,\"hash\":\"aafafdc09404c4aa4447d7e898a2183def9cc1b1\"},{\"path\":\"packages/mizzao_bootstrap-3/bootstrap-3/fonts/glyphicons-halflings-regular.svg\",\"where\":\"client\",\"type\":\"asset\",\"cacheable\":false,\"url\":\"/packages/mizzao_bootstrap-3/bootstrap-3/fonts/glyphicons-halflings-regular.svg\",\"size\":62926,\"hash\":\"66b1fc67e37d01ee45ca75c4eefb144d2dbe98fa\"},{\"path\":\"packages/mizzao_bootstrap-3/bootstrap-3/fonts/glyphicons-halflings-regular.woff\",\"where\":\"client\",\"type\":\"asset\",\"cacheable\":false,\"url\":\"/packages/mizzao_bootstrap-3/bootstrap-3/fonts/glyphicons-halflings-regular.woff\",\"size\":23320,\"hash\":\"22037a3455914e5662fa51a596677bdb329e2c5c\"},{\"path\":\"packages/velocity_html-reporter/lib/velocity_logo.svg\",\"where\":\"client\",\"type\":\"asset\",\"cacheable\":false,\"url\":\"/packages/velocity_html-reporter/lib/velocity_logo.svg\",\"size\":3723,\"hash\":\"bd19ecdc8eb1084f7bb562c298e4ce41f9cdc698\"},{\"path\":\"packages/velocity_html-reporter/lib/velocity_cog.svg\",\"where\":\"client\",\"type\":\"asset\",\"cacheable\":false,\"url\":\"/packages/velocity_html-reporter/lib/velocity_cog.svg\",\"size\":987,\"hash\":\"6e74acfffcbd2bafdc8a95d9db7762ece07b1e81\"},{\"path\":\"packages/velocity_html-reporter/lib/icon-time.png\",\"where\":\"client\",\"type\":\"asset\",\"cacheable\":false,\"url\":\"/packages/velocity_html-reporter/lib/icon-time.png\",\"size\":2834,\"hash\":\"868f492022a4dab0f1522de6aae0773531bc6e85\"},{\"path\":\"app/close_16.png\",\"where\":\"client\",\"type\":\"asset\",\"cacheable\":false,\"url\":\"/close_16.png\",\"size\":192,\"hash\":\"0fcb8e56b98c367d8dc913dac08c4c141e6fd87f\"},{\"path\":\"app/destroy.png\",\"where\":\"client\",\"type\":\"asset\",\"cacheable\":false,\"url\":\"/destroy.png\",\"size\":383,\"hash\":\"d2a85c80f4103658505e43e8ba1bb1cc713052ee\"},{\"path\":\"head.html\",\"where\":\"internal\",\"type\":\"head\",\"hash\":\"516428228a0202e51985a801279c8c783f618208\"}],\"version\":\"75b9ef15468fba215e304d73d4d769cd1633442d\"}"
                 },
                 "type": {
                   "type": "constant",
@@ -9600,11 +9616,11 @@ var packageMetadata = {
       "members": {
         "autoupdateVersion": {
           "type": "constant",
-          "value": "7f55517d6987f81316752301d58627c6bb8bd036"
+          "value": "c0527f8ebcbc430708e9da8c0648d94e85917a94"
         },
         "autoupdateVersionRefreshable": {
           "type": "constant",
-          "value": "a0af9d91472f6062ee81e0a0a86ea166a27306d2"
+          "value": "01bee944175bdf5a5416ff9ef89c553032397968"
         },
         "autoupdateVersionCordova": {
           "type": "constant",

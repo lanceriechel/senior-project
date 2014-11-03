@@ -16,11 +16,11 @@ describe("projectService", function() {
 
             if(d<10) {
                 d='0'+d
-            } 
+            }
 
             if(m<10) {
                 m='0'+m
-            } 
+            }
 
             date = m+'/'+d+'/'+year;
             var date1 = new Date(date);

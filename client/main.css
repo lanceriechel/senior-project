@@ -17,7 +17,7 @@ td > input:focus{
 div[id="TopBar"]{
     background: #eeeeee;
     box-shadow: 0 1px 10px rgba(0,0,0,0.2);
-    
+
 }
 
 #charge_number_to_add, #project_name_to_add, #start_date_to_add, #end_date_to_add {
