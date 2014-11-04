@@ -36,7 +36,15 @@ Template.projectInfo.events = {
         var endDate = $(row).find('#end_date')[0].value;
         var manager = $(row).find('select')[0].value;
 
-        DatabaseService.updateProject(this._id, chargeNumber, name, startDate, endDate, manager);
+        if(ProjectService.ensureValidProject(row, chargeNumber, name, startDate, endDate, manager)) {
+            DatabaseService.updateProject(this._id, {
+                'id': chargeNumber,
+                'name': name,
+                'start_date': startDate,
+                'end_date': endDate,
+                'manager': manager
+            });
+        }
 
         var parent = event.currentTarget.parentNode;
         parent.innerHTML = '<input type="text" class="large-input form-control manager" id="manager" value=' + manager + '>';
