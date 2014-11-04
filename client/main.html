@@ -26,8 +26,11 @@
         <div id='time_sheet' class="tag">
             Time Sheet
         </div>
-        <div id='project_settings' class="tag">
-            Projects
+        <div id='active_projects' class="tag">
+            Active Projects
+        </div>
+        <div id='archived_projects' class="tag">
+            Archived Projects
         </div>
         <div id='employees_settings' class="tag">
             Employees
@@ -43,8 +46,11 @@
             Add time sheet template here in place of the div
         </div>
     {{/if}}
-    {{#if isProjectSettings}}
+    {{#if isActiveProjects}}
         {{> activeProjects}}
+    {{/if}}
+    {{#if isArchivedProjects}}
+        {{> archivedProjects}}
     {{/if}}
     {{#if isEmployeeSettings}}
         {{> employeeSettings}}

@@ -1,11 +1,18 @@
 <template name="activeProjects">
     <div class="container-fluid">
-        <h2><span class="label">ActiveProjects</span></h2>
-        {{> activeProjectEntries}}
-        <br>
         <h2><span class="label">Add a Project</span></h2>
         <br>
         {{> addProject}}
+        <br>
+        <h2><span class="label">ActiveProjects</span></h2>
+        {{> activeProjectEntries}}
+    </div>
+</template>
+
+<template name="archivedProjects">
+    <div class="container-fluid">
+        <h2><span class="label">Archived Projects</span></h2>
+        {{> archivedProjectsEntries}}
     </div>
 </template>
 
@@ -40,14 +47,14 @@
 </template>
 
 <template name="employeesListDropDown">
-    <select id="manager_to_add" class="large-input form-control">
+    <select id="manager_to_add" class="large-input form-control manager-dropdown">
         {{#each employees}}
             <option value={{username}}>{{username}}</option>
         {{/each}}
     </select>
 </template>
 
-<template name="archivedProjects">
+<template name="archivedProjectsEntries">
     {{> projectHeader}}
     {{#each projects}}
         {{#if isArchived end_date}}

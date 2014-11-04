@@ -58,7 +58,7 @@ Template.projectInfo.events = {
     },
     'click .manager': function(evt){
         var parent = evt.currentTarget.parentNode;
-        parent.innerHTML = '<select class="manager-dropdown large-input form-control" id="manager_to_change">' + $('#manager_to_add').html() + "</select>";
+        parent.innerHTML = Blaze.toHTML(Blaze.With("", function() { return Template.employeesListDropDown; }));
     }
 };
 
@@ -130,7 +130,7 @@ Template.employeesListDropDown.helpers({
     }
 });
 
-Template.archivedProjects.helpers({
+Template.archivedProjectsEntries.helpers({
     projects: function() {
         return DatabaseService.getProjects();
     },
