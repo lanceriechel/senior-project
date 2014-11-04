@@ -1,4 +1,5 @@
 ChargeNumbers = new Meteor.Collection('charge_numbers');
+TimeSheet = new Meteor.Collection('time_sheets');
 
 Meteor.publish('userData', function() {
     return Meteor.users.find({}, {fields: {
@@ -12,4 +13,8 @@ Meteor.publish('userData', function() {
 
 Meteor.publish('projects', function() {
     return ChargeNumbers.find();
+});
+
+Meteor.publish('timesheet', function() {
+    return TimeSheet.find();
 });
