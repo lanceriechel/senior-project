@@ -162,3 +162,7 @@ ul {
 #edittag-input {
     width: 80px;
 }
+
+.large-input{
+    height: 100%    !important;
+}

@@ -1,4 +1,4 @@
-Template.activeProjects.helpers({
+Template.activeProjectEntries.helpers({
     projects: function(){
         return DatabaseService.getProjects();
     },
@@ -54,11 +54,11 @@ Template.projectInfo.events = {
         DatabaseService.updateProject(this._id, chargeNumber, name, startDate, endDate, manager);
         
         var parent = event.currentTarget.parentNode;
-        parent.innerHTML = '<input type="text" class="manager" id="manager" value=' + manager + '>';
+        parent.innerHTML = '<input type="text" class="large-input form-control manager" id="manager" value=' + manager + '>';
     },
     'click .manager': function(evt){
         var parent = evt.currentTarget.parentNode;
-        parent.innerHTML = '<select class="manager-dropdown form-control" id="manager_to_change">' + $('#manager_to_add').html() + "</select>";
+        parent.innerHTML = '<select class="manager-dropdown large-input form-control" id="manager_to_change">' + $('#manager_to_add').html() + "</select>";
     }
 };
 
