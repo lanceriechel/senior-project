@@ -4,10 +4,6 @@ div[id="TopBar"]{
 
 }
 
-#charge_number_to_add, #project_name_to_add, #start_date_to_add, #end_date_to_add {
-    margin-right: 35px;
-}
-
 #main-pane {
     top: 10px;
     bottom: 10px;

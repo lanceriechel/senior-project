@@ -3,7 +3,6 @@
         <h2><span class="label">Add a Project</span></h2>
         <br>
         {{> addProject}}
-        <br>
         <h2><span class="label">ActiveProjects</span></h2>
         {{> activeProjectEntries}}
     </div>
@@ -37,17 +36,17 @@
 
 <template name="addProject">
     <div class="row">
-        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control" id="charge_number_to_add" placeholder="Charge Number"></div>
-        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control" id="project_name_to_add" placeholder="Project Name"></div>
-        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control" id="start_date_to_add" placeholder="Start Date"></div>
-        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control" id="end_date_to_add" placeholder="End Date"></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control" id="charge_number" placeholder="Charge Number"></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control" id="project_name" placeholder="Project Name"></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control" id="start_date" placeholder="Start Date"></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control" id="end_date" placeholder="End Date"></div>
         <div class="col-md-2 col-sm-2 col-xs-2">{{> employeesListDropDown}}</div>
         <div class="col-md-2 col-sm-2 col-xs-2"><button type="button" class="btn btn-primary">Add</button></div>
     </div>
 </template>
 
 <template name="employeesListDropDown">
-    <select id="manager_to_add" class="large-input form-control manager-dropdown">
+    <select id="manager" class="large-input form-control manager-dropdown">
         {{#each employees}}
             <option value={{username}}>{{username}}</option>
         {{/each}}

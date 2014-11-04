@@ -37,6 +37,12 @@ describe("projectService", function() {
         it("false if endDate before startDate", function(){
             expect(ProjectService.datesValid("10/16/2014", "10/10/2014")).toBe(false);
         });
+        it("true if startDate is not given", function(){
+            expect(ProjectService.datesValid("", "10/10/2014")).toBe(true);
+        });
+        it("true if endDate is not given", function(){
+            expect(ProjectService.datesValid("10/16/2014", "")).toBe(true);
+        });
     });
     describe(".areValidProjectParams", function(){
         it("false if missing charge number", function(){
