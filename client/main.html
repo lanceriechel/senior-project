@@ -60,7 +60,33 @@
 </template>
 
 <template name="SelectedTimesheet">
-    <h1>hello</h1>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2 col-sm-2 col-xs-2">Project</div>
+            <div class="col-md-1 col-sm-1 col-xs-1">S</div>
+            <div class="col-md-1 col-sm-1 col-xs-1">M</div>
+            <div class="col-md-1 col-sm-1 col-xs-1">T</div>
+            <div class="col-md-1 col-sm-1 col-xs-1">W</div>
+            <div class="col-md-1 col-sm-1 col-xs-1">T</div>
+            <div class="col-md-1 col-sm-1 col-xs-1">F</div>
+            <div class="col-md-1 col-sm-1 col-xs-1">S</div>
+            <div class="col-md-3 col-sm-3 col-xs-3">Comment</div>
+        </div>
+        {{> projectHours}}
+        <br>
+        {{> lastSection}}
+    </div>
+</template>
+    
+<template name="lastSection">
+    <div class="row">
+        <div class="col-md-11 col-sm-11 col-xs-11">General Comment</div>
+        <div class="col-md-1 col-sm-1 col-xs-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-11 col-sm-11 col-xs-11"><input id="Comment" type="text" class="form-control" value=""></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary">Submit</button></div>
+    </div>
 </template>
 
 <template name="activeTimesheets">
@@ -78,27 +104,38 @@
                 <div class="col-md-1 col-sm-1 col-xs-1">F</div>
                 <div class="col-md-1 col-sm-1 col-xs-1">Sat</div>
             </div>
-            {{#if weeklyNotSubmitted}}
-                <div class="row">
-                    <div class="col-md-2 col-sm-2 col-xs-2">{{getSunday}}</div>
-                    <div class="col-md-1 col-sm-1 col-xs-1">0</div>
-                    <div class="col-md-1 col-sm-1 col-xs-1">0</div>
-                    <div class="col-md-1 col-sm-1 col-xs-1">0</div>
-                    <div class="col-md-1 col-sm-1 col-xs-1">0</div>
-                    <div class="col-md-1 col-sm-1 col-xs-1">0</div>
-                    <div class="col-md-1 col-sm-1 col-xs-1">0</div>
-                    <div class="col-md-1 col-sm-1 col-xs-1">0</div>
-                    <div class="col-md-2 col-sm-2 col-xs-2"><button type="button" class="btn btn-primary">Edit</button></div>
-                </div>
-            {{/if}}
             {{#each timesheet}}
               <!-- {{#if active}} -->
                 {{> timesheetInfo}}
               <!-- {{/if}} -->
             {{/each}}
+            <div class="col-md-2 col-sm-2 col-xs-2"><button type="button" class="btn btn-primary">Add</button></div>
 
     </div>
     {{/if}}
+</template>
+
+<template name="projectHours">
+    <div class="row">
+        <div class="col-md-2 col-sm-2 col-xs-2">{{> projectListDropDown}}</div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Sunday" type="text" class="form-control" value="0"></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Monday" type="text" class="form-control" value="0"></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Tuesday" type="text" class="form-control" value="0"></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Wednesday" type="text" class="form-control" value="0"></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Thursday" type="text" class="form-control" value="0"></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Friday" type="text" class="form-control" value="0"></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Saturday" type="text" class="form-control" value="0"></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"><input id="Comment" type="text" class="form-control" value=""></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary">Add</button></div>
+    </div>
+</template>
+
+<template name="projectListDropDown">
+    <select id="project_select" class="form-control">
+        {{#each employees}}
+            <option value={{name}}>{{name}}</option>
+        {{/each}}
+    </select>
 </template>
 
 <template name="timesheetInfo">
