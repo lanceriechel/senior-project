@@ -147,6 +147,34 @@ ul {
 
 #item-list .todo .item-tags .removable_tag {
     padding-right: 22px;
+    -webkit-animation: fadein 1s ease-in-out; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadein 1s ease-in-out; /* Firefox < 16 */
+    -ms-animation: fadein 1s ease-in-out; /* Internet Explorer */
+    -o-animation: fadein 1s ease-in-out; /* Opera < 12.1 */
+    animation: fadein 1s ease-in-out;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
 
 #item-list .todo .item-tags .tag .remove {
@@ -193,4 +221,57 @@ ul {
 
 .active{
     background-color: grey;
+}
+
+.col-header > h4{
+    box-sizing:border-box;
+    width:70%;
+    margin-left: 15%;
+    border-bottom:1px solid #428BCA;
+    padding-bottom: 4px;
+}
+
+.row-div-1:not(:last-child),.row-div-2:not(:last-child),.row-div-3:not(:last-child),.row-div-4:not(:last-child),
+.row-div-4:not(:last-child),.row-div-5:not(:last-child),.row-div-6:not(:last-child),.row-div-7:not(:last-child),
+.row-div-8:not(:last-child),.row-div-9:not(:last-child),.row-div-10:not(:last-child),.row-div-11:not(:last-child),.row-div-12:not(:last-child) {
+    box-sizing:border-box;
+    border-bottom:1px solid #428BCA;
+    padding-bottom: 10px;
+}
+
+.row-div-1, .row-header-div-1 {
+    width:8.33%;
+}
+.row-div-2, .row-header-div-2 {
+    width:16.67%;
+}
+.row-div-3, .row-header-div-3 {
+    width:25%;
+}
+.row-div-4, .row-header-div-4 {
+    width:33.33%;
+}
+.row-div-5, .row-header-div-5 {
+    width:41.67%;
+}
+.row-div-6, .row-header-div-6 {
+    width:50%;
+}
+.row-div-7, .row-header-div-7 {
+    width:58.33%;
+}
+.row-div-8, .row-header-div-8 {
+    width:66.6%;
+}
+.row-div-9, .row-header-div-9 {
+    width:75%;
+}
+.row-div-10, .row-header-div-10 {
+    width:83.33%;
+}
+.row-div-11, .row-header-div-11 {
+    width:91.67%;
+}
+.row-div-12, .row-header-div-12 {
+    width:100%;
 }
