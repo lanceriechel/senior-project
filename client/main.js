@@ -23,7 +23,8 @@ Template.pages.events({
 
 Template.pages.helpers({
     isTimesheet: function(){
-        return Session.equals('current_page', 'time_sheet');
+        return Session.equals('current_page', 'time_sheet') ||
+               Session.equals('current_page', 'selected_timesheet');
     },
     isActiveProjects: function(){
         return Session.equals('current_page', 'active_projects');
