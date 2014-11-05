@@ -119,15 +119,15 @@
 <template name="SelectedTimesheet">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-2 col-sm-2 col-xs-2">Project</div>
-            <div class="col-md-1 col-sm-1 col-xs-1">S</div>
-            <div class="col-md-1 col-sm-1 col-xs-1">M</div>
-            <div class="col-md-1 col-sm-1 col-xs-1">T</div>
-            <div class="col-md-1 col-sm-1 col-xs-1">W</div>
-            <div class="col-md-1 col-sm-1 col-xs-1">T</div>
-            <div class="col-md-1 col-sm-1 col-xs-1">F</div>
-            <div class="col-md-1 col-sm-1 col-xs-1">S</div>
-            <div class="col-md-3 col-sm-3 col-xs-3">Comment</div>
+            <div class="text-center col-md-2 col-sm-2 col-xs-2">Project</div>
+            <div class="text-center col-md-1 col-sm-1 col-xs-1">S</div>
+            <div class="text-center col-md-1 col-sm-1 col-xs-1">M</div>
+            <div class="text-center col-md-1 col-sm-1 col-xs-1">T</div>
+            <div class="text-center col-md-1 col-sm-1 col-xs-1">W</div>
+            <div class="text-center col-md-1 col-sm-1 col-xs-1">T</div>
+            <div class="text-center col-md-1 col-sm-1 col-xs-1">F</div>
+            <div class="text-center col-md-1 col-sm-1 col-xs-1">S</div>
+            <div class="text-center col-md-2 col-sm-2 col-xs-2">Comment</div>
         </div>
         {{> projectHours}}
         <br>
@@ -141,7 +141,7 @@
         <div class="col-md-1 col-sm-1 col-xs-1"></div>
     </div>
     <div class="row">
-        <div class="col-md-11 col-sm-11 col-xs-11"><input id="Comment" type="text" class="form-control" value=""></div>
+        <div class="col-md-11 col-sm-11 col-xs-11"><input id="Comment" type="text" class="large-input form-control" value=""></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary">Submit</button></div>
     </div>
 </template>
@@ -152,21 +152,22 @@
         <h1>Timesheets</h1>
         <h2>Active</h2>
             <div class="row">
-                <div class="col-md-2 col-sm-2 col-xs-2">Start Date</div>
-                <div class="col-md-1 col-sm-1 col-xs-1">Sun</div>
-                <div class="col-md-1 col-sm-1 col-xs-1">M</div>
-                <div class="col-md-1 col-sm-1 col-xs-1">T</div>
-                <div class="col-md-1 col-sm-1 col-xs-1">W</div>
-                <div class="col-md-1 col-sm-1 col-xs-1">Tr</div>
-                <div class="col-md-1 col-sm-1 col-xs-1">F</div>
-                <div class="col-md-1 col-sm-1 col-xs-1">Sat</div>
+                <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Start Date</h4></div>
+                <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>S</h4></div>
+                <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>M</h4></div>
+                <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>T</h4></div>
+                <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>W</h4></div>
+                <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>T</h4></div>
+                <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>F</h4></div>
+                <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>S</h4></div>
             </div>
             {{#each timesheet}}
-              <!-- {{#if active}} -->
+              {{#if ActiveTimesheet userId active}}
                 {{> timesheetInfo}}
-              <!-- {{/if}} -->
+              {{/if}}
             {{/each}}
-            <div class="col-md-2 col-sm-2 col-xs-2"><button type="button" class="btn btn-primary">Add</button></div>
+            <br>
+            <div class="col-md-1 col-sm-1 col-xs-1"><button id="addWeeklyTimesheet" type="button" class="btn btn-primary">Add</button></div>
 
     </div>
     {{/if}}
@@ -175,14 +176,14 @@
 <template name="projectHours">
     <div class="row">
         <div class="col-md-2 col-sm-2 col-xs-2">{{> projectListDropDown}}</div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Sunday" type="text" class="form-control" value="0"></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Monday" type="text" class="form-control" value="0"></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Tuesday" type="text" class="form-control" value="0"></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Wednesday" type="text" class="form-control" value="0"></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Thursday" type="text" class="form-control" value="0"></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Friday" type="text" class="form-control" value="0"></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Saturday" type="text" class="form-control" value="0"></div>
-        <div class="col-md-2 col-sm-2 col-xs-2"><input id="Comment" type="text" class="form-control" value=""></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Sunday" type="text" class="large-input form-control" value="0"></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Monday" type="text" class="large-input form-control" value="0"></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Tuesday" type="text" class="large-input form-control" value="0"></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Wednesday" type="text" class="large-input form-control" value="0"></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Thursday" type="text" class="large-input form-control" value="0"></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Friday" type="text" class="large-input form-control" value="0"></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Saturday" type="text" class="large-input form-control" value="0"></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"><input id="Comment" type="text" class="large-input form-control" value=""></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary">Add</button></div>
     </div>
 </template>
@@ -197,14 +198,14 @@
 
 <template name="timesheetInfo">
     <div class="row">
-        <div class="col-md-2 col-sm-2 col-xs-2"><input id="StartDate" type="text" class="form-control" value={{startDate}} readonly></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Sunday" type="text" class="form-control" value="0" readonly></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Monday" type="text" class="form-control" value="0" readonly></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Tuesday" type="text" class="form-control" value="0" readonly></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Wednesday" type="text" class="form-control" value="0" readonly></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Thursday" type="text" class="form-control" value="0" readonly></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Friday" type="text" class="form-control" value="0" readonly></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Saturday" type="text" class="form-control" value="0" readonly></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"><input id="StartDate" type="text" class="large-input form-control" value={{startDate}} readonly></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Sunday" type="text" class="large-input form-control" value="0" readonly></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Monday" type="text" class="large-input form-control" value="0" readonly></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Tuesday" type="text" class="large-input form-control" value="0" readonly></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Wednesday" type="text" class="large-input form-control" value="0" readonly></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Thursday" type="text" class="large-input form-control" value="0" readonly></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Friday" type="text" class="large-input form-control" value="0" readonly></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Saturday" type="text" class="large-input form-control" value="0" readonly></div>
         <div class="col-md-2 col-sm-2 col-xs-2"><button type="button" class="btn btn-primary">Edit</button></div>
     </div>
 </template>

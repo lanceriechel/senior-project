@@ -19,6 +19,12 @@ Template.activeTimesheets.helpers({
     	alert(2);
     	return false;
     },
+    ActiveTimesheet: function(userId, active){
+    	if(active && (userId == Meteor.userId())){
+    		return true;
+    	}
+    	return false;
+    }
     
 });
 
@@ -49,6 +55,12 @@ Template.activeTimesheets.events({
 	    	);
 	        return true;
 		}else{
+			$('#addWeeklyTimesheet').tooltip({
+	            title: 'Already Active Weekly Timesheet',
+	            trigger: 'hover',
+	            animation: false
+	        });
+	        $('#addWeeklyTimesheet').tooltip('show');
 			return false;
 		}
 	}
