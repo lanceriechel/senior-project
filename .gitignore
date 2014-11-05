@@ -1,3 +1,4 @@
 .idea/
 run_nightwatch.sh
-
+tests/jasmine/server/unit/package-stubs.js
+tests/jasmine/server/unit/packageMocksSpec.js

@@ -15,26 +15,39 @@ Accounts.ui.config({
 
 Session.setDefault('current_page', 'time_sheet');
 
-ChargeNumbersService = {
-    isActive: function(date){
-        date = date.split('-');
-        var dateObj = new Date(date[0], parseInt(date[1]) - 1, date[2]);
-        return dateObj.getTime() >= Date.now();
-    }
-}
-
 Template.pages.events({
     'mousedown .tag': function (evt) {
         Session.set('current_page', evt.currentTarget.id);
     }
 });
 
+Template.pages.helpers({
+    isTimesheet: function(){
+        return Session.equals('current_page', 'time_sheet') ||
+               Session.equals('current_page', 'selected_timesheet');
+    },
+    isActiveProjects: function(){
+        return Session.equals('current_page', 'active_projects');
+    },
+    isArchivedProjects: function(){
+        return Session.equals('current_page', 'archived_projects');
+    },
+    isEmployeeSettings: function(){
+        return Session.equals('current_page', 'employees_settings');
+    },
+    isSelectedTimesheet: function(){
+        return Session.equals('current_page', 'selected_timesheet');
+    }
+});
 Template.mainSelector.helpers({
     isTimesheet: function(){
         return Session.equals('current_page', 'time_sheet');
     },
-    isProjectSettings: function(){
-        return Session.equals('current_page', 'project_settings');
+    isActiveProjects: function(){
+        return Session.equals('current_page', 'active_projects');
+    },
+    isArchivedProjects: function(){
+        return Session.equals('current_page', 'archived_projects');
     },
     isEmployeeSettings: function(){
         return Session.equals('current_page', 'employees_settings');
