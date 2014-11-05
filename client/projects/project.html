@@ -1,0 +1,73 @@
+<template name="activeProjects">
+    <div class="container-fluid">
+        <h2><span class="label">Add a Project</span></h2>
+        <br>
+        {{> addProject}}
+        <h2><span class="label">ActiveProjects</span></h2>
+        {{> activeProjectEntries}}
+    </div>
+</template>
+
+<template name="archivedProjects">
+    <div class="container-fluid">
+        <h2><span class="label">Archived Projects</span></h2>
+        {{> archivedProjectsEntries}}
+    </div>
+</template>
+
+<template name="activeProjectEntries">
+    {{> projectHeader}}
+    {{#each projects}}
+        {{#if isActive end_date}}
+            {{> projectInfo}}
+        {{/if}}
+    {{/each}}
+</template>
+
+<template name="projectInfo">
+    <div class="row">
+        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control charge_number" id="charge_number" value={{id}}></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control  project_name" id="project_name" value={{name}}></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control date" id="start_date" value={{start_date}}></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control date" id="end_date" value={{end_date}}></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control manager" id="manager" value={{manager}}></div>
+    </div>
+</template>
+
+<template name="addProject">
+    <div class="row">
+        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control" id="charge_number" placeholder="Charge Number"></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control" id="project_name" placeholder="Project Name"></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control" id="start_date" placeholder="Start Date"></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control" id="end_date" placeholder="End Date"></div>
+        <div class="col-md-2 col-sm-2 col-xs-2">{{> employeesListDropDown}}</div>
+        <div class="col-md-2 col-sm-2 col-xs-2"><button type="button" class="btn btn-primary">Add</button></div>
+    </div>
+</template>
+
+<template name="employeesListDropDown">
+    <select id="manager" class="large-input form-control manager-dropdown">
+        {{#each employees}}
+            <option value={{username}}>{{username}}</option>
+        {{/each}}
+    </select>
+</template>
+
+<template name="archivedProjectsEntries">
+    {{> projectHeader}}
+    {{#each projects}}
+        {{#if isArchived end_date}}
+            {{> projectInfo}}
+        {{/if}}
+    {{/each}}
+</template>
+
+<template name="projectHeader">
+    <div class="row">
+        <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Charge Number</h4></div>
+        <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Project Name</h4></div>
+        <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Start Date</h4></div>
+        <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>End Date</h4></div>
+        <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Manager</h4></div>
+    </div>
+</template>

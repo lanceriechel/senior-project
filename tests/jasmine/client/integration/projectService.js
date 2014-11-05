@@ -16,11 +16,11 @@ describe("projectService", function() {
 
             if(d<10) {
                 d='0'+d
-            } 
+            }
 
             if(m<10) {
                 m='0'+m
-            } 
+            }
 
             date = m+'/'+d+'/'+year;
             var date1 = new Date(date);
@@ -36,6 +36,12 @@ describe("projectService", function() {
         });
         it("false if endDate before startDate", function(){
             expect(ProjectService.datesValid("10/16/2014", "10/10/2014")).toBe(false);
+        });
+        it("true if startDate is not given", function(){
+            expect(ProjectService.datesValid("", "10/10/2014")).toBe(true);
+        });
+        it("true if endDate is not given", function(){
+            expect(ProjectService.datesValid("10/16/2014", "")).toBe(true);
         });
     });
     describe(".areValidProjectParams", function(){
