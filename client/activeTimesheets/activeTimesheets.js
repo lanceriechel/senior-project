@@ -68,7 +68,7 @@ Template.timesheetInfo.events = {
 Template.SelectedTimesheet.events = {
     'click button': function(event){
     	var start = Session.get('startDate');
-    	alert(start);
+    	//alert(start);
 
     },
 };
