@@ -55,6 +55,12 @@ Template.activeTimesheets.events({
 	    	);
 	        return true;
 		}else{
+			$('#addWeeklyTimesheet').tooltip({
+	            title: 'Already Active Weekly Timesheet',
+	            trigger: 'hover',
+	            animation: false
+	        });
+	        $('#addWeeklyTimesheet').tooltip('show');
 			return false;
 		}
 	}
