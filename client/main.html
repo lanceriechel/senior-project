@@ -211,36 +211,41 @@
 
 <template name="employeeSettings">
     <div class="container-fluid">
-        <h1>Employees</h1>
+        <h2><span class="label">Employees</span></h2>
         {{>employees_Template}}
     </div>
 </template>
 
 <template name="employees_Template">
     <div class="row">
-        <div class="col-md-2">Employee Name</div>
-        <div class="col-md-2">Projects</div>
-        <div class="col-md-2">Full-time/Part-time</div>
+        <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Employee Name</h4></div>
+        <div class="col-md-3 col-sm-3 col-xs-3 text-center"><h4>Projects</h4></div>
+        <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Full-time/Part-time</h4></div>
     </div>
 
     {{#each employees}}
         <div class="row">
-            <div class="col-md-2" value={{username}}>{{username}}</div>
-            <div class="col-md-2">
+            <div class="col-md-2 col-sm-2 col-xs-2" value={{username}}>{{username}}</div>
+            <div class="col-md-3 col-sm-3 col-xs-3">
                 <div id="items-view">
-                    <ul id="item-list">
+                    <ul class="tag-list" id="item-list">
                         {{> associatedProjects}}
                     </ul>
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-1 col-sm-1 col-xs-1">
                 <div>
-                    <input name="{{id}}" type="radio" class="full" checked="{{fulltime}}">
-                    {{#if fulltime }}
-                        <input name="{{id}}" type="radio" class="part">
-                    {{else}}
-                        <input name="{{id}}" type="radio" class="part" checked>
-                    {{/if}}
+                    <label class="radio-inline">
+                        <input name="{{id}}" type="radio" class="full" checked="{{fulltime}}">
+                    </label>
+                    <label class="radio-inline">
+                        {{#if fulltime }}
+
+                            <input name="{{id}}" type="radio" class="part">
+                        {{else}}
+                            <input name="{{id}}" type="radio" class="part" checked>
+                        {{/if}}
+                    </label>
                 </div>
             </div>
         </div>
@@ -251,14 +256,14 @@
     <li class="todo {{doneClass}}">
         <div class="item-tags" id="{{_id}}">
             {{#each projects}}
-                <div class="tag removable_tag">
+                <div class="tag removable_tag label">
                     <div class="name" id="test">{{this}}</div>
                     <div class="remove"></div>
                 </div>
             {{/each}}
             {{#if addingTag}}
                 <div class="tag edittag">
-                    <select id="edittag-input">
+                    <select id="edittag-input" class="form-control">
                         {{#each chargeNumbers}}
                             {{#if isActive end_date}}
                                 <option value="{{id}}">{{id}}</option>
