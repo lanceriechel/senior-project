@@ -186,3 +186,7 @@ ul {
 .active{
     background-color: grey;
 }
+
+.login-buttons-dropdown-align-right{
+   margin-right: 400px;
+}
