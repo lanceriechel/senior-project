@@ -104,9 +104,9 @@
                 <div class="col-md-1 col-sm-1 col-xs-1">Sat</div>
             </div>
             {{#each timesheet}}
-              <!-- {{#if active}} -->
+              {{#if ActiveTimesheet userId active}}
                 {{> timesheetInfo}}
-              <!-- {{/if}} -->
+              {{/if}}
             {{/each}}
             <div class="col-md-2 col-sm-2 col-xs-2"><button type="button" class="btn btn-primary">Add</button></div>
 

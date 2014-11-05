@@ -19,6 +19,12 @@ Template.activeTimesheets.helpers({
     	alert(2);
     	return false;
     },
+    ActiveTimesheet: function(userId, active){
+    	if(active && (userId == Meteor.userId())){
+    		return true;
+    	}
+    	return false;
+    }
     
 });
 
