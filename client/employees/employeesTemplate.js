@@ -9,9 +9,16 @@ Template.associatedProjects.helpers({
         return DatabaseService.getProjects();
     },
     isActive: function(date){
-        date = date.split('/');
-        var dateObj = new Date(date[2], parseInt(date[1]) - 1, date[0]);
-        return dateObj.getTime() >= Date.now();
+        return ProjectService.isActive(date);
+    }
+});
+
+Template.employees_Template.events({
+    'click .full': function (evt) {
+        Meteor.users.update({_id: this._id}, {$set: {fulltime: true}});
+    },
+    'click .part': function (evt) {
+        Meteor.users.update({_id: this._id}, {$set: {fulltime: false}});
     }
 });
 
