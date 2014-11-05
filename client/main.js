@@ -1,9 +1,12 @@
 ChargeNumbers = new Meteor.Collection('charge_numbers');
 Employees = new Meteor.Collection('employees');
+TimeSheet = new Meteor.Collection('time_sheets');
+
 
 Deps.autorun(function(){
     Meteor.subscribe('userData');
     Meteor.subscribe('projects');
+    Meteor.subscribe('timesheet');
 });
 
 Accounts.ui.config({
@@ -35,5 +38,8 @@ Template.mainSelector.helpers({
     },
     isEmployeeSettings: function(){
         return Session.equals('current_page', 'employees_settings');
+    },
+    isSelectedTimesheet: function(){
+        return Session.equals('current_page', 'selected_timesheet');
     }
 });
