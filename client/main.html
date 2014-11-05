@@ -3,24 +3,82 @@
 </head>
 <body>
 <div id="main-pane">
-    <div id="TopBar">
-        <nav class="navbar navbar-default" role="navigation">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <span>{{> pages}}</span>
-                      <span>
-                        <div id="login">
-                            {{> loginButtons align="right"}}
-                        </div>
-                      </span>
-                </div>
-            </div>
-        </nav>
-    </div>
+<nav class="navbar navbar-default" role="navigation">
+    <h3>
+        Scientia LLC Time Entry System
+    </h3>
+</nav>
+{{>pages}}
     {{> mainSelector}}
 </div>
 </body>
 
+<template name="pages">
+    <ul class="navbar nav-pills navbar-default" role="tablist">
+        {{#if isTimesheet}}
+          <li class="active tag" role="presentation" id='time_sheet'>
+               Time Sheet
+          </li>
+          <li role="presentation" id='active_projects' class="tag">
+               Active Projects
+          </li>
+          <li role="presentation" id='archived_projects' class="tag">
+               Archived Projects
+          </li>
+          <li role="presentation" id='employees_settings' class="tag">
+               Employees
+          </li>{{/if}}
+
+
+        {{#if isActiveProjects}}
+          <li class="tag" role="presentation" id='time_sheet'>
+               Time Sheet
+          </li>
+          <li role="presentation" id='active_projects' class="tag active">
+               Active Projects
+          </li>
+          <li role="presentation" id='archived_projects' class="tag">
+               Archived Projects
+          </li>
+          <li role="presentation" id='employees_settings' class="tag">
+               Employees
+          </li>{{/if}}
+
+        {{#if isArchivedProjects}}
+          <li class="tag" role="presentation" id='time_sheet'>
+               Time Sheet
+          </li>
+          <li role="presentation" id='active_projects' class="tag">
+               Active Projects
+          </li>
+          <li role="presentation" id='archived_projects' class="tag active">
+               Archived Projects
+          </li>
+          <li role="presentation" id='employees_settings' class="tag">
+               Employees
+          </li>{{/if}}
+
+        {{#if isEmployeeSettings}}
+          <li class="tag" role="presentation" id='time_sheet'>
+               Time Sheet
+          </li>
+          <li role="presentation" id='active_projects' class="tag">
+               Active Projects
+          </li>
+          <li role="presentation" id='archived_projects' class="tag">
+               Archived Projects
+          </li>
+          <li role="presentation" id='employees_settings' class="tag active">
+               Employees
+          </li>{{/if}}
+
+<div id="login">
+    <span>{{> loginButtons}}</span>
+    </div>
+    </ul>
+
+</template>
+<!--
 <template name="pages">
     <div class="menu-options">
         <div id='time_sheet' class="tag">
@@ -36,7 +94,7 @@
             Employees
         </div>
     </div>
-</template>
+</template>-->
 
 
 

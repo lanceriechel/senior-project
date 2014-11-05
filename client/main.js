@@ -21,6 +21,23 @@ Template.pages.events({
     }
 });
 
+Template.pages.helpers({
+    isTimesheet: function(){
+        return Session.equals('current_page', 'time_sheet');
+    },
+    isActiveProjects: function(){
+        return Session.equals('current_page', 'active_projects');
+    },
+    isArchivedProjects: function(){
+        return Session.equals('current_page', 'archived_projects');
+    },
+    isEmployeeSettings: function(){
+        return Session.equals('current_page', 'employees_settings');
+    },
+    isSelectedTimesheet: function(){
+        return Session.equals('current_page', 'selected_timesheet');
+    }
+});
 Template.mainSelector.helpers({
     isTimesheet: function(){
         return Session.equals('current_page', 'time_sheet');
