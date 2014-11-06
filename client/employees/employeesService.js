@@ -1,5 +1,6 @@
 Template.employees_Template.helpers({
-    employees: function() {
+    employees: function () {
+        "use strict";
         return DatabaseService.getEmployees();
     }
 });

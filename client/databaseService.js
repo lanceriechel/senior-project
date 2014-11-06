@@ -15,5 +15,8 @@ DatabaseService = {
             },
             project
         );
+    },
+    getUnsubscribedProjects: function(subscribed) {
+        return ChargeNumbers.find({ id: {$nin : subscribed }});
     }
 }

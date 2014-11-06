@@ -11,7 +11,7 @@ nav[class="navbar navbar-default"]{
 ul[class="navbar nav-pills navbar-default"]{
     background: #eeeeee;
     border-radius: 1px;
-    padding: none;
+    padding: unset;
     left: 0px;
     padding: 0px 0px 0px 0px;
     vertical-align: middle;
@@ -147,35 +147,16 @@ ul {
 
 #item-list .todo .item-tags .removable_tag {
     padding-right: 22px;
-    -webkit-animation: fadein 1s ease-in-out; /* Safari, Chrome and Opera > 12.1 */
-    -moz-animation: fadein 1s ease-in-out; /* Firefox < 16 */
-    -ms-animation: fadein 1s ease-in-out; /* Internet Explorer */
-    -o-animation: fadein 1s ease-in-out; /* Opera < 12.1 */
-    animation: fadein 1s ease-in-out;
+
+    opacity:0;  /* make things invisible upon start */
+    -webkit-animation:fadeIn ease-in 1 forwards 1s;
+    -moz-animation:fadeIn ease-in 1 forwards 1s;
+    animation:fadeIn ease-in 1 forwards 1s;
 }
 
-@keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
-
-/* Firefox < 16 */
-@-moz-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
-
-/* Safari, Chrome and Opera > 12.1 */
-@-webkit-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
-
-/* Internet Explorer */
-@-ms-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
+@-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
 
 #item-list .todo .item-tags .tag .remove {
     position: absolute;
