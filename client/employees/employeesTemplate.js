@@ -1,29 +1,35 @@
 Template.associatedProjects.helpers({
-    addingTag: function() {
+    addingTag: function () {
+        "use strict";
         return Session.equals('editing_addtag', this._id);
     },
-    doneClass: function() {
+    doneClass: function () {
+        "use strict";
         return this.done ? 'done' : '';
     },
-    chargeNumbers: function() {
-        return DatabaseService.getProjects();
+    chargeNumbers: function () {
+        "use strict";
+        return DatabaseService.getUnsubscribedProjects(this.projects);
     },
-    isActive: function(date){
+    isActive: function (date) {
+        "use strict";
         return ProjectService.isActive(date);
     }
 });
 
 Template.employees_Template.events({
-    'click .full': function (evt) {
+    'click .full': function () {
+        "use strict";
         Meteor.users.update({_id: this._id}, {$set: {fulltime: true}});
     },
-    'click .part': function (evt) {
+    'click .part': function () {
         Meteor.users.update({_id: this._id}, {$set: {fulltime: false}});
     }
 });
 
 Template.associatedProjects.events({
     'click .addtag': function (evt, tmpl) {
+        "use strict";
         //alert(this.username + " ");
         Session.set('editing_addtag', this._id);
         Deps.flush(); // update DOM before focus
@@ -31,12 +37,14 @@ Template.associatedProjects.events({
     },
 
     'dblclick .display .todo-text': function (evt, tmpl) {
+        "use strict";
         Session.set('editing_itemname', this._id);
         Deps.flush(); // update DOM before focus
         activateInput(tmpl.find("#todo-input"));
     },
 
-    'click .remove': function (evt, tmpl) {
+    'click .remove': function (evt) {
+        "use strict";
         //evt.target.parentNode.style.opacity = 0;
         // wait for CSS animation to finish
         var userId = String(evt.target.parentNode.parentNode.id);
@@ -45,24 +53,26 @@ Template.associatedProjects.events({
 });
 
 var okCancelEvents = function (selector, callbacks) {
-    var ok = callbacks.ok || function () {};
-    var cancel = callbacks.cancel || function () {};
+    "use strict";
+    var ok = callbacks.ok || function () { return; },
+        cancel = callbacks.cancel || function () { return; },
+        events = {};
 
-    var events = {};
-    events['keyup '+selector+', keydown '+selector+', focusout '+selector] =
+    events['keyup ' + selector + ', keydown ' + selector + ', focusout ' + selector] =
         function (evt) {
             if (evt.type === "keydown" && evt.which === 27) {
                 // escape = cancel
                 cancel.call(this, evt);
 
-            } else if (evt.type === "keyup" && evt.which === 13 ||
-                evt.type === "focusout") {
+            } else if ((evt.type === "keyup" && evt.which === 13) ||
+                    evt.type === "focusout") {
                 // blur/return/enter = ok/submit if non-empty
                 var value = String(evt.target.value || "");
-                if (value)
+                if (value) {
                     ok.call(this, value, evt);
-                else
+                } else {
                     cancel.call(this, evt);
+                }
             }
         };
 
@@ -70,6 +80,7 @@ var okCancelEvents = function (selector, callbacks) {
 };
 
 var activateInput = function (input) {
+    "use strict";
     input.focus();
 };
 
@@ -83,4 +94,5 @@ Template.associatedProjects.events(okCancelEvents(
         cancel: function () {
             Session.set('editing_addtag', null);
         }
-    }));
+    }
+));
