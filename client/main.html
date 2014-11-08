@@ -78,24 +78,6 @@
     </ul>
 
 </template>
-<!--
-<template name="pages">
-    <div class="menu-options">
-        <div id='time_sheet' class="tag">
-            Time Sheet
-        </div>
-        <div id='active_projects' class="tag">
-            Active Projects
-        </div>
-        <div id='archived_projects' class="tag">
-            Archived Projects
-        </div>
-        <div id='employees_settings' class="tag">
-            Employees
-        </div>
-    </div>
-</template>-->
-
 
 
 <template name="mainSelector">
@@ -131,17 +113,24 @@
         </div>
         {{> projectHours}}
         <br>
+        <!--
+         This needs to itterate through all of the stored existing rows
+        -->
+        {{> projectHoursFilled}}
+        <br>
         {{> lastSection}}
     </div>
 </template>
-    
+
+   
 <template name="lastSection">
     <div class="row">
-        <div class="col-md-11 col-sm-11 col-xs-11">General Comment</div>
-        <div class="col-md-1 col-sm-1 col-xs-1"></div>
+        <div class="col-md-6 col-sm-6 col-xs-6">General Comment</div>
+        <div class="col-md-5 col-sm-5 col-xs-5">Concerns</div>
     </div>
     <div class="row">
-        <div class="col-md-11 col-sm-11 col-xs-11"><input id="Comment" type="text" class="large-input form-control" value=""></div>
+        <div class="col-md-6 col-sm-6 col-xs-6"><input id="Comment" type="text" class="large-input form-control" value=""></div>       
+        <div class="col-md-5 col-sm-5 col-xs-5"><input id="Concerns" type="text" class="large-input form-control" value=""></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary">Submit</button></div>
     </div>
 </template>
@@ -186,6 +175,23 @@
         <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary">Add</button></div>
     </div>
 </template>
+
+
+<template name="projectHoursFilled">
+    <div class="row">
+        <div class="col-md-2 col-sm-2 col-xs-2"><input id="projectName" type="text" class="large-input form-control" value={{projectName}}></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Sunday" type="text" class="large-input form-control" value={{sunday}}></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Monday" type="text" class="large-input form-control" value={{monday}}></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Tuesday" type="text" class="large-input form-control" value={{tuesday}}></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Wednesday" type="text" class="large-input form-control" value={{wednesday}}></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Thursday" type="text" class="large-input form-control" value={{thursday}}></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Friday" type="text" class="large-input form-control" value={{friday}}></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Saturday" type="text" class="large-input form-control" value={{saturday}}></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"><input id="Comment" type="text" class="large-input form-control" value={{comment}}></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary">Delete</button></div>
+    </div>
+</template>
+
 
 <template name="projectListDropDown">
     <select id="project_select" class="form-control">
