@@ -71,7 +71,12 @@ Template.projectHoursFilled.events = {
        var friday_t = $(row).find('#Friday')[0].value;
        var saturday_t = $(row).find('#Saturday')[0].value;
        
-       var projectName_t = $(row).find('#projectName')[0].value;
+       var projectName_t = $(row).find('#projectName')[0].id;
+        /*var projectIndex = $(row).find('#project_select')[0].selectedIndex;
+        var projectID = $(row).find('#project_select')[0].children[projectIndex].id;
+        We need the projectID not the name. Name is not unique therefore the name is useless.
+        I put the code for getting the projectID when the projectHoursFilled is corrected-Dan
+        */
 
      TimeSheetService.removeErrorClasses(row, ['#Comment','#Sunday','#Monday','#Tuesday','#Wednesday','#Thursday','#Friday','#Saturday','#projectName']);
   
@@ -79,22 +84,43 @@ Template.projectHoursFilled.events = {
         }
            /*
            Update Database
-           */           
+           This will update the database correctly when the projectHoursFilled is fixed.-Dan
+           */
+            ActiveDBService.updateRowInTimeSheet(Session.get("startDate"), Meteor.userId(), projectID,
+                comment_t,
+                sunday_t,
+                monday_t,
+                tuesday_t,
+                wednesday_t,
+                thursday_t,
+                friday_t,
+                saturday_t
+            );
+
 
       }
     ,
     'click button': function(event){
-       
+        var row = event.currentTarget.parentNode.parentNode;
+
+
+        /*var projectIndex = $(row).find('#project_select')[0].selectedIndex;
+        var projectID = $(row).find('#project_select')[0].children[projectIndex].id;
+        Uncomment this when you fix the projectFilled and it will work- Dan
+        */
         /* 
          Remove this row from database
+         Still need the projectID to find the row to delete- Dan
         */
+        ActiveDBService.removeRowInTimeSheet(Session.get("startDate"), Meteor.userId(), projectID);
 
     }
 }
 
 Template.projectHours.events = {
     'click button': function(event){
-       /*alert("something happened...");*/
+       /*alert("something happened...");
+       * What Happened?-Dan*/
        var row = event.currentTarget.parentNode.parentNode;
        var comment_t = $(row).find('#Comment')[0].value;
        var sunday_t = $(row).find('#Sunday')[0].value;
@@ -104,14 +130,33 @@ Template.projectHours.events = {
        var thursday_t = $(row).find('#Thursday')[0].value;
        var friday_t = $(row).find('#Friday')[0].value;
        var saturday_t = $(row).find('#Saturday')[0].value;
-     
-     TimeSheetService.removeErrorClasses(row, ['#Comment','#Sunday','#Monday','#Tuesday','#Wednesday','#Thursday','#Friday','#Saturday']);
+
+        // I added this so we can retrieve the selected project's ID so we can add it to the Database
+        var projectIndex = $(row).find('#project_select')[0].selectedIndex;
+        var projectID = $(row).find('#project_select')[0].children[projectIndex].id;
+
+
+
+        TimeSheetService.removeErrorClasses(row, ['#Comment','#Sunday','#Monday','#Tuesday','#Wednesday','#Thursday','#Friday','#Saturday']);
   
      if(TimeSheetService.ensureValidEntry(row, comment_t, sunday_t, monday_t,tuesday_t, wednesday_t, thursday_t, friday_t, saturday_t)){
             
             /*
             Database Entry
+             Adding entry to the Database correctly. -Dan
+
             */
+
+         ActiveDBService.addRowToTimeSheet(Session.get("startDate"),Meteor.userId(), projectID,
+             comment_t,
+             sunday_t,
+             monday_t,
+             tuesday_t,
+             wednesday_t,
+             thursday_t,
+             friday_t,
+             saturday_t);
+     }
 
             $(row).find('#Comment')[0].value = '';
             $(row).find('#Sunday')[0].value = '0';
@@ -121,7 +166,8 @@ Template.projectHours.events = {
             $(row).find('#Thursday')[0].value = '0';
             $(row).find('#Friday')[0].value = '0';
             $(row).find('#Saturday')[0].value = '0';
-        }
+
+
     }
 };
 
