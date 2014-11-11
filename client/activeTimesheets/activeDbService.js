@@ -7,7 +7,7 @@ ActiveDBService = {
         var timeentries = TimeSheet.findOne(
             {
                 'startDate': d,
-                'userId': userId
+                'userID': userId
             }
         );
         // else if( timeentries.count()==0 && (userId != null)){
@@ -17,10 +17,9 @@ ActiveDBService = {
         return false;
 
     },
-    getActiveTimesheets: function(){
-        return TimeSheet.find({});
+    getActiveTimeSheetsForUser: function (userId) {
+        return TimeSheet.find({"userID": userId, $or: [{Approved: "false"}, {active: 1}]});
     },
-
     updateRowInTimeSheet: function(date, user, project, comment,Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday){
             // Updates and existing "Row" in the database with the new information. This has the same problem as remove since two rows have the same information they will both be changed.
             // We need a rowID field of some kind.-Dan
@@ -39,7 +38,6 @@ ActiveDBService = {
                 }
             });
     },
-
     addRowToTimeSheet: function(date, user, project, comment,Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday) {
             // Adds a single Entry to the Timesheet collection. This entry corresponds to a single Row on the web page.Essentially 1 Entry for every project.- Dan
             //alert(project);
