@@ -59,9 +59,9 @@ Template.mainSelector.helpers({
 
 
 Template.projectHoursFilled.events = {
-    'keyup input': function(event){
+    'blur .filledRow': function(event){
 
-      var row = event.currentTarget.parentNode.parentNode;
+      var row = event.currentTarget;
        var comment_t = $(row).find('#Comment')[0].value;
        var sunday_t = $(row).find('#Sunday')[0].value;
        var monday_t = $(row).find('#Monday')[0].value;
@@ -70,8 +70,11 @@ Template.projectHoursFilled.events = {
        var thursday_t = $(row).find('#Thursday')[0].value;
        var friday_t = $(row).find('#Friday')[0].value;
        var saturday_t = $(row).find('#Saturday')[0].value;
+       var rowID = $(row).attr('id');
        
-       var projectName_t = $(row).find('#projectName')[0].id;
+       // var projectName_t = $(row).find('#projectName')[0].id;
+       var projectIndex = $(row).find('#project_select')[0].selectedIndex;
+       var projectID = $(row).find('#project_select')[0].children[projectIndex].id;
         /*var projectIndex = $(row).find('#project_select')[0].selectedIndex;
         var projectID = $(row).find('#project_select')[0].children[projectIndex].id;
         We need the projectID not the name. Name is not unique therefore the name is useless.
@@ -79,8 +82,8 @@ Template.projectHoursFilled.events = {
         */
 
      TimeSheetService.removeErrorClasses(row, ['#Comment','#Sunday','#Monday','#Tuesday','#Wednesday','#Thursday','#Friday','#Saturday','#projectName']);
-  
-     if(TimeSheetService.ensureValidEntry(row, comment_t, sunday_t, monday_t,tuesday_t, wednesday_t, thursday_t, friday_t, saturday_t, projectName_t)){
+
+     if(TimeSheetService.ensureValidEntry(row, comment_t, sunday_t, monday_t,tuesday_t, wednesday_t, thursday_t, friday_t, saturday_t, projectID)){
         }
            /*
            Update Database
@@ -94,7 +97,8 @@ Template.projectHoursFilled.events = {
                 wednesday_t,
                 thursday_t,
                 friday_t,
-                saturday_t
+                saturday_t,
+                rowID
             );
 
 
@@ -102,25 +106,29 @@ Template.projectHoursFilled.events = {
     ,
     'click button': function(event){
         var row = event.currentTarget.parentNode.parentNode;
+        var projectIndex = $(row).find('#project_select')[0].selectedIndex;
+        var options = $(row).find('#project_select')[0];
+        var projectID = options[options.selectedIndex].id;
 
+        var comment_t = $(row).find('#Comment')[0].value;
+        var sunday_t = $(row).find('#Sunday')[0].value;
+        var monday_t = $(row).find('#Monday')[0].value;
+        var tuesday_t = $(row).find('#Tuesday')[0].value;
+        var wednesday_t = $(row).find('#Wednesday')[0].value;
+        var thursday_t = $(row).find('#Thursday')[0].value;
+        var friday_t = $(row).find('#Friday')[0].value;
+        var saturday_t = $(row).find('#Saturday')[0].value;
 
-        /*var projectIndex = $(row).find('#project_select')[0].selectedIndex;
-        var projectID = $(row).find('#project_select')[0].children[projectIndex].id;
-        Uncomment this when you fix the projectFilled and it will work- Dan
-        */
-        /* 
-         Remove this row from database
-         Still need the projectID to find the row to delete- Dan
-        */
-        ActiveDBService.removeRowInTimeSheet(Session.get("startDate"), Meteor.userId(), projectID);
+        var rowID = $(row).attr('id');
+
+        ActiveDBService.removeRowInTimeSheet(Session.get("startDate"), Meteor.userId(), rowID);
 
     }
 }
 
 Template.projectHours.events = {
     'click button': function(event){
-       /*alert("something happened...");
-       * What Happened?-Dan*/
+
        var row = event.currentTarget.parentNode.parentNode;
        var comment_t = $(row).find('#Comment')[0].value;
        var sunday_t = $(row).find('#Sunday')[0].value;
@@ -135,6 +143,8 @@ Template.projectHours.events = {
         var projectIndex = $(row).find('#project_select')[0].selectedIndex;
         var projectID = $(row).find('#project_select')[0].children[projectIndex].id;
 
+        var rowID = Math.random();
+        $(row).attr('id',rowID);
 
 
         TimeSheetService.removeErrorClasses(row, ['#Comment','#Sunday','#Monday','#Tuesday','#Wednesday','#Thursday','#Friday','#Saturday']);
@@ -155,7 +165,8 @@ Template.projectHours.events = {
              wednesday_t,
              thursday_t,
              friday_t,
-             saturday_t);
+             saturday_t,
+             rowID);
      }
 
             $(row).find('#Comment')[0].value = '';
@@ -190,7 +201,7 @@ TimeSheetService = {
      $(row).find(selector).tooltip('show');
    },
     
-    ensureValidEntry: function(row, comment_t, sunday_t, monday_t,tuesday_t, wednesday_t, thursday_t, friday_t, saturday_t,projectName_t){
+    ensureValidEntry: function(row, comment_t, sunday_t, monday_t,tuesday_t, wednesday_t, thursday_t, friday_t, saturday_t,projectID){
        
        var valid = true;
        if(comment_t === ''){
@@ -198,7 +209,7 @@ TimeSheetService = {
           valid = false;
        }
 
-        if(projectName_t === ''){         
+        if(projectID === ''){         
           TimeSheetService.addError(row, '#projectName', "Field Cannot be Empty");
           valid = false;
        }

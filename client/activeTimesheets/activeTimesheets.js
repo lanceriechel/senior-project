@@ -50,6 +50,7 @@ Template.activeTimesheets.events({
 	    			'projectEntriesArray': [],
 	    			'type' : 1,
 	    			'generalComment': '',
+	    			'concerns': '',
 	    			'submitted': false
 	    		}
 	    	);
@@ -85,8 +86,83 @@ Template.SelectedTimesheet.events = {
     },
 };
 
+Template.SelectedTimesheet.helpers({
+	row: function(){	
+		var date = Session.get("startDate");
+		var user = Meteor.userId();
+		var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
+
+		var projectEntries = sheet['projectEntriesArray'];
+
+		var rows = [];
+
+		for(i = 0; i < projectEntries.length; i++){
+			var hours = projectEntries[i]['EntryArray'];
+			var comment = projectEntries[i]['Comment'];
+			var rowID = projectEntries[i]['rowID'];
+			var project = projectEntries[i]['projectID'];
+			rows.push({
+					'project' : project,
+					'sunday' : hours[0],
+					'monday' : hours[1],
+					'tuesday' : hours[2],
+					'wednesday' : hours[3],
+					'thursday' : hours[4],
+					'friday' : hours[5],
+					'saturday' : hours[6],
+					'comment' :  comment,
+					'rowID' : rowID
+			});
+		}
+
+		return rows;
+	}
+});
+
 Template.projectListDropDown.helpers({
-    employees: function() {
+    employees: function(project) {
+    	// alert(project);
         return DatabaseService.getProjects();
+    },
+});
+
+Template.lastSection.helpers({
+    genComment: function() {
+		var date = Session.get("startDate");
+		var user = Meteor.userId();
+    	var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
+
+    	return sheet['generalComment'];
+    },
+    concerns: function() {
+		var date = Session.get("startDate");
+		var user = Meteor.userId();
+    	var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
+
+    	return sheet['concerns'];
+
     }
 });
+
+Template.projectListDropDown.rendered = function(){
+    var id = $(this.firstNode).parent().attr('id');
+    $(this.firstNode).find("#"+id).prop("selected", true);
+};
+
+Template.lastSection.events = {
+	'blur .commentRow': function(event){
+
+     var row = event.currentTarget;
+     var gen_comment = $(row).find('#generalComment')[0].value;
+     var concerns = $(row).find('#concerns')[0].value;
+
+     TimeSheetService.removeErrorClasses(row, ['#concerns','#generalComment']);
+
+     ActiveDBService.updateCommentsInTimeSheet(Session.get("startDate"), Meteor.userId(), gen_comment, concerns);
+  },
+
+  'click button': function(event){
+
+     ActiveDBService.submitTimesheet(Session.get("startDate"), Meteor.userId());
+  }
+};
