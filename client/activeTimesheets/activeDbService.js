@@ -90,6 +90,36 @@ ActiveDBService = {
         });
     },
 
+    updateProjectCommentsTimeSheet: function(date, user, project, issues, next){
+        var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
+
+        var prEntriesArr = sheet['projectEntriesArray'];
+        var entryArrToAdd = null;
+
+        var index=0;
+
+        for(i=0 ; i<prEntriesArr.length ; i++){
+            if(prEntriesArr[i]['projectID'] == project){
+                index = i;
+                entryArrToAdd = prEntriesArr[i];
+
+            }
+        }
+
+        entryArrToAdd['next'] = next;
+        entryArrToAdd['issues'] = issues;
+
+        prEntriesArr.splice(index,1)
+        prEntriesArr.splice(index, 0, entryArrToAdd);
+
+        TimeSheet.update({'_id':sheet._id},{
+                $set:{
+                        'projectEntriesArray': prEntriesArr
+                },
+        });
+
+    },
+
     submitTimesheet: function(date, user){
         var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
 
@@ -108,7 +138,7 @@ ActiveDBService = {
 
             var prEntriesArr = sheet['projectEntriesArray'];
             var entryArrToAdd = null;
-            var entryArray = null
+            var entryArray = null;
             var index=0;
 
             for(i=0 ; i<prEntriesArr.length ; i++){
@@ -176,8 +206,6 @@ ActiveDBService = {
             var index2=0;
 
             for(i=0 ; i<prEntriesArr.length ; i++){
-                //if(prEntriesArr[i]['projectID'] == project){
-                //    index1 = i;
                     
                     entryArray = prEntriesArr[i]['EntryArray'];
                     for(j=0; j<entryArray.length; j++){
@@ -189,16 +217,15 @@ ActiveDBService = {
                         }
                     }
 
-                //}
             }
-            // alert(index2);
-            // alert(index1);
-            // alert(entryArray2[2]['hours'])
+
             entryArray2.splice(index2, 1);
 
             entryArrToAdd['EntryArray'] = entryArray2;
             prEntriesArr.splice(index1, 1);
-            prEntriesArr.splice(index1, 0, entryArrToAdd);
+            if(entryArray2.length != 0){
+               prEntriesArr.splice(index1, 0, entryArrToAdd);
+            }
 
             TimeSheet.update({'_id':sheet._id},{
                 $set:{

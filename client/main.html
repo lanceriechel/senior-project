@@ -118,6 +118,16 @@
         <hr>
         {{> projectHours}}
         <hr>
+        <div class="row">
+            <div class="text-center col-md-2 col-sm-2 col-xs-2">Project</div>
+            <div class="text-center col-md-5 col-sm-5 col-xs-5">Issues</div>
+            <div class="text-center col-md-5 col-sm-5 col-xs-5">Next Week</div>
+        </div>
+        <br>
+        {{#each project}}
+          {{> projectComments}}
+        {{/each}}
+        <hr>
         {{> lastSection}}
     </div>
 </template>
@@ -164,7 +174,7 @@
 <template name="projectHours">
     <div class="row">
         <div class="col-md-2 col-sm-2 col-xs-2">{{> projectListDropDown}}</div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Sunday" type="text" class="large-input form-control" value=""></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Sunday" type="text" class="large-input form-control" value="0"></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><input id="Monday" type="text" class="large-input form-control" value="0"></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><input id="Tuesday" type="text" class="large-input form-control" value="0"></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><input id="Wednesday" type="text" class="large-input form-control" value="0"></div>
@@ -176,6 +186,13 @@
     </div>
 </template>
 
+<template name="projectComments">
+    <div class="row projectCommentsRow">
+     <div class="col-md-2 col-sm-2 col-xs-2" id={{project}}><input id="project_comments_name" type="text" class="large-input form-control" readonly value={{name project}}></div> 
+      <div class="col-md-5 col-sm-5 col-xs-5"><input id="Issues" type="text" class="large-input form-control" value={{issues project}}></div>
+      <div class="col-md-5 col-sm-5 col-xs-5"><input id="Next" type="text" class="large-input form-control" value={{next project}}></div>
+    </div>
+</template>
 
 <template name="projectHoursFilled">
     <div class="row filledRow" id={{rowID}}>
