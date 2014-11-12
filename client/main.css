@@ -35,8 +35,23 @@ ul[class="navbar nav-pills navbar-default"]{
 #login {
     float: right;
     vertical-align: middle;
-    padding-top: 15px;
     right: 30px;
+    position: absolute;
+}
+
+#username {
+    float: right;
+    vertical-align: middle;
+    margin-top: 10px;
+    right: 350px;
+    position: absolute;
+}
+
+#password {
+    float: right;
+    vertical-align: middle;
+    margin-top: 10px;
+    right: 120px;
     position: absolute;
 }
 

@@ -3,12 +3,12 @@
 </head>
 <body>
 <div id="main-pane">
-<nav class="navbar navbar-default" role="navigation">
-    <h3>
-        Scientia LLC Time Entry System
-    </h3>
-</nav>
-{{>pages}}
+    <nav class="navbar navbar-default" role="navigation">
+        <h3>
+            Scientia LLC Time Entry System
+        </h3>
+    </nav>
+    {{>pages}}
     {{> mainSelector}}
 </div>
 </body>
@@ -16,66 +16,82 @@
 <template name="pages">
     <ul class="navbar nav-pills navbar-default" role="tablist">
         {{#if isTimesheet}}
-          <li class="active tag" role="presentation" id='time_sheet'>
-               Time Sheet
-          </li>
-          <li role="presentation" id='active_projects' class="tag">
-               Active Projects
-          </li>
-          <li role="presentation" id='archived_projects' class="tag">
-               Archived Projects
-          </li>
-          <li role="presentation" id='employees_settings' class="tag">
-               Employees
-          </li>{{/if}}
-
+            <li class="active tag" role="presentation" id='time_sheet'>
+                Time Sheet
+            </li>
+            <li role="presentation" id='active_projects' class="tag">
+                Active Projects
+            </li>
+            <li role="presentation" id='archived_projects' class="tag">
+                Archived Projects
+            </li>
+            <li role="presentation" id='employees_settings' class="tag">
+                Employees
+            </li>
+        {{/if}}
 
         {{#if isActiveProjects}}
-          <li class="tag" role="presentation" id='time_sheet'>
-               Time Sheet
-          </li>
-          <li role="presentation" id='active_projects' class="tag active">
-               Active Projects
-          </li>
-          <li role="presentation" id='archived_projects' class="tag">
-               Archived Projects
-          </li>
-          <li role="presentation" id='employees_settings' class="tag">
-               Employees
-          </li>{{/if}}
+            <li class="tag" role="presentation" id='time_sheet'>
+                Time Sheet
+            </li>
+            <li role="presentation" id='active_projects' class="tag active">
+                Active Projects
+            </li>
+            <li role="presentation" id='archived_projects' class="tag">
+                Archived Projects
+            </li>
+            <li role="presentation" id='employees_settings' class="tag">
+                Employees
+            </li>
+        {{/if}}
 
         {{#if isArchivedProjects}}
-          <li class="tag" role="presentation" id='time_sheet'>
-               Time Sheet
-          </li>
-          <li role="presentation" id='active_projects' class="tag">
-               Active Projects
-          </li>
-          <li role="presentation" id='archived_projects' class="tag active">
-               Archived Projects
-          </li>
-          <li role="presentation" id='employees_settings' class="tag">
-               Employees
-          </li>{{/if}}
+            <li class="tag" role="presentation" id='time_sheet'>
+                Time Sheet
+            </li>
+            <li role="presentation" id='active_projects' class="tag">
+                Active Projects
+            </li>
+            <li role="presentation" id='archived_projects' class="tag active">
+                Archived Projects
+            </li>
+            <li role="presentation" id='employees_settings' class="tag">
+                Employees
+            </li>
+        {{/if}}
 
         {{#if isEmployeeSettings}}
-          <li class="tag" role="presentation" id='time_sheet'>
-               Time Sheet
-          </li>
-          <li role="presentation" id='active_projects' class="tag">
-               Active Projects
-          </li>
-          <li role="presentation" id='archived_projects' class="tag">
-               Archived Projects
-          </li>
-          <li role="presentation" id='employees_settings' class="tag active">
-               Employees
-          </li>{{/if}}
-
-<div id="login">
-    <span>{{> loginButtons align="right"}}</span>
-    </div>
+            <li class="tag" role="presentation" id='time_sheet'>
+                Time Sheet
+            </li>
+            <li role="presentation" id='active_projects' class="tag">
+                Active Projects
+            </li>
+            <li role="presentation" id='archived_projects' class="tag">
+                Archived Projects
+            </li>
+            <li role="presentation" id='employees_settings' class="tag active">
+                Employees
+            </li>
+        {{/if}}
+        {{#if hasCurrentUser}}
+            current user
+        {{else}}
+            {{>login}}
+        {{/if}}
     </ul>
+
+</template>
+
+<template name="login">
+    <!--The look of this needs to be improved-->
+    {{#if isLogginIn}}
+        <div id="login">Logging In...</div>
+    {{else}}
+        <input id="username" placeholder="Username">
+        <input id="password" type="password" placeholder="Password">
+        <button id="login" type="button" class="btn btn-default navbar-btn">Sign in</button>
+    {{/if}}
 
 </template>
 
@@ -124,14 +140,14 @@
     </div>
 </template>
 
-   
+
 <template name="lastSection">
     <div class="row">
         <div class="col-md-6 col-sm-6 col-xs-6">General Comment</div>
         <div class="col-md-5 col-sm-5 col-xs-5">Concerns</div>
     </div>
     <div class="row">
-        <div class="col-md-6 col-sm-6 col-xs-6"><input id="Comment" type="text" class="large-input form-control" value=""></div>       
+        <div class="col-md-6 col-sm-6 col-xs-6"><input id="Comment" type="text" class="large-input form-control" value=""></div>
         <div class="col-md-5 col-sm-5 col-xs-5"><input id="Concerns" type="text" class="large-input form-control" value=""></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary">Submit</button></div>
     </div>
@@ -139,8 +155,8 @@
 
 <template name="activeTimesheets">
     {{#if currentUser}}
-    <div class="container-fluid">
-        <h1><span class="label">Active Time Sheets</span></h1>
+        <div class="container-fluid">
+            <h1><span class="label">Active Time Sheets</span></h1>
             <div class="row">
                 <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Start Date</h4></div>
                 <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>S</h4></div>
@@ -152,14 +168,14 @@
                 <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>S</h4></div>
             </div>
             {{#each timesheet}}
-              {{#if ActiveTimesheet userId active}}
-                {{> timesheetInfo}}
-              {{/if}}
+                {{#if ActiveTimesheet userId active}}
+                    {{> timesheetInfo}}
+                {{/if}}
             {{/each}}
             <br>
             <div class="col-md-1 col-sm-1 col-xs-1"><button id="addWeeklyTimesheet" type="button" class="btn btn-primary">Add</button></div>
 
-    </div>
+        </div>
     {{/if}}
 </template>
 

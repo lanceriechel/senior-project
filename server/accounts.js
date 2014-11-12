@@ -16,7 +16,7 @@ LDAP.search = function(username) {
     var opts = {
         filter: '(&(uid=' + username + ')(objectClass=posixAccount))',
         scope: 'sub',
-        attributes: ['cn']
+        attributes: ['cn']  // add more ldap search attributes here when needed
     };
     var fut = new Future();
 
@@ -53,8 +53,6 @@ LDAP.checkAccount = function(username, password) {
     return fut.wait();
 }
 
-// use Meteor.startup whenever you need something to load after all of the
-// other js files are loaded
 Meteor.startup(function() {
     Meteor.methods({
         authenticateLdapEmployee : function(username, password){
@@ -63,6 +61,16 @@ Meteor.startup(function() {
             } else {
                 return null;
             }
+        },
+        setNewUserId: function(id){
+            this.setUserId(id); // this call is not working
+            console.log("set user id");
+            console.log(Meteor.userId());
+        },
+        getUserId: function(){
+            console.log("get user id");
+            console.log(Meteor.userId());
+            return Meteor.userId();
         }
     });
 });

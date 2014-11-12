@@ -14,6 +14,8 @@ Accounts.ui.config({
 });
 
 Session.setDefault('current_page', 'time_sheet');
+Session.setDefault('logginIn', false);
+
 
 Template.pages.events({
     'mousedown .tag': function (evt) {
@@ -37,6 +39,10 @@ Template.pages.helpers({
     },
     isSelectedTimesheet: function(){
         return Session.equals('current_page', 'selected_timesheet');
+    },
+    hasCurrentUser: function(){
+        Meteor.call('getUserId');
+        return Meteor.userId() != null;
     }
 });
 Template.mainSelector.helpers({
@@ -250,3 +256,17 @@ TimeSheetService = {
        return valid;
     }
 };
+Template.login.helpers({
+    isLogginIn: function(){
+        return Session.equals('loggingIn', true);
+    }
+})
+
+Template.login.events = {
+    'click button': function(event){
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+        authenticateLdapEmployee(username, password);
+        Session.set('loggingIn', true);
+    }
+}
