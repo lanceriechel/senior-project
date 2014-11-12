@@ -22,37 +22,60 @@ ActiveDBService = {
     },
 
     updateRowInTimeSheet: function(date, user, project, comment,Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, rowID){
-            // Updates and existing "Row" in the database with the new information. This has the same problem as remove since two rows have the same information they will both be changed.
-            // We need a rowID field of some kind.-Dan
-            //alert("Updating");
             var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
 
-            var entriesArr = sheet['projectEntriesArray'];
+            var prEntriesArr = sheet['projectEntriesArray'];
+            var entryArrToAdd = null;
+            var entryArray = null
 
-            var rowToChange = {
-                'projectID': project,
-                'EntryArray': [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday],
-                'Comment': comment,
-                'Approved': false,
-                'type': 2,
-                'rowID' : rowID
-                };
-            var index = 0;
-            for(i=0 ; i<entriesArr.length ; i++){
-                if(entriesArr[i]['rowID'] == rowID){
-                    entriesArr.splice(i, 1);
-                    index = i;
-                    break;
-                }
+            var index1=0;
+            var index2=0;
+
+            var oldproject;
+
+            for(i=0 ; i<prEntriesArr.length ; i++){
+                 // if(prEntriesArr[i]['projectID'] == project){
+                     // index1 = i;
+                    
+                    entryArray = prEntriesArr[i]['EntryArray'];
+                    for(j=0; j<entryArray.length; j++){
+                        if(entryArray[j]['rowID'] == rowID){
+                            entryArray2 = prEntriesArr[i]['EntryArray'];
+                            oldproject = prEntriesArr[i]['projectID'];
+                            index2 = j;
+                            index1 = i;
+                            entryArrToAdd = prEntriesArr[i];
+                        }
+                    }
+
+                // }
             }
-            entriesArr.splice(index, 0, rowToChange);
 
-            TimeSheet.update({'_id':sheet._id},
-            {
-                $set:{
-                    'projectEntriesArray': entriesArr
-                }
-            });
+            if(oldproject == project){
+                entryArray2.splice(index2, 1);
+                entryArray2.splice(index2, 0, {
+                    'hours': [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday],
+                    'Comment': comment,
+                    'rowID' : rowID
+                    });
+
+                entryArrToAdd['EntryArray'] = entryArray2;
+                prEntriesArr.splice(index1, 1);
+                prEntriesArr.splice(index1, 0, entryArrToAdd);
+
+                TimeSheet.update({'_id':sheet._id},
+                {
+                    $set:{
+                        'projectEntriesArray': prEntriesArr
+                    }
+                });
+
+            }else{
+                //Project has been changed
+                // ActiveDBService.removeRowInTimeSheet(date,user, rowID, project);
+                // ActiveDBService.addRowToTimeSheet(date, user, project, comment,Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, rowID);
+                // location.reload();
+            }
     },
 
     updateCommentsInTimeSheet: function(date, user, gen_comment, concerns){
@@ -83,41 +106,103 @@ ActiveDBService = {
             //alert(project);
             var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
 
-            var entriesArr = sheet['projectEntriesArray'];
+            var prEntriesArr = sheet['projectEntriesArray'];
+            var entryArrToAdd = null;
+            var entryArray = null
+            var index=0;
 
-            entriesArr.push({
-                'projectID': project,
-                'EntryArray': [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday],
-                'Comment': comment,
-                'Approved': false,
-                'type': 2,
-                'rowID' : rowID
-                }
-            );
-
-            
-            TimeSheet.update({'_id':sheet._id},{
-                    $set:{
-                        'projectEntriesArray': entriesArr,
-                    },
-                });
-    },
-
-    removeRowInTimeSheet: function(date, user, rowID){
-
-            var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
-
-            var entriesArr = sheet['projectEntriesArray'];
-
-            for(i=0 ; i<entriesArr.length ; i++){
-                if(entriesArr[i]['rowID'] == rowID){
-                    entriesArr.splice(i, 1);
+            for(i=0 ; i<prEntriesArr.length ; i++){
+                if(prEntriesArr[i]['projectID'] == project){
+                    index = i;
+                    entryArrToAdd = prEntriesArr[i];
+                    entryArray = prEntriesArr[i]['EntryArray'];
                 }
             }
 
+            if(entryArrToAdd != null){
+
+
+                entryArray.push({
+                    'hours': [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday],
+                    'Comment': comment,
+                    'rowID' : rowID
+                    }
+                );
+
+                entryArrToAdd['EntryArray'] = entryArray;
+                prEntriesArr.splice(index,1)
+                prEntriesArr.push(entryArrToAdd);
+
+            }else{
+                entryArray = [{
+                    'hours': [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday],
+                    'Comment': comment,
+                    'rowID' : rowID
+                    }];
+
+                entryArrToAdd = {
+                    'projectID' : project,
+                    'EntryArray' : entryArray,
+                    'Approved' : false,
+                }
+                prEntriesArr.push(entryArrToAdd);
+            }
+            TimeSheet.update({'_id':sheet._id},{
+                        $set:{
+                            'projectEntriesArray': prEntriesArr,
+                        },
+                    });
+    },
+
+    removeRowInTimeSheet: function(date, user, rowID, project){
+
+            // var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
+
+            // var entriesArr = sheet['projectEntriesArray'];
+
+            // for(i=0 ; i<entriesArr.length ; i++){
+            //     if(entriesArr[i]['rowID'] == rowID){
+            //         entriesArr.splice(i, 1);
+            //     }
+            // }
+        
+            var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
+
+            var prEntriesArr = sheet['projectEntriesArray'];
+            var entryArrToAdd = null;
+            var entryArray = null
+
+            var index1=0;
+            var index2=0;
+
+            for(i=0 ; i<prEntriesArr.length ; i++){
+                //if(prEntriesArr[i]['projectID'] == project){
+                //    index1 = i;
+                    
+                    entryArray = prEntriesArr[i]['EntryArray'];
+                    for(j=0; j<entryArray.length; j++){
+                        if(entryArray[j]['rowID'] == rowID){
+                            index2 = j;
+                            index1 = i;
+                            entryArrToAdd = prEntriesArr[i];
+                            entryArray2 = prEntriesArr[i]['EntryArray'];
+                        }
+                    }
+
+                //}
+            }
+            // alert(index2);
+            // alert(index1);
+            // alert(entryArray2[2]['hours'])
+            entryArray2.splice(index2, 1);
+
+            entryArrToAdd['EntryArray'] = entryArray2;
+            prEntriesArr.splice(index1, 1);
+            prEntriesArr.splice(index1, 0, entryArrToAdd);
+
             TimeSheet.update({'_id':sheet._id},{
                 $set:{
-                        'projectEntriesArray': entriesArr
+                        'projectEntriesArray': prEntriesArr
                 },
             });
     },
