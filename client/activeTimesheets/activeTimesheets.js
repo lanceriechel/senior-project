@@ -9,7 +9,40 @@ Template.activeTimesheets.helpers({
     timesheet: function(){
     	return ActiveDBService.getActiveTimesheets(); 
     },
+	getTimesheets: function () {
+		var userId = Meteor.userId(),
+			timesheetsMap = {},
+			timesheets = [];
 
+		TimeSheet.find({'userId': userId, 'active': 1}).forEach(
+			function (u) {
+				if (!(u.startDate in timesheetsMap)) {
+					timesheetsMap[u.startDate] = timesheets.length;
+					timesheets[timesheetsMap[u.startDate]] = {
+						startDate: u.startDate, sun: 0, mon: 0, tue: 0,
+						wed: 0, thu: 0, fri: 0, sat: 0
+					};
+				}
+				for (var pIndex in u.projectEntriesArray) {
+					for (var eIndex in u.projectEntriesArray[pIndex].EntryArray){
+						var entry = u.projectEntriesArray[pIndex].EntryArray[eIndex],
+							days = entry.hours,
+							current = timesheets[timesheetsMap[u.startDate]];
+						timesheets[timesheetsMap[u.startDate]] = {
+							startDate: u.startDate,
+							sun: parseInt(days[0]) + parseInt(current.sun),
+							mon: parseInt(days[1]) + parseInt(current.mon),
+							tue: parseInt(days[2]) + parseInt(current.tue),
+							wed: parseInt(days[3]) + parseInt(current.wed),
+							thu: parseInt(days[4]) + parseInt(current.thu),
+							fri: parseInt(days[5]) + parseInt(current.fri),
+							sat: parseInt(days[6]) + parseInt(current.sat)
+						};
+					}
+				}
+			});
+		return timesheets;
+	},
     loggedIn: function(){
     	alert(Meteor.userId());
     	if(Meteor.userId()){
