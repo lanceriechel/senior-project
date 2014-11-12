@@ -179,8 +179,8 @@
 
 <template name="projectHoursFilled">
     <div class="row filledRow" id={{rowID}}>
-        <div class="col-md-2 col-sm-2 col-xs-2" id={{project}}>{{> projectListDropDown}}</div>
-
+        <!-- <div class="col-md-2 col-sm-2 col-xs-2" id={{project}}>{{> projectListDropDown}}</div> -->
+        <div class="col-md-2 col-sm-2 col-xs-2" id={{project}}><input id="project_select" type="text" class="large-input form-control" readonly value={{name project}}></div> 
         <div class="col-md-1 col-sm-1 col-xs-1"><input id="Sunday" type="text" class="large-input form-control" value={{sunday}}></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><input id="Monday" type="text" class="large-input form-control" value={{monday}}></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><input id="Tuesday" type="text" class="large-input form-control" value={{tuesday}}></div>

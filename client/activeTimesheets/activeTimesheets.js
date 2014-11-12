@@ -97,11 +97,13 @@ Template.SelectedTimesheet.helpers({
 		var rows = [];
 
 		for(i = 0; i < projectEntries.length; i++){
-			var hours = projectEntries[i]['EntryArray'];
-			var comment = projectEntries[i]['Comment'];
-			var rowID = projectEntries[i]['rowID'];
 			var project = projectEntries[i]['projectID'];
-			rows.push({
+			var EntryArray = projectEntries[i]['EntryArray'];
+			for(j=0; j< EntryArray.length; j++){
+				var comment = EntryArray[j]['Comment'];
+				var rowID = EntryArray[j]['rowID'];
+				var hours = EntryArray[j]['hours'];
+				rows.push({
 					'project' : project,
 					'sunday' : hours[0],
 					'monday' : hours[1],
@@ -112,7 +114,8 @@ Template.SelectedTimesheet.helpers({
 					'saturday' : hours[6],
 					'comment' :  comment,
 					'rowID' : rowID
-			});
+				});
+			}
 		}
 
 		return rows;

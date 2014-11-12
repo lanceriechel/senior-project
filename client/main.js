@@ -72,9 +72,10 @@ Template.projectHoursFilled.events = {
        var saturday_t = $(row).find('#Saturday')[0].value;
        var rowID = $(row).attr('id');
        
-       // var projectName_t = $(row).find('#projectName')[0].id;
-       var projectIndex = $(row).find('#project_select')[0].selectedIndex;
-       var projectID = $(row).find('#project_select')[0].children[projectIndex].id;
+       // var projectIndex = $(row).find('#project_select')[0].selectedIndex;
+       // var projectID = $(row).find('#project_select')[0].children[projectIndex].id;
+        var projectID = $(row).find('#project_select')[0].parentNode.id;
+
         /*var projectIndex = $(row).find('#project_select')[0].selectedIndex;
         var projectID = $(row).find('#project_select')[0].children[projectIndex].id;
         We need the projectID not the name. Name is not unique therefore the name is useless.
@@ -107,8 +108,9 @@ Template.projectHoursFilled.events = {
     'click button': function(event){
         var row = event.currentTarget.parentNode.parentNode;
         var projectIndex = $(row).find('#project_select')[0].selectedIndex;
-        var options = $(row).find('#project_select')[0];
-        var projectID = options[options.selectedIndex].id;
+        // var options = $(row).find('#project_select')[0];
+        // var projectID = options[options.selectedIndex].id;
+        var projectID = $(row).find('#project_select')[0].parentNode.id;
 
         var comment_t = $(row).find('#Comment')[0].value;
         var sunday_t = $(row).find('#Sunday')[0].value;
@@ -121,10 +123,17 @@ Template.projectHoursFilled.events = {
 
         var rowID = $(row).attr('id');
 
-        ActiveDBService.removeRowInTimeSheet(Session.get("startDate"), Meteor.userId(), rowID);
+        ActiveDBService.removeRowInTimeSheet(Session.get("startDate"), Meteor.userId(), rowID, projectID);
 
     }
 }
+
+Template.projectHoursFilled.helpers({
+    'name' : function(projectID){
+      var name = ChargeNumbers.findOne({'id' : projectID});
+      return name['name'];
+    }
+});
 
 Template.projectHours.events = {
     'click button': function(event){
