@@ -119,6 +119,46 @@ Template.SelectedTimesheet.events = {
     },
 };
 
+Template.projectComments.helpers({
+	'name' : function(projectID){
+	    var name = ChargeNumbers.findOne({'id' : projectID});
+	    return name['name'];
+	},	
+	next: function(projectID) {
+		var date = Session.get("startDate");
+		var user = Meteor.userId();
+		var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
+
+		var prEntriesArr = sheet['projectEntriesArray'];
+
+	    var index=0;
+	    for(i=0 ; i<prEntriesArr.length ; i++){
+	        if(prEntriesArr[i]['projectID'] == projectID){
+	            index = i;
+	        }
+   		 }
+   		 // alert(sheet['projectEntriesArray'][index]['next']);
+		return sheet['projectEntriesArray'][index]['next'];
+	},
+	issues: function(projectID) {
+		var date = Session.get("startDate");
+		var user = Meteor.userId();
+		var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
+
+		var prEntriesArr = sheet['projectEntriesArray'];
+
+	    var index=0;
+
+	    for(i=0 ; i<prEntriesArr.length ; i++){
+	        if(prEntriesArr[i]['projectID'] == projectID){
+	            index = i;
+	        }
+	    }
+
+		return sheet['projectEntriesArray'][index]['issues'];
+	}
+});
+
 Template.SelectedTimesheet.helpers({
 	row: function(){	
 		var date = Session.get("startDate");
@@ -152,6 +192,24 @@ Template.SelectedTimesheet.helpers({
 		}
 
 		return rows;
+	},
+	project: function(){
+		var date = Session.get("startDate");
+		var user = Meteor.userId();
+		var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
+
+		var projectEntries = sheet['projectEntriesArray'];
+
+		var projects = [];
+
+		for(i = 0; i < projectEntries.length; i++){
+			var project = projectEntries[i]['projectID'];
+			projects.push({
+				'project' : project
+			});
+		}
+
+		return projects;
 	}
 });
 
@@ -201,4 +259,16 @@ Template.lastSection.events = {
 
      ActiveDBService.submitTimesheet(Session.get("startDate"), Meteor.userId());
   }
+};
+
+Template.projectComments.events = {
+	'blur .projectCommentsRow': function(event){
+
+		var row = event.currentTarget;
+     	var issues = $(row).find('#Issues')[0].value;
+     	var next = $(row).find('#Next')[0].value;
+     	var projectID = $(row).find('#project_comments_name')[0].parentNode.id;
+     	
+     	ActiveDBService.updateProjectCommentsTimeSheet(Session.get("startDate"), Meteor.userId(), projectID, issues, next);
+	}
 };
