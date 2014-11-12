@@ -55,6 +55,7 @@ LDAP.checkAccount = function(username, password) {
 
 Meteor.startup(function() {
     Meteor.methods({
+        // returns either null or the user
         authenticateLdapEmployee : function(username, password){
             if(LDAP.checkAccount(username, password)){
                 return LDAP.search(username);
