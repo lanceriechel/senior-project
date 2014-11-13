@@ -27,8 +27,8 @@
             </li>
             <li role="presentation" id='employees_settings' class="tag">
                 Employees
-            </li>
-        {{/if}}
+            </li>{{/if}}
+
 
         {{#if isActiveProjects}}
             <li class="tag" role="presentation" id='time_sheet'>
@@ -42,8 +42,7 @@
             </li>
             <li role="presentation" id='employees_settings' class="tag">
                 Employees
-            </li>
-        {{/if}}
+            </li>{{/if}}
 
         {{#if isArchivedProjects}}
             <li class="tag" role="presentation" id='time_sheet'>
@@ -57,8 +56,7 @@
             </li>
             <li role="presentation" id='employees_settings' class="tag">
                 Employees
-            </li>
-        {{/if}}
+            </li>{{/if}}
 
         {{#if isEmployeeSettings}}
             <li class="tag" role="presentation" id='time_sheet'>
@@ -72,26 +70,12 @@
             </li>
             <li role="presentation" id='employees_settings' class="tag active">
                 Employees
-            </li>
-        {{/if}}
-        {{#if hasCurrentUser}}
-            current user
-        {{else}}
-            {{>login}}
-        {{/if}}
+            </li>{{/if}}
+
+        <div id="login">
+            <span>{{> loginButtons align="right"}}</span>
+        </div>
     </ul>
-
-</template>
-
-<template name="login">
-    <!--The look of this needs to be improved-->
-    {{#if isLogginIn}}
-        <div id="login">Logging In...</div>
-    {{else}}
-        <input id="username" placeholder="Username">
-        <input id="password" type="password" placeholder="Password">
-        <button id="login" type="button" class="btn btn-default navbar-btn">Sign in</button>
-    {{/if}}
 
 </template>
 
@@ -127,15 +111,13 @@
             <div class="text-center col-md-1 col-sm-1 col-xs-1">S</div>
             <div class="text-center col-md-2 col-sm-2 col-xs-2">Comment</div>
         </div>
+        <br>
+        {{#each row}}
+            {{> projectHoursFilled}}
+        {{/each}}
+        <hr>
         {{> projectHours}}
-        <br>
-        <!--
-         This needs to itterate through all of the stored existing rows
-         Great but the format for this is wrong. See below -Dan
-
-        -->
-        {{> projectHoursFilled}}
-        <br>
+        <hr>
         {{> lastSection}}
     </div>
 </template>
@@ -146,9 +128,9 @@
         <div class="col-md-6 col-sm-6 col-xs-6">General Comment</div>
         <div class="col-md-5 col-sm-5 col-xs-5">Concerns</div>
     </div>
-    <div class="row">
-        <div class="col-md-6 col-sm-6 col-xs-6"><input id="Comment" type="text" class="large-input form-control" value=""></div>
-        <div class="col-md-5 col-sm-5 col-xs-5"><input id="Concerns" type="text" class="large-input form-control" value=""></div>
+    <div class="row commentRow">
+        <div class="col-md-6 col-sm-6 col-xs-6"><input id="generalComment" type="text" class="large-input form-control" value={{genComment}}></div>
+        <div class="col-md-5 col-sm-5 col-xs-5"><input id="concerns" type="text" class="large-input form-control" value={{concerns}}></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary">Submit</button></div>
     </div>
 </template>
@@ -196,12 +178,9 @@
 
 
 <template name="projectHoursFilled">
-    <div class="row">
-        <div class="col-md-2 col-sm-2 col-xs-2"><input id="projectName" type="text" class="large-input form-control" value={{projectName}}></div>
-        <!--
-         This can't be a textbox it needs to be a dropdown like it was before. You should also put the projectID in the id field like i did below -Dan
-
-        -->
+    <div class="row filledRow" id={{rowID}}>
+        <!-- <div class="col-md-2 col-sm-2 col-xs-2" id={{project}}>{{> projectListDropDown}}</div> -->
+        <div class="col-md-2 col-sm-2 col-xs-2" id={{project}}><input id="project_select" type="text" class="large-input form-control" readonly value={{name project}}></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><input id="Sunday" type="text" class="large-input form-control" value={{sunday}}></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><input id="Monday" type="text" class="large-input form-control" value={{monday}}></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><input id="Tuesday" type="text" class="large-input form-control" value={{tuesday}}></div>
@@ -218,10 +197,6 @@
 <template name="projectListDropDown">
     <select id="project_select" class="form-control">
         {{#each employees}}
-            <!--
-         Added the id field to store the projectID for each option this will be useful when we need to enter stuff in Mongo Later. -Dan
-
-        -->
             <option id={{id}} value={{name}}>{{name}}</option>
         {{/each}}
     </select>

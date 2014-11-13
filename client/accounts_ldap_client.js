@@ -5,6 +5,7 @@ authenticateLdapEmployee = function(username, password) {
     Meteor.call('authenticateLdapEmployee', username, password, function(err, user){
         if(err){
             console.log("authentification error");
+            // needs another way to alert this error
             alert("LDAP error contact your system admin");
             Session.set('loggingIn', false);
         } else {
@@ -28,7 +29,7 @@ authenticateLdapEmployee = function(username, password) {
                 }
                 Meteor.call('setNewUserId', id);
             }
-            Session.set('loggingIn', false);
+            // needs to set current user id
         }
     });
 };

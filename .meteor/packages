@@ -6,7 +6,6 @@
 meteor-platform
 insecure
 bootstrap
-accounts-password
 accounts-ui
 mizzao:bootstrap-3
 rajit:bootstrap3-datepicker

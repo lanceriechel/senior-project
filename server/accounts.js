@@ -62,16 +62,12 @@ Meteor.startup(function() {
             } else {
                 return null;
             }
-        },
-        setNewUserId: function(id){
-            this.setUserId(id); // this call is not working
-            console.log("set user id");
-            console.log(Meteor.userId());
-        },
-        getUserId: function(){
-            console.log("get user id");
-            console.log(Meteor.userId());
-            return Meteor.userId();
         }
     });
+});
+
+
+Accounts.registerLoginHandler("profileFields", function(options){
+
+    console.log("in the handler");
 });
