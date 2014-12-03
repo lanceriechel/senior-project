@@ -114,8 +114,6 @@ Template.timesheetInfo.events = {
 Template.SelectedTimesheet.events = {
     'click button': function(event){
     	var start = Session.get('startDate');
-    	//alert(start);
-
     },
 };
 
@@ -210,8 +208,22 @@ Template.SelectedTimesheet.helpers({
 		}
 
 		return projects;
+	},
+	date: function(){
+		var date = Session.get("startDate");
+		return date;
 	}
 });
+
+Template.SelectedTimesheet.rendered = function(){
+	var date = Session.get("startDate");
+	var user = Meteor.userId();
+    var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
+
+    if(sheet['submitted']){
+		$('.enterable').attr('readonly', 'readonly');
+	}
+};
 
 Template.projectListDropDown.helpers({
     employees: function(project) {
@@ -258,6 +270,7 @@ Template.lastSection.events = {
   'click button': function(event){
 
      ActiveDBService.submitTimesheet(Session.get("startDate"), Meteor.userId());
+     Session.set('current_page', 'time_sheet');
   }
 };
 
@@ -271,4 +284,247 @@ Template.projectComments.events = {
      	
      	ActiveDBService.updateProjectCommentsTimeSheet(Session.get("startDate"), Meteor.userId(), projectID, issues, next);
 	}
+};
+
+Template.projectHoursFilled.events = {
+    'blur .filledRow': function(event){
+
+      var row = event.currentTarget;
+       var comment_t = $(row).find('#Comment')[0].value;
+       var sunday_t = $(row).find('#Sunday')[0].value;
+       var monday_t = $(row).find('#Monday')[0].value;
+       var tuesday_t = $(row).find('#Tuesday')[0].value;
+       var wednesday_t = $(row).find('#Wednesday')[0].value;
+       var thursday_t = $(row).find('#Thursday')[0].value;
+       var friday_t = $(row).find('#Friday')[0].value;
+       var saturday_t = $(row).find('#Saturday')[0].value;
+       var rowID = $(row).attr('id');
+       var projectID = $(row).find('#project_select')[0].parentNode.id;
+
+     TimeSheetService.removeErrorClasses(row, ['#Comment','#Sunday','#Monday','#Tuesday','#Wednesday','#Thursday','#Friday','#Saturday','#projectName']);
+
+     if(TimeSheetService.ensureValidEntry(row, comment_t, sunday_t, monday_t,tuesday_t, wednesday_t, thursday_t, friday_t, saturday_t, projectID)){
+        }
+           /*
+           Update Database
+           This will update the database correctly when the projectHoursFilled is fixed.-Dan
+           */
+            ActiveDBService.updateRowInTimeSheet(Session.get("startDate"), Meteor.userId(), projectID,
+                comment_t,
+                sunday_t,
+                monday_t,
+                tuesday_t,
+                wednesday_t,
+                thursday_t,
+                friday_t,
+                saturday_t,
+                rowID
+            );
+
+
+      }
+    ,
+    'click button': function(event){
+        var row = event.currentTarget.parentNode.parentNode;
+        var projectIndex = $(row).find('#project_select')[0].selectedIndex;
+        // var options = $(row).find('#project_select')[0];
+        // var projectID = options[options.selectedIndex].id;
+        var projectID = $(row).find('#project_select')[0].parentNode.id;
+
+        var comment_t = $(row).find('#Comment')[0].value;
+        var sunday_t = $(row).find('#Sunday')[0].value;
+        var monday_t = $(row).find('#Monday')[0].value;
+        var tuesday_t = $(row).find('#Tuesday')[0].value;
+        var wednesday_t = $(row).find('#Wednesday')[0].value;
+        var thursday_t = $(row).find('#Thursday')[0].value;
+        var friday_t = $(row).find('#Friday')[0].value;
+        var saturday_t = $(row).find('#Saturday')[0].value;
+
+        var rowID = $(row).attr('id');
+
+
+        var date = Session.get("startDate");
+		var user = Meteor.userId();
+    	var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
+
+   		if(!sheet['submitted']){
+        	ActiveDBService.removeRowInTimeSheet(Session.get("startDate"), Meteor.userId(), rowID, projectID);
+    	}
+    }
+}
+
+Template.projectHoursFilled.helpers({
+    'name' : function(projectID){
+      var name = ChargeNumbers.findOne({'id' : projectID});
+      return name['name'];
+    }
+});
+
+Template.projectHours.events = {
+    'click button': function(event){
+
+       var row = event.currentTarget.parentNode.parentNode;
+       var comment_t = $(row).find('#Comment')[0].value;
+       var sunday_t = $(row).find('#Sunday')[0].value;
+       var monday_t = $(row).find('#Monday')[0].value;
+       var tuesday_t = $(row).find('#Tuesday')[0].value;
+       var wednesday_t = $(row).find('#Wednesday')[0].value;
+       var thursday_t = $(row).find('#Thursday')[0].value;
+       var friday_t = $(row).find('#Friday')[0].value;
+       var saturday_t = $(row).find('#Saturday')[0].value;
+
+        // I added this so we can retrieve the selected project's ID so we can add it to the Database
+        var projectIndex = $(row).find('#project_select')[0].selectedIndex;
+        var projectID = $(row).find('#project_select')[0].children[projectIndex].id;
+
+        var rowID = Math.random();
+        $(row).attr('id',rowID);
+
+
+        TimeSheetService.removeErrorClasses(row, ['#Comment','#Sunday','#Monday','#Tuesday','#Wednesday','#Thursday','#Friday','#Saturday']);
+  
+     if(TimeSheetService.ensureValidEntry(row, comment_t, sunday_t, monday_t,tuesday_t, wednesday_t, thursday_t, friday_t, saturday_t)){
+            
+            /*
+            Database Entry
+             Adding entry to the Database correctly. -Dan
+
+            */
+        var date = Session.get("startDate");
+		var user = Meteor.userId();
+    	var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
+
+    	if(!sheet['submitted']){
+         ActiveDBService.addRowToTimeSheet(Session.get("startDate"),Meteor.userId(), projectID,
+             comment_t,
+             sunday_t,
+             monday_t,
+             tuesday_t,
+             wednesday_t,
+             thursday_t,
+             friday_t,
+             saturday_t,
+             rowID);
+        }
+     }
+
+            $(row).find('#Comment')[0].value = '';
+            $(row).find('#Sunday')[0].value = '0';
+            $(row).find('#Monday')[0].value = '0';
+            $(row).find('#Tuesday')[0].value = '0';
+            $(row).find('#Wednesday')[0].value = '0';
+            $(row).find('#Thursday')[0].value = '0';
+            $(row).find('#Friday')[0].value = '0';
+            $(row).find('#Saturday')[0].value = '0';
+
+
+    }
+};
+
+TimeSheetService = {
+   removeErrorClasses: function(row, selectors) {
+     for(var i = 0; i<selectors.length; i++){
+         var item = $(row).find(selectors[i]);
+         item.parent().removeClass('has-error');
+         item.tooltip('destroy');
+     }
+   },
+   addError: function(row, selector, message){
+      
+     $(row).find(selector).parent().addClass('has-error');
+     $(row).find(selector).tooltip({
+       title: message,
+       trigger: 'hover',
+       animation: false
+     });
+     $(row).find(selector).tooltip('show');
+   },
+    
+    ensureValidEntry: function(row, comment_t, sunday_t, monday_t,tuesday_t, wednesday_t, thursday_t, friday_t, saturday_t,projectID){
+       
+       var valid = true;
+       if(comment_t === ''){
+          TimeSheetService.addError(row, '#Comment', "Description is Required");
+          valid = false;
+       }
+
+        if(projectID === ''){         
+          TimeSheetService.addError(row, '#projectName', "Field Cannot be Empty");
+          valid = false;
+       }
+       if(isNaN(sunday_t)){
+          TimeSheetService.addError(row, '#Sunday', "Field is Not a Number");
+          valid = false;    
+       } 
+       if(sunday_t % .25 != 0){
+          TimeSheetService.addError(row, '#Sunday', "Field Must be a Multiple of .25");
+          valid = false;    
+       }
+       if(isNaN(monday_t)){
+          TimeSheetService.addError(row, '#Monday', "Field is Not a Number");
+          valid = false;       
+       }
+       if(monday_t % .25 != 0){
+          TimeSheetService.addError(row, '#Monday', "Field Must be a Multiple of .25");
+          valid = false;    
+       }
+       if(isNaN(tuesday_t)){
+          TimeSheetService.addError(row, '#Tuesday', "Field is Not a Number");
+          valid = false;
+       }
+       if(tuesday_t % .25 != 0){
+          TimeSheetService.addError(row, '#Tuesday', "Field Must be a Multiple of .25");
+          valid = false;    
+       }
+       if(isNaN(wednesday_t)){
+          TimeSheetService.addError(row, '#Wednesday', "Field is Not a Number");
+          valid = false;
+       }
+       if(wednesday_t % .25 != 0){
+          TimeSheetService.addError(row, '#Wednesday', "Field Must be a Multiple of .25");
+          valid = false;    
+       }
+       if(isNaN(thursday_t)){
+          TimeSheetService.addError(row, '#Thursday', "Field is Not a Number");
+          valid = false;
+       }
+       if(thursday_t % .25 != 0){
+          TimeSheetService.addError(row, '#Thursday', "Field Must be a Multiple of .25");
+          valid = false;    
+       }
+       if(isNaN(friday_t)){
+          TimeSheetService.addError(row, '#Friday', "Field is Not a Number");
+          valid = false;
+       }
+       if(friday_t % .25 != 0){
+          TimeSheetService.addError(row, '#Friday', "Field Must be a Multiple of .25");
+          valid = false;    
+       }
+       if(isNaN(saturday_t)){
+          TimeSheetService.addError(row, '#Saturday', "Field is Not a Number");
+          valid = false;
+       }
+       if(saturday_t % .25 != 0){
+          TimeSheetService.addError(row, '#Saturday', "Field Must be a Multiple of .25");
+          valid = false;    
+       }
+       if(((sunday_t === '')||(sunday_t === '0')) &&
+          ((monday_t === '')||(monday_t === '0')) &&
+          ((tuesday_t === '')||(tuesday_t === '0')) &&
+          ((wednesday_t === '')||(wednesday_t === '0')) &&
+          ((thursday_t === '')||(thursday_t === '0')) &&
+          ((friday_t === '')||(friday_t === '0')) &&
+          ((saturday_t === '')||(saturday_t === '0')))
+       {
+          TimeSheetService.addError(row, '#Sunday', "At least one day must have time entered");
+          TimeSheetService.addError(row, '#Monday', "");
+          TimeSheetService.addError(row, '#Tuesday', "");
+          TimeSheetService.addError(row, '#Wednesday', "");
+          TimeSheetService.addError(row, '#Thursday', "");
+          TimeSheetService.addError(row, '#Friday', "");
+          TimeSheetService.addError(row, '#Saturday', "");
+          valid = false;
+       }
+       return valid;
+    }
 };
