@@ -1,0 +1,134 @@
+<template name="SelectedTimesheet">
+    <h2><span class="label">{{date}}</span></h2>
+    <br>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="text-center col-md-2 col-sm-2 col-xs-2">Project</div>
+            <div class="text-center col-md-1 col-sm-1 col-xs-1">S</div>
+            <div class="text-center col-md-1 col-sm-1 col-xs-1">M</div>
+            <div class="text-center col-md-1 col-sm-1 col-xs-1">T</div>
+            <div class="text-center col-md-1 col-sm-1 col-xs-1">W</div>
+            <div class="text-center col-md-1 col-sm-1 col-xs-1">T</div>
+            <div class="text-center col-md-1 col-sm-1 col-xs-1">F</div>
+            <div class="text-center col-md-1 col-sm-1 col-xs-1">S</div>
+            <div class="text-center col-md-2 col-sm-2 col-xs-2">Comment</div>
+        </div>
+        <br>
+        {{#each row}}
+          {{> projectHoursFilled}}
+        {{/each}}
+        <hr>
+        {{> projectHours}}
+        <hr>
+        <div class="row">
+            <div class="text-center col-md-2 col-sm-2 col-xs-2">Project</div>
+            <div class="text-center col-md-5 col-sm-5 col-xs-5">This Week's Issues</div>
+            <div class="text-center col-md-5 col-sm-5 col-xs-5">Goals for Next Week</div>
+        </div>
+        <br>
+        {{#each project}}
+          {{> projectComments}}
+        {{/each}}
+        <hr>
+        {{> lastSection}}
+    </div>
+</template>
+
+   
+<template name="lastSection">
+    <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-6">General Comment</div>
+        <div class="col-md-5 col-sm-5 col-xs-5">Concerns</div>
+    </div>
+    <div class="row commentRow">
+        <div class="col-md-6 col-sm-6 col-xs-6"><input id="generalComment" type="text" class="large-input form-control enterable" value={{genComment}}></div>       
+        <div class="col-md-5 col-sm-5 col-xs-5"><input id="concerns" type="text" class="large-input form-control enterable" value={{concerns}}></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary">Submit</button></div>
+    </div>
+</template>
+
+<template name="activeTimesheets">
+    {{#if currentUser}}
+    <div class="container-fluid">
+        <h1><span class="label">Active Time Sheets</span></h1>
+            <div class="row">
+                <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Start Date</h4></div>
+                <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>S</h4></div>
+                <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>M</h4></div>
+                <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>T</h4></div>
+                <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>W</h4></div>
+                <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>T</h4></div>
+                <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>F</h4></div>
+                <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>S</h4></div>
+            </div>
+            {{#each getTimesheets}}
+              <!--{{#if ActiveTimesheet userId active}}-->
+                {{> timesheetInfo}}
+              <!--{{/if}}-->
+            {{/each}}
+
+    </div>
+    {{/if}}
+</template>
+
+<template name="projectHours">
+    <div class="row">
+        <div class="col-md-2 col-sm-2 col-xs-2">{{> projectListDropDown}}</div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Sunday" type="text" class="large-input form-control enterable" value="0"></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Monday" type="text" class="large-input form-control enterable" value="0"></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Tuesday" type="text" class="large-input form-control enterable" value="0"></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Wednesday" type="text" class="large-input form-control enterable" value="0"></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Thursday" type="text" class="large-input form-control enterable" value="0"></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Friday" type="text" class="large-input form-control enterable" value="0"></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Saturday" type="text" class="large-input form-control enterable" value="0"></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"><input id="Comment" type="text" class="large-input form-control enterable" value=""></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary">Add</button></div>
+    </div>
+</template>
+
+<template name="projectComments">
+    <div class="row projectCommentsRow">
+     <div class="col-md-2 col-sm-2 col-xs-2" id={{project}}><input id="project_comments_name" type="text" class="large-input form-control" readonly value={{name project}}></div> 
+      <div class="col-md-5 col-sm-5 col-xs-5"><input id="Issues" type="text" class="large-input form-control enterable" value={{issues project}}></div>
+      <div class="col-md-5 col-sm-5 col-xs-5"><input id="Next" type="text" class="large-input form-control enterable" value={{next project}}></div>
+    </div>
+</template>
+
+<template name="projectHoursFilled">
+    <div class="row filledRow" id={{rowID}}>
+        <!-- <div class="col-md-2 col-sm-2 col-xs-2" id={{project}}>{{> projectListDropDown}}</div> -->
+        <div class="col-md-2 col-sm-2 col-xs-2" id={{project}}><input id="project_select" type="text" class="large-input form-control" readonly value={{name project}}></div> 
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Sunday" type="text" class="large-input form-control enterable" value={{sunday}}></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Monday" type="text" class="large-input form-control enterable" value={{monday}}></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Tuesday" type="text" class="large-input form-control enterable" value={{tuesday}}></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Wednesday" type="text" class="large-input form-control enterable" value={{wednesday}}></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Thursday" type="text" class="large-input form-control enterable" value={{thursday}}></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Friday" type="text" class="large-input form-control enterable" value={{friday}}></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Saturday" type="text" class="large-input form-control enterable" value={{saturday}}></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"><input id="Comment" type="text" class="large-input form-control enterable" value={{comment}}></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary">Delete</button></div>
+    </div>
+</template>
+
+
+<template name="projectListDropDown">
+    <select id="project_select" class="form-control">
+        {{#each employees}}
+              <option id={{id}} value={{name}}>{{name}}</option>
+        {{/each}}
+    </select>
+</template>
+
+<template name="timesheetInfo">
+    <div class="row">
+        <div class="col-md-2 col-sm-2 col-xs-2"><input id="StartDate" type="text" class="large-input form-control" value={{startDate}} readonly></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Sunday" type="text" class="large-input form-control" value="{{sun}}" readonly></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Monday" type="text" class="large-input form-control" value="{{mon}}" readonly></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Tuesday" type="text" class="large-input form-control" value="{{tue}}" readonly></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Wednesday" type="text" class="large-input form-control" value="{{wed}}" readonly></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Thursday" type="text" class="large-input form-control" value="{{thu}}" readonly></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Friday" type="text" class="large-input form-control" value="{{fri}}" readonly></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Saturday" type="text" class="large-input form-control" value="{{sat}}" readonly></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"><button type="button" class="btn btn-primary">Edit</button></div>
+    </div>
+</template>
