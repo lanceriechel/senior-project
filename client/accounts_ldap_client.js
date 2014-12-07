@@ -28,10 +28,24 @@ authenticateLdapEmployee = function(username, password) {
                     });
 		    
                 }
-           
-            }
-            // needs to set current user id
-	    Session.set('LdapId',id);
+           	// needs to set current user id
+	        Session.set('LdapId',id);
+		Session.set('current_page', 'time_sheet');
+            } else{
+		$('#LDAPusername').parent().addClass('has-error');
+            	$('#LDAPusername').tooltip({
+                    title: "Incorrect username or password",
+                    trigger: 'hover',
+                    animation: false
+                });
+            	$('#LDAPpassword').parent().addClass('has-error');
+           	 $('#LDAPpassword').tooltip({
+                    title: "Incorrect username or password",
+                    trigger: 'hover',
+                    animation: false
+                });
+	    }
+
         }
     });
 };
