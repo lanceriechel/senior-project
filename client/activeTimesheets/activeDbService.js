@@ -1,6 +1,7 @@
 ActiveDBService = {
     hasActiveNonSubmitted: function(){
-        userId = Meteor.userId();
+        //userId = Meteor.userId();
+	userId = Session.get('LdapId');
         var d = new Date();
         d.setDate((d.getDate() - (d.getDay() + 6) % 7 ) - 1);
         d = d.toLocaleDateString();
