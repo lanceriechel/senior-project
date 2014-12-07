@@ -37,7 +37,11 @@ Template.pages.helpers({
     },
     isSelectedTimesheet: function(){
         return Session.equals('current_page', 'selected_timesheet');
+    },
+    isApproval: function(){
+        return Session.equals('current_page', 'approval_page');
     }
+
 });
 Template.mainSelector.helpers({
     isTimesheet: function(){
@@ -54,5 +58,8 @@ Template.mainSelector.helpers({
     },
     isSelectedTimesheet: function(){
         return Session.equals('current_page', 'selected_timesheet');
+    },
+    isApproval: function(){
+        return Session.equals('current_page', 'approval_page');
     }
 });
