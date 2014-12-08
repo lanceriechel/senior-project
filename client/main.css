@@ -22,6 +22,10 @@ ul[class="navbar nav-pills navbar-default"]{
     box-shadow: 0 2px 2px -2px rgba(0,0,0,0.2);
 }
 
+input[type=checkbox]  {
+    margin-top:1em;
+}
+
 #main-pane {
     top: 10px;
     bottom: 10px;
@@ -216,14 +220,31 @@ ul {
     padding-bottom: 4px;
 }
 
+.col-divider {
+    display:block;
+    border-left:1px solid #428BCA;
+    margin: auto 0;
+}
+
+#timeSheetReviewer > .row:nth-child(odd) {
+    background: rgba(0,0,0,0.03);
+}
+
+.row {
+    margin: 0 auto;
+}
+
 .row-item {
     background: #eee;
     margin: 5px;
     border-radius: 30px;
     background-clip:content-box;
 }
+.row-item.selected {
+    background: #bbb;
+}
 .row-item:hover {
-    background: rgb(66,139,202,0.4);
+    background: rgba(66,139,202,0.4);
 }
 .row-item-divider:not(:last-child) {
     display:block;

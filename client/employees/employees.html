@@ -6,36 +6,33 @@
 </template>
 
 <template name="employees_Template">
-    <div class="row row-header-div-9">
-        <div class="col-md-4 col-sm-4 col-xs-3 text-center col-header"><h4>Employee Name</h4></div>
+    <div class="row row-header-div-12">
+        <div class="col-md-4 col-sm-4 col-xs-4 text-center col-header"><h4>Employee Name</h4></div>
         <div class="col-md-5 col-sm-5 col-xs-5 text-center col-header"><h4>Projects</h4></div>
-        <div class="col-md-3 col-sm-3 col-xs-4 text-center col-header"><h4>Full-time/Part-time</h4></div>
+        <div class="col-md-3 col-sm-3 col-xs-3 text-center col-header"><h4>Full-time/Part-time</h4></div>
     </div>
 
   {{#each employees}}
-      <div class="row row-div-9">
-          <div class="col-md-4 col-sm-4 col-xs-3">{{username}}</div>
-          <div class="col-md-5 col-sm-5 col-xs-5">
+      <div class="row row-div-12">
+          <div class="col-md-4 col-sm-4 col-xs-4 text-center">{{username}}</div>
+          <div class="col-md-5 col-sm-5 col-xs-5 text-center">
               <div id="items-view">
                   <ul class="tag-list" id="item-list">
                     {{> associatedProjects}}
                   </ul>
               </div>
           </div>
-          <div class="col-md-3 col-sm-3 col-xs-4">
-              <div class="text-center">
+          <div class="col-md-3 col-sm-3 col-xs-3 text-center">
                   <label class="radio-inline">
                       <input name="{{id}}" type="radio" class="full" checked="{{fulltime}}">
                   </label>
                   <label class="radio-inline">
                     {{#if fulltime }}
-
                         <input name="{{id}}" type="radio" class="part">
                     {{else}}
                         <input name="{{id}}" type="radio" class="part" checked>
                     {{/if}}
                   </label>
-              </div>
           </div>
       </div>
       <div class="row-item-divider"></div>
