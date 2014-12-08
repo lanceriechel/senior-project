@@ -27,8 +27,12 @@
           </li>
           <li role="presentation" id='employees_settings' class="tag">
                Employees
+          </li>
+	  <li role="presentation" id='approval_page' class="tag">
+               Approval
           </li>{{/if}}
 
+       
 
         {{#if isActiveProjects}}
           <li class="tag" role="presentation" id='time_sheet'>
@@ -42,6 +46,9 @@
           </li>
           <li role="presentation" id='employees_settings' class="tag">
                Employees
+          </li>
+	  <li role="presentation" id='approval_page' class="tag">
+               Approval
           </li>{{/if}}
 
         {{#if isArchivedProjects}}
@@ -56,6 +63,9 @@
           </li>
           <li role="presentation" id='employees_settings' class="tag">
                Employees
+          </li>
+	  <li role="presentation" id='approval_page' class="tag">
+               Approval
           </li>{{/if}}
 
         {{#if isEmployeeSettings}}
@@ -70,9 +80,11 @@
           </li>
           <li role="presentation" id='employees_settings' class="tag active">
                Employees
+          </li>
+	  <li role="presentation" id='approval_page' class="tag">
+               Approval
           </li>{{/if}}
-
-<!--           {{#if isLoginPage}}
+        {{#if isApproval}}
           <li class="tag" role="presentation" id='time_sheet'>
                Time Sheet
           </li>
@@ -82,9 +94,12 @@
           <li role="presentation" id='archived_projects' class="tag">
                Archived Projects
           </li>
-          <li role="presentation" id='employees_settings' class="tag active">
+          <li role="presentation" id='employees_settings' class="tag">
                Employees
-          </li>{{/if}} -->
+          </li>
+	        <li role="presentation" id='approval_page' class="tag active">
+               Approval
+          </li>{{/if}}
 
 <div id="login">
     <!-- <span>{{> loginButtons align="right"}}</span> -->

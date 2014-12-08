@@ -40,7 +40,11 @@ Template.pages.helpers({
     },
     isLoginPage: function(){
         return Session.equals('current_page', 'login_page');
+    },
+    isApproval: function(){
+        return Session.equals('current_page', 'approval_page');
     }
+
 });
 Template.mainSelector.helpers({
     isTimesheet: function(){
@@ -60,6 +64,9 @@ Template.mainSelector.helpers({
     },
     isLoginPage: function(){
         return Session.equals('current_page', 'login_page');
+    },
+    isApproval: function(){
+        return Session.equals('current_page', 'approval_page');
     }
 });
 Template.loginPage.events({
