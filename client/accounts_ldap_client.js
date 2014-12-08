@@ -12,20 +12,34 @@ authenticateLdapEmployee = function(username, password) {
             if(user){
                 var id = null;
                 var dbUser = Meteor.users.findOne({username:username})
+		var admin = false;
+		var manager = false;
+		if(user.ou == "manager"){
+			manager = true;
+		}
+		if(user.ou == "admin"){
+			admin = true;
+		}
                 if(dbUser){
                     id = dbUser._id;
                     // needs to update only ldap fields in case of change
-                    //alert(id);
+
+		    Meteor.users.update({
+			_id: dbUser._id
+		    },{ $set: {
+                        manager: manager,
+                        admin: admin
+		    }});
                 } else {
-                    alert("new user");
                     id = Meteor.users.insert({
                         username: username,
                         cn: user.cn,
-                        manager: false,
-                        admin: false,
+                        manager: manager,
+                        admin: admin,
                         projects: [],
                         fulltime: true
                     });
+		    ActiveDBService.MakeTimesheetForNewUser(id, Meteor.users.findOne({username:username}) );
 		    
                 }
            	// needs to set current user id
