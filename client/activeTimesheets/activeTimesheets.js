@@ -10,9 +10,9 @@ Template.activeTimesheets.helpers({
     	return ActiveDBService.getActiveTimesheets(); 
     },
 	getTimesheets: function () {
-		var userId = Meteor.userId(),
-			timesheetsMap = {},
-			timesheets = [];
+    var userId = Session.get('LdapId');
+		var timesheetsMap = {};
+		var timesheets = [];
 
 		TimeSheet.find({'userId': userId, 'active': 1}).forEach(
 			function (u) {
@@ -44,8 +44,8 @@ Template.activeTimesheets.helpers({
 		return timesheets;
 	},
     loggedIn: function(){
-    	alert(Meteor.userId());
-    	if(Meteor.userId()){
+      var userId = Session.get('LdapId');
+      if(userId){
     		alert(1);
     		return true;
     	}
@@ -53,7 +53,7 @@ Template.activeTimesheets.helpers({
     	return false;
     },
     ActiveTimesheet: function(userId, active){
-    	if(active && (userId == Meteor.userId())){
+      if(active && (userId == Session.get('LdapId'))){
     		return true;
     	}
     	return false;
@@ -70,7 +70,7 @@ Template.activeTimesheets.events({
 			d2.setDate((d2.getDate() - (d2.getDay() + 6) % 7 ) + 6);
 			d = d.toLocaleDateString();
 			d2 = d2.toLocaleDateString();
-			userId = Meteor.userId();
+      var userId = Session.get('LdapId');
 
 
 	    	var err = TimeSheet.insert(
@@ -124,7 +124,7 @@ Template.projectComments.helpers({
 	},	
 	next: function(projectID) {
 		var date = Session.get("startDate");
-		var user = Meteor.userId();
+		var user = Session.get('LdapId');
 		var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
 
 		var prEntriesArr = sheet['projectEntriesArray'];
@@ -140,7 +140,7 @@ Template.projectComments.helpers({
 	},
 	issues: function(projectID) {
 		var date = Session.get("startDate");
-		var user = Meteor.userId();
+		var user = Session.get('LdapId');
 		var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
 
 		var prEntriesArr = sheet['projectEntriesArray'];
@@ -160,7 +160,7 @@ Template.projectComments.helpers({
 Template.SelectedTimesheet.helpers({
 	row: function(){	
 		var date = Session.get("startDate");
-		var user = Meteor.userId();
+    var user = Session.get('LdapId');
 		var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
 
 		var projectEntries = sheet['projectEntriesArray'];
@@ -193,7 +193,7 @@ Template.SelectedTimesheet.helpers({
 	},
 	project: function(){
 		var date = Session.get("startDate");
-		var user = Meteor.userId();
+    var user = Session.get('LdapId');
 		var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
 
 		var projectEntries = sheet['projectEntriesArray'];
@@ -217,10 +217,10 @@ Template.SelectedTimesheet.helpers({
 
 Template.SelectedTimesheet.rendered = function(){
 	var date = Session.get("startDate");
-	var user = Meteor.userId();
-    var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
+  var user = Session.get('LdapId');
+  var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
 
-    if(sheet['submitted']){
+  if(sheet['submitted']){
 		$('.enterable').attr('readonly', 'readonly');
 	}
 };
@@ -234,15 +234,15 @@ Template.projectListDropDown.helpers({
 
 Template.lastSection.helpers({
     genComment: function() {
-		var date = Session.get("startDate");
-		var user = Meteor.userId();
-    	var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
+  		var date = Session.get("startDate");
+      var user = Session.get('LdapId');
+      var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
 
-    	return sheet['generalComment'];
+      return sheet['generalComment'];
     },
     concerns: function() {
-		var date = Session.get("startDate");
-		var user = Meteor.userId();
+  		var date = Session.get("startDate");
+      var user = Session.get('LdapId');
     	var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
 
     	return sheet['concerns'];
@@ -264,12 +264,12 @@ Template.lastSection.events = {
 
      TimeSheetService.removeErrorClasses(row, ['#concerns','#generalComment']);
 
-     ActiveDBService.updateCommentsInTimeSheet(Session.get("startDate"), Meteor.userId(), gen_comment, concerns);
+     ActiveDBService.updateCommentsInTimeSheet(Session.get("startDate"), Session.get('LdapId'), gen_comment, concerns);
   },
 
   'click button': function(event){
 
-     ActiveDBService.submitTimesheet(Session.get("startDate"), Meteor.userId());
+     ActiveDBService.submitTimesheet(Session.get("startDate"), Session.get('LdapId'));
      Session.set('current_page', 'time_sheet');
   }
 };
@@ -278,28 +278,28 @@ Template.projectComments.events = {
 	'blur .projectCommentsRow': function(event){
 
 		var row = event.currentTarget;
-     	var issues = $(row).find('#Issues')[0].value;
-     	var next = $(row).find('#Next')[0].value;
-     	var projectID = $(row).find('#project_comments_name')[0].parentNode.id;
-     	
-     	ActiveDBService.updateProjectCommentsTimeSheet(Session.get("startDate"), Meteor.userId(), projectID, issues, next);
+   	var issues = $(row).find('#Issues')[0].value;
+   	var next = $(row).find('#Next')[0].value;
+   	var projectID = $(row).find('#project_comments_name')[0].parentNode.id;
+   	
+   	ActiveDBService.updateProjectCommentsTimeSheet(Session.get("startDate"), Session.get('LdapId'), projectID, issues, next);
 	}
 };
 
 Template.projectHoursFilled.events = {
-    'blur .filledRow': function(event){
+  'blur .filledRow': function(event){
 
-      var row = event.currentTarget;
-       var comment_t = $(row).find('#Comment')[0].value;
-       var sunday_t = $(row).find('#Sunday')[0].value;
-       var monday_t = $(row).find('#Monday')[0].value;
-       var tuesday_t = $(row).find('#Tuesday')[0].value;
-       var wednesday_t = $(row).find('#Wednesday')[0].value;
-       var thursday_t = $(row).find('#Thursday')[0].value;
-       var friday_t = $(row).find('#Friday')[0].value;
-       var saturday_t = $(row).find('#Saturday')[0].value;
-       var rowID = $(row).attr('id');
-       var projectID = $(row).find('#project_select')[0].parentNode.id;
+     var row = event.currentTarget;
+     var comment_t = $(row).find('#Comment')[0].value;
+     var sunday_t = $(row).find('#Sunday')[0].value;
+     var monday_t = $(row).find('#Monday')[0].value;
+     var tuesday_t = $(row).find('#Tuesday')[0].value;
+     var wednesday_t = $(row).find('#Wednesday')[0].value;
+     var thursday_t = $(row).find('#Thursday')[0].value;
+     var friday_t = $(row).find('#Friday')[0].value;
+     var saturday_t = $(row).find('#Saturday')[0].value;
+     var rowID = $(row).attr('id');
+     var projectID = $(row).find('#project_select')[0].parentNode.id;
 
      TimeSheetService.removeErrorClasses(row, ['#Comment','#Sunday','#Monday','#Tuesday','#Wednesday','#Thursday','#Friday','#Saturday','#projectName']);
 
@@ -309,7 +309,7 @@ Template.projectHoursFilled.events = {
            Update Database
            This will update the database correctly when the projectHoursFilled is fixed.-Dan
            */
-            ActiveDBService.updateRowInTimeSheet(Session.get("startDate"), Meteor.userId(), projectID,
+            ActiveDBService.updateRowInTimeSheet(Session.get("startDate"), Session.get('LdapId'), projectID,
                 comment_t,
                 sunday_t,
                 monday_t,
@@ -325,30 +325,28 @@ Template.projectHoursFilled.events = {
       }
     ,
     'click button': function(event){
-        var row = event.currentTarget.parentNode.parentNode;
-        var projectIndex = $(row).find('#project_select')[0].selectedIndex;
-        // var options = $(row).find('#project_select')[0];
-        // var projectID = options[options.selectedIndex].id;
-        var projectID = $(row).find('#project_select')[0].parentNode.id;
+      var row = event.currentTarget.parentNode.parentNode;
+      var projectIndex = $(row).find('#project_select')[0].selectedIndex;
+      // var options = $(row).find('#project_select')[0];
+      // var projectID = options[options.selectedIndex].id;
+      var projectID = $(row).find('#project_select')[0].parentNode.id;
 
-        var comment_t = $(row).find('#Comment')[0].value;
-        var sunday_t = $(row).find('#Sunday')[0].value;
-        var monday_t = $(row).find('#Monday')[0].value;
-        var tuesday_t = $(row).find('#Tuesday')[0].value;
-        var wednesday_t = $(row).find('#Wednesday')[0].value;
-        var thursday_t = $(row).find('#Thursday')[0].value;
-        var friday_t = $(row).find('#Friday')[0].value;
-        var saturday_t = $(row).find('#Saturday')[0].value;
+      var comment_t = $(row).find('#Comment')[0].value;
+      var sunday_t = $(row).find('#Sunday')[0].value;
+      var monday_t = $(row).find('#Monday')[0].value;
+      var tuesday_t = $(row).find('#Tuesday')[0].value;
+      var wednesday_t = $(row).find('#Wednesday')[0].value;
+      var thursday_t = $(row).find('#Thursday')[0].value;
+      var friday_t = $(row).find('#Friday')[0].value;
+      var saturday_t = $(row).find('#Saturday')[0].value;
 
-        var rowID = $(row).attr('id');
-
-
-        var date = Session.get("startDate");
-		var user = Meteor.userId();
+      var rowID = $(row).attr('id');
+      var date = Session.get("startDate");
+		  var user = Session.get('LdapId');
     	var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
 
    		if(!sheet['submitted']){
-        	ActiveDBService.removeRowInTimeSheet(Session.get("startDate"), Meteor.userId(), rowID, projectID);
+        	ActiveDBService.removeRowInTimeSheet(Session.get("startDate"), Session.get('LdapId'), rowID, projectID);
     	}
     }
 }
@@ -390,12 +388,12 @@ Template.projectHours.events = {
              Adding entry to the Database correctly. -Dan
 
             */
-        var date = Session.get("startDate");
-		var user = Meteor.userId();
+      var date = Session.get("startDate");
+		  var user = Session.get('LdapId');
     	var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
 
     	if(!sheet['submitted']){
-         ActiveDBService.addRowToTimeSheet(Session.get("startDate"),Meteor.userId(), projectID,
+         ActiveDBService.addRowToTimeSheet(Session.get("startDate"),Session.get('LdapId'), projectID,
              comment_t,
              sunday_t,
              monday_t,

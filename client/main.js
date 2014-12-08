@@ -13,7 +13,7 @@ Accounts.ui.config({
     passwordSignupFields: 'USERNAME_ONLY'
 });
 
-Session.setDefault('current_page', 'time_sheet');
+Session.setDefault('current_page', 'login_page');
 
 Template.pages.events({
     'mousedown .tag': function (evt) {
@@ -38,6 +38,9 @@ Template.pages.helpers({
     isSelectedTimesheet: function(){
         return Session.equals('current_page', 'selected_timesheet');
     },
+    isLoginPage: function(){
+        return Session.equals('current_page', 'login_page');
+    },
     isApproval: function(){
         return Session.equals('current_page', 'approval_page');
     }
@@ -59,7 +62,23 @@ Template.mainSelector.helpers({
     isSelectedTimesheet: function(){
         return Session.equals('current_page', 'selected_timesheet');
     },
+    isLoginPage: function(){
+        return Session.equals('current_page', 'login_page');
+    },
     isApproval: function(){
         return Session.equals('current_page', 'approval_page');
+    }
+});
+Template.loginPage.events({
+    'click button': function(event){
+        $('#LDAPusername').parent().removeClass('has-error');
+        $('#LDAPpassword').parent().removeClass('has-error');
+        $('#LDAPusername').tooltip('destroy');
+        $('#LDAPpassword').tooltip('destroy');
+
+        var username = $('#LDAPusername')[0].value;
+        var password = $('#LDAPpassword')[0].value;  //This is not secure and is temporary for testing, eventually need to switch to headers with Apache.
+
+        authenticateLdapEmployee(username, password);
     }
 });

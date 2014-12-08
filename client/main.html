@@ -97,19 +97,38 @@
           <li role="presentation" id='employees_settings' class="tag">
                Employees
           </li>
-	  <li role="presentation" id='approval_page' class="tag active">
+	        <li role="presentation" id='approval_page' class="tag active">
                Approval
           </li>{{/if}}
 
 <div id="login">
-    <span>{{> loginButtons align="right"}}</span>
+    <!-- <span>{{> loginButtons align="right"}}</span> -->
     </div>
     </ul>
 
 </template>
 
+<template name="loginPage">
+    <h2><span class="label">Login with LDAP</span></h2>
+    <br>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-1 col-sm-1 col-xs-1"><h4>Username</h4></div>
+        <div class="col-md-3 col-sm-3 col-xs-3"><input id="LDAPusername" class="large-input form-control" type="text" value=""></div>
+      </div>
+      <div class="row">
+        <div class="col-md-1 col-sm-1 col-xs-1"><h4>Password</h4></div>
+        <div class="col-md-3 col-sm-3 col-xs-3"><input id="LDAPpassword" class="large-input form-control" type="password" value=""></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary">Enter</button></div>
+      </div>
+    </div>
+</template>
+
 
 <template name="mainSelector">
+    {{#if isLoginPage}}
+        {{> loginPage}}
+    {{/if}}
     {{#if isTimesheet}}
         {{> activeTimesheets}}
     {{/if}}
