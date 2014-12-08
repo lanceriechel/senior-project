@@ -6,23 +6,45 @@
 </template>
 
 <template name="approval_Template">
+    <select id="currentproject" class="form-control" type="current-project-checkbox" name="currentprojectCombo">
+        {{#each managedProjects}}
+            <!--TODO Check to see if the managed project has active time sheets to approve-->
+            <!--{{#if isActive end_date}}-->
+                <option value="{{id}}">{{id}}</option>
+            <!--{{/if}}-->
+        {{/each}}
+    </select>
     <div class="row">
-
         <div class="col-xs-6">
             <div class="row row-header-div-12">
-                <div class="col-md-3 col-sm-3 col-xs-3 text-center col-header"><h4>Name</h4></div>
-                <div class="col-md-1 col-sm-1 col-xs-1 text-center col-header"><h4>Total</h4></div>
-                <div class="col-md-1 col-sm-1 col-xs-1 text-center col-header"><h4>Approve</h4></div>
-                <div class="col-md-1 col-sm-1 col-xs-1 text-center col-header"><h4>Reject</h4></div>
+                <div class="col-md-6 col-sm-6 col-xs-6 text-center col-header"><h4>Name</h4></div>
+                <div class="col-md-2 col-sm-2 col-xs-2 text-center col-header"><h4>Total</h4></div>
+                <div class="col-md-2 col-sm-2 col-xs-2 text-center col-header"><h4>Approve</h4></div>
+                <div class="col-md-2 col-sm-2 col-xs-2 text-center col-header"><h4>Reject</h4></div>
             </div>
+
+            {{#each toApprove}}
+                <div class="row row-item">
+                    <div class="col-md-6 col-sm-6 col-xs-6 text-center"><h4>{{username}}</h4></div>
+                    <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>{{total}}</h4></div>
+                    <div class="col-md-2 col-sm-2 col-xs-2 center">
+                        <input name="{{id}}" type="radio">
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-2 center">
+                        <input name="{{id}}" type="radio">
+                    </div>
+
+                </div>
+                <div class="row-item-divider width-98"></div>
+            {{/each}}
         </div>
         <div class="col-xs-6">
-            <div class="row row-header-div-12">
-                <div class="col-md-3 col-sm-3 col-xs-3 text-center col-header"><h4>Name</h4></div>
-                <div class="col-md-1 col-sm-1 col-xs-1 text-center col-header"><h4>Total</h4></div>
-                <div class="col-md-1 col-sm-1 col-xs-1 text-center col-header"><h4>Approve</h4></div>
-                <div class="col-md-1 col-sm-1 col-xs-1 text-center col-header"><h4>Reject</h4></div>
-            </div>
+            <!--<div class="row row-header-div-12">-->
+                <!--<div class="col-md-6 col-sm-6 col-xs-6 text-center col-header"><h4>Name</h4></div>-->
+                <!--<div class="col-md-2 col-sm-2 col-xs-2 text-center col-header"><h4>Total</h4></div>-->
+                <!--<div class="col-md-2 col-sm-2 col-xs-2 text-center col-header"><h4>Approve</h4></div>-->
+                <!--<div class="col-md-2 col-sm-2 col-xs-2 text-center col-header"><h4>Reject</h4></div>-->
+            <!--</div>-->
         </div>
     </div>
 </template>

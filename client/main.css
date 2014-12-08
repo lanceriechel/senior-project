@@ -216,12 +216,30 @@ ul {
     padding-bottom: 4px;
 }
 
+.row-item {
+    background: #eee;
+    margin: 5px;
+    border-radius: 30px;
+    background-clip:content-box;
+}
+.row-item:hover {
+    background: rgb(66,139,202,0.4);
+}
+.row-item-divider:not(:last-child) {
+    display:block;
+    border-bottom:1px solid #428BCA;
+    margin: 0 auto;
+}
+
+.row-item-divider:not(:last-child) .width-98{
+    width: 98%;
+}
+
 .row-div-1:not(:last-child),.row-div-2:not(:last-child),.row-div-3:not(:last-child),.row-div-4:not(:last-child),
 .row-div-4:not(:last-child),.row-div-5:not(:last-child),.row-div-6:not(:last-child),.row-div-7:not(:last-child),
 .row-div-8:not(:last-child),.row-div-9:not(:last-child),.row-div-10:not(:last-child),.row-div-11:not(:last-child),.row-div-12:not(:last-child) {
     box-sizing:border-box;
-    border-bottom:1px solid #428BCA;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
 }
 
 .row-div-1, .row-header-div-1 {
