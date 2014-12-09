@@ -227,8 +227,8 @@ Template.SelectedTimesheet.rendered = function(){
 
 Template.projectListDropDown.helpers({
     employees: function(project) {
-    	// alert(project);
-        return DatabaseService.getProjects();
+      var user = Meteor.users.findOne({_id: Session.get('LdapId')});
+      return ChargeNumbers.find({id: { $in : user['projects'] } });
     },
 });
 
