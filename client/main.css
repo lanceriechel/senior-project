@@ -239,6 +239,7 @@ ul {
     margin: 5px;
     border-radius: 30px;
     background-clip:content-box;
+    cursor: pointer;
 }
 .row-item.selected {
     background: #bbb;

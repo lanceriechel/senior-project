@@ -2,10 +2,15 @@
  * Created by sternetj on 12/7/14.
  */
 Session.set('current_project_to_approve', 'none');
-var lastSelection = null;
 var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-var hit = false;
 
+function getStartDate() {
+    var d = new Date();
+    d.setDate((d.getDate() - (d.getDay() + 6) % 7) - 1);
+    return d;
+};
+
+//Methods for the rows that show which users need their timesheets approved
 Template.toApprove_Template.helpers({
     toApprove: function () {
         var selected = Session.get('current_project_to_approve');
@@ -13,18 +18,24 @@ Template.toApprove_Template.helpers({
 
         var isSubmitted = true;
         var isActive = 1;
-        var timesheets = TimeSheet.find({'submitted': isSubmitted, 'active': isActive});
+        var startDateStr = Session.get("startDate");
+        var startDate = new Date(startDateStr);
+        var timesheets = TimeSheet.find({
+            'submitted': isSubmitted,
+            'active': isActive,
+            'startDate': startDate.toLocaleDateString()
+        });
 
         var toReturn = [];
 
         timesheets.forEach(function (t) {
             t.projectEntriesArray.forEach(function (pe) {
-                if (pe.projectID == selected) {
+                if (pe.projectID == selected && !pe.Approved) {
                     var total = 0;
                     pe.EntryArray.forEach(function (a) {
-                        for (var b in a.hours) {
-                            total += parseInt(a.hours[b]);
-                        }
+                            for (var b in a.hours) {
+                                total += parseInt(a.hours[b]);
+                            }
                     });
                     if (totals[t.userId] == null) {
                         totals[t.userId] = 0;
@@ -46,10 +57,10 @@ Template.toApprove_Template.helpers({
                 };
                 i = i + 1;
             }
-            if (shouldSelect != ""){
-                Session.set('current_user_to_approve',u.username);
+            if (shouldSelect != "") {
+                Session.set('current_user_to_approve', u.username);
             }
-            shouldSelect="";
+            shouldSelect = "";
         }
 
 
@@ -57,15 +68,37 @@ Template.toApprove_Template.helpers({
     }
 });
 
+Template.toApprove_Template.events({
+    'click .approve': function (e) {
+        if (!e.target.parentNode.parentNode.classList.contains("selected")) return;
+
+        var startDateStr = Session.get("startDate");
+        var date = (new Date(startDateStr)).toLocaleDateString();
+
+        var userId = Meteor.users.findOne({username: Session.get('current_user_to_approve')})._id;
+
+        var projectId = Session.get('current_project_to_approve');
+
+        ActiveDBService.updateApprovalStatusInTimeSheet(date, userId, projectId, true);
+    },
+    'click .reject': function (e, t) {
+        if (!e.target.parentNode.parentNode.classList.contains("selected")) return;
+        //TODO Add code here to reject time sheet
+        console.log("reject this timesheet");
+    }
+})
+
 Template.approval_Template.helpers({
     'managedProjects': function () {
         "use strict";
-        var person = Meteor.users.findOne({_id: Meteor.userId()});
-        if (person == null) return;
-        var id = ChargeNumbers.findOne({manager: person.username}).id;
+        var person = Meteor.users.findOne({'_id': Meteor.userId()});
+        if (person == null || !person.manager) return;
+
+        //Get first one to set selected row
+        var id = ChargeNumbers.findOne({'manager': person.username}).id;
         Session.set('current_project_to_approve', id);
-        hit = true;
-        return ChargeNumbers.find({manager: person.username});
+
+        return ChargeNumbers.find({'manager': person.username});
     },
     isActive: function (date) {
         "use strict";
@@ -79,39 +112,60 @@ Template.approval_Template.helpers({
 
         var isSubmitted = true;
         var isActive = 1;
-        var timesheets = TimeSheet.find({'submitted': isSubmitted, 'active': isActive, 'userId': userId});
+        var startDateStr = Session.get("startDate");
+        var startDate = new Date(startDateStr);
+        var timesheets = TimeSheet.find({
+            'submitted': isSubmitted,
+            'active': isActive,
+            'userId': userId,
+            'startDate': startDate.toLocaleDateString()
+        });
 
         var toReturn = [];
 
         timesheets.forEach(function (t) {
             t.projectEntriesArray.forEach(function (pe) {
-                if (pe.projectID == chargeNumber) {
+                if (pe.projectID == chargeNumber && !pe.Approved) {
                     pe.EntryArray.forEach(function (a) {
                         for (var b in a.hours) {
                             if (toReturn[b] == null) {
-                                for (var i = 0; i < 8; i++) {
-                                    toReturn[i] = {
-                                        day: days[i],
-                                        hours: 0,
-                                        comment: ""
-                                    }
+                                toReturn[b] = {
+                                    day: days[b],
+                                    hours: parseInt(a.hours[b]),
+                                    comment: [{com: a.hours[b] > 0 ? a.Comment : ""}]
                                 }
-
+                                continue;
                             }
                             if (a.hours[b] > 0) {
+                                toReturn[b].comment.push({com: a.Comment});
                                 toReturn[b] = {
                                     day: toReturn[b].day,
                                     hours: toReturn[b].hours + parseInt(a.hours[b]),
-                                    comment: toReturn[b].comment + a.Comment
-                                }
+                                    comment: toReturn[b].comment
+                                };
                             }
                         }
                     });
-                }
-                toReturn[7] = {
-                    day: "Weekly Description",
-                    hours: "",
-                    comment: t.generalComment
+                    toReturn[7] = {
+                        day: "Next Week Goals",
+                        hours: "",
+                        comment: [{com: pe.next}]
+                    }
+                    toReturn[8] = {
+                        day: "Issues",
+                        hours: "",
+                        comment: [{com: pe.issues}]
+                    }
+                    toReturn[9] = {
+                        day: "Concerns",
+                        hours: "",
+                        comment: [{com: t.concerns}]
+                    }
+                    toReturn[10] = {
+                        day: "General Comment",
+                        hours: "",
+                        comment: [{com: t.generalComment}]
+                    }
                 }
             });
         });
@@ -121,7 +175,7 @@ Template.approval_Template.helpers({
 });
 
 Template.approval_Template.events({
-    'onload #timesheet_approvals':function (e){
+    'onload #timesheet_approvals': function (e) {
         lastSelection = document.getElementById("timesheet_approvals");
         console.log(lastSelection);
     },
@@ -132,10 +186,11 @@ Template.approval_Template.events({
         Session.set('current_user_to_approve', null);
     },
     'click .row-item': function (e, t) {
-        if (lastSelection != null) {
-            lastSelection.classList.remove("selected");
-        }
-        lastSelection = e.target;
+        lastSelection = document.getElementsByClassName("selected toApprove-Rows")[0];
+        lastSelection.classList.remove("selected");
+
+
+        var lastSelection = e.target;
         while (lastSelection != null && !lastSelection.classList.contains("row-item")) {
             lastSelection = lastSelection.parentNode;
         }
@@ -144,3 +199,47 @@ Template.approval_Template.events({
         Session.set('current_user_to_approve', lastSelection.childNodes[1].firstChild.textContent);
     }
 });
+
+Template.date_picker.helpers({
+    currentDateRange: function () {
+        var startDate = Session.get("startDate");
+        if (startDate == null) {
+            startDate = getStartDate();
+        }
+
+        var startDate2 = new Date(startDate);
+
+        var d2 = new Date(startDate);
+        d2.setDate(d2.getDate() + 6);
+        var endDate = d2.toLocaleDateString();
+
+        Session.set("startDate", startDate2.toISOString());
+        var startDateStr = startDate2.toLocaleDateString();
+
+        return startDateStr + " - " + endDate;
+    }
+});
+
+Template.date_picker.events({
+    'click .prevWeek': function () {
+        var startDate = Session.get("startDate");
+
+        var d2 = new Date(startDate);
+        d2.setDate(d2.getDate() - 7);
+
+        Session.set("startDate", d2.toISOString());
+    },
+    'click .nextWeek': function () {
+        var startDate = Session.get("startDate");
+
+        var d2 = new Date(startDate);
+        d2.setDate(d2.getDate() + 7);
+
+        //don't advance past current week
+        if (d2 > getStartDate()) {
+            return;
+        }
+
+        Session.set("startDate", d2.toISOString());
+    }
+})
