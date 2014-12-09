@@ -82,7 +82,7 @@ Template.activeTimesheets.events({
 	    			'revision': [],
 	    			'projectEntriesArray': [],
 	    			'type' : 1,
-	    			'generalComment': '',
+	    			'generalComment': 'active timesheet button',
 	    			'concerns': '',
 	    			'submitted': false
 	    		}
@@ -159,6 +159,9 @@ Template.projectComments.helpers({
 
 Template.SelectedTimesheet.helpers({
 	row: function(){	
+    //var id = Session.get("rows_have_been_update");
+    //console.log("Test");
+
 		var date = Session.get("startDate");
     var user = Session.get('LdapId');
 		var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
@@ -166,13 +169,16 @@ Template.SelectedTimesheet.helpers({
 		var projectEntries = sheet['projectEntriesArray'];
 
 		var rows = [];
-
+    var maxRow=-1;
 		for(i = 0; i < projectEntries.length; i++){
 			var project = projectEntries[i]['projectID'];
 			var EntryArray = projectEntries[i]['EntryArray'];
 			for(j=0; j< EntryArray.length; j++){
 				var comment = EntryArray[j]['Comment'];
 				var rowID = EntryArray[j]['rowID'];
+        if (rowID > maxRow){
+          maxRow=rowID;
+        }
 				var hours = EntryArray[j]['hours'];
 				rows.push({
 					'project' : project,
@@ -189,7 +195,15 @@ Template.SelectedTimesheet.helpers({
 			}
 		}
 
-		return rows;
+    function compare(a,b) {
+      if (a.rowID < b.rowID)
+        return -1;
+      if (a.rowID > b.rowID)
+        return 1;
+      return 0;
+    }
+    Session.set("max_Row", maxRow);
+		return rows.sort(compare);
 	},
 	project: function(){
 		var date = Session.get("startDate");
@@ -227,8 +241,20 @@ Template.SelectedTimesheet.rendered = function(){
 
 Template.projectListDropDown.helpers({
     employees: function(project) {
-    	// alert(project);
+    	//alert(project);
+      //var id = Session.get("rows_have_been_update");
+      //alert(project);
+      //console.log(id);
         return DatabaseService.getProjects();
+        // var toReturn = [];
+        // DatabaseService.getProjects().forEach(function(p){
+        //     toReturn.push({
+        //       isSelected: false, //project != null && project==p.id,
+        //       name: p.name,
+        //       id: p.id
+        //     });
+        // });
+        // return toReturn;
     },
 });
 
@@ -299,7 +325,10 @@ Template.projectHoursFilled.events = {
      var friday_t = $(row).find('#Friday')[0].value;
      var saturday_t = $(row).find('#Saturday')[0].value;
      var rowID = $(row).attr('id');
-     var projectID = $(row).find('#project_select')[0].parentNode.id;
+     var projectIndex = $(row).find('#project_select')[0].selectedIndex;
+     var projectID = $(row).find('#project_select')[0].children[projectIndex].id;
+
+     //alert(rowID);
 
      TimeSheetService.removeErrorClasses(row, ['#Comment','#Sunday','#Monday','#Tuesday','#Wednesday','#Thursday','#Friday','#Saturday','#projectName']);
 
@@ -320,15 +349,15 @@ Template.projectHoursFilled.events = {
                 saturday_t,
                 rowID
             );
-
+          //Session.set("rows_have_been_update", projectID);
 
       }
     ,
     'click button': function(event){
       var row = event.currentTarget.parentNode.parentNode;
-      var projectIndex = $(row).find('#project_select')[0].selectedIndex;
-      // var options = $(row).find('#project_select')[0];
-      // var projectID = options[options.selectedIndex].id;
+      //var projectIndex = $(row).find('#project_select')[0].selectedIndex;
+      //var options = $(row).find('#project_select')[0];
+      //var projectID = options[options.selectedIndex].id;
       var projectID = $(row).find('#project_select')[0].parentNode.id;
 
       var comment_t = $(row).find('#Comment')[0].value;
@@ -375,7 +404,9 @@ Template.projectHours.events = {
         var projectIndex = $(row).find('#project_select')[0].selectedIndex;
         var projectID = $(row).find('#project_select')[0].children[projectIndex].id;
 
-        var rowID = Math.random();
+        Session.get("max_Row");
+        var rowID = Session.get("max_Row")+1;
+        Session.set("max_Row", rowID);
         $(row).attr('id',rowID);
 
 
