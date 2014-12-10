@@ -43,7 +43,7 @@
     <div class="row commentRow">
         <div class="col-md-6 col-sm-6 col-xs-6"><input id="generalComment" type="text" class="large-input form-control enterable" value={{genComment}}></div>       
         <div class="col-md-5 col-sm-5 col-xs-5"><input id="concerns" type="text" class="large-input form-control enterable" value={{concerns}}></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary">Submit</button></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary enterable">Submit</button></div>
     </div>
 </template>
 
@@ -80,7 +80,7 @@
         <div class="col-md-1 col-sm-1 col-xs-1"><input id="Friday" type="text" class="large-input form-control enterable" value="0"></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><input id="Saturday" type="text" class="large-input form-control enterable" value="0"></div>
         <div class="col-md-2 col-sm-2 col-xs-2"><input id="Comment" type="text" class="large-input form-control enterable" value=""></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary">Add</button></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary enterable">Add</button></div>
     </div>
 </template>
 
@@ -104,13 +104,13 @@
         <div class="col-md-1 col-sm-1 col-xs-1"><input id="Friday" type="text" class="large-input form-control enterable" value={{friday}}></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><input id="Saturday" type="text" class="large-input form-control enterable" value={{saturday}}></div>
         <div class="col-md-2 col-sm-2 col-xs-2"><input id="Comment" type="text" class="large-input form-control enterable" value={{comment}}></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary">Delete</button></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary enterable">Delete</button></div>
     </div>
 </template>
 
 
 <template name="projectListDropDown">
-    <select id="project_select" class="form-control">
+    <select id="project_select" class="form-control enterable">
         {{#each employees project}}
                 {{#if isSelected}}
                     <option id={{id}} value={{name}} selected>{{name}}</option>

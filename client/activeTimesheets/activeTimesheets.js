@@ -235,7 +235,7 @@ Template.SelectedTimesheet.rendered = function(){
   var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
 
   if(sheet['submitted']){
-		$('.enterable').attr('readonly', 'readonly');
+		$('.enterable').attr('disabled', 'disabled');
 	}
 };
 
