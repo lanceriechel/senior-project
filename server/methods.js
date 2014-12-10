@@ -11,7 +11,8 @@ Meteor.startup(function () {
 
         Meteor.users.find({}).forEach(
             function (user) {
-                if (TimeSheet.find({'startDate': dStr, 'userID': user['_id']}).count() == 0) {
+                //Small Change (changed uppercase D to d in userId) here to see if this works
+                if (TimeSheet.find({'startDate': dStr, 'userId': user['_id']}).count() == 0) {
                     TimeSheet.insert(
                         {
                             'startDate': dStr,

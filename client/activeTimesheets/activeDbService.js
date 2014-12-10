@@ -5,6 +5,7 @@ ActiveDBService = {
         var d = new Date();
         d.setDate((d.getDate() - (d.getDay() + 6) % 7 ) - 1);
         d = d.toLocaleDateString();
+
         var timeentries = TimeSheet.findOne(
             {
                 'startDate': d,
@@ -73,8 +74,8 @@ ActiveDBService = {
 
             }else{
                 //Project has been changed
-                // ActiveDBService.removeRowInTimeSheet(date,user, rowID, project);
-                // ActiveDBService.addRowToTimeSheet(date, user, project, comment,Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, rowID);
+                 ActiveDBService.removeRowInTimeSheet(date,user, rowID, project);
+                 ActiveDBService.addRowToTimeSheet(date, user, project, comment,Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, rowID);
                 // location.reload();
             }
     },
@@ -276,7 +277,7 @@ ActiveDBService = {
             'revision': [],
             'projectEntriesArray': [],
             'type' : 1,
-            'generalComment': '',
+            'generalComment': 'New User got called',
             'concerns': '',
             'submitted': false
         });

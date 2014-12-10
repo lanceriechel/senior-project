@@ -94,8 +94,8 @@
 
 <template name="projectHoursFilled">
     <div class="row filledRow" id={{rowID}}>
-        <!-- <div class="col-md-2 col-sm-2 col-xs-2" id={{project}}>{{> projectListDropDown}}</div> -->
-        <div class="col-md-2 col-sm-2 col-xs-2" id={{project}}><input id="project_select" type="text" class="large-input form-control" readonly value={{name project}}></div> 
+         <div class="col-md-2 col-sm-2 col-xs-2" id={{project}}>{{> projectListDropDown}}</div>
+       <!-- <div class="col-md-2 col-sm-2 col-xs-2" id={{project}}><input id="project_select" type="text" class="large-input form-control" readonly value={{name project}}></div> -->
         <div class="col-md-1 col-sm-1 col-xs-1"><input id="Sunday" type="text" class="large-input form-control enterable" value={{sunday}}></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><input id="Monday" type="text" class="large-input form-control enterable" value={{monday}}></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><input id="Tuesday" type="text" class="large-input form-control enterable" value={{tuesday}}></div>
@@ -111,8 +111,12 @@
 
 <template name="projectListDropDown">
     <select id="project_select" class="form-control">
-        {{#each employees}}
-              <option id={{id}} value={{name}}>{{name}}</option>
+        {{#each employees project}}
+                {{#if isSelected}}
+                    <option id={{id}} value={{name}} selected>{{name}}</option>
+                {{else}}
+                    <option id={{id}} value={{name}}>{{name}}</option>
+                {{/if}}
         {{/each}}
     </select>
 </template>
