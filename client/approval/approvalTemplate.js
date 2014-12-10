@@ -91,7 +91,7 @@ Template.toApprove_Template.events({
 Template.approval_Template.helpers({
     'managedProjects': function () {
         "use strict";
-        var person = Meteor.users.findOne({'_id': Meteor.userId()});
+        var person = Meteor.users.findOne({'_id': Session.get('LdapId')});
         if (person == null || !person.manager) return;
 
         //Get first one to set selected row
