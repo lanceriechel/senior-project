@@ -235,26 +235,14 @@ Template.SelectedTimesheet.rendered = function(){
   var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
 
   if(sheet['submitted']){
-		$('.enterable').attr('readonly', 'readonly');
+		$('.enterable').attr('disabled', 'disabled');
 	}
 };
 
 Template.projectListDropDown.helpers({
     employees: function(project) {
-    	//alert(project);
-      //var id = Session.get("rows_have_been_update");
-      //alert(project);
-      //console.log(id);
-        return DatabaseService.getProjects();
-        // var toReturn = [];
-        // DatabaseService.getProjects().forEach(function(p){
-        //     toReturn.push({
-        //       isSelected: false, //project != null && project==p.id,
-        //       name: p.name,
-        //       id: p.id
-        //     });
-        // });
-        // return toReturn;
+      var user = Meteor.users.findOne({_id: Session.get('LdapId')});
+      return ChargeNumbers.find({id: { $in : user['projects'] } });
     },
 });
 
