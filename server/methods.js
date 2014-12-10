@@ -39,7 +39,7 @@ Meteor.startup(function () {
         name: 'setup weekly timesheets',
         schedule: function(parser) {
             // parser is a later.parse object
-            return parser.text('at 00:00 on Sunday');
+            return parser.text('at 00:00 on Saturday');
         },
         job: function() {
             var d = new Date(),
