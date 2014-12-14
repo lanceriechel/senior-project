@@ -2,7 +2,10 @@
 
 // this password should be encrypted somehow when sent to the server
 authenticateLdapEmployee = function(username, password) {
-    Meteor.call('authenticateLdapEmployee', username, password, function(err, user){
+    Meteor.call('authenticateLdapEmployee', username, password, function(err, userstring){
+	var adminstring = userstring[1];
+	var managerstring = userstring[2];
+	var user = userstring[0];
         if(err){
             console.log("authentification error");
             // needs another way to alert this error
@@ -13,12 +16,19 @@ authenticateLdapEmployee = function(username, password) {
                 var id = null;
                 var dbUser = Meteor.users.findOne({username:username})
 		var admin = false;
-		var manager = false;
-		if(user.ou == "manager"){
-			manager = true;
+		
+		var i;
+		for(i=0;i<adminstring.length;i++){
+			if(adminstring[i].indexOf("uid="+username+",") == 0){
+				admin = true;
+      		        }
 		}
-		if(user.ou == "admin"){
-			admin = true;
+	
+		var manager = false;
+		for(i=0;i<managerstring.length;i++){
+			if(managerstring[i].indexOf("uid="+username+",") == 0){
+				manager = true;
+      		        }
 		}
                 if(dbUser){
                     id = dbUser._id;
@@ -28,7 +38,8 @@ authenticateLdapEmployee = function(username, password) {
 			_id: dbUser._id
 		    },{ $set: {
                         manager: manager,
-                        admin: admin
+                        admin: admin,
+			email: user.mail
 		    }});
                 } else {
                     id = Meteor.users.insert({
@@ -36,6 +47,7 @@ authenticateLdapEmployee = function(username, password) {
                         cn: user.cn,
                         manager: manager,
                         admin: admin,
+			email: user.mail,
                         projects: [],
                         fulltime: true
                     });
