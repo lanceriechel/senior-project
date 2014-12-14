@@ -16,11 +16,46 @@ LDAP.search = function(username) {
     var opts = {
         filter: '(&(uid=' + username + ')(objectClass=posixAccount))',
         scope: 'sub',
-        attributes: ['cn','ou']  // add more ldap search attributes here when needed
+        attributes: ['cn','mail']  // add more ldap search attributes here when needed
     };
     var fut = new Future();
 
     LDAP.client.search(Meteor.settings.ldap_search_base, opts, function(err, search) {
+        if (err) {
+            fut.return(null);
+        } else {
+            search.on('searchEntry', function(entry) {
+                fut.return(entry.object);
+            });
+
+            search.on('error', function(err) {
+                throw new Meteor.Error(500, 'LDAP server error');
+                fut.return(null);
+            });
+        }
+    });
+
+    return fut.wait();
+};
+
+LDAP.isAdmin = function(username, checkAdmin) {
+    var opts;
+    if(checkAdmin){
+   	 opts = {
+        	filter: '(cn=time_admins)',
+        	scope: 'sub',
+        	attributes: ['member']  // add more ldap search attributes here when needed
+    	};
+    }else{
+	opts = {
+        	filter: '(cn=time_managers_proj_hunter)',
+        	scope: 'sub',
+        	attributes: ['member']  // add more ldap search attributes here when needed
+    	};
+    }
+    var fut = new Future();
+
+    LDAP.client.search("cn=groups,cn=accounts,dc=csse,dc=rose-hulman,dc=edu", opts, function(err, search) {
         if (err) {
             fut.return(null);
         } else {
@@ -58,7 +93,7 @@ Meteor.startup(function() {
         // returns either null or the user
         authenticateLdapEmployee : function(username, password){
             if(LDAP.checkAccount(username, password)){
-                return LDAP.search(username);
+                return [LDAP.search(username), LDAP.isAdmin(username, true)['member'], LDAP.isAdmin(username, false)['member']];
             } else {
                 return null;
             }
