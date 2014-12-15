@@ -41,8 +41,18 @@ Template.pages.helpers({
     isLoginPage: function(){
         return Session.equals('current_page', 'login_page');
     },
-    isApproval: function(){
+    isApproval: function() {
         return Session.equals('current_page', 'approval_page');
+    },
+    isManager: function(){
+        var id = Session.get('LdapId');
+        if (!id) return;
+        return Meteor.users.findOne({_id: id}).manager;
+    },
+    isAdmin: function(){
+        var id = Session.get('LdapId');
+        if (!id) return;
+        return Meteor.users.findOne({_id: id}).admin;
     }
 
 });
@@ -73,7 +83,8 @@ Template.mainSelector.helpers({
     }
 });
 Template.loginPage.events({
-    'click button': function(event){
+    'click .btn': function(event){
+        event.target.type = "button";
         $('#LDAPusername').parent().removeClass('has-error');
         $('#LDAPpassword').parent().removeClass('has-error');
         $('#LDAPusername').tooltip('destroy');
