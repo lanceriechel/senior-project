@@ -80,7 +80,7 @@ ActiveDBService = {
             }
     },
     // Sets the designated Timesheet's project to be approved (either true or false)
-    updateApprovalStatusInTimeSheet: function(date, user, projectId, approvalStatus){
+    updateApprovalStatusInTimeSheet: function(date, user, projectId, approvalStatus, rejectMessage){
         var sheet = TimeSheet.findOne({'startDate':date,'userId':user,'submitted':true});
 
         console.log(sheet);
@@ -91,6 +91,12 @@ ActiveDBService = {
                 console.log(prEntriesArr[index]);
                 prEntriesArr[index].Approved = approvalStatus;
                 console.log(prEntriesArr[index]);
+                prEntriesArr[index].rejectMessage = rejectMessage;
+                if(rejectMessage != "Approved"){
+                    prEntriesArr[index].SentBack = true;
+                }else{
+                    prEntriesArr[index].SentBack = false;
+                }
                 TimeSheet.update({'_id':sheet._id},
                     {
                         $set:{
@@ -101,6 +107,27 @@ ActiveDBService = {
                 return;
             }
         }
+    },
+    updateActiveStatusInTimesheet: function(date, user, projectId){
+        var sheet = TimeSheet.findOne({'startDate':date,'userId':user,'submitted':true});
+        var prEntriesArr = sheet['projectEntriesArray'];
+        var active = 0;
+
+        for (var index in prEntriesArr){
+            alert(prEntriesArr[index].Approved);
+            if(!prEntriesArr[index].Approved){ //If at least one entry is not approved, timesheet still active
+                active = 1;
+            }
+        }
+
+        TimeSheet.update({'_id':sheet._id},
+            {
+                $set:{
+                    'active': active
+                }
+            });
+        return;
+
     },
     updateCommentsInTimeSheet: function(date, user, gen_comment, concerns){
         var sheet = TimeSheet.findOne({'startDate':date,'userId':user});

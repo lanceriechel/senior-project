@@ -154,7 +154,24 @@ Template.projectComments.helpers({
 	    }
 
 		return sheet['projectEntriesArray'][index]['issues'];
-	}
+	},
+  message: function(projectID) {
+    var date = Session.get("startDate");
+    var user = Session.get('LdapId');
+    var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
+
+    var prEntriesArr = sheet['projectEntriesArray'];
+
+      var index=0;
+
+      for(i=0 ; i<prEntriesArr.length ; i++){
+          if(prEntriesArr[i]['projectID'] == projectID){
+              index = i;
+          }
+      }
+
+    return sheet['projectEntriesArray'][index]['rejectMessage'];
+  }
 });
 
 Template.SelectedTimesheet.helpers({
@@ -172,6 +189,13 @@ Template.SelectedTimesheet.helpers({
     var maxRow=-1;
 		for(i = 0; i < projectEntries.length; i++){
 			var project = projectEntries[i]['projectID'];
+      var sentBack;
+      if(projectEntries[i]['SentBack']){
+        sentBack = "sentBack";
+      }else{
+        sentBack = "notSentBack";
+      }
+
 			var EntryArray = projectEntries[i]['EntryArray'];
 			for(j=0; j< EntryArray.length; j++){
 				var comment = EntryArray[j]['Comment'];
@@ -190,7 +214,8 @@ Template.SelectedTimesheet.helpers({
 					'friday' : hours[5],
 					'saturday' : hours[6],
 					'comment' :  comment,
-					'rowID' : rowID
+					'rowID' : rowID,
+          'sentBack' :sentBack
 				});
 			}
 		}
@@ -216,8 +241,15 @@ Template.SelectedTimesheet.helpers({
 
 		for(i = 0; i < projectEntries.length; i++){
 			var project = projectEntries[i]['projectID'];
+      var sentBack;
+      if(projectEntries[i]['SentBack']){
+        sentBack = "sentBack";
+      }else{
+        sentBack = "notSentBack";
+      }
 			projects.push({
-				'project' : project
+				'project' : project,
+        'sentBack' : sentBack
 			});
 		}
 
@@ -236,6 +268,7 @@ Template.SelectedTimesheet.rendered = function(){
 
   if(sheet['submitted']){
 		$('.enterable').attr('disabled', 'disabled');
+    $('.sentBack').attr('disabled', false);
 	}
 };
 
@@ -252,12 +285,20 @@ Template.lastSection.helpers({
       var user = Session.get('LdapId');
       var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
 
+      if(sheet['submitted']){
+        $('#generalComment').attr('disabled', 'disabled');
+      }
+
       return sheet['generalComment'];
     },
     concerns: function() {
   		var date = Session.get("startDate");
       var user = Session.get('LdapId');
     	var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
+
+      if(sheet['submitted']){
+        $('#concerns').attr('disabled', 'disabled');
+      }
 
     	return sheet['concerns'];
 
