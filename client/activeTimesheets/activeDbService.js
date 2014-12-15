@@ -79,7 +79,29 @@ ActiveDBService = {
                 // location.reload();
             }
     },
+    // Sets the designated Timesheet's project to be approved (either true or false)
+    updateApprovalStatusInTimeSheet: function(date, user, projectId, approvalStatus){
+        var sheet = TimeSheet.findOne({'startDate':date,'userId':user,'submitted':true});
 
+        console.log(sheet);
+
+        var prEntriesArr = sheet['projectEntriesArray'];
+        for (var index in prEntriesArr){
+            if (prEntriesArr[index].projectID == projectId){
+                console.log(prEntriesArr[index]);
+                prEntriesArr[index].Approved = approvalStatus;
+                console.log(prEntriesArr[index]);
+                TimeSheet.update({'_id':sheet._id},
+                    {
+                        $set:{
+                            'projectEntriesArray': prEntriesArr
+                        }
+                    });
+
+                return;
+            }
+        }
+    },
     updateCommentsInTimeSheet: function(date, user, gen_comment, concerns){
         var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
 

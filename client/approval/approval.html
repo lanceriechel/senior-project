@@ -1,0 +1,98 @@
+<template name="approvalPage">
+    <div class="container-fluid">
+        <h2><span class="label">Approval</span></h2>
+        {{>approval_Template}}
+    </div>
+</template>
+
+<template name="toApprove_Template">
+
+    {{#each toApprove}}
+        <div class="row row-item toApprove-Rows {{selected}}">
+            <div class="col-md-6 col-sm-6 col-xs-6 text-center"><h4>{{username}}</h4></div>
+            <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>{{total}}</h4></div>
+            <div class="col-md-2 col-sm-2 col-xs-2 text-center">
+                <button type="{{id}}" class="approve btn btn-success">Approve</button>
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-2 text-center">
+                <button name="{{id}}" type="button" class="reject btn btn-danger">Reject</button>
+            </div>
+
+        </div>
+        <div class="row-item-divider width-98"></div>
+    {{/each}}
+
+</template>
+
+<template name="date_picker">
+    <div class="col-xs-12" style="display:inline-block;">
+        <div class="prevWeek glyphicon glyphicon-chevron-left" style="display:inline-block;cursor: pointer;"></div>
+        &nbsp;
+        <div style="display:inline-block;"><h4>{{currentDateRange}}</h4></div>
+        &nbsp;
+        <div class="nextWeek glyphicon glyphicon-chevron-right" style="display:inline-block;cursor: pointer;"></div>
+    </div>
+
+</template>
+
+<template name="approval_Template">
+    <br/>
+
+    <div class="row">
+        <div class="col-xs-1"><h5>Charge Number:</h5></div>
+        <div class="col-xs-2">
+            <select id="currentproject" class="form-control" type="current-project-checkbox" name="currentprojectCombo">
+                {{#each managedProjects}}
+                    <!--TODO Check to see if the managed project has active time sheets to approve-->
+                        <!--{{#if isActive end_date}}-->
+                    <option value="{{id}}">{{id}}</option>
+                        <!--{{/if}}-->
+                {{/each}}
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        {{> date_picker}}
+    </div>
+        <br/>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-6 text-center col-header"><h4>Name</h4></div>
+                    <div class="col-md-2 col-sm-2 col-xs-2 text-center col-header"><h4>Total</h4></div>
+                    <div class="col-md-2 col-sm-2 col-xs-2 text-center col-header"><h4>Approve</h4></div>
+                    <div class="col-md-2 col-sm-2 col-xs-2 text-center col-header"><h4>Reject</h4></div>
+                </div>
+                <div id="timesheet_approvals">
+                    {{> toApprove_Template}}
+                </div>
+            </div>
+            <div class="col-xs-6 col-divider">
+                <div class="row">
+                    <div class="col-xs-12 text-center col-header"><h4>Timesheet</h4></div>
+                </div>
+                <div id="timeSheetReviewer">
+                    {{#each userTimesheet}}
+                        <div class="row">
+                            <div class="col-xs-3"><h4>{{day}}</h4></div>
+                            <div class="col-xs-2"><h4>{{hours}}</h4></div>
+                            <div class="col-xs-7">
+                                {{#each comment}}
+                                    <h4>{{com}}</h4>
+                                {{/each}}
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-10"></div>
+            <div class="col-xs-2">
+                <button type="button" class="btn btn-lg btn-default">Edit</button>
+                &nbsp;&nbsp;
+                <button type="button" class="btn btn-lg btn-success">Submit</button>
+            </div>
+        </div>
+</template>

@@ -97,7 +97,7 @@
           <li role="presentation" id='employees_settings' class="tag">
                Employees
           </li>
-	        <li role="presentation" id='approval_page' class="tag active">
+	  <li role="presentation" id='approval_page' class="tag active">
                Approval
           </li>{{/if}}
 
@@ -143,5 +143,8 @@
     {{/if}}
     {{#if isSelectedTimesheet}}
         {{> SelectedTimesheet}}
+    {{/if}}
+    {{#if isApproval}}
+        {{> approvalPage}}
     {{/if}}
 </template>
