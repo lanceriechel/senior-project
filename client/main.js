@@ -1,9 +1,9 @@
 ChargeNumbers = new Meteor.Collection('charge_numbers');
 Employees = new Meteor.Collection('employees');
 TimeSheet = new Meteor.Collection('time_sheets');
- 
 
-Deps.autorun(function(){
+
+Deps.autorun(function () {
     Meteor.subscribe('userData');
     Meteor.subscribe('projects');
     Meteor.subscribe('timesheet');
@@ -22,34 +22,34 @@ Template.pages.events({
 });
 
 Template.pages.helpers({
-    isTimesheet: function(){
+    isTimesheet: function () {
         return Session.equals('current_page', 'time_sheet') ||
-               Session.equals('current_page', 'selected_timesheet');
+            Session.equals('current_page', 'selected_timesheet');
     },
-    isActiveProjects: function(){
+    isActiveProjects: function () {
         return Session.equals('current_page', 'active_projects');
     },
-    isArchivedProjects: function(){
+    isArchivedProjects: function () {
         return Session.equals('current_page', 'archived_projects');
     },
-    isEmployeeSettings: function(){
+    isEmployeeSettings: function () {
         return Session.equals('current_page', 'employees_settings');
     },
-    isSelectedTimesheet: function(){
+    isSelectedTimesheet: function () {
         return Session.equals('current_page', 'selected_timesheet');
     },
-    isLoginPage: function(){
+    isLoginPage: function () {
         return Session.equals('current_page', 'login_page');
     },
-    isApproval: function() {
+    isApproval: function () {
         return Session.equals('current_page', 'approval_page');
     },
-    isManager: function(){
+    isManager: function () {
         var id = Session.get('LdapId');
         if (!id) return;
         return Meteor.users.findOne({_id: id}).manager;
     },
-    isAdmin: function(){
+    isAdmin: function () {
         var id = Session.get('LdapId');
         if (!id) return;
         return Meteor.users.findOne({_id: id}).admin;
@@ -57,33 +57,33 @@ Template.pages.helpers({
 
 });
 Template.mainSelector.helpers({
-    isTimesheet: function(){
+    isTimesheet: function () {
         return Session.equals('current_page', 'time_sheet');
     },
-    isActiveProjects: function(){
+    isActiveProjects: function () {
         return Session.equals('current_page', 'active_projects');
     },
-    isArchivedProjects: function(){
+    isArchivedProjects: function () {
         return Session.equals('current_page', 'archived_projects');
     },
-    isEmployeeSettings: function(){
+    isEmployeeSettings: function () {
         return Session.equals('current_page', 'employees_settings');
     },
-    isSelectedTimesheet: function(){
+    isSelectedTimesheet: function () {
         return Session.equals('current_page', 'selected_timesheet');
     },
-    isApproval: function(){
+    isApproval: function () {
         return Session.equals('current_page', 'approval_page');
     },
-    isLoginPage: function(){
+    isLoginPage: function () {
         return Session.equals('current_page', 'login_page');
     },
-    isApproval: function(){
+    isApproval: function () {
         return Session.equals('current_page', 'approval_page');
     }
 });
 Template.loginPage.events({
-    'click .btn': function(event){
+    'click .btn': function (event) {
         event.target.type = "button";
         $('#LDAPusername').parent().removeClass('has-error');
         $('#LDAPpassword').parent().removeClass('has-error');
@@ -95,4 +95,17 @@ Template.loginPage.events({
 
         authenticateLdapEmployee(username, password);
     }
+});
+
+//Meteor.startup(function () {
+//    process.env.MAIL_URL = "smtp://pumpdude93%40gmail.com:dyficamp@smtp.gmail.com:465/";
+//});
+
+Template.sendEmail.events({
+    'click button': function (event) {
+        //alert("Sending Email");
+        console.log("Attempting to send Email");
+        Meteor.call('sendEmail');
+
+        }
 });
