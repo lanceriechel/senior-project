@@ -24,6 +24,7 @@ ActiveDBService = {
     },
 
     updateRowInTimeSheet: function(date, user, project, comment,Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, rowID){
+            
             var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
 
             var prEntriesArr = sheet['projectEntriesArray'];
@@ -80,7 +81,7 @@ ActiveDBService = {
             }
     },
     // Sets the designated Timesheet's project to be approved (either true or false)
-    updateApprovalStatusInTimeSheet: function(date, user, projectId, approvalStatus){
+    updateApprovalStatusInTimeSheet: function(date, user, projectId, approvalStatus, rejectMessage){
         var sheet = TimeSheet.findOne({'startDate':date,'userId':user,'submitted':true});
 
         console.log(sheet);
@@ -91,6 +92,12 @@ ActiveDBService = {
                 console.log(prEntriesArr[index]);
                 prEntriesArr[index].Approved = approvalStatus;
                 console.log(prEntriesArr[index]);
+                prEntriesArr[index].rejectMessage = rejectMessage;
+                if(rejectMessage != "Approved"){
+                    prEntriesArr[index].SentBack = true;
+                }else{
+                    prEntriesArr[index].SentBack = false;
+                }
                 TimeSheet.update({'_id':sheet._id},
                     {
                         $set:{
@@ -101,6 +108,46 @@ ActiveDBService = {
                 return;
             }
         }
+    },
+    updateActiveStatusInTimesheet: function(date, user, projectId){
+        var sheet = TimeSheet.findOne({'startDate':date,'userId':user,'submitted':true});
+        var prEntriesArr = sheet['projectEntriesArray'];
+        var active = 0;
+
+        for (var index in prEntriesArr){
+            if(!prEntriesArr[index].Approved){ //If at least one entry is not approved, timesheet still active
+                active = 1;
+            }
+        }
+
+        TimeSheet.update({'_id':sheet._id},
+            {
+                $set:{
+                    'active': active
+                }
+            });
+        return;
+
+    },
+    updateSentBackStatus: function(date, user){
+        var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
+        var prEntriesArr = sheet['projectEntriesArray'];
+        var active = 0;
+
+        for (var index in prEntriesArr){
+            if(prEntriesArr[index].SentBack){ 
+                prEntriesArr[index].SentBack = false;
+            }
+        }
+
+        TimeSheet.update({'_id':sheet._id},
+            {
+                $set:{
+                    'projectEntriesArray': prEntriesArr
+                }
+            });
+        return;
+
     },
     updateCommentsInTimeSheet: function(date, user, gen_comment, concerns){
         var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
@@ -115,6 +162,7 @@ ActiveDBService = {
     },
 
     updateProjectCommentsTimeSheet: function(date, user, project, issues, next){
+
         var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
 
         var prEntriesArr = sheet['projectEntriesArray'];
@@ -157,7 +205,6 @@ ActiveDBService = {
 
     addRowToTimeSheet: function(date, user, project, comment,Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, rowID) {
             // Adds a single Entry to the Timesheet collection. This entry corresponds to a single Row on the web page.Essentially 1 Entry for every project.- Dan
-            //alert(project);
             var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
 
             var prEntriesArr = sheet['projectEntriesArray'];
@@ -184,6 +231,9 @@ ActiveDBService = {
                 );
 
                 entryArrToAdd['EntryArray'] = entryArray;
+                if(sheet['submitted']){ //Then we are fixing a rejected project row, and are sending it back to the manager
+                    entryArrToAdd['SentBack'] = true;
+                }
                 prEntriesArr.splice(index,1)
                 prEntriesArr.push(entryArrToAdd);
 
@@ -198,6 +248,9 @@ ActiveDBService = {
                     'projectID' : project,
                     'EntryArray' : entryArray,
                     'Approved' : false,
+                }
+                if(sheet['submitted']){ //Then we are fixing a rejected project row, and are sending it back to the manager
+                    entryArrToAdd['SentBack'] = true;
                 }
                 prEntriesArr.push(entryArrToAdd);
             }
@@ -224,7 +277,8 @@ ActiveDBService = {
 
             var prEntriesArr = sheet['projectEntriesArray'];
             var entryArrToAdd = null;
-            var entryArray = null
+            var entryArray = null;
+            var entryArray2 = null;
 
             var index1=0;
             var index2=0;
@@ -250,6 +304,8 @@ ActiveDBService = {
             if(entryArray2.length != 0){
                prEntriesArr.splice(index1, 0, entryArrToAdd);
             }
+
+
 
             TimeSheet.update({'_id':sheet._id},{
                 $set:{

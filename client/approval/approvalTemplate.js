@@ -30,7 +30,7 @@ Template.toApprove_Template.helpers({
 
         timesheets.forEach(function (t) {
             t.projectEntriesArray.forEach(function (pe) {
-                if (pe.projectID == selected && !pe.Approved) {
+                if (pe.projectID == selected && !pe.Approved && !pe.SentBack) {
                     var total = 0;
                     pe.EntryArray.forEach(function (a) {
                             for (var b in a.hours) {
@@ -79,12 +79,22 @@ Template.toApprove_Template.events({
 
         var projectId = Session.get('current_project_to_approve');
 
-        ActiveDBService.updateApprovalStatusInTimeSheet(date, userId, projectId, true);
+        ActiveDBService.updateApprovalStatusInTimeSheet(date, userId, projectId, true, "Approved");
+        ActiveDBService.updateActiveStatusInTimesheet(date, userId, projectId);
     },
     'click .reject': function (e, t) {
         if (!e.target.parentNode.parentNode.classList.contains("selected")) return;
-        //TODO Add code here to reject time sheet
-        console.log("reject this timesheet");
+
+        var startDateStr = Session.get("startDate");
+        var date = (new Date(startDateStr)).toLocaleDateString();
+
+        var userId = Meteor.users.findOne({username: Session.get('current_user_to_approve')})._id;
+
+        var projectId = Session.get('current_project_to_approve');
+
+        var rejectComment = $('#rejectComment')[0].value;
+
+        ActiveDBService.updateApprovalStatusInTimeSheet(date, userId, projectId, false, rejectComment);
     }
 })
 

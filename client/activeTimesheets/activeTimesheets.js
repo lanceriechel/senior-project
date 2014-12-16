@@ -154,7 +154,24 @@ Template.projectComments.helpers({
 	    }
 
 		return sheet['projectEntriesArray'][index]['issues'];
-	}
+	},
+  message: function(projectID) {
+    var date = Session.get("startDate");
+    var user = Session.get('LdapId');
+    var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
+
+    var prEntriesArr = sheet['projectEntriesArray'];
+
+      var index=0;
+
+      for(i=0 ; i<prEntriesArr.length ; i++){
+          if(prEntriesArr[i]['projectID'] == projectID){
+              index = i;
+          }
+      }
+
+    return sheet['projectEntriesArray'][index]['rejectMessage'];
+  }
 });
 
 Template.SelectedTimesheet.helpers({
@@ -172,6 +189,13 @@ Template.SelectedTimesheet.helpers({
     var maxRow=-1;
 		for(i = 0; i < projectEntries.length; i++){
 			var project = projectEntries[i]['projectID'];
+      var sentBack;
+      if(projectEntries[i]['SentBack']){
+        sentBack = "sentBack";
+      }else{
+        sentBack = "notSentBack";
+      }
+
 			var EntryArray = projectEntries[i]['EntryArray'];
 			for(j=0; j< EntryArray.length; j++){
 				var comment = EntryArray[j]['Comment'];
@@ -190,7 +214,8 @@ Template.SelectedTimesheet.helpers({
 					'friday' : hours[5],
 					'saturday' : hours[6],
 					'comment' :  comment,
-					'rowID' : rowID
+					'rowID' : rowID,
+          'sentBack' :sentBack
 				});
 			}
 		}
@@ -216,8 +241,15 @@ Template.SelectedTimesheet.helpers({
 
 		for(i = 0; i < projectEntries.length; i++){
 			var project = projectEntries[i]['projectID'];
+      var sentBack;
+      if(projectEntries[i]['SentBack']){
+        sentBack = "sentBack";
+      }else{
+        sentBack = "notSentBack";
+      }
 			projects.push({
-				'project' : project
+				'project' : project,
+        'sentBack' : sentBack
 			});
 		}
 
@@ -226,7 +258,27 @@ Template.SelectedTimesheet.helpers({
 	date: function(){
 		var date = Session.get("startDate");
 		return date;
-	}
+	},
+  timesheethack: function(){ //This is a bit of a hack to pass the information of whether a timesheet
+                             //needs to be revised to the adding-row code.  Although this is an #each
+                             //function, it will only ever return the one field.  
+    var date = Session.get("startDate");
+    var user = Session.get('LdapId');
+    var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
+
+    var projectEntries = sheet['projectEntriesArray'];
+
+    var sentBack = "notSentBack";
+    for(i = 0; i < projectEntries.length; i++){
+      if(projectEntries[i]['SentBack']){
+        sentBack = "sentBack";
+      }
+    }
+    var returned = [];
+    returned.push({ 'sentBack' : sentBack });
+
+    return returned;
+  }
 });
 
 Template.SelectedTimesheet.rendered = function(){
@@ -236,14 +288,66 @@ Template.SelectedTimesheet.rendered = function(){
 
   if(sheet['submitted']){
 		$('.enterable').attr('disabled', 'disabled');
+    $('.sentBack').attr('disabled', false);
+    if(TimeSheetService.checkSentBack()){
+      $('#submitButton').attr('disabled', false);
+    }
 	}
+
 };
 
 Template.projectListDropDown.helpers({
-    employees: function(project) {
+    employees: function(projectSelected) {
+
+      var date = Session.get("startDate");
+      var userId = Session.get('LdapId');
+      var sheet = TimeSheet.findOne({'startDate':date,'userId':userId});
+
+      var projectEntries = sheet['projectEntriesArray'];
+
+      var projectsNotAllowed = [];
+
+      for(i = 0; i < projectEntries.length; i++){
+        var project = projectEntries[i]['projectID'];
+        var sentBack;
+        if((projectEntries[i]['Approved'] || !projectEntries[i]['SentBack']) && sheet['submitted']){
+          projectsNotAllowed.push(project);
+
+        }
+      }
       var user = Meteor.users.findOne({_id: Session.get('LdapId')});
-      return ChargeNumbers.find({id: { $in : user['projects'] } });
-    },
+      var projects =  ChargeNumbers.find({id: { $in : user['projects'] } });
+      var returnedProjects = [];
+      var selected = false;
+
+      projects = projects.fetch();
+
+
+      projects.forEach( function(p){
+        if(projectSelected == p['id']){
+          selected = true;
+        }
+
+        if(!($.inArray(p['id'], projectsNotAllowed) > -1)){
+          returnedProjects.push({
+             'id' : p['id'],
+             'name' : p['name'],
+             'selected' : selected
+          });
+
+        }else if(projectSelected == p['id'] && ($.inArray(projectSelected, returnedProjects) == -1)){
+            returnedProjects.push({
+             'id' : p['id'],
+             'name' : p['name'],
+             'selected' : selected
+          });
+       
+        }
+        selected = false;
+      });
+
+      return returnedProjects;
+    }
 });
 
 Template.lastSection.helpers({
@@ -252,12 +356,20 @@ Template.lastSection.helpers({
       var user = Session.get('LdapId');
       var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
 
+      if(sheet['submitted']){
+        $('#generalComment').attr('disabled', 'disabled');
+      }
+
       return sheet['generalComment'];
     },
     concerns: function() {
   		var date = Session.get("startDate");
       var user = Session.get('LdapId');
     	var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
+
+      if(sheet['submitted']){
+        $('#concerns').attr('disabled', 'disabled');
+      }
 
     	return sheet['concerns'];
 
@@ -284,6 +396,7 @@ Template.lastSection.events = {
   'click button': function(event){
 
      ActiveDBService.submitTimesheet(Session.get("startDate"), Session.get('LdapId'));
+     ActiveDBService.updateSentBackStatus(Session.get("startDate"), Session.get('LdapId'));
      Session.set('current_page', 'time_sheet');
   }
 };
@@ -303,7 +416,7 @@ Template.projectComments.events = {
 Template.projectHoursFilled.events = {
   'blur .filledRow': function(event){
 
-     var row = event.currentTarget;
+     var row = event.currentTarget.parentNode;
      var comment_t = $(row).find('#Comment')[0].value;
      var sunday_t = $(row).find('#Sunday')[0].value;
      var monday_t = $(row).find('#Monday')[0].value;
@@ -315,8 +428,6 @@ Template.projectHoursFilled.events = {
      var rowID = $(row).attr('id');
      var projectIndex = $(row).find('#project_select')[0].selectedIndex;
      var projectID = $(row).find('#project_select')[0].children[projectIndex].id;
-
-     //alert(rowID);
 
      TimeSheetService.removeErrorClasses(row, ['#Comment','#Sunday','#Monday','#Tuesday','#Wednesday','#Thursday','#Friday','#Saturday','#projectName']);
 
@@ -362,7 +473,7 @@ Template.projectHoursFilled.events = {
 		  var user = Session.get('LdapId');
     	var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
 
-   		if(!sheet['submitted']){
+   		if(!sheet['submitted'] || TimeSheetService.checkSentBack()){
         	ActiveDBService.removeRowInTimeSheet(Session.get("startDate"), Session.get('LdapId'), rowID, projectID);
     	}
     }
@@ -411,7 +522,7 @@ Template.projectHours.events = {
 		  var user = Session.get('LdapId');
     	var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
 
-    	if(!sheet['submitted']){
+    	if(!sheet['submitted'] || TimeSheetService.checkSentBack()){
          ActiveDBService.addRowToTimeSheet(Session.get("startDate"),Session.get('LdapId'), projectID,
              comment_t,
              sunday_t,
@@ -445,6 +556,21 @@ TimeSheetService = {
          item.parent().removeClass('has-error');
          item.tooltip('destroy');
      }
+   },
+   checkSentBack: function(){
+    var date = Session.get("startDate");
+    var user = Session.get('LdapId');
+    var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
+
+    var projectEntries = sheet['projectEntriesArray'];
+
+    var sentBack = false;
+    for(i = 0; i < projectEntries.length; i++){
+      if(projectEntries[i]['SentBack']){
+        sentBack = true;
+      }
+    }
+    return sentBack;
    },
    addError: function(row, selector, message){
       
