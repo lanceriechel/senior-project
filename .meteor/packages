@@ -13,5 +13,7 @@ rajit:bootstrap3-datepicker
 sanjo:jasmine
 velocity:html-reporter
 percolatestudio:synced-cron
+email
 meteorhacks:npm
 npm-container
+

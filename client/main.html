@@ -1,109 +1,45 @@
 <head>
     <title>Time Entry</title>
+    <link rel="icon" sizes="16x16 " href="/ScientiaLLC_Logo-16x16.png">
 </head>
 <body>
 <div id="main-pane">
-<nav class="navbar navbar-default" role="navigation">
-    <h3>
-        Scientia LLC Time Entry System
-    </h3>
-</nav>
-{{>pages}}
+    <div class="row navbar">
+        <img src="/ScientiaLLC_Logo-300x64.png" class="header_logo">
+        {{>pages}}
+    </div>
     {{> mainSelector}}
 </div>
 </body>
 
 <template name="pages">
     <ul class="navbar nav-pills navbar-default" role="tablist">
-        {{#if isTimesheet}}
-          <li class="active tag" role="presentation" id='time_sheet'>
-               Time Sheet
-          </li>
-          <li role="presentation" id='active_projects' class="tag">
-               Active Projects
-          </li>
-          <li role="presentation" id='archived_projects' class="tag">
-               Archived Projects
-          </li>
-          <li role="presentation" id='employees_settings' class="tag">
-               Employees
-          </li>
-	  <li role="presentation" id='approval_page' class="tag">
-               Approval
-          </li>{{/if}}
 
-       
+        {{#unless isLoginPage}}
+            <li class="{{#if isTimesheet}}active{{/if}} tag" role="presentation" id='time_sheet'>
+                Time Sheet
+            </li>
+            {{#if isManager}}
+                <li role="presentation" id='approval_page' class="tag {{#if isApproval}}active{{/if}}">
+                    Approval
+                </li>
+            {{/if}}
+            {{#if isAdmin}}
+                <li role="presentation" id='active_projects' class="tag {{#if isActiveProjects}}active{{/if}}">
+                    Active Projects
+                </li>
+                <li role="presentation" id='archived_projects' class="tag {{#if isArchivedProjects}}active{{/if}}">
+                    Archived Projects
+                </li>
+                <li role="presentation" id='employees_settings' class="tag {{#if isEmployeeSettings}}active{{/if}}">
+                    Employees
+                </li>
+            {{/if}}
+        {{/unless}}
 
-        {{#if isActiveProjects}}
-          <li class="tag" role="presentation" id='time_sheet'>
-               Time Sheet
-          </li>
-          <li role="presentation" id='active_projects' class="tag active">
-               Active Projects
-          </li>
-          <li role="presentation" id='archived_projects' class="tag">
-               Archived Projects
-          </li>
-          <li role="presentation" id='employees_settings' class="tag">
-               Employees
-          </li>
-	  <li role="presentation" id='approval_page' class="tag">
-               Approval
-          </li>{{/if}}
-
-        {{#if isArchivedProjects}}
-          <li class="tag" role="presentation" id='time_sheet'>
-               Time Sheet
-          </li>
-          <li role="presentation" id='active_projects' class="tag">
-               Active Projects
-          </li>
-          <li role="presentation" id='archived_projects' class="tag active">
-               Archived Projects
-          </li>
-          <li role="presentation" id='employees_settings' class="tag">
-               Employees
-          </li>
-	  <li role="presentation" id='approval_page' class="tag">
-               Approval
-          </li>{{/if}}
-
-        {{#if isEmployeeSettings}}
-          <li class="tag" role="presentation" id='time_sheet'>
-               Time Sheet
-          </li>
-          <li role="presentation" id='active_projects' class="tag">
-               Active Projects
-          </li>
-          <li role="presentation" id='archived_projects' class="tag">
-               Archived Projects
-          </li>
-          <li role="presentation" id='employees_settings' class="tag active">
-               Employees
-          </li>
-	  <li role="presentation" id='approval_page' class="tag">
-               Approval
-          </li>{{/if}}
-        {{#if isApproval}}
-          <li class="tag" role="presentation" id='time_sheet'>
-               Time Sheet
-          </li>
-          <li role="presentation" id='active_projects' class="tag">
-               Active Projects
-          </li>
-          <li role="presentation" id='archived_projects' class="tag">
-               Archived Projects
-          </li>
-          <li role="presentation" id='employees_settings' class="tag">
-               Employees
-          </li>
-	  <li role="presentation" id='approval_page' class="tag active">
-               Approval
-          </li>{{/if}}
-
-<div id="login">
-    <!-- <span>{{> loginButtons align="right"}}</span> -->
-    </div>
+        <div id="login">
+            <!-- <span>{{> loginButtons align="right"}}</span> -->
+        </div>
     </ul>
 
 </template>
@@ -111,19 +47,24 @@
 <template name="loginPage">
     <h2><span class="label">Login with LDAP</span></h2>
     <br>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-1 col-sm-1 col-xs-1"><h4>Username</h4></div>
-        <div class="col-md-3 col-sm-3 col-xs-3"><input id="LDAPusername" class="large-input form-control" type="text" value=""></div>
-      </div>
-      <div class="row">
-        <div class="col-md-1 col-sm-1 col-xs-1"><h4>Password</h4></div>
-        <div class="col-md-3 col-sm-3 col-xs-3"><input id="LDAPpassword" class="large-input form-control" type="password" value=""></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary">Enter</button></div>
-      </div>
-    </div>
-</template>
 
+    <form action="/">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-1 col-sm-1 col-xs-1"><h4>Username</h4></div>
+                <div class="col-md-3 col-sm-3 col-xs-3"><input id="LDAPusername" class="large-input form-control"
+                                                               type="text" value="" autofocus></div>
+            </div>
+            <div class="row">
+                <div class="col-md-1 col-sm-1 col-xs-1"><h4>Password</h4></div>
+                <div class="col-md-3 col-sm-3 col-xs-3"><input id="LDAPpassword" class="large-input form-control"
+                                                               type="password" value=""></div>
+                <div class="col-md-1 col-sm-1 col-xs-1"><input type="submit" class="btn btn-warning" value="Enter">
+                </div>
+            </div>
+        </div>
+    </form>
+</template>
 
 <template name="mainSelector">
     {{#if isLoginPage}}
