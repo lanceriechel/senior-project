@@ -96,16 +96,3 @@ Template.loginPage.events({
         authenticateLdapEmployee(username, password);
     }
 });
-
-//Meteor.startup(function () {
-//    process.env.MAIL_URL = "smtp://pumpdude93%40gmail.com:dyficamp@smtp.gmail.com:465/";
-//});
-
-Template.sendEmail.events({
-    'click button': function (event) {
-        //alert("Sending Email");
-        console.log("Attempting to send Email");
-        Meteor.call('sendEmail');
-
-        }
-});
