@@ -289,7 +289,11 @@ Template.SelectedTimesheet.rendered = function(){
   if(sheet['submitted']){
 		$('.enterable').attr('disabled', 'disabled');
     $('.sentBack').attr('disabled', false);
+    if(TimeSheetService.checkSentBack()){
+      $('#submitButton').attr('disabled', false);
+    }
 	}
+
 };
 
 Template.projectListDropDown.helpers({
@@ -343,13 +347,6 @@ Template.projectListDropDown.helpers({
       });
 
       return returnedProjects;
-    },
-    isSelected: function(selected, name){
-     // alert(selected + ''+name)
-      if(selected){
-        return true;
-      }
-      return false;
     }
 });
 
@@ -399,6 +396,7 @@ Template.lastSection.events = {
   'click button': function(event){
 
      ActiveDBService.submitTimesheet(Session.get("startDate"), Session.get('LdapId'));
+     ActiveDBService.updateSentBackStatus(Session.get("startDate"), Session.get('LdapId'));
      Session.set('current_page', 'time_sheet');
   }
 };

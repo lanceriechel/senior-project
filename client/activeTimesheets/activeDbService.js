@@ -115,7 +115,6 @@ ActiveDBService = {
         var active = 0;
 
         for (var index in prEntriesArr){
-            alert(prEntriesArr[index].Approved);
             if(!prEntriesArr[index].Approved){ //If at least one entry is not approved, timesheet still active
                 active = 1;
             }
@@ -125,6 +124,26 @@ ActiveDBService = {
             {
                 $set:{
                     'active': active
+                }
+            });
+        return;
+
+    },
+    updateSentBackStatus: function(date, user){
+        var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
+        var prEntriesArr = sheet['projectEntriesArray'];
+        var active = 0;
+
+        for (var index in prEntriesArr){
+            if(prEntriesArr[index].SentBack){ 
+                prEntriesArr[index].SentBack = false;
+            }
+        }
+
+        TimeSheet.update({'_id':sheet._id},
+            {
+                $set:{
+                    'projectEntriesArray': prEntriesArr
                 }
             });
         return;
@@ -186,7 +205,6 @@ ActiveDBService = {
 
     addRowToTimeSheet: function(date, user, project, comment,Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, rowID) {
             // Adds a single Entry to the Timesheet collection. This entry corresponds to a single Row on the web page.Essentially 1 Entry for every project.- Dan
-            //alert(project);
             var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
 
             var prEntriesArr = sheet['projectEntriesArray'];
@@ -287,7 +305,7 @@ ActiveDBService = {
                prEntriesArr.splice(index1, 0, entryArrToAdd);
             }
 
-            
+
 
             TimeSheet.update({'_id':sheet._id},{
                 $set:{
