@@ -29,9 +29,6 @@ Template.pages.helpers({
     isActiveProjects: function () {
         return Session.equals('current_page', 'active_projects');
     },
-    isArchivedProjects: function () {
-        return Session.equals('current_page', 'archived_projects');
-    },
     isEmployeeSettings: function () {
         return Session.equals('current_page', 'employees_settings');
     },
@@ -62,9 +59,6 @@ Template.mainSelector.helpers({
     },
     isActiveProjects: function () {
         return Session.equals('current_page', 'active_projects');
-    },
-    isArchivedProjects: function () {
-        return Session.equals('current_page', 'archived_projects');
     },
     isEmployeeSettings: function () {
         return Session.equals('current_page', 'employees_settings');

@@ -533,6 +533,15 @@ Template.projectHours.events = {
              friday_t,
              saturday_t,
              rowID);
+            comment_t='';
+            sunday_t=0;
+            monday_t=0;
+            tuesday_t=0;
+            wednesday_t=0;
+            thursday_t=0;
+            friday_t=0;
+            saturday_t=0;
+
         }
      }
 
