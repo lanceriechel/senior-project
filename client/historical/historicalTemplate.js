@@ -185,21 +185,6 @@ Template.SelectedHistoryTimesheet.helpers({
 	}
 });
 
-Template.SelectedTimesheet.rendered = function(){
-	var date = Session.get("startDate");
-  var user = Session.get('LdapId');
-  var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
-
-  if(sheet['submitted']){
-		$('.enterable').attr('disabled', 'disabled');
-    $('.sentBack').attr('disabled', false);
-    if(TimeSheetService.checkSentBack()){
-      $('#submitButton').attr('disabled', false);
-    }
-	}
-
-};
-
 Template.historyProjectHours.helpers({
     'name' : function(projectID){
       var name = ChargeNumbers.findOne({'id' : projectID});
