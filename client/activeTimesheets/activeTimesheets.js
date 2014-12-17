@@ -491,13 +491,13 @@ Template.projectHours.events = {
 
        var row = event.currentTarget.parentNode.parentNode;
        var comment_t = $(row).find('#Comment')[0].value;
-       var sunday_t = $(row).find('#Sunday')[0].value;
-       var monday_t = $(row).find('#Monday')[0].value;
-       var tuesday_t = $(row).find('#Tuesday')[0].value;
-       var wednesday_t = $(row).find('#Wednesday')[0].value;
-       var thursday_t = $(row).find('#Thursday')[0].value;
-       var friday_t = $(row).find('#Friday')[0].value;
-       var saturday_t = $(row).find('#Saturday')[0].value;
+       var sunday_t = parseInt($(row).find('#Sunday')[0].value, 10);
+       var monday_t = parseInt($(row).find('#Monday')[0].value, 10);
+       var tuesday_t = parseInt($(row).find('#Tuesday')[0].value, 10);
+       var wednesday_t = parseInt($(row).find('#Wednesday')[0].value, 10);
+       var thursday_t = parseInt($(row).find('#Thursday')[0].value, 10);
+       var friday_t = parseInt($(row).find('#Friday')[0].value, 10);
+       var saturday_t = parseInt($(row).find('#Saturday')[0].value, 10);
 
         // I added this so we can retrieve the selected project's ID so we can add it to the Database
         var projectIndex = $(row).find('#project_select')[0].selectedIndex;
@@ -536,14 +536,14 @@ Template.projectHours.events = {
         }
      }
 
-            $(row).find('#Comment')[0].value = '';
-            $(row).find('#Sunday')[0].value = '0';
-            $(row).find('#Monday')[0].value = '0';
-            $(row).find('#Tuesday')[0].value = '0';
-            $(row).find('#Wednesday')[0].value = '0';
-            $(row).find('#Thursday')[0].value = '0';
-            $(row).find('#Friday')[0].value = '0';
-            $(row).find('#Saturday')[0].value = '0';
+            $(row).find('#Comment')[0].value = comment_t;
+            $(row).find('#Sunday')[0].value = sunday_t;
+            $(row).find('#Monday')[0].value = monday_t;
+            $(row).find('#Tuesday')[0].value = tuesday_t;
+            $(row).find('#Wednesday')[0].value = wednesday_t;
+            $(row).find('#Thursday')[0].value = thursday_t;
+            $(row).find('#Friday')[0].value = friday_t;
+            $(row).find('#Saturday')[0].value = saturday_t;
 
 
     }
@@ -599,56 +599,56 @@ TimeSheetService = {
           TimeSheetService.addError(row, '#Sunday', "Field is Not a Number");
           valid = false;    
        } 
-       if(sunday_t % .25 != 0){
-          TimeSheetService.addError(row, '#Sunday', "Field Must be a Multiple of .25");
+       if((sunday_t % .25 != 0) || (sunday_t > 24)){
+          TimeSheetService.addError(row, '#Sunday', "Field Must be a Multiple of .25 and less than 24");
           valid = false;    
        }
        if(isNaN(monday_t)){
           TimeSheetService.addError(row, '#Monday', "Field is Not a Number");
           valid = false;       
        }
-       if(monday_t % .25 != 0){
-          TimeSheetService.addError(row, '#Monday', "Field Must be a Multiple of .25");
+       if((monday_t % .25 != 0) || (monday_t > 24)){
+          TimeSheetService.addError(row, '#Monday', "Field Must be a Multiple of .25 and less than 24");
           valid = false;    
        }
        if(isNaN(tuesday_t)){
           TimeSheetService.addError(row, '#Tuesday', "Field is Not a Number");
           valid = false;
        }
-       if(tuesday_t % .25 != 0){
-          TimeSheetService.addError(row, '#Tuesday', "Field Must be a Multiple of .25");
+       if((tuesday_t % .25 != 0) || (tuesday_t > 24)){
+          TimeSheetService.addError(row, '#Tuesday', "Field Must be a Multiple of .25 and less than 24");
           valid = false;    
        }
        if(isNaN(wednesday_t)){
           TimeSheetService.addError(row, '#Wednesday', "Field is Not a Number");
           valid = false;
        }
-       if(wednesday_t % .25 != 0){
-          TimeSheetService.addError(row, '#Wednesday', "Field Must be a Multiple of .25");
+       if((wednesday_t % .25 != 0) || (wednesday_t > 24)){
+          TimeSheetService.addError(row, '#Wednesday', "Field Must be a Multiple of .25 and less than 24");
           valid = false;    
        }
        if(isNaN(thursday_t)){
           TimeSheetService.addError(row, '#Thursday', "Field is Not a Number");
           valid = false;
        }
-       if(thursday_t % .25 != 0){
-          TimeSheetService.addError(row, '#Thursday', "Field Must be a Multiple of .25");
+       if((thursday_t % .25 != 0) || (thursday_t > 24)){
+          TimeSheetService.addError(row, '#Thursday', "Field Must be a Multiple of .25 and less than 24");
           valid = false;    
        }
        if(isNaN(friday_t)){
           TimeSheetService.addError(row, '#Friday', "Field is Not a Number");
           valid = false;
        }
-       if(friday_t % .25 != 0){
-          TimeSheetService.addError(row, '#Friday', "Field Must be a Multiple of .25");
+       if((friday_t % .25 != 0) || (friday_t > 24)){
+          TimeSheetService.addError(row, '#Friday', "Field Must be a Multiple of .25 and less than 24");
           valid = false;    
        }
        if(isNaN(saturday_t)){
           TimeSheetService.addError(row, '#Saturday', "Field is Not a Number");
           valid = false;
        }
-       if(saturday_t % .25 != 0){
-          TimeSheetService.addError(row, '#Saturday', "Field Must be a Multiple of .25");
+       if((saturday_t % .25 != 0) || (saturday_t > 24)){
+          TimeSheetService.addError(row, '#Saturday', "Field Must be a Multiple of .25 and less than 24");
           valid = false;    
        }
        if(((sunday_t === '')||(sunday_t === '0')) &&
