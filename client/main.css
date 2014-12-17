@@ -59,6 +59,8 @@ input[type=checkbox] {
     text-align: center;
     border-radius: 10px;
     position: relative;
+    color: #FAA51B;
+    font-weight: bold;
 }
 
 .tag:hover {
@@ -84,10 +86,7 @@ ul {
 }
 
 #new-todo-box {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 60px;
-    margin-right: 20px;
+    margin-top: 10px 60px 10px 20px;
     font-size: 160%;
     position: relative;
     height: 40px;
@@ -227,7 +226,7 @@ ul {
 }
 
 .active {
-    background-color: #808080;
+    background-color: rgba(163, 163, 163, 1);
     color: #f5f5f5;
 }
 
