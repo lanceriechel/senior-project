@@ -27,6 +27,7 @@ Template.pages.helpers({
             Session.equals('current_page', 'selected_timesheet');
     },
     isHistorical: function(){
+        Session.set('year', new Date().getFullYear());
         return Session.equals('current_page', 'historical_page');
     },
     isActiveProjects: function(){

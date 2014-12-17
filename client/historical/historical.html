@@ -6,7 +6,17 @@
 </template>
 
 <template name="historicalEntries">
+    {{> historyYearSelect}}
     {{> historyHeader}}
+</template>
+
+<template name="historyYearSelect">
+    <div class="row">
+        <hr>
+        {{#each getYears}}
+            <div class="col-md-2 col-sm-2 col-xs-2"><button type="button" class="btn btn-primary">{{year}}</button></div>
+        {{/each}}
+    </div>
 </template>
 
 <template name="historyInfo">
@@ -25,6 +35,7 @@
 
 <template name="historyHeader">
     <div class="row">
+        <hr>
         <div class="row">
                 <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Start Date</h4></div>
                 <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Sun</h4></div>
