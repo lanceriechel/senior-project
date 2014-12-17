@@ -26,6 +26,9 @@ Template.pages.helpers({
         return Session.equals('current_page', 'time_sheet') ||
                Session.equals('current_page', 'selected_timesheet');
     },
+    isHistorical: function(){
+        return Session.equals('current_page', 'historical_page');
+    },
     isActiveProjects: function(){
         return Session.equals('current_page', 'active_projects');
     },
@@ -59,6 +62,12 @@ Template.pages.helpers({
 Template.mainSelector.helpers({
     isTimesheet: function(){
         return Session.equals('current_page', 'time_sheet');
+    },
+    isHistorical: function(){
+        return Session.equals('current_page', 'historical_page');
+    },
+    isActiveProjects: function(){
+        return Session.equals('current_page', 'active_projects');
     },
     isActiveProjects: function(){
         return Session.equals('current_page', 'active_projects');

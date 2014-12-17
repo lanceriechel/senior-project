@@ -1,0 +1,39 @@
+<template name="historicalPage">
+    <div class="container-fluid">
+        <h2><span class="label">Historical</span></h2>
+      {{> historicalEntries}}
+    </div>
+</template>
+
+<template name="historicalEntries">
+    {{> historyHeader}}
+</template>
+
+<template name="historyInfo">
+    <div class="row">
+        <div class="col-xs-2 text-center"></div>
+        <div class="col-xs-1 text-center"></div>
+        <div class="col-xs-1 text-center"></div>
+        <div class="col-xs-1 text-center"></div>
+        <div class="col-xs-1 text-center"></div>
+        <div class="col-xs-1 text-center"></div>
+        <div class="col-xs-1 text-center"></div>
+        <div class="col-xs-1 text-center"></div>
+    </div>
+</template>
+
+<template name="historyHeader">
+    <div class="row">
+        <div class="col-xs-2 text-center"><h4>Date Range</h4></div>
+        <div class="col-xs-1 text-center"><h4>Sun</h4></div>
+        <div class="col-xs-1 text-center"><h4>Mon</h4></div>
+        <div class="col-xs-1 text-center"><h4>Tue</h4></div>
+        <div class="col-xs-1 text-center"><h4>wed</h4></div>
+        <div class="col-xs-1 text-center"><h4>Thu</h4></div>
+        <div class="col-xs-1 text-center"><h4>Fri</h4></div>
+        <div class="col-xs-1 text-center"><h4>Sat</h4></div>
+        {{#each getTimesheets}}
+            {{> historyInfo}}
+        {{/each}}
+    </div>
+</template>
