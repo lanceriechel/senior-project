@@ -41,6 +41,9 @@ Template.pages.helpers({
     isSelectedTimesheet: function () {
         return Session.equals('current_page', 'selected_timesheet');
     },
+    isHistoricalTimesheet: function () {
+        return Session.equals('current_page', 'historical_timesheet');
+    },
     isLoginPage: function () {
         return Session.equals('current_page', 'login_page');
     },
@@ -63,17 +66,10 @@ Template.mainSelector.helpers({
     isTimesheet: function () {
         return Session.equals('current_page', 'time_sheet');
     },
-<<<<<<< HEAD
     isHistorical: function(){
         return Session.equals('current_page', 'historical_page');
     },
     isActiveProjects: function(){
-        return Session.equals('current_page', 'active_projects');
-    },
-    isActiveProjects: function(){
-=======
-    isActiveProjects: function () {
->>>>>>> fe3479cd7ddfc7213e2c6e16cd34d3635063fa0b
         return Session.equals('current_page', 'active_projects');
     },
     isArchivedProjects: function () {
@@ -84,6 +80,9 @@ Template.mainSelector.helpers({
     },
     isSelectedTimesheet: function () {
         return Session.equals('current_page', 'selected_timesheet');
+    },
+    isHistoricalTimesheet: function () {
+        return Session.equals('current_page', 'historical_timesheet');
     },
     isApproval: function () {
         return Session.equals('current_page', 'approval_page');
