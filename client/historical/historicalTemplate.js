@@ -273,3 +273,34 @@ Template.historyLastSection.helpers({
 
     }
 });
+
+Template.historyLog.helpers({
+    revisions : function(){
+    	var revisionArray = [];
+    	var date = Session.get("startDate");
+		var user = Session.get('LdapId');
+    	var revisions = TimeSheet.findOne({'startDate':date,'userId':user}).revision;
+    	revisions.forEach(function (r) {
+    		var timestamp = r.timestamp.getDate() + "/"
+                + (r.timestamp.getMonth()+1)  + "/" 
+                + r.timestamp.getFullYear() + " @ "  
+                + r.timestamp.getHours() + ":"  
+                + r.timestamp.getMinutes();
+
+            var message = "";
+            if (r.type == "approval") {
+            	message = r.manager + " approved " + r.totalHours + " hours for project " + r.project + ".";
+            } else if (r.type == "rejection") {
+            	message = r.manager + " rejected " + r.totalHours + " hours for project " + r.project + " with message \"" + r.comment + "\".";
+            } else if (r.type == "submission") {
+            	message = r.employee + " submitted " + r.totalHours + " hours for project " + r.project + ".";
+            };
+
+            revisionArray.push({
+            	'timestamp':timestamp,
+            	'message':message
+            });
+    	});
+		return revisionArray;
+    }
+});

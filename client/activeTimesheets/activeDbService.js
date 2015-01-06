@@ -23,6 +23,21 @@ ActiveDBService = {
         return TimeSheet.find({});
     },
 
+    getTotalHoursForProject: function(timesheet, projectID){
+        var total = 0;
+        timesheet.projectEntriesArray.forEach(function (pe) {
+            if (pe.projectID == projectID) {
+                pe.EntryArray.forEach(function (a) {
+                    for (var b in a.hours) {
+                        total += parseInt(a.hours[b]);
+                    }
+                });
+                return total;
+            }
+        });
+        return total;
+    },
+
     updateRowInTimeSheet: function(date, user, project, comment,Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, rowID){
             
             var sheet = TimeSheet.findOne({'startDate':date,'userId':user});

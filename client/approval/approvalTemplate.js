@@ -78,9 +78,33 @@ Template.toApprove_Template.events({
         var userId = Meteor.users.findOne({username: Session.get('current_user_to_approve')})._id;
 
         var projectId = Session.get('current_project_to_approve');
+        var projectName = ChargeNumbers.findOne({'id' : projectId}).name;
+
+        var sheet = TimeSheet.findOne({'startDate':date,'userId':userId,'submitted':true});
+        var totalHours = ActiveDBService.getTotalHoursForProject(sheet, projectId);
+
+        var managerName = Meteor.users.findOne({'_id':Session.get('LdapId')}).username;
+
+        var revision = sheet.revision;
 
         ActiveDBService.updateApprovalStatusInTimeSheet(date, userId, projectId, true, "Approved");
         ActiveDBService.updateActiveStatusInTimesheet(date, userId, projectId);
+
+        historyEntry = {
+            'manager':managerName,
+            'project':projectName,
+            'timestamp':new Date(),
+            'totalHours':totalHours,
+            'type':'approval'
+        };
+        revision.unshift(historyEntry);
+
+        TimeSheet.update({'_id':sheet._id},
+        {
+            $set:{
+                'revision': revision
+            },
+        });
     },
     'click .reject': function (e, t) {
         if (!e.target.parentNode.parentNode.classList.contains("selected")) return;
@@ -91,10 +115,35 @@ Template.toApprove_Template.events({
         var userId = Meteor.users.findOne({username: Session.get('current_user_to_approve')})._id;
 
         var projectId = Session.get('current_project_to_approve');
+        var projectName = ChargeNumbers.findOne({'id' : projectId}).name;
 
         var rejectComment = $('#rejectComment')[0].value;
 
+        var sheet = TimeSheet.findOne({'startDate':date,'userId':userId,'submitted':true});
+        var totalHours = ActiveDBService.getTotalHoursForProject(sheet, projectId);
+
+        var managerName = Meteor.users.findOne({'_id':Session.get('LdapId')}).username;
+
+        var revision = sheet.revision
+
         ActiveDBService.updateApprovalStatusInTimeSheet(date, userId, projectId, false, rejectComment);
+
+        historyEntry = {
+            'manager':managerName,
+            'project':projectName,
+            'timestamp':new Date(),
+            'totalHours':totalHours,
+            'type':'rejection',
+            'comment':rejectComment
+        };
+        revision.unshift(historyEntry);
+
+        TimeSheet.update({'_id':sheet._id},
+        {
+            $set:{
+                'revision': revision
+            },
+        });
     }
 })
 
