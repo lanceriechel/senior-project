@@ -34,6 +34,9 @@
                 <li role="presentation" id='employees_settings' class="tag {{#if isEmployeeSettings}}active{{/if}}">
                     Employees
                 </li>
+                <li role="presentation" id='admin_page' class="tag {{#if isAdminPage}}active{{/if}}">
+                    Admin
+                </li>
             {{/if}}
         {{/unless}}
 
@@ -93,5 +96,8 @@
     {{/if}}
     {{#if isApproval}}
         {{> approvalPage}}
+    {{/if}}
+    {{#if isAdminPage}}
+        {{> adminPage}}
     {{/if}}
 </template>

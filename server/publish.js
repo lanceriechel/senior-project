@@ -1,5 +1,6 @@
 ChargeNumbers = new Meteor.Collection('charge_numbers');
 TimeSheet = new Meteor.Collection('time_sheets');
+Jobs = new Meteor.Collection('jobs');
 
 Meteor.publish('userData', function() {
     return Meteor.users.find({}, {fields: {
@@ -28,5 +29,21 @@ TimeSheet.allow({
     },
     remove: function(userId, users){
         return false;
+    }
+});
+
+Meteor.publish('serverjobs', function() {
+    return Jobs.find();
+});
+
+Jobs.allow({
+    insert: function(userId, user){
+        return true;
+    },
+    update: function (userId, users, fields, modifier) {
+        return true;
+    },
+    remove: function(userId, users){
+        return true;
     }
 });
