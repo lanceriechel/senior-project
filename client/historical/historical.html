@@ -6,8 +6,22 @@
 </template>
 
 <template name="historicalEntries">
+    {{> historyEmployeeSelect}}
     {{> historyYearSelect}}
     {{> historyHeader}}
+</template>
+
+<template name="historyEmployeeSelect">
+    <div class="row">
+        <hr>
+        <div class="text-center col-md-2 col-sm-2 col-xs-2">Employee</div>
+        <div class="text-center col-md-2 col-sm-2 col-xs-2">Project</div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 col-sm-2 col-xs-2"><input id="employeeSearch" type="text" class="large-input form-control"></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"><input id="projectSearch" type="text" class="large-input form-control"></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"><button type="button" class="btn btn-success">Search</button></div>
+    </div>
 </template>
 
 <template name="historyYearSelect">
@@ -51,6 +65,8 @@
         {{/each}}
     </div>
 </template>
+
+
 
 <template name="SelectedHistoryTimesheet">
     <h2><span class="label">{{date}}</span></h2>

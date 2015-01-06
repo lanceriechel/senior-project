@@ -304,3 +304,10 @@ Template.historyLog.helpers({
 		return revisionArray;
     }
 });
+
+Template.historyEmployeeSelect.events({
+	'click button': function(event){
+
+    	alert(ActiveDBService.getEmployeesUnderManager('managertest'));
+    }
+});

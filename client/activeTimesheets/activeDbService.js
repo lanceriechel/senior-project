@@ -38,6 +38,22 @@ ActiveDBService = {
         return total;
     },
 
+    getEmployeesUnderManager: function(manager) {
+        var projects = ChargeNumbers.find({'manager':manager});
+        var projectIds = [];
+        projects.forEach(function (p) {
+            projectIds.push(p.id);
+        });
+
+        var employees = Meteor.users.find({'projects': { $in: projectIds}});
+        var employeeNames = [];
+        employees.forEach(function (e) {
+            employeeNames.push(e.username);
+        });
+
+        return employeeNames;
+    },
+
     updateRowInTimeSheet: function(date, user, project, comment,Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, rowID){
             
             var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
