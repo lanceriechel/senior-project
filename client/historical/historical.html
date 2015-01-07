@@ -6,7 +6,9 @@
 </template>
 
 <template name="historicalEntries">
-    {{> historyEmployeeSelect}}
+    {{#if isManager}}
+        {{> historyEmployeeSelect}}
+    {{/if}}
     {{> historyYearSelect}}
     {{> historyHeader}}
 </template>

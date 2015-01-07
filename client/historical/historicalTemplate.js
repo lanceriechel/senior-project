@@ -1,40 +1,80 @@
 Template.historyHeader.helpers({
 	getTimesheets: function () {
 		var userId = Session.get('LdapId');
+		if (Session.get('search_employee')) {
+			userId = Session.get('search_employee');
+		}
+		var project = "";
+		if (Session.get('search_project')) {
+			project = Session.get('search_project');
+		}
 		var year = Session.get('year');
 		var timesheetsMap = {};
 		var timesheets = [];
 
-		TimeSheet.find({'userId': userId}).forEach(
-			function (u) {
-				timesheetYear = u.startDate.split('/')[2];
-				if (timesheetYear == year) {
-					if (!(u.startDate in timesheetsMap)) {
-						timesheetsMap[u.startDate] = timesheets.length;
-						timesheets[timesheetsMap[u.startDate]] = {
-							startDate: u.startDate, sun: 0, mon: 0, tue: 0,
-							wed: 0, thu: 0, fri: 0, sat: 0
-						};
-					}
-					for (var pIndex in u.projectEntriesArray) {
-						for (var eIndex in u.projectEntriesArray[pIndex].EntryArray){
-							var entry = u.projectEntriesArray[pIndex].EntryArray[eIndex],
-							days = entry.hours,
-							current = timesheets[timesheetsMap[u.startDate]];
+		if (project != "") {
+			TimeSheet.find({'userId': userId, 'projectEntriesArray.projectID':project}).forEach(
+				function (u) {
+					timesheetYear = u.startDate.split('/')[2];
+					if (timesheetYear == year) {
+						if (!(u.startDate in timesheetsMap)) {
+							timesheetsMap[u.startDate] = timesheets.length;
 							timesheets[timesheetsMap[u.startDate]] = {
-								startDate: u.startDate,
-								sun: parseInt(days[0]) + parseInt(current.sun),
-								mon: parseInt(days[1]) + parseInt(current.mon),
-								tue: parseInt(days[2]) + parseInt(current.tue),
-								wed: parseInt(days[3]) + parseInt(current.wed),
-								thu: parseInt(days[4]) + parseInt(current.thu),
-								fri: parseInt(days[5]) + parseInt(current.fri),
-								sat: parseInt(days[6]) + parseInt(current.sat)
+								startDate: u.startDate, sun: 0, mon: 0, tue: 0,
+								wed: 0, thu: 0, fri: 0, sat: 0
 							};
 						}
+						for (var pIndex in u.projectEntriesArray) {
+							for (var eIndex in u.projectEntriesArray[pIndex].EntryArray){
+								var entry = u.projectEntriesArray[pIndex].EntryArray[eIndex],
+								days = entry.hours,
+								current = timesheets[timesheetsMap[u.startDate]];
+								timesheets[timesheetsMap[u.startDate]] = {
+									startDate: u.startDate,
+									sun: parseInt(days[0]) + parseInt(current.sun),
+									mon: parseInt(days[1]) + parseInt(current.mon),
+									tue: parseInt(days[2]) + parseInt(current.tue),
+									wed: parseInt(days[3]) + parseInt(current.wed),
+									thu: parseInt(days[4]) + parseInt(current.thu),
+									fri: parseInt(days[5]) + parseInt(current.fri),
+									sat: parseInt(days[6]) + parseInt(current.sat)
+								};
+							}
+						}
+					}
+				});
+} else {
+	TimeSheet.find({'userId': userId}).forEach(
+		function (u) {
+			timesheetYear = u.startDate.split('/')[2];
+			if (timesheetYear == year) {
+				if (!(u.startDate in timesheetsMap)) {
+					timesheetsMap[u.startDate] = timesheets.length;
+					timesheets[timesheetsMap[u.startDate]] = {
+						startDate: u.startDate, sun: 0, mon: 0, tue: 0,
+						wed: 0, thu: 0, fri: 0, sat: 0
+					};
+				}
+				for (var pIndex in u.projectEntriesArray) {
+					for (var eIndex in u.projectEntriesArray[pIndex].EntryArray){
+						var entry = u.projectEntriesArray[pIndex].EntryArray[eIndex],
+						days = entry.hours,
+						current = timesheets[timesheetsMap[u.startDate]];
+						timesheets[timesheetsMap[u.startDate]] = {
+							startDate: u.startDate,
+							sun: parseInt(days[0]) + parseInt(current.sun),
+							mon: parseInt(days[1]) + parseInt(current.mon),
+							tue: parseInt(days[2]) + parseInt(current.tue),
+							wed: parseInt(days[3]) + parseInt(current.wed),
+							thu: parseInt(days[4]) + parseInt(current.thu),
+							fri: parseInt(days[5]) + parseInt(current.fri),
+							sat: parseInt(days[6]) + parseInt(current.sat)
+						};
 					}
 				}
-			});
+			}
+		});
+}
 return timesheets;
 },
 ActiveTimesheet: function(userId, active){
@@ -45,9 +85,23 @@ ActiveTimesheet: function(userId, active){
 }
 });
 
+Template.historicalEntries.helpers({
+	isManager: function() {
+		var user = Meteor.users.findOne({'_id':Session.get('LdapId')});
+		if (user.manager || user.admin) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+})
+
 Template.historyYearSelect.helpers({
 	getYears: function () {
     	var userId = Session.get('LdapId');
+    	if (Session.get('search_employee')) {
+			userId = Session.get('search_employee');
+		}
 		var years = [];
 
 		TimeSheet.find({'userId': userId}).forEach(
@@ -87,6 +141,9 @@ Template.SelectedHistoryTimesheet.helpers({
 
 		var date = Session.get("startDate");
 		var user = Session.get('LdapId');
+		if (Session.get('search_employee')) {
+			user = Session.get('search_employee');
+		}
 		var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
 
 		var projectEntries = sheet['projectEntriesArray'];
@@ -139,6 +196,9 @@ Template.SelectedHistoryTimesheet.helpers({
 	project: function(){
 		var date = Session.get("startDate");
 		var user = Session.get('LdapId');
+		if (Session.get('search_employee')) {
+			user = Session.get('search_employee');
+		}
 		var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
 
 		var projectEntries = sheet['projectEntriesArray'];
@@ -168,6 +228,9 @@ Template.SelectedHistoryTimesheet.helpers({
 	timesheethack: function(){
 		var date = Session.get("startDate");
 		var user = Session.get('LdapId');
+		if (Session.get('search_employee')) {
+			user = Session.get('search_employee');
+		}
 		var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
 
 		var projectEntries = sheet['projectEntriesArray'];
@@ -200,6 +263,9 @@ Template.historyProjectComments.helpers({
 	next: function(projectID) {
 		var date = Session.get("startDate");
 		var user = Session.get('LdapId');
+		if (Session.get('search_employee')) {
+			user = Session.get('search_employee');
+		}
 		var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
 
 		var prEntriesArr = sheet['projectEntriesArray'];
@@ -215,6 +281,9 @@ Template.historyProjectComments.helpers({
 	issues: function(projectID) {
 		var date = Session.get("startDate");
 		var user = Session.get('LdapId');
+		if (Session.get('search_employee')) {
+			user = Session.get('search_employee');
+		}
 		var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
 
 		var prEntriesArr = sheet['projectEntriesArray'];
@@ -232,6 +301,9 @@ Template.historyProjectComments.helpers({
   message: function(projectID) {
     var date = Session.get("startDate");
     var user = Session.get('LdapId');
+    if (Session.get('search_employee')) {
+		user = Session.get('search_employee');
+	}
     var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
 
     var prEntriesArr = sheet['projectEntriesArray'];
@@ -252,6 +324,9 @@ Template.historyLastSection.helpers({
     genComment: function() {
   		var date = Session.get("startDate");
       var user = Session.get('LdapId');
+      if (Session.get('search_employee')) {
+		user = Session.get('search_employee');
+	  }
       var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
 
       if(sheet['submitted']){
@@ -279,6 +354,9 @@ Template.historyLog.helpers({
     	var revisionArray = [];
     	var date = Session.get("startDate");
 		var user = Session.get('LdapId');
+		if (Session.get('search_employee')) {
+			user = Session.get('search_employee');
+		}
     	var revisions = TimeSheet.findOne({'startDate':date,'userId':user}).revision;
     	revisions.forEach(function (r) {
     		var timestamp = r.timestamp.getDate() + "/"
@@ -306,8 +384,44 @@ Template.historyLog.helpers({
 });
 
 Template.historyEmployeeSelect.events({
-	'click button': function(event){
+	'click button': function(event, template){
+		var employee = template.find("#employeeSearch").value;
 
-    	alert(ActiveDBService.getEmployeesUnderManager('managertest'));
+		/* Hack to circumvent an issue where findOne was being recognized as an undefined function
+		    for empty strings. */
+		var employeeID = "";
+		var employees = Meteor.users.find({'username':employee});
+		employees.forEach(function (e) {
+            employeeID = e._id;
+        });
+
+		var project = template.find("#projectSearch").value;
+		var projectID = "";
+		var projects = ChargeNumbers.find({'name':project});
+		projects.forEach(function (p) {
+            projectID = p.id;
+        });
+
+		var user = Meteor.users.findOne({'_id':Session.get('LdapId')});
+
+		if (user.admin) {
+			if (employee == "") {
+				Session.set('search_employee', Session.get('LdapId'));
+			} else {
+				Session.set('search_employee', employeeID);
+			}
+		} else if (user.manager) {
+			var subordinates = ActiveDBService.getEmployeesUnderManager(user.username);
+			if (employee == "") {
+				Session.set('search_employee', Session.get('LdapId'));
+			} if (subordinates.indexOf(employee) != -1) {
+				Session.set('search_employee', employeeID);
+			} else {
+				Session.set('search_employee', "");
+			}
+		}
+		Session.set('search_project', projectID);
+
+    	Session.set('current_page', 'historical_page');
     }
 });
