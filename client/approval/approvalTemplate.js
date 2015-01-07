@@ -117,7 +117,7 @@ Template.toApprove_Template.events({
         var projectId = Session.get('current_project_to_approve');
         var projectName = ChargeNumbers.findOne({'id' : projectId}).name;
 
-        var rejectComment = $('#rejectComment')[0].value;
+        var rejectComment = $(e.target.parentNode.parentNode).find('#rejectComment')[0].value;
 
         var sheet = TimeSheet.findOne({'startDate':date,'userId':userId,'submitted':true});
         var totalHours = ActiveDBService.getTotalHoursForProject(sheet, projectId);
