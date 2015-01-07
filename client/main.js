@@ -1,12 +1,13 @@
 ChargeNumbers = new Meteor.Collection('charge_numbers');
 Employees = new Meteor.Collection('employees');
 TimeSheet = new Meteor.Collection('time_sheets');
-
+Jobs = new Meteor.Collection('jobs');
 
 Deps.autorun(function () {
     Meteor.subscribe('userData');
     Meteor.subscribe('projects');
     Meteor.subscribe('timesheet');
+    Meteor.subscribe('serverjobs');
 });
 
 Accounts.ui.config({
@@ -36,6 +37,9 @@ Template.pages.helpers({
     isEmployeeSettings: function () {
         return Session.equals('current_page', 'employees_settings');
     },
+    isAdminPage: function () {
+        return Session.equals('current_page', 'admin_page');
+    },
     isSelectedTimesheet: function () {
         return Session.equals('current_page', 'selected_timesheet');
     },
@@ -51,12 +55,16 @@ Template.pages.helpers({
     isManager: function () {
         var id = Session.get('LdapId');
         if (!id) return;
-        return Meteor.users.findOne({_id: id}).manager;
+        var user = Meteor.users.findOne({_id: id});
+        if (!user) return false;
+        return user.manager;
     },
     isAdmin: function () {
         var id = Session.get('LdapId');
         if (!id) return;
-        return Meteor.users.findOne({_id: id}).admin;
+        var user = Meteor.users.findOne({_id: id});
+        if (!user) return false;
+        return user.admin;
     }
 
 });
@@ -85,8 +93,8 @@ Template.mainSelector.helpers({
     isLoginPage: function () {
         return Session.equals('current_page', 'login_page');
     },
-    isApproval: function () {
-        return Session.equals('current_page', 'approval_page');
+    isAdminPage: function () {
+        return Session.equals('current_page', 'admin_page');
     }
 });
 Template.loginPage.events({
