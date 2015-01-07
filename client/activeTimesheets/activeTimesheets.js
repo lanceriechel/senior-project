@@ -394,10 +394,40 @@ Template.lastSection.events = {
   },
 
   'click button': function(event){
+    var date = Session.get("startDate");
+    var user = Session.get('LdapId');
+    var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
+    var employeeName = Meteor.users.findOne({'_id':Session.get('LdapId')}).username;
 
-     ActiveDBService.submitTimesheet(Session.get("startDate"), Session.get('LdapId'));
-     ActiveDBService.updateSentBackStatus(Session.get("startDate"), Session.get('LdapId'));
-     Session.set('current_page', 'time_sheet');
+    var revision = sheet.revision;
+
+    sheet.projectEntriesArray.forEach(function (p) {
+      var projectId = p.projectID;
+      var projectName = ChargeNumbers.findOne({'id' : projectId}).name;
+      var totalHours = ActiveDBService.getTotalHoursForProject(sheet, projectId);
+
+      if (!sheet.submitted || p.SentBack) {
+        historyEntry = {
+          'employee':employeeName,
+          'project':projectName,
+          'timestamp':new Date(),
+          'totalHours':totalHours,
+          'type':'submission'
+        };
+        revision.unshift(historyEntry);
+      }
+    });
+
+    TimeSheet.update({'_id':sheet._id},
+    {
+      $set:{
+        'revision': revision
+      },
+    });
+
+    ActiveDBService.submitTimesheet(Session.get("startDate"), Session.get('LdapId'));
+    ActiveDBService.updateSentBackStatus(Session.get("startDate"), Session.get('LdapId'));
+    Session.set('current_page', 'time_sheet');
   }
 };
 

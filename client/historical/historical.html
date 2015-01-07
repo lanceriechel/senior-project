@@ -6,8 +6,24 @@
 </template>
 
 <template name="historicalEntries">
+    {{#if isManager}}
+        {{> historyEmployeeSelect}}
+    {{/if}}
     {{> historyYearSelect}}
     {{> historyHeader}}
+</template>
+
+<template name="historyEmployeeSelect">
+    <div class="row">
+        <hr>
+        <div class="text-center col-md-2 col-sm-2 col-xs-2">Employee</div>
+        <div class="text-center col-md-2 col-sm-2 col-xs-2">Project</div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 col-sm-2 col-xs-2"><input id="employeeSearch" type="text" class="large-input form-control"></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"><input id="projectSearch" type="text" class="large-input form-control"></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"><button type="button" class="btn btn-success">Search</button></div>
+    </div>
 </template>
 
 <template name="historyYearSelect">
@@ -52,6 +68,8 @@
     </div>
 </template>
 
+
+
 <template name="SelectedHistoryTimesheet">
     <h2><span class="label">{{date}}</span></h2>
     <br>
@@ -84,6 +102,7 @@
         {{/each}}
         <hr>
         {{> historyLastSection}}
+        {{> historyLog}}
     </div>
 </template>
 
@@ -112,11 +131,31 @@
 
 <template name="historyLastSection">
     <div class="row">
-        <div class="col-md-6 col-sm-6 col-xs-6">General Comment</div>
-        <div class="col-md-5 col-sm-5 col-xs-5">Concerns</div>
+        <div class="text-center col-md-6 col-sm-6 col-xs-6">General Comment</div>
+        <div class="text-center col-md-5 col-sm-5 col-xs-5">Concerns</div>
     </div>
+    <br>
     <div class="row commentRow">
         <div class="col-md-6 col-sm-6 col-xs-6"><input id="generalComment" type="text" class="large-input form-control enterable" disabled=true value={{genComment}}></div>       
         <div class="col-md-5 col-sm-5 col-xs-5"><input id="concerns" type="text" class="large-input form-control enterable" disabled=true value={{concerns}}></div>
+    </div>
+</template>
+
+<template name="historyLog">
+    <hr>
+    <h2><span class="label">History</span></h2>
+    <hr>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="text-center col-md-2 col-sm-2 col-xs-2">Timestamp</div>
+            <div class="text-center col-md-10 col-sm-10 col-xs-10">Action</div>
+        </div>
+        <br>
+        {{#each revisions}}
+            <div class="row">
+                <div class="col-md-2 col-sm-2 col-xs-2"><input type="text" class="large-input form-control" disabled=true value={{timestamp}}></div>
+                <div class="col-md-10 col-sm-10 col-xs-10"><input type="text" class="large-input form-control" disabled=true value={{message}}></div>
+            </div>
+        {{/each}}
     </div>
 </template>
