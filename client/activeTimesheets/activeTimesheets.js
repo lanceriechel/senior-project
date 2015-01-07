@@ -475,7 +475,12 @@ Template.projectHoursFilled.events = {
 
    		if(!sheet['submitted'] || TimeSheetService.checkSentBack()){
         	ActiveDBService.removeRowInTimeSheet(Session.get("startDate"), Session.get('LdapId'), rowID, projectID);
-    	}
+       //Attempt to make the next row not inherit it's previous's properties	
+       Session.set('current_page', 'time_sheet');
+       Meteor.flush();
+       Session.set('current_page', 'selected_timesheet');
+       Meteor.flush();
+       }
     }
 }
 
