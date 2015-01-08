@@ -75,18 +75,25 @@ Meteor.startup(function () {
         });
     }
 
-    setupWeeklyTimesheetAdder();
-
-    function scheduleReminders() {
-        Jobs.find({}).forEach(function (job) {
-            switch (job.type){
+    Meteor.methods({
+        sendEmail: function (to, subject, body) {
+            // send the email!
+            Email.send({
+                bcc: to, from: 'noreply.scientiallc.timesheet@gmail.com',
+                html: body,
+                subject: subject
+            });
+        },
+        scheduleJob: function (job) {
+            console.log('on server, Scheduling Job');
+            console.log(job.type);
+            console.log(job.details.schedule_text);
+            switch (job.type) {
                 case "email":
                     SyncedCron.add({
-                        name: 'setup timesheet reminders',
+                        name: job.type + 'job: ' + job._id,
                         schedule: function (parser) {
                             // parser is a later.parse object
-                            //return parser.text('at 10:00 on Friday');
-                            //return parser.text('at 17:07 on Monday');
                             return parser.text(job.details.schedule_text);
                         },
                         job: function () {
@@ -108,6 +115,18 @@ Meteor.startup(function () {
                     });
                     break;
             }
+            SyncedCron.start();
+        },
+        deleteJob: function (job) {
+            SyncedCron.remove(job.type + 'job: ' + job._id);
+        }
+    });
+
+    setupWeeklyTimesheetAdder();
+
+    function scheduleReminders() {
+        Jobs.find({}).forEach(function (job) {
+            Meteor.call('scheduleJob', job);
         });
     }
 
@@ -115,15 +134,4 @@ Meteor.startup(function () {
 
     //start all jobs
     SyncedCron.start();
-
-    Meteor.methods({
-        sendEmail: function (to, subject, body) {
-            // send the email!
-            Email.send({
-                to: to, from: 'noreply.scientiallc.timesheet@gmail.com',
-                html: body,
-                subject: subject
-            });
-        }
-    });
 });

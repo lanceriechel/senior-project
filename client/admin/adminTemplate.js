@@ -6,7 +6,11 @@ Template.current_jobs.helpers({
 
 Template.current_jobs.events({
     'click button': function (event) {
-        return Jobs.remove({_id: event.target.id});
+        var job = Jobs.findOne({_id: event.target.id});
+        if (job){
+            Meteor.call('deleteJob', job);
+        }
+        Jobs.remove({_id: event.target.id});
     }
 });
 
@@ -85,6 +89,7 @@ Template.add_new_job.events({
         var jobHour = document.getElementById("dropdownMenuHours").textContent.trim().toLowerCase();
         var jobMin = document.getElementById("dropdownMenuMins").textContent.trim().toLowerCase();
         var jobDays = document.getElementById("dropdownMenuDays").textContent.trim();
-        Jobs.insert({type: jobType, details: {type:detailType,schedule_text:"at "+ jobHour +":" + jobMin + " on " + jobDays}});
+        var id = Jobs.insert({type: jobType, details: {type:detailType,schedule_text:"at "+ jobHour +":" + jobMin + " on " + jobDays}});
+        Meteor.call('scheduleJob', Jobs.findOne({_id: id}));
     }
 });
