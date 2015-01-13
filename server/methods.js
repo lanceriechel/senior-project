@@ -5,31 +5,56 @@ Meteor.startup(function () {
     //add missing timesheets
     function setupMissingTimesheets() {
         var d = new Date(),
+            d1L= new Date(),
             d2 = new Date();
         d.setDate((d.getDate() - (d.getDay() + 6) % 7) - 1);
+        d1L.setDate((d1L.getDate() - (d1L.getDay() + 6) % 7) - 8);
         d2.setDate((d2.getDate() - (d2.getDay() + 6) % 7) + 6);
 
         var dStr = (d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear(),
+            dStrL = (d1L.getMonth() + 1) + "/" + d1L.getDate() + "/" + d1L.getFullYear(),
             d2Str = (d2.getMonth() + 1) + "/" + d2.getDate() + "/" + d2.getFullYear();
 
         Meteor.users.find({}).forEach(
             function (user) {
                 //Small Change (changed uppercase D to d in userId) here to see if this works
-                if (TimeSheet.find({'startDate': dStr, 'userId': user['_id']}).count() == 0) {
-                    TimeSheet.insert(
-                        {
-                            'startDate': dStr,
-                            'endDate': d2Str,
-                            'userId': user['_id'],
-                            'active': 1,
-                            'revision': [],
-                            'projectEntriesArray': [],
-                            'type': 1,
-                            'generalComment': '',
-                            'concerns': '',
-                            'submitted': false
-                        }
-                    );
+                var previousTimesheet=TimeSheet.findOne({'startDate': dStrL, 'userId': user['_id']});
+                var currentTimesheet=TimeSheet.findOne({'startDate': dStr, 'userId': user['_id']});
+                if (!currentTimesheet) {
+                   if (!previousTimesheet){
+                       console.log(previousTimesheet);
+                        TimeSheet.insert(
+                            {
+                                'startDate': dStr,
+                                'endDate': d2Str,
+                                'userId': user['_id'],
+                                'active': 1,
+                                'revision': [],
+                                'projectEntriesArray': [],
+                                'type': 1,
+                                'generalComment': '',
+                                'concerns': '',
+                                'submitted': false
+                            }
+                        );
+                    }
+                        else{
+                        console.log(previousTimesheet);
+                        TimeSheet.insert(
+                            {
+                                'startDate': dStr,
+                                'endDate': d2Str,
+                                'userId': user['_id'],
+                                'active': 1,
+                                'revision': [],
+                                'projectEntriesArray': previousTimesheet['projectEntriesArray'],
+                                'type': 1,
+                                'generalComment': previousTimesheet['generalComment'],
+                                'concerns': previousTimesheet['concerns'],
+                                'submitted': false
+                            }
+                        );
+                    }
                 }
             }
         );
@@ -47,14 +72,20 @@ Meteor.startup(function () {
             },
             job: function () {
                 var d = new Date(),
+                    d1L= new Date(),
                     d2 = new Date();
                 d.setDate((d.getDate() - (d.getDay() + 6) % 7) - 1);
+                d1L.setDate((d1L.getDate() - (d1L.getDay() + 6) % 7) - 8);
                 d2.setDate((d2.getDate() - (d2.getDay() + 6) % 7) + 6);
                 var dStr = (d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear(),
+                    dStrL = (d1L.getMonth() + 1) + "/" + d1L.getDate() + "/" + d1L.getFullYear(),
                     d2Str = (d2.getMonth() + 1) + "/" + d2.getDate() + "/" + d2.getFullYear();
 
                 Meteor.users.find({}).forEach(
                     function (user) {
+                        var previousTimesheet=TimeSheet.findOne({'startDate': dStrL, 'userId': user['_id']});
+                       if (!previousTimesheet){
+                       console.log(previousTimesheet);
                         TimeSheet.insert(
                             {
                                 'startDate': dStr,
@@ -69,6 +100,24 @@ Meteor.startup(function () {
                                 'submitted': false
                             }
                         );
+                    }
+                        else{
+                        console.log(previousTimesheet);
+                        TimeSheet.insert(
+                            {
+                                'startDate': dStr,
+                                'endDate': d2Str,
+                                'userId': user['_id'],
+                                'active': 1,
+                                'revision': [],
+                                'projectEntriesArray': previousTimesheet['projectEntriesArray'],
+                                'type': 1,
+                                'generalComment': previousTimesheet['generalComment'],
+                                'concerns': previousTimesheet['concerns'],
+                                'submitted': false
+                            }
+                        );
+                    }
                     }
                 );
             }
