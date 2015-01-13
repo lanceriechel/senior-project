@@ -1,25 +1,25 @@
 Template.associatedProjects.helpers({
     addingTag: function () {
-        "use strict";
+        'use strict';
         return Session.equals('editing_addtag', this._id);
     },
     doneClass: function () {
-        "use strict";
+        'use strict';
         return this.done ? 'done' : '';
     },
     chargeNumbers: function () {
-        "use strict";
+        'use strict';
         return DatabaseService.getUnsubscribedProjects(this.projects);
     },
     isActive: function (date) {
-        "use strict";
+        'use strict';
         return ProjectService.isActive(date);
     }
 });
 
 Template.employees_Template.events({
     'click .full': function () {
-        "use strict";
+        'use strict';
         Meteor.users.update({_id: this._id}, {$set: {fulltime: true}});
     },
     'click .part': function () {
@@ -29,7 +29,7 @@ Template.employees_Template.events({
 
 Template.associatedProjects.events({
     'click .addtag': function (evt, tmpl) {
-        "use strict";
+        'use strict';
         //alert(this.username + " ");
         Session.set('editing_addtag', this._id);
         Deps.flush(); // update DOM before focus
@@ -37,14 +37,14 @@ Template.associatedProjects.events({
     },
 
     'dblclick .display .todo-text': function (evt, tmpl) {
-        "use strict";
+        'use strict';
         Session.set('editing_itemname', this._id);
         Deps.flush(); // update DOM before focus
         activateInput(tmpl.find("#todo-input"));
     },
 
     'click .remove': function (evt) {
-        "use strict";
+        'use strict';
         //evt.target.parentNode.style.opacity = 0;
         // wait for CSS animation to finish
         var userId = String(evt.target.parentNode.parentNode.id);
@@ -53,7 +53,7 @@ Template.associatedProjects.events({
 });
 
 var okCancelEvents = function (selector, callbacks) {
-    "use strict";
+    'use strict';
     var ok = callbacks.ok || function () { return; },
         cancel = callbacks.cancel || function () { return; },
         events = {};
@@ -64,8 +64,8 @@ var okCancelEvents = function (selector, callbacks) {
                 // escape = cancel
                 cancel.call(this, evt);
 
-            } else if ((evt.type === "keyup" && evt.which === 13) ||
-                    evt.type === "focusout") {
+            } else if ((evt.type === 'keyup' && evt.which === 13) ||
+                    evt.type === 'focusout') {
                 // blur/return/enter = ok/submit if non-empty
                 var value = String(evt.target.value || "");
                 if (value) {
@@ -80,7 +80,7 @@ var okCancelEvents = function (selector, callbacks) {
 };
 
 var activateInput = function (input) {
-    "use strict";
+    'use strict';
     input.focus();
 };
 
