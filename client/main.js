@@ -111,7 +111,7 @@ Template.loginPage.events({
             Gets login information from the page and sends it to LDAP for validation.
             This is not secure and is temporary for testing, eventually need to switch to headers with Apache.
         */
-        event.target.type = "button";
+        event.target.type = 'button';
         $('#LDAPusername').parent().removeClass('has-error');
         $('#LDAPpassword').parent().removeClass('has-error');
         $('#LDAPusername').tooltip('destroy');

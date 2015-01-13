@@ -1,16 +1,19 @@
 Meteor.startup(function () {
 
-    process.env.MAIL_URL = "smtp://noreply.scientiallc.timesheet%40gmail.com:N1esZd02FBi06WW@smtp.gmail.com:587/";
+    process.env.MAIL_URL = 'smtp://noreply.scientiallc.timesheet%40gmail.com:N1esZd02FBi06WW@smtp.gmail.com:587/';
 
-    //add missing timesheets
+    
     function setupMissingTimesheets() {
+        /*
+            Adds any missing timesheets for the current week
+        */
         var d = new Date(),
             d2 = new Date();
         d.setDate((d.getDate() - (d.getDay() + 6) % 7) - 1);
         d2.setDate((d2.getDate() - (d2.getDay() + 6) % 7) + 6);
 
-        var dStr = (d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear(),
-            d2Str = (d2.getMonth() + 1) + "/" + d2.getDate() + "/" + d2.getFullYear();
+        var dStr = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear(),
+            d2Str = (d2.getMonth() + 1) + '/' + d2.getDate() + '/' + d2.getFullYear();
 
         Meteor.users.find({}).forEach(
             function (user) {
@@ -38,7 +41,9 @@ Meteor.startup(function () {
     setupMissingTimesheets();
 
     function setupWeeklyTimesheetAdder() {
-        //Create weekly timesheet adder job
+        /*
+            Create weekly timesheet adder job
+        */
         SyncedCron.add({
             name: 'setup weekly timesheets',
             schedule: function (parser) {
@@ -50,8 +55,8 @@ Meteor.startup(function () {
                     d2 = new Date();
                 d.setDate((d.getDate() - (d.getDay() + 6) % 7) - 1);
                 d2.setDate((d2.getDate() - (d2.getDay() + 6) % 7) + 6);
-                var dStr = (d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear(),
-                    d2Str = (d2.getMonth() + 1) + "/" + d2.getDate() + "/" + d2.getFullYear();
+                var dStr = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear(),
+                    d2Str = (d2.getMonth() + 1) + '/' + d2.getDate() + '/' + d2.getFullYear();
 
                 Meteor.users.find({}).forEach(
                     function (user) {
@@ -77,7 +82,9 @@ Meteor.startup(function () {
 
     Meteor.methods({
         sendEmail: function (to, subject, body) {
-            // send the email!
+            /*
+                Send the Email
+            */
             Email.send({
                 bcc: to, from: 'noreply.scientiallc.timesheet@gmail.com',
                 html: body,
@@ -89,7 +96,7 @@ Meteor.startup(function () {
             console.log(job.type);
             console.log(job.details.schedule_text);
             switch (job.type) {
-                case "email":
+                case 'email':
                     SyncedCron.add({
                         name: job.type + 'job: ' + job._id,
                         schedule: function (parser) {
@@ -99,7 +106,7 @@ Meteor.startup(function () {
                         job: function () {
                             var d = new Date();
                             d.setDate((d.getDate() - (d.getDay() + 6) % 7) - 1);
-                            var dStr = (d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear();
+                            var dStr = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
 
                             var toRemind = [];
                             TimeSheet.find({startDate: dStr, submitted: false}).forEach(function (sheet) {
@@ -110,7 +117,7 @@ Meteor.startup(function () {
                             Meteor.users.find({$or: toRemind}).map(function (u) {
                                 toSendEmail.push(u.email);
                             });
-                            Meteor.call('sendEmail', toSendEmail, "Please Submit Your Timesheet", EmailTemplates.getReminderEmail());
+                            Meteor.call('sendEmail', toSendEmail, 'Please Submit Your Timesheet', EmailTemplates.getReminderEmail());
                         }
                     });
                     break;

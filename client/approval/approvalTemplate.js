@@ -8,10 +8,13 @@ function getStartDate() {
     var d = new Date();
     d.setDate((d.getDate() - (d.getDay() + 6) % 7) - 1);
     return d;
-};
+}
 
 //Methods for the rows that show which users need their timesheets approved
 Template.toApprove_Template.helpers({
+    /*
+        Populates list of timesheets for the approval page
+    */
     toApprove: function () {
         var selected = Session.get('current_project_to_approve');
         var totals = {};
@@ -56,7 +59,7 @@ Template.toApprove_Template.helpers({
                 };
                 i = i + 1;
             }
-            if (shouldSelect != '') {
+            if (shouldSelect !== '') {
                 Session.set('current_user_to_approve', u.username);
             }
             shouldSelect = '';
@@ -72,8 +75,9 @@ Template.toApprove_Template.events({
         /*
             Approves the project entry for the timesheet and locks it.
         */
-        if (!e.target.parentNode.parentNode.classList.contains("selected")) return;
-
+        if (!e.target.parentNode.parentNode.classList.contains('selected')){
+            return;
+        }
         var startDateStr = Session.get('startDate');
         var date = (new Date(startDateStr)).toLocaleDateString();
         var userId = Meteor.users.findOne({username: Session.get('current_user_to_approve')})._id;
@@ -107,7 +111,7 @@ Template.toApprove_Template.events({
         /*
             Rejects a project entry for the timesheet and send it back to the employee with comments
         */
-        if (!e.target.parentNode.parentNode.classList.contains("selected")) return;
+        if (!e.target.parentNode.parentNode.classList.contains('selected')) return;
 
         var startDateStr = Session.get('startDate');
         var date = (new Date(startDateStr)).toLocaleDateString();
@@ -143,7 +147,7 @@ Template.toApprove_Template.events({
 
 Template.approval_Template.helpers({
     'managedProjects': function () {
-        "use strict";
+        'use strict';
         var person = Meteor.users.findOne({'_id': Session.get('LdapId')});
         if (person == null || !person.manager) return;
 
@@ -154,10 +158,13 @@ Template.approval_Template.helpers({
         return ChargeNumbers.find({'manager': person.username});
     },
     isActive: function (date) {
-        "use strict";
+        'use strict';
         return ProjectService.isActive(date);
     },
     userTimesheet: function () {
+        /*
+            Returns timesheets in a different format for the approval page
+        */
         var username = Session.get('current_user_to_approve');
         if (!username) return;
         var userId = Meteor.users.findOne({username: username})._id;
@@ -184,7 +191,7 @@ Template.approval_Template.helpers({
                                 toReturn[b] = {
                                     day: days[b],
                                     hours: parseInt(a.hours[b]),
-                                    comment: [{com: a.hours[b] > 0 ? a.Comment : ""}]
+                                    comment: [{com: a.hours[b] > 0 ? a.Comment : ''}]
                                 }
                                 continue;
                             }
@@ -228,16 +235,25 @@ Template.approval_Template.helpers({
 
 Template.approval_Template.events({
     'onload #timesheet_approvals': function (e) {
+        /*
+            Debugging output
+        */
         lastSelection = document.getElementById('timesheet_approvals');
         console.log(lastSelection);
     },
     'change [type=current-project-checkbox]': function (e, t) {
         'use strict';
+        /*
+            Sets a session variable so the code knows which project is being approved
+        */
         var str = e.target.options[e.target.selectedIndex].text;
         Session.set('current_project_to_approve', str);
         Session.set('current_user_to_approve', null);
     },
     'click .row-item': function (e, t) {
+        /*
+            Sets a session variable so the code knows which user is being approved
+        */
         lastSelection = document.getElementsByClassName('selected toApprove-Rows')[0];
         lastSelection.classList.remove('selected');
 
@@ -254,6 +270,9 @@ Template.approval_Template.events({
 
 Template.date_picker.helpers({
     currentDateRange: function () {
+        /*
+            Get a string that shows the date for last Sunday - this Saturday
+        */
         var startDate = Session.get('startDate');
         if (startDate == null) {
             startDate = getStartDate();
@@ -268,12 +287,15 @@ Template.date_picker.helpers({
         Session.set('startDate', startDate2.toISOString());
         var startDateStr = startDate2.toLocaleDateString();
 
-        return startDateStr + " - " + endDate;
+        return startDateStr + ' - ' + endDate;
     }
 });
 
 Template.date_picker.events({
     'click .prevWeek': function () {
+        /*
+            Set a startdate session variable for the previous week
+        */
         var startDate = Session.get('startDate');
 
         var d2 = new Date(startDate);
@@ -282,6 +304,9 @@ Template.date_picker.events({
         Session.set('startDate', d2.toISOString());
     },
     'click .nextWeek': function () {
+        /*
+            Set a startdate session variable for next week
+        */
         var startDate = Session.get('startDate');
 
         var d2 = new Date(startDate);
