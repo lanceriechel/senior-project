@@ -56,7 +56,7 @@ ActiveDBService = {
         var submitted = sheet['submitted'];
         //active = 1 and (SentBack = true or submitted = false)            
         if (active != 1){
-                 return;
+            return;
         }
         
         for(i=0 ; i<prEntriesArr.length ; i++){
@@ -75,10 +75,16 @@ ActiveDBService = {
         }
         
         //return if the row should not be editable
-        if(submitted && !sentBack){
+        var data = Session.get('editing-user-page');
+        
+        if(data){
+            if((!submitted || sentBack) || oldproject != data.project){ 
+                return; 
+            }
+        } else if(submitted && !sentBack){
             return;
-        } 
-
+        }
+        
         if(oldproject == project){
             entryArray2.splice(index2, 1);
             entryArray2.splice(index2, 0, {
@@ -210,6 +216,7 @@ ActiveDBService = {
         var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
         var prEntriesArr = sheet['projectEntriesArray'];
         var entryArrToAdd = null;
+        var oldproject;
 
         //check to make sure editable
         var sentBack;
@@ -228,14 +235,22 @@ ActiveDBService = {
                 index = i;
                 entryArrToAdd = prEntriesArr[i];
                 sentBack = prEntriesArr[i]['SentBack']
+                oldproject = prEntriesArr[i]['projectID'];
             }
         }
-
+ 
         //return if the row should not be editable
-        if(submitted && !sentBack){
+        var data = Session.get('editing-user-page');
+        
+        if(data){
+            //alert("doesnt work C"); 
+            if((!submitted || sentBack) || oldproject != data.project){ 
+                return; 
+            }
+        } else if(submitted && !sentBack){
             return;
         }
- 
+        
         entryArrToAdd['next'] = next;
         entryArrToAdd['issues'] = issues;
         prEntriesArr.splice(index,1)
@@ -329,6 +344,7 @@ ActiveDBService = {
         var entryArrToAdd = null;
         var entryArray = null;
         var entryArray2 = null;
+        var oldproject;
         var index1=0;
         var index2=0;
 
@@ -351,16 +367,24 @@ ActiveDBService = {
                         index1 = i;
                         entryArrToAdd = prEntriesArr[i];
                         entryArray2 = prEntriesArr[i]['EntryArray'];
+                        oldproject = prEntriesArr[i]['projectID'];
                         sentBack = prEntriesArr[i]['SentBack']
                     }
                 }
 
         }
+
         //return if the row should not be editable
-        if(submitted && !sentBack){
+        var data = Session.get('editing-user-page');
+        
+        if(data){
+            if((!submitted || sentBack) || oldproject != data.project){ 
+                return; 
+            }
+        } else if(submitted && !sentBack){
             return;
         }
-
+        
         entryArray2.splice(index2, 1);
 
         entryArrToAdd['EntryArray'] = entryArray2;
