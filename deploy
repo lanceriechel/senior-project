@@ -1,0 +1,38 @@
+#!/bin/bash
+#Script for deploying the meteor code on the server
+if [[ $UID != 0 ]]; then
+    echo "Please run this script with sudo:"
+    echo "sudo $0 $*"
+    exit 1
+fi
+
+echo beginning deploy...
+echo
+echo
+echo pulling code from github.com...
+git pull
+echo finished pull
+
+echo
+echo removing jasmine and velocity packages...
+meteor remove sanjo:jasmine
+meteor remove velocity:html-reporter
+
+echo
+echo stopping meteor...
+# kill meteor
+fuser -n tcp -k 80
+echo stopped successfully
+
+echo
+echo stopping mongo...
+# kill mongo
+fuser -n tcp -k 81
+echo stopped successfully
+
+echo
+echo starting the meteor server...
+#start meteor
+meteor --port 80 --settings settings.json &
+
+bg
