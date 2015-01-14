@@ -1,7 +1,16 @@
 <template name="SelectedTimesheet">
-    <h2><span class="label">{{date}}</span></h2>
-    <br>
     <div class="container-fluid">
+        {{#if isEditing}}
+        <div class="row">
+            <div class="col-xs-12 alert-editing">
+                You are editing {{employeeName}}'s timesheet.
+            </div>
+            </div>
+        {{/if}}
+        <div class="row">
+    <h2><span class="label">{{date}}</span></h2>
+            </div>
+    <br>
         <div class="row">
             <div class="text-center col-md-2 col-sm-2 col-xs-2">Project</div>
             {{>daysOfWeek}}
@@ -38,25 +47,37 @@
         <div class="col-md-5 col-sm-5 col-xs-5">Concerns</div>
     </div>
     <div class="row commentRow">
-        <div class="col-md-6 col-sm-6 col-xs-6"><input id="generalComment" type="text" class="large-input form-control enterable" value={{genComment}}></div>       
+        <div class="col-md-6 col-sm-6 col-xs-6"><input id="generalComment" type="text" class="large-input form-control enterable" value={{genComment}}></div>
         <div class="col-md-5 col-sm-5 col-xs-5"><input id="concerns" type="text" class="large-input form-control enterable" value={{concerns}}></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" id="submitButton" class="btn btn-primary enterable">Submit</button></div>
+    {{#if isEditing}}
+        <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" id="acceptButton" class="btn btn-success accept">Accept Timesheet</button></div>
+        <br><br><br>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-6">Reason For Rejection</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-11"><input id="rejectComment" type="text" class="large-input form-control"></div>
+            <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" id="rejectButton" class="btn btn-danger reject">Reject Timesheet</button></div>
+        </div>
+    {{else}}
+        <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" id="submitButton" class="btn btn-primary enterable submit">Submit</button></div>
+    {{/if}}
     </div>
 </template>
 
 <template name="daysOfWeek">
-    <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>S</h4></div>
-    <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>M</h4></div>
-    <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>T</h4></div>
-    <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>W</h4></div>
-    <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>T</h4></div>
-    <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>F</h4></div>
-    <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>S</h4></div>
+    <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Sun</h4></div>
+    <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Mon</h4></div>
+    <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Tue</h4></div>
+    <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Wed</h4></div>
+    <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Thu</h4></div>
+    <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Fri</h4></div>
+    <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Sat</h4></div>
 </template>
 
 <template name="activeTimesheets">
     <div class="container-fluid">
-        <h1><span class="label">Active Time Sheets</span></h1>
+        <h2><span class="label">Active Time Sheets</span></h2>
             <div class="row">
                 <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Start Date</h4></div>
                 {{>daysOfWeek}}
@@ -88,7 +109,7 @@
      <div class="col-md-2 col-sm-2 col-xs-2" id={{project}}><input id="project_comments_name" type="text" class="large-input form-control" readonly value={{name project}}></div> 
       <div class="col-md-3 col-sm-3 col-xs-3"><input id="Issues" type="text" class="large-input form-control enterable {{sentBack}}" value={{issues project}}></div>
       <div class="col-md-3 col-sm-3 col-xs-3"><input id="Next" type="text" class="large-input form-control enterable {{sentBack}}" value={{next project}}></div>
-      <div class="col-md-4 col-sm-4 col-xs-4"><input id="managerFeedback" type="text" class="large-input form-control" readonly value={{message project}}></div>
+      <div class="col-md-4 col-sm-4 col-xs-4"><input id="managerFeedback" type="text" class="large-input form-control" disabled value={{message project}}></div>
     </div>
 </template>
 
