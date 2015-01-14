@@ -4,7 +4,7 @@
         {{>approval_Template}}
     </div>
 </template>
- 
+
 <template name="toApprove_Template">
 
     {{#each toApprove}}
@@ -17,7 +17,8 @@
             <div class="col-md-2 col-sm-2 col-xs-2 text-center">
                 <button name="{{id}}" type="button" class="reject btn btn-danger">Reject</button>
             </div>
-            <div class="col-md-3 col-sm-3 col-xs-3"><input id="rejectComment" type="text" class="large-input form-control enterable" value=""></div>
+            <div class="col-md-3 col-sm-3 col-xs-3"><input id="rejectComment" type="text"
+                                                           class="large-input form-control enterable" value=""></div>
 
         </div>
         <div class="row-item-divider width-98"></div>
@@ -55,46 +56,53 @@
     <div class="row">
         {{> date_picker}}
     </div>
-        <br/>
+    <br/>
 
-        <div class="row">
-            <div class="col-xs-6">
-                <div class="row">
-                    <div class="col-md-3 col-sm-3 col-xs-3 text-center col-header"><h4>Name</h4></div>
-                    <div class="col-md-2 col-sm-2 col-xs-2 text-center col-header"><h4>Total</h4></div>
-                    <div class="col-md-2 col-sm-2 col-xs-2 text-center col-header"><h4>Approve</h4></div>
-                    <div class="col-md-2 col-sm-2 col-xs-2 text-center col-header"><h4>Reject</h4></div>
-                    <div class="col-md-2 col-sm-2 col-xs-2 text-center col-header"><h4>Comment</h4></div>
+    <div class="row">
+        {{#if needsApproving}}
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3 col-xs-3 text-center col-header"><h4>Name</h4></div>
+                        <div class="col-md-2 col-sm-2 col-xs-2 text-center col-header"><h4>Total</h4></div>
+                        <div class="col-md-2 col-sm-2 col-xs-2 text-center col-header"><h4>Approve</h4></div>
+                        <div class="col-md-2 col-sm-2 col-xs-2 text-center col-header"><h4>Reject</h4></div>
+                        <div class="col-md-2 col-sm-2 col-xs-2 text-center col-header"><h4>Comment</h4></div>
+                    </div>
+                    <div id="timesheet_approvals">
+                        {{> toApprove_Template}}
+                    </div>
                 </div>
-                <div id="timesheet_approvals">
-                    {{> toApprove_Template}}
-                </div>
-            </div>
-            <div class="col-xs-6 col-divider">
-                <div class="row">
-                    <div class="col-xs-12 text-center col-header"><h4>Timesheet</h4></div>
-                </div>
-                <div id="timeSheetReviewer">
-                    {{#each userTimesheet}}
-                        <div class="row">
-                            <div class="col-xs-3"><h4>{{day}}</h4></div>
-                            <div class="col-xs-2"><h4>{{hours}}</h4></div>
-                            <div class="col-xs-7">
-                                {{#each comment}}
-                                    <h4>{{com}}</h4>
-                                {{/each}}
+                <div class="col-xs-6 col-divider">
+                    <div class="row">
+                        <div class="col-xs-12 text-center col-header"><h4>Timesheet</h4></div>
+                    </div>
+                    <div id="timeSheetReviewer">
+                        {{#each userTimesheet}}
+                            <div class="row">
+                                <div class="col-xs-3"><h4>{{day}}</h4></div>
+                                <div class="col-xs-2"><h4>{{hours}}</h4></div>
+                                <div class="col-xs-7">
+                                    {{#each comment}}
+                                        <h4>{{com}}</h4>
+                                    {{/each}}
+                                </div>
                             </div>
-                        </div>
-                    {{/each}}
+                        {{/each}}
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-10"></div>
-            <div class="col-xs-2">
-                <button type="button" class="btn btn-lg btn-default">Edit</button>
-                &nbsp;&nbsp;
-                <button type="button" class="btn btn-lg btn-success">Submit</button>
+            <div class="row">
+                <div class="col-xs-12">
+                    <button type="button" style="float: right;" class="btn btn-lg btn-default edit-sheet">Edit</button>
+                </div>
             </div>
-        </div>
+        {{else}}
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2>There are no timesheets to approve.</h2>
+                </div>
+            </div>
+        {{/if}}
+    </div>
 </template>
