@@ -55,7 +55,7 @@ LDAP.isAdmin = function(username, checkAdmin) {
     }
     var fut = new Future();
 
-    LDAP.client.search("cn=groups,cn=accounts,dc=csse,dc=rose-hulman,dc=edu", opts, function(err, search) {
+    LDAP.client.search('cn=groups,cn=accounts,dc=csse,dc=rose-hulman,dc=edu', opts, function(err, search) {
         if (err) {
             fut.return(null);
         } else {
@@ -102,9 +102,9 @@ Meteor.startup(function() {
 });
 
 
-Accounts.registerLoginHandler("profileFields", function(options){
+Accounts.registerLoginHandler('profileFields', function(options){
 
-    console.log("in the handler");
+    console.log('in the handler');
 });
 
 MakeTimesheetForNewUser = function (id, user) {
@@ -116,8 +116,8 @@ MakeTimesheetForNewUser = function (id, user) {
         d2 = new Date();
     d.setDate((d.getDate() - (d.getDay() + 6) % 7) - 1);
     d2.setDate((d2.getDate() - (d2.getDay() + 6) % 7) + 6);
-    var dStr = (d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear(),
-        d2Str = (d2.getMonth() + 1) + "/" + d2.getDate() + "/" + d2.getFullYear();
+    var dStr = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear(),
+        d2Str = (d2.getMonth() + 1) + '/' + d2.getDate() + '/' + d2.getFullYear();
     TimeSheet.insert(
         {
             'startDate': dStr,
