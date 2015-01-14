@@ -163,6 +163,7 @@ Template.SelectedTimesheet.helpers({
             }
         }
         var sheet = TimeSheet.findOne({'startDate': date, 'userId': user});
+        if (!sheet) return [];
 
         var projectEntries = sheet['projectEntriesArray'];
 
@@ -233,6 +234,7 @@ Template.SelectedTimesheet.helpers({
             }
         }
         var sheet = TimeSheet.findOne({'startDate': date, 'userId': user});
+        if (!sheet) return;
         var projectEntries = sheet['projectEntriesArray'];
         var projects = [];
         for (i = 0; i < projectEntries.length; i++) {
@@ -286,7 +288,7 @@ Template.SelectedTimesheet.helpers({
             }
         }
         var sheet = TimeSheet.findOne({'startDate': date, 'userId': user});
-
+        if (!sheet) return;
         var projectEntries = sheet['projectEntriesArray'];
 
         var sentBack = "notSentBack";
@@ -439,6 +441,31 @@ Template.projectListDropDown.helpers({
   }
 });
 
+Template.lastSection.rendered = function () {
+    /*
+     Logic to decide if the comment sections should be enabled
+     depending on whether the timesheet is submitted or not,
+     and also whether projects are being edited.
+     */
+    var date = Session.get("startDate");
+    var user = Session.get('LdapId');
+    var data = Session.get('editing-user-page');
+    if (data){
+        var userO = Meteor.users.findOne({username : data.username});
+        if (userO){
+            user = userO._id;
+        }
+    }
+    var sheet = TimeSheet.findOne({'startDate': date, 'userId': user});
+
+    if (!sheet) return;
+
+    var disable = sheet['submitted'] && !data;
+    $('#generalComment').prop('disabled', disable);
+    $('#concerns').prop('disabled', disable);
+
+};
+
 Template.lastSection.helpers({
     genComment: function () {
     /*
@@ -455,9 +482,7 @@ Template.lastSection.helpers({
         }
         var sheet = TimeSheet.findOne({'startDate': date, 'userId': user});
 
-        if (sheet['submitted']) {
-            $('#generalComment').prop('disabled', true);
-        }
+        if (!sheet) return;
 
         return sheet['generalComment'];
     },
@@ -476,7 +501,7 @@ Template.lastSection.helpers({
         }
         var sheet = TimeSheet.findOne({'startDate': date, 'userId': user});
 
-        $('#concerns').prop('disabled', sheet['submitted'] && !data);
+        if (!sheet) return;
 
         return sheet['concerns'];
 
