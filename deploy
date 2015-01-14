@@ -34,5 +34,3 @@ echo
 echo starting the meteor server...
 #start meteor
 meteor --port 80 --settings settings.json &
-
-bg
