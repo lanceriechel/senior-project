@@ -37,7 +37,8 @@
 
 <template name="historyInfo">
     <div class="row">
-        <div class="col-md-2 col-sm-2 col-xs-2"><input id="StartDate" type="text" class="large-input form-control" value={{startDate}} readonly></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"><input id="Employee" type="text" class="large-input form-control" value="{{employee}}" readonly></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"><input id="StartDate" type="text" class="large-input form-control" value="{{startDate}}" readonly></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><input id="Sunday" type="text" class="large-input form-control" value="{{sun}}" readonly></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><input id="Monday" type="text" class="large-input form-control" value="{{mon}}" readonly></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><input id="Tuesday" type="text" class="large-input form-control" value="{{tue}}" readonly></div>
@@ -45,7 +46,7 @@
         <div class="col-md-1 col-sm-1 col-xs-1"><input id="Thursday" type="text" class="large-input form-control" value="{{thu}}" readonly></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><input id="Friday" type="text" class="large-input form-control" value="{{fri}}" readonly></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><input id="Saturday" type="text" class="large-input form-control" value="{{sat}}" readonly></div>
-        <div class="col-md-2 col-sm-2 col-xs-2"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></div>
     </div>
 </template>
 
@@ -53,6 +54,7 @@
     <div class="row">
         <hr>
         <div class="row">
+                <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Name</h4></div>
                 <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Start Date</h4></div>
                 <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Sun</h4></div>
                 <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Mon</h4></div>
@@ -62,8 +64,13 @@
                 <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Fri</h4></div>
                 <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Sat</h4></div>
             </div>
-        {{#each getTimesheets}}
-            {{> historyInfo}}
+        {{#each getProjects}}
+            <hr>
+            <h3><span class="label">{{name}}</span></h3>
+            <br>
+            {{#each getTimesheets id}}
+                {{> historyInfo}}
+            {{/each}}
         {{/each}}
     </div>
 </template>
@@ -72,6 +79,8 @@
 
 <template name="SelectedHistoryTimesheet">
     <h2><span class="label">{{date}}</span></h2>
+    <br>
+    <h3><span class="label">{{employee}}'s Timesheet</span></h3>
     <br>
     <div class="container-fluid">
         <div class="row">
