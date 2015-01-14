@@ -122,7 +122,7 @@ Template.toApprove_Template.events({
         var sheet = TimeSheet.findOne({'startDate':date,'userId':userId,'submitted':true});
         var totalHours = ActiveDBService.getTotalHoursForProject(sheet, projectId);
         var managerName = Meteor.users.findOne({'_id':Session.get('LdapId')}).username;
-        var revision = sheet.revision
+        var revision = sheet.revision;
 
         ActiveDBService.updateApprovalStatusInTimeSheet(date, userId, projectId, false, rejectComment);
 
@@ -140,12 +140,35 @@ Template.toApprove_Template.events({
         {
             $set:{
                 'revision': revision
-            },
+            }
         });
     }
-})
+});
 
 Template.approval_Template.helpers({
+    needsApproving: function () {
+        var selected = Session.get('current_project_to_approve');
+
+        var isSubmitted = true;
+        var isActive = 1;
+        var startDate = new Date(Session.get("startDate"));
+        var timesheets = TimeSheet.find({
+            'submitted': isSubmitted,
+            'active': isActive,
+            'startDate': startDate.toLocaleDateString()
+        });
+
+        var needsApproving = false;
+        timesheets.forEach(function (t) {
+            t.projectEntriesArray.forEach(function (pe) {
+                if (pe.projectID === selected && !pe.Approved && !pe.SentBack) {
+                    needsApproving =  true;
+                }
+            });
+        });
+
+        return needsApproving;
+    },
     'managedProjects': function () {
         'use strict';
         var person = Meteor.users.findOne({'_id': Session.get('LdapId')});
@@ -265,6 +288,22 @@ Template.approval_Template.events({
         lastSelection.classList.add('selected');
 
         Session.set('current_user_to_approve', lastSelection.childNodes[1].firstChild.textContent);
+    },
+    'click .edit-sheet': function() {
+        var username = Session.get('current_user_to_approve');
+        if (!username) return;
+
+        var data = {
+            'username': username,
+            'project' : Session.get('current_project_to_approve')
+        }
+
+
+        Session.set('current_page', 'selected_timesheet');
+        var d = new Date(Session.get("startDate"));
+        Session.set('startDate', d.toLocaleDateString());
+        Session.set('editing-user-page', data);
+        console.log(username);
     }
 });
 
@@ -284,7 +323,8 @@ Template.date_picker.helpers({
         d2.setDate(d2.getDate() + 6);
         var endDate = d2.toLocaleDateString();
 
-        Session.set('startDate', startDate2.toISOString());
+        Session.set("startDate", startDate2.toISOString());
+
         var startDateStr = startDate2.toLocaleDateString();
 
         return startDateStr + ' - ' + endDate;

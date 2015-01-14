@@ -252,6 +252,31 @@ ul {
     background: rgba(0, 0, 0, 0.03);
 }
 
+.alert-editing {
+    background: #428BCA;
+    color: #FFF;
+    font-weight: bold;
+    font-size: 1.2em;
+    height: 36px;
+    padding: 5px;
+    z-index: -1;
+    text-indent: 5px;
+    border-radius: 5px;
+    transform: translateY(-36px);
+    -webkit-animation: rotateDown 0.9s ease-out 0.2s forwards;
+    animation: rotateDown 0.9s ease-out 0.2s forwards;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes rotateDown {
+    to {transform: translateY(0px); }
+}
+
+/* Standard syntax */
+@keyframes rotateDown {
+    to {-ms-transform: translateY(0px); -moz-transform: translateY(0px); }
+}
+
 .row {
     margin: 0 auto;
 }
@@ -260,7 +285,7 @@ ul {
     background: #eee;
     margin: 5px;
     border-radius: 30px;
-    background-clip: content-box;
+    /*background-clip: content-box;*/
     cursor: pointer;
 }
 
