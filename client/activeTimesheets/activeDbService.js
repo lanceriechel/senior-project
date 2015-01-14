@@ -64,8 +64,18 @@ ActiveDBService = {
 
             var index1=0;
             var index2=0;
-
+            
             var oldproject;
+            
+            //check to make sure editable
+            var sentBack;
+            var approved;
+            var active = sheet['active'];
+            var submitted = sheet['submitted'];
+            //active = 1 and (SentBack = true or submitted = false)            
+            if (active != 1){
+                     return;
+            }
 
             for(i=0 ; i<prEntriesArr.length ; i++){
                  // if(prEntriesArr[i]['projectID'] == project){
@@ -79,11 +89,16 @@ ActiveDBService = {
                             index2 = j;
                             index1 = i;
                             entryArrToAdd = prEntriesArr[i];
+                            sentBack = prEntriesArr[i]['SentBack']
                         }
                     }
 
                 // }
             }
+            //return if the row should not be editable
+            if(submitted && !sentBack){
+                return;
+            } 
 
             if(oldproject == project){
                 entryArray2.splice(index2, 1);
@@ -182,7 +197,11 @@ ActiveDBService = {
     },
     updateCommentsInTimeSheet: function(date, user, gen_comment, concerns){
         var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
-
+        //make sure not submitting when it shouldn't
+        var submitted = sheet['submitted'];
+        if(submitted){
+            return;
+        }
         TimeSheet.update({'_id':sheet._id},
             {
                 $set:{
@@ -199,22 +218,37 @@ ActiveDBService = {
         var prEntriesArr = sheet['projectEntriesArray'];
         var entryArrToAdd = null;
 
+        //check to make sure editable
+        var sentBack;
+        var approved;
+        var active = sheet['active'];
+        var submitted = sheet['submitted'];
+        //active = 1 and (SentBack = true or submitted = false)            
+        if (active != 1){
+            return;
+        }
+        
         var index=0;
 
         for(i=0 ; i<prEntriesArr.length ; i++){
             if(prEntriesArr[i]['projectID'] == project){
                 index = i;
                 entryArrToAdd = prEntriesArr[i];
-
+                sentBack = prEntriesArr[i]['SentBack']
             }
         }
 
+        //return if the row should not be editable
+        if(submitted && !sentBack){
+            return;
+        }
+ 
         entryArrToAdd['next'] = next;
         entryArrToAdd['issues'] = issues;
 
         prEntriesArr.splice(index,1)
         prEntriesArr.splice(index, 0, entryArrToAdd);
-
+ 
         TimeSheet.update({'_id':sheet._id},{
                 $set:{
                         'projectEntriesArray': prEntriesArr
@@ -252,7 +286,7 @@ ActiveDBService = {
             }
 
             if(entryArrToAdd != null){
-
+ 
 
                 entryArray.push({
                     'hours': [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday],
@@ -314,6 +348,16 @@ ActiveDBService = {
             var index1=0;
             var index2=0;
 
+            //check to make sure editable
+            var sentBack;
+            var approved;
+            var active = sheet['active'];
+            var submitted = sheet['submitted'];
+            //active = 1 and (SentBack = true or submitted = false)            
+            if (active != 1){
+                return;
+            }
+
             for(i=0 ; i<prEntriesArr.length ; i++){
                     
                     entryArray = prEntriesArr[i]['EntryArray'];
@@ -323,9 +367,15 @@ ActiveDBService = {
                             index1 = i;
                             entryArrToAdd = prEntriesArr[i];
                             entryArray2 = prEntriesArr[i]['EntryArray'];
+                            sentBack = prEntriesArr[i]['SentBack']
                         }
                     }
 
+            }
+
+            //return if the row should not be editable
+            if(submitted && !sentBack){
+                return;
             }
 
             entryArray2.splice(index2, 1);
