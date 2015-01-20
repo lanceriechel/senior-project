@@ -185,8 +185,12 @@ Template.SelectedTimesheet.helpers({
                 sentBack = "notSentBack";
             }
 
-            if (data && project == data.project){
-                sentBack = "sentBack";
+            if (data){
+                if (project == data.project){
+                    sentBack = "sentBack";
+                }else{
+                    sentBack = "notSentBack";
+                }
             }
 
             var EntryArray = projectEntries[i]['EntryArray'];
@@ -247,8 +251,12 @@ Template.SelectedTimesheet.helpers({
                 sentBack = "notSentBack";
             }
 
-            if (data && data.project == project) {
-                managerEdit = "sentBack";
+            if (data){
+                if (project == data.project){
+                    sentBack = "sentBack";
+                }else{
+                    sentBack = "notSentBack";
+                }
             }
 
             projects.push({
@@ -436,7 +444,27 @@ Template.lastSection.helpers({
 
     },
     isEditing: function () {
-        return Session.get('editing-user-page');
+        var date = Session.get("startDate");
+        var user = Session.get('LdapId');
+        var data = Session.get('editing-user-page');
+        if (data){
+            var userO = Meteor.users.findOne({username : data.username});
+            if (userO){
+                user = userO._id;
+            }
+        }
+        var sheet = TimeSheet.findOne({'startDate': date, 'userId': user});
+
+        var projectEntries = sheet['projectEntriesArray'];
+
+        var sentBack = false;
+        for (i = 0; i < projectEntries.length; i++) {
+            if (projectEntries[i]['SentBack']) {
+                sentBack = true;
+            }
+        }
+
+        return Session.get('editing-user-page') && sheet.submitted && !sentBack;
 
     },
 });
@@ -506,7 +534,11 @@ Template.lastSection.events = {
 
         ActiveDBService.submitTimesheet(Session.get("startDate"), user);
         ActiveDBService.updateSentBackStatus(Session.get("startDate"), user);
-        Session.set('current_page', 'time_sheet');
+
+        if (!data){
+            Session.set('current_page', 'time_sheet');
+        }
+
     },
     'click .approve': function (e) {
         var startDateStr = Session.get("startDate");

@@ -24,7 +24,7 @@ authenticateLdapEmployee = function(username, password) {
       		        }
 		}
 	
-		var manager = false;
+		var manager = admin;
 		for(i=0;i<managerstring.length;i++){
 			if(managerstring[i].indexOf("uid="+username+",") == 0){
 				manager = true;
