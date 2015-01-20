@@ -1,3 +1,17 @@
+Template.PDF.events = {
+  'click button': function(event){
+
+      var docDefinition = { 
+      	content: [
+      		'This is an sample PDF printed with pdfMake',
+      		
+      	 	]
+      	};
+      pdfMake.createPdf(docDefinition).open();
+      
+  }
+};
+
 Template.historyHeader.helpers({
 	getTimesheets: function (project) {
 		var userId = '';
