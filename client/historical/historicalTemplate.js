@@ -1,88 +1,57 @@
 Template.historyHeader.helpers({
-	getTimesheets: function () {
-		var userId = Session.get('LdapId');
+	getTimesheets: function (project) {
+		var userId = '';
 		if (Session.get('search_employee')) {
 			userId = Session.get('search_employee');
-		}
-		var project = "";
-		if (Session.get('search_project')) {
-			project = Session.get('search_project');
 		}
 		var year = Session.get('year');
 		var timesheetsMap = {};
 		var timesheets = [];
+		var subordinates = ActiveDBService.getEmployeesUnderManager();
 
-		if (project != "") {
-			TimeSheet.find({'userId': userId, 'projectEntriesArray.projectID':project}).forEach(
+		if (userId) {
+			if (project != '') {
+				TimeSheet.find({'userId': userId, 'projectEntriesArray.projectID':project}).forEach(
 				function (u) {
-					timesheetYear = u.startDate.split('/')[2];
-					if (timesheetYear == year) {
-						if (!(u.startDate in timesheetsMap)) {
-							timesheetsMap[u.startDate] = timesheets.length;
-							timesheets[timesheetsMap[u.startDate]] = {
-								startDate: u.startDate, sun: 0, mon: 0, tue: 0,
-								wed: 0, thu: 0, fri: 0, sat: 0
-							};
-						}
-						for (var pIndex in u.projectEntriesArray) {
-							for (var eIndex in u.projectEntriesArray[pIndex].EntryArray){
-								var entry = u.projectEntriesArray[pIndex].EntryArray[eIndex],
-								days = entry.hours,
-								current = timesheets[timesheetsMap[u.startDate]];
-								timesheets[timesheetsMap[u.startDate]] = {
-									startDate: u.startDate,
-									sun: parseInt(days[0]) + parseInt(current.sun),
-									mon: parseInt(days[1]) + parseInt(current.mon),
-									tue: parseInt(days[2]) + parseInt(current.tue),
-									wed: parseInt(days[3]) + parseInt(current.wed),
-									thu: parseInt(days[4]) + parseInt(current.thu),
-									fri: parseInt(days[5]) + parseInt(current.fri),
-									sat: parseInt(days[6]) + parseInt(current.sat)
-								};
-							}
-						}
-					}
+					timesheets = ActiveDBService.getTimesheetRowInfo(u, timesheets);
 				});
-} else {
-	TimeSheet.find({'userId': userId}).forEach(
-		function (u) {
-			timesheetYear = u.startDate.split('/')[2];
-			if (timesheetYear == year) {
-				if (!(u.startDate in timesheetsMap)) {
-					timesheetsMap[u.startDate] = timesheets.length;
-					timesheets[timesheetsMap[u.startDate]] = {
-						startDate: u.startDate, sun: 0, mon: 0, tue: 0,
-						wed: 0, thu: 0, fri: 0, sat: 0
-					};
-				}
-				for (var pIndex in u.projectEntriesArray) {
-					for (var eIndex in u.projectEntriesArray[pIndex].EntryArray){
-						var entry = u.projectEntriesArray[pIndex].EntryArray[eIndex],
-						days = entry.hours,
-						current = timesheets[timesheetsMap[u.startDate]];
-						timesheets[timesheetsMap[u.startDate]] = {
-							startDate: u.startDate,
-							sun: parseInt(days[0]) + parseInt(current.sun),
-							mon: parseInt(days[1]) + parseInt(current.mon),
-							tue: parseInt(days[2]) + parseInt(current.tue),
-							wed: parseInt(days[3]) + parseInt(current.wed),
-							thu: parseInt(days[4]) + parseInt(current.thu),
-							fri: parseInt(days[5]) + parseInt(current.fri),
-							sat: parseInt(days[6]) + parseInt(current.sat)
-						};
-					}
-				}
+			} else {
+				TimeSheet.find({'userId': userId}).forEach(
+				function (u) {
+					timesheets = ActiveDBService.getTimesheetRowInfo(u, timesheets);
+				});
 			}
-		});
-}
-return timesheets;
-},
-ActiveTimesheet: function(userId, active){
-	if(active && (userId == Session.get('LdapId'))){
-		return true;
+		} else {
+			if (project != '') {
+				TimeSheet.find({'userId': {$in: subordinates}, 'projectEntriesArray.projectID':project}).forEach(
+				function (u) {
+					timesheets = ActiveDBService.getTimesheetRowInfo(u, timesheets);
+				});
+			} else {
+				TimeSheet.find({'userId': {$in: subordinates}}).forEach(
+				function (u) {
+					timesheets = ActiveDBService.getTimesheetRowInfo(u, timesheets);
+				});
+			}
+		}
+		return timesheets;
+	},
+	getProjects: function() {
+		var projects = [];
+		if (Session.get('search_project')) {
+			var project = ChargeNumbers.findOne({'id': Session.get('search_project')});
+			projects.push(project);
+		} else {
+			projects = ChargeNumbers.find();
+		}
+		return projects;
+	},
+	ActiveTimesheet: function(userId, active){
+		if(active && (userId == Session.get('LdapId'))){
+			return true;
+		}
+		return false;
 	}
-	return false;
-}
 });
 
 Template.historicalEntries.helpers({
@@ -130,9 +99,8 @@ Template.historyInfo.events({
     	Session.set('current_page', 'historical_timesheet');
     	var row = event.currentTarget.parentNode.parentNode;
     	var startDate = $(row).find('#StartDate')[0].value;
-
     	Session.set('startDate', startDate);
-
+    	Session.set('search_employee', Meteor.users.findOne({'username': $(row).find('#Employee')[0].value})._id);
     }
 });
 
@@ -245,6 +213,10 @@ Template.SelectedHistoryTimesheet.helpers({
 		returned.push({ 'sentBack' : sentBack });
 
 		return returned;
+	},
+	employee: function() {
+		var employee = Meteor.users.findOne({'_id': Session.get('search_employee')});
+		return employee.username;
 	}
 });
 
@@ -385,18 +357,18 @@ Template.historyLog.helpers({
 
 Template.historyEmployeeSelect.events({
 	'click button': function(event, template){
-		var employee = template.find("#employeeSearch").value;
+		var employee = template.find('#employeeSearch').value;
 
 		/* Hack to circumvent an issue where findOne was being recognized as an undefined function
 		    for empty strings. */
-		var employeeID = "";
+		var employeeID = '';
 		var employees = Meteor.users.find({'username':employee});
 		employees.forEach(function (e) {
             employeeID = e._id;
         });
 
 		var project = template.find("#projectSearch").value;
-		var projectID = "";
+		var projectID = '';
 		var projects = ChargeNumbers.find({'name':project});
 		projects.forEach(function (p) {
             projectID = p.id;
@@ -405,19 +377,13 @@ Template.historyEmployeeSelect.events({
 		var user = Meteor.users.findOne({'_id':Session.get('LdapId')});
 
 		if (user.admin) {
-			if (employee == "") {
-				Session.set('search_employee', Session.get('LdapId'));
-			} else {
-				Session.set('search_employee', employeeID);
-			}
+			Session.set('search_employee', employeeID);
 		} else if (user.manager) {
-			var subordinates = ActiveDBService.getEmployeesUnderManager(user.username);
-			if (employee == "") {
-				Session.set('search_employee', Session.get('LdapId'));
-			} if (subordinates.indexOf(employee) != -1) {
+			var subordinates = ActiveDBService.getEmployeesUnderManager();
+			if (subordinates.indexOf(employeeID) != -1) {
 				Session.set('search_employee', employeeID);
 			} else {
-				Session.set('search_employee', "");
+				Session.set('search_employee', '');
 			}
 		}
 		Session.set('search_project', projectID);

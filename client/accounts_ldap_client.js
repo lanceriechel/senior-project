@@ -51,7 +51,7 @@ authenticateLdapEmployee = function(username, password) {
                         projects: [],
                         fulltime: true
                     });
-		    ActiveDBService.MakeTimesheetForNewUser(id, Meteor.users.findOne({username:username}) );
+		    generalHelpers.MakeTimesheetForNewUser(id, Meteor.users.findOne({username:username}) );
 		    
                 }
            	// needs to set current user id

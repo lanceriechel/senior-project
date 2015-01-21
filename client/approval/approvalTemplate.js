@@ -38,9 +38,9 @@ Template.toApprove_Template.helpers({
                 var total = 0;
                 if (pe.projectID == selected && !pe.Approved) {
                     pe.EntryArray.forEach(function (a) {
-                            for (var b in a.hours) {
-                                total += parseInt(a.hours[b]);
-                            }
+                        for (var b in a.hours) {
+                            total += parseInt(a.hours[b]);
+                        }
                     });
                 }
                 if (totals[t.userId] == null) {
@@ -137,11 +137,11 @@ Template.toApprove_Template.events({
         revision.unshift(historyEntry);
 
         TimeSheet.update({'_id':sheet._id},
-        {
-            $set:{
-                'revision': revision
-            },
-        });
+            {
+                $set:{
+                    'revision': revision
+                },
+            });
     },
     'click .reject': function (e, t) {
         if (!e.target.parentNode.parentNode.classList.contains("selected")) return;
@@ -179,11 +179,11 @@ Template.toApprove_Template.events({
         revision.unshift(historyEntry);
 
         TimeSheet.update({'_id':sheet._id},
-        {
-            $set:{
-                'revision': revision
-            }
-        });
+            {
+                $set:{
+                    'revision': revision
+                }
+            });
     }
 });
 

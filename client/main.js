@@ -55,16 +55,24 @@ Template.pages.helpers({
     },
     isManager: function () {
         var id = Session.get('LdapId');
-        if (!id) return;
+        if (!id){
+            return;
+        }
         var user = Meteor.users.findOne({_id: id});
-        if (!user) return false;
+        if (!user){
+            return false;
+        }
         return user.manager;
     },
     isAdmin: function () {
         var id = Session.get('LdapId');
-        if (!id) return;
+        if (!id){
+            return;
+        }
         var user = Meteor.users.findOne({_id: id});
-        if (!user) return false;
+        if (!user){
+            return false;
+        }
         return user.admin;
     }
 
@@ -100,14 +108,18 @@ Template.mainSelector.helpers({
 });
 Template.loginPage.events({
     'click .btn': function (event) {
-        event.target.type = "button";
+        /*
+            Gets login information from the page and sends it to LDAP for validation.
+            This is not secure and is temporary for testing, eventually need to switch to headers with Apache.
+        */
+        event.target.type = 'button';
         $('#LDAPusername').parent().removeClass('has-error');
         $('#LDAPpassword').parent().removeClass('has-error');
         $('#LDAPusername').tooltip('destroy');
         $('#LDAPpassword').tooltip('destroy');
 
         var username = $('#LDAPusername')[0].value;
-        var password = $('#LDAPpassword')[0].value;  //This is not secure and is temporary for testing, eventually need to switch to headers with Apache.
+        var password = $('#LDAPpassword')[0].value;  
 
         authenticateLdapEmployee(username, password);
     }

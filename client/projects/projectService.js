@@ -7,34 +7,34 @@ ProjectService = {
     ensureValidProject: function(row, chargeNumber, name, startDate, endDate, manager) {
         var valid = true;
         if(chargeNumber === ''){
-            ProjectService.addError(row, '#charge_number', "Missing charge number");
+            ProjectService.addError(row, '#charge_number', 'Missing charge number');
             valid = false;
         }
         if(name === ''){
-            ProjectService.addError(row, '#project_name', "Missing project name");
+            ProjectService.addError(row, '#project_name', 'Missing project name');
             valid = false;
         }
         if(startDate === ''){
-            ProjectService.addError(row, '#start_date', "Missing start date");
+            ProjectService.addError(row, '#start_date', 'Missing start date');
             valid = false;
         }
         if(endDate === ''){
-            ProjectService.addError(row, '#end_date', "Missing end date");
+            ProjectService.addError(row, '#end_date', 'Missing end date');
             valid = false;
         }
         if(manager === ''){
-            ProjectService.addError(row, '#manager', "Missing manager");
+            ProjectService.addError(row, '#manager', 'Missing manager');
             valid = false;
         }
         if(!ProjectService.datesValid(startDate, endDate)){
-            ProjectService.addError(row, '#start_date', "End date must be after start date");
-            ProjectService.addError(row, '#end_date', "End date must be after start date");
+            ProjectService.addError(row, '#start_date', 'End date must be after start date');
+            ProjectService.addError(row, '#end_date', 'End date must be after start date');
             valid = false;
         }
         return valid;
     },
     datesValid: function(startDate, endDate) {
-        if(startDate == "" || endDate == ""){
+        if(startDate == '' || endDate == ''){
             return true;
         }
         startDate = startDate.split('/');

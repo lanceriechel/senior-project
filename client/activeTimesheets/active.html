@@ -13,13 +13,7 @@
     <br>
         <div class="row">
             <div class="text-center col-md-2 col-sm-2 col-xs-2">Project</div>
-            <div class="text-center col-md-1 col-sm-1 col-xs-1">S</div>
-            <div class="text-center col-md-1 col-sm-1 col-xs-1">M</div>
-            <div class="text-center col-md-1 col-sm-1 col-xs-1">T</div>
-            <div class="text-center col-md-1 col-sm-1 col-xs-1">W</div>
-            <div class="text-center col-md-1 col-sm-1 col-xs-1">T</div>
-            <div class="text-center col-md-1 col-sm-1 col-xs-1">F</div>
-            <div class="text-center col-md-1 col-sm-1 col-xs-1">S</div>
+            {{>daysOfWeek}}
             <div class="text-center col-md-2 col-sm-2 col-xs-2">Comment</div>
         </div>
         <br>
@@ -53,10 +47,10 @@
         <div class="col-md-5 col-sm-5 col-xs-5">Concerns</div>
     </div>
     <div class="row commentRow">
-        <div class="col-md-6 col-sm-6 col-xs-6"><input id="generalComment" type="text" class="large-input form-control enterable" value={{genComment}}></div>
-        <div class="col-md-5 col-sm-5 col-xs-5"><input id="concerns" type="text" class="large-input form-control enterable" value={{concerns}}></div>
+        <div class="col-md-6 col-sm-6 col-xs-6"><input id="generalComment" type="text" class="large-input form-control" value={{genComment}}></div>
+        <div class="col-md-5 col-sm-5 col-xs-5"><input id="concerns" type="text" class="large-input form-control" value={{concerns}}></div>
     {{#if isEditing}}
-        <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" id="acceptButton" class="btn btn-success accept">Accept Timesheet</button></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" id="acceptButton" class="btn btn-success approve">Approve Timesheet</button></div>
         <br><br><br>
         <div class="row">
             <div class="col-md-6 col-sm-6 col-xs-6">Reason For Rejection</div>
@@ -71,18 +65,22 @@
     </div>
 </template>
 
+<template name="daysOfWeek">
+    <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Sun</h4></div>
+    <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Mon</h4></div>
+    <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Tue</h4></div>
+    <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Wed</h4></div>
+    <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Thu</h4></div>
+    <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Fri</h4></div>
+    <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Sat</h4></div>
+</template>
+
 <template name="activeTimesheets">
     <div class="container-fluid">
         <h2><span class="label">Active Time Sheets</span></h2>
             <div class="row">
                 <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Start Date</h4></div>
-                <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Sun</h4></div>
-                <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Mon</h4></div>
-                <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Tue</h4></div>
-                <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Wed</h4></div>
-                <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Thu</h4></div>
-                <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Fri</h4></div>
-                <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Sat</h4></div>
+                {{>daysOfWeek}}
             </div>
             {{#each getTimesheets}}
                 {{> timesheetInfo}}
@@ -118,7 +116,6 @@
 <template name="projectHoursFilled">
     <div class="row" id={{rowID}}>
          <div class="filledRow col-md-2 col-sm-2 col-xs-2" id="projectFilledDrop">{{> projectListDropDown}}</div>
-       <!-- <div class="col-md-2 col-sm-2 col-xs-2 " id={{project}}><input id="project_select" type="text" class="large-input form-control" readonly value={{name project}}></div> -->
         <div class="filledRow col-md-1 col-sm-1 col-xs-1"><input id="Sunday" type="text" class="large-input form-control enterable {{sentBack}}" value={{sunday}}></div>
         <div class="filledRow col-md-1 col-sm-1 col-xs-1"><input id="Monday" type="text" class="large-input form-control enterable {{sentBack}}" value={{monday}}></div>
         <div class="filledRow col-md-1 col-sm-1 col-xs-1"><input id="Tuesday" type="text" class="large-input form-control enterable {{sentBack}}" value={{tuesday}}></div>
@@ -129,19 +126,6 @@
         <div class="filledRow col-md-2 col-sm-2 col-xs-2"><input id="Comment" type="text" class="large-input form-control enterable {{sentBack}}" value={{comment}}></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary enterable {{sentBack}}">Delete</button></div>
     </div>
-</template>
-
-
-<template name="projectListDropDown">
-    <select id="project_select" class="form-control enterable {{sentBack}}">
-        {{#each employees project}}
-                {{#if selected}}
-                    <option id={{id}} value={{name}} selected>{{name}}</option>
-                {{else}}
-                    <option id={{id}} value={{name}}>{{name}}</option>
-                {{/if}}
-        {{/each}}
-    </select>
 </template>
 
 <template name="timesheetInfo">
@@ -156,4 +140,16 @@
         <div class="col-md-1 col-sm-1 col-xs-1"><input id="Saturday" type="text" class="large-input form-control" value="{{sat}}" readonly></div>
         <div class="col-md-2 col-sm-2 col-xs-2"><button type="button" class="btn btn-primary">Edit</button></div>
     </div>
+</template>
+
+<template name="projectListDropDown">
+    <select id="project_select" class="form-control enterable {{sentBack}}">
+        {{#each projectsDropdown project}}
+                {{#if selected}}
+                    <option id={{id}} value={{name}} selected>{{name}}</option>
+                {{else}}
+                    <option id={{id}} value={{name}}>{{name}}</option>
+                {{/if}}
+        {{/each}}
+    </select>
 </template>
