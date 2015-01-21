@@ -9,16 +9,47 @@
 
     {{#each toApprove}}
         <div class="row row-item toApprove-Rows {{selected}}">
-            <div class="col-md-3 col-sm-3 col-xs-3 text-center"><h4>{{username}}</h4></div>
-            <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>{{total}}</h4></div>
-            <div class="col-md-2 col-sm-2 col-xs-2 text-center">
-                <button type="{{id}}" class="approve btn btn-success">Approve</button>
+            {{#if submitted}}
+
+                <div class="col-xs-3 text-center">
+                    <div>
+                        <div style="display: flex;align-items: center;float:left;z-index:-1">
+                            {{#if sentBack}}
+                                <div class="glyphicon glyphicon-repeat" title='Submitted and sent back'></div>
+                            {{else}}
+                                <div class="glyphicon glyphicon-ok" title='Timesheet has been Submitted'></div>
+                            {{/if}}
+                        </div>
+                        <div class="text-center" id="username">
+                            <h4>{{username}}</h4>
+                        </div>
+                    </div>
+                </div>
+            {{else}}
+                <div class="col-xs-3 text-center" id="username"><h4>{{username}}</h4></div>
+            {{/if}}
+            <div class="col-xs-2 text-center"><h4>{{total}}</h4></div>
+            <div class="col-xs-2 text-center">
+                {{#if sentBack}}
+                    <button type="{{id}}" class="approve btn btn-success" disabled>Approve</button>
+                    {{else}}
+                    <button type="{{id}}" class="approve btn btn-success">Approve</button>
+                {{/if}}
             </div>
-            <div class="col-md-2 col-sm-2 col-xs-2 text-center">
-                <button name="{{id}}" type="button" class="reject btn btn-danger">Reject</button>
+            <div class="col-xs-2 text-center">
+                {{#if sentBack}}
+                    <button name="{{id}}" type="button" class="reject btn btn-danger" disabled>Reject</button>
+                {{else}}
+                    <button name="{{id}}" type="button" class="reject btn btn-danger">Reject</button>
+                {{/if}}
             </div>
-            <div class="col-md-3 col-sm-3 col-xs-3"><input id="rejectComment" type="text"
-                                                           class="large-input form-control enterable" value=""></div>
+            <div class="col-xs-3">
+                {{#if sentBack}}
+                    <input id="rejectComment" type="text" class="large-input form-control" disabled value="">
+                {{else}}
+                    <input id="rejectComment" type="text" class="large-input form-control enterable" value="">
+                {{/if}}
+            </div>
 
         </div>
         <div class="row-item-divider width-98"></div>
@@ -28,11 +59,11 @@
 
 <template name="date_picker">
     <div class="col-xs-12" style="display:inline-block;">
-        <div class="prevWeek glyphicon glyphicon-chevron-left" style="display:inline-block;cursor: pointer;"></div>
+        <div class="prevWeek glyphicon glyphicon-chevron-left no-select" style="display:inline-block;cursor: pointer;"></div>
         &nbsp;
         <div style="display:inline-block;"><h4>{{currentDateRange}}</h4></div>
         &nbsp;
-        <div class="nextWeek glyphicon glyphicon-chevron-right" style="display:inline-block;cursor: pointer;"></div>
+        <div class="nextWeek glyphicon glyphicon-chevron-right no-select" style="display:inline-block;cursor: pointer;"></div>
     </div>
 
 </template>
@@ -47,7 +78,7 @@
                 {{#each managedProjects}}
                     <!--TODO Check to see if the managed project has active time sheets to approve-->
                         <!--{{#if isActive end_date}}-->
-                    <option value="{{id}}">{{id}}</option>
+                    <option value="{{charge_number}}">{{text}}</option>
                         <!--{{/if}}-->
                 {{/each}}
             </select>
@@ -63,11 +94,11 @@
             <div class="row">
                 <div class="col-xs-6">
                     <div class="row">
-                        <div class="col-md-3 col-sm-3 col-xs-3 text-center col-header"><h4>Name</h4></div>
-                        <div class="col-md-2 col-sm-2 col-xs-2 text-center col-header"><h4>Total</h4></div>
-                        <div class="col-md-2 col-sm-2 col-xs-2 text-center col-header"><h4>Approve</h4></div>
-                        <div class="col-md-2 col-sm-2 col-xs-2 text-center col-header"><h4>Reject</h4></div>
-                        <div class="col-md-2 col-sm-2 col-xs-2 text-center col-header"><h4>Comment</h4></div>
+                        <div class="col-xs-3 text-center col-header"><h4>Name</h4></div>
+                        <div class="col-xs-2 text-center col-header"><h4>Total</h4></div>
+                        <div class="col-xs-2 text-center col-header"><h4>Approve</h4></div>
+                        <div class="col-xs-2 text-center col-header"><h4>Reject</h4></div>
+                        <div class="col-xs-3 text-center col-header"><h4>Comment</h4></div>
                     </div>
                     <div id="timesheet_approvals">
                         {{> toApprove_Template}}
