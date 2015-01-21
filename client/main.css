@@ -86,7 +86,7 @@ ul {
 }
 
 #new-todo-box {
-    margin-top: 10px 60px 10px 20px;
+    margin-top: 10px;
     font-size: 160%;
     position: relative;
     height: 40px;
@@ -236,8 +236,8 @@ ul {
 
 .col-header > h4 {
     box-sizing: border-box;
-    width: 70%;
-    margin-left: 15%;
+    /*width: 70%;*/
+    /*margin-left: 15%;*/
     border-bottom: 1px solid #428BCA;
     padding-bottom: 4px;
 }
@@ -250,6 +250,15 @@ ul {
 
 #timeSheetReviewer > .row:nth-child(odd) {
     background: rgba(0, 0, 0, 0.03);
+}
+
+.no-select {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .alert-editing {
@@ -285,8 +294,9 @@ ul {
     background: #eee;
     margin: 5px;
     border-radius: 30px;
-    /*background-clip: content-box;*/
     cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 
 .row-item.selected {
