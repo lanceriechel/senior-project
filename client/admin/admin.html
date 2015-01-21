@@ -41,33 +41,24 @@
             Email Type:
             <select id="detailType">
                 <option>Reminder</option>
+                <option>Report</option>
             </select>
         </div>
         <div class="row" style="display: inline-block">
             Schedule: @
-            <div style="width:auto;display: inline" class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuHours" data-toggle="dropdown" aria-expanded="true" style="min-width: 80px;text-align: left">
-                    00
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuHours">
-                    {{#each hours}}
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{this}}</a></li>
-                    {{/each}}
-                </ul>
+            <div class="input-append bootstrap-timepicker" style="width:auto;display: inline">
+                <input id="timepicker1" type="text" class="input-small">
+                            <span class="add-on input-group-addon" id="basic-addon2" style="width:auto;display: inline">
+                <i class="icon-time"><div class="glyphicon glyphicon-time"></div></i>
+            </span>
             </div>
-            :
-            <div style="width:auto;display: inline" class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuMins" data-toggle="dropdown" aria-expanded="true" style="min-width: 80px;text-align: left">
-                    00
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuMins">
-                {{#each mins}}
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{this}}</a></li>
-                {{/each}}
-                </ul>
-            </div>
+
+            <script type="text/javascript">
+                $('#timepicker1').timepicker({
+                    minuteStep: 1,
+                    showSeconds: false,
+                    showMeridian: false});
+            </script>
              on
             <div class="dropdown" style="text-align: left;display: inline">
                 <button class="btn btn-default dropdown-toggle" style="min-width: 80px;" type="button" id="dropdownMenuDays" data-toggle="dropdown" aria-expanded="true">

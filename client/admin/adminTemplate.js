@@ -1,3 +1,13 @@
+
+$('#timepicker').timepicker({
+    minuteStep: 1,
+    template: 'modal',
+    appendWidgetTo: 'body',
+    showSeconds: true,
+    showMeridian: false,
+    defaultTime: false
+});
+
 Template.current_jobs.helpers({
     jobsList: function () {
         return Jobs.find();
@@ -18,17 +28,6 @@ Template.add_new_job.helpers({
     hours: function () {
         var hours = [];
         for (var i = 0; i <= 23; i++) {
-            var hour = '';
-            if (i < 10) {
-                hour = '0'
-            }
-            hours.push(hour + i);
-        }
-        return hours;
-    },
-    mins: function () {
-        var hours = [];
-        for (var i = 0; i <= 59; i++) {
             var hour = '';
             if (i < 10) {
                 hour = '0'
@@ -86,10 +85,8 @@ Template.add_new_job.events({
     'click #submit_job': function () {
         var jobType = document.getElementById('jobType').value.toLowerCase();
         var detailType = document.getElementById('detailType').value.toLowerCase();
-        var jobHour = document.getElementById('dropdownMenuHours').textContent.trim().toLowerCase();
-        var jobMin = document.getElementById('dropdownMenuMins').textContent.trim().toLowerCase();
-        var jobDays = document.getElementById('dropdownMenuDays').textContent.trim();
-        var id = Jobs.insert({type: jobType, details: {type:detailType,schedule_text:'at '+ jobHour +':' + jobMin + ' on ' + jobDays}});
+        var time = $('#timepicker1').val();
+        var id = Jobs.insert({type: jobType, details: {type:detailType,schedule_text:'at '+ time + ' on ' + jobDays}});
         Meteor.call('scheduleJob', Jobs.findOne({_id: id}));
     }
 });
