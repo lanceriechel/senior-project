@@ -111,3 +111,29 @@ Template.archivedProjectsEntries.helpers({
         return !ProjectService.isActive(date);
     }
 });
+
+Template.activeProjects.helpers({
+    getHoliday: function() {
+        var projects = DatabaseService.getProjects();
+        var holiday = ChargeNumbers.findOne({'is_holiday': true});
+
+        if (!holiday) {
+            var d = new Date();
+            var startDate = d.getMonth()+1 + "/" + d.getDate() + "/" + d.getFullYear();
+            d.setFullYear(d.getFullYear() + 100); 
+            var endDate = d.getMonth()+1 + "/" + d.getDate() + "/" + d.getFullYear();
+
+            admin = Meteor.users.findOne({'admin': true});
+
+            ChargeNumbers.insert(
+                {
+                    id: '1000',
+                    name: 'Holiday',
+                    start_date: startDate,
+                    end_date: endDate,
+                    manager: admin.username,
+                    is_holiday: true
+                });
+        }
+    }
+});
