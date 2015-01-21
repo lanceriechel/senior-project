@@ -127,7 +127,13 @@ Meteor.startup(function () {
                         );
                     }
                         else{
-                        console.log(previousTimesheet);
+                        //console.log(previousTimesheet);
+                        var old = previousTimesheet['projectEntriesArray'];
+                        for(var entry in  old){
+                            old[entry].Approved = false;
+                            old[entry].rejectMessage = '';
+                            old[entry].SentBack = false;
+                        }
                         TimeSheet.insert(
                             {
                                 'startDate': dStr,
@@ -135,7 +141,7 @@ Meteor.startup(function () {
                                 'userId': user['_id'],
                                 'active': 1,
                                 'revision': [],
-                                'projectEntriesArray': previousTimesheet['projectEntriesArray'],
+                                'projectEntriesArray': old,
                                 'type': 1,
                                 'generalComment': previousTimesheet['generalComment'],
                                 'concerns': previousTimesheet['concerns'],
@@ -210,10 +216,14 @@ Meteor.startup(function () {
                                     var end=dStr2;
                                     var projectArray = {};//new Array();
                                     var projectHours = {};
+                                    var projectComments= {};
+                                    var comments= {};
                                     ChargeNumbers.find().forEach(function (project){
                                         //console.log(project.name);
                                         projectArray[project.id]= project.name;
                                         projectHours[project.id]=0;
+                                        projectComments[project.id]=[];
+                                        comments[project.name]=[];
                                     });
                                     TimeSheet.find({startDate: dStr}).forEach(function (sheet){
                                         for (var pIndex in sheet.projectEntriesArray) {
@@ -225,16 +235,19 @@ Meteor.startup(function () {
                                                     sum+=entry.hours[hours];
                                                 }
                                                 projectHours[currentProject]+=sum;
+                                                projectComments[currentProject].push(entry.Comment);
                                             }
                                         }
 
                                     });
                                     var report = {};
+                                    //var comments= {};
                                     for (var key in projectHours){
                                         report[projectArray[key]]= projectHours[key];
+                                        comments[projectArray[key]]= projectComments[key];
                                     }
                                     //console.log(report);
-                                    Meteor.call('sendEmail', 'iversoda@rose-hulman.edu', 'Projects', EmailTemplates.getReportEmail(report,'Comments',start, end));
+                                    Meteor.call('sendEmail', 'iversoda@rose-hulman.edu', 'Projects', EmailTemplates.getReportEmail(report,comments,start, end));
                                 }
                                    
                             });
