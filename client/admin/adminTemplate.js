@@ -86,6 +86,7 @@ Template.add_new_job.events({
         var jobType = document.getElementById('jobType').value.toLowerCase();
         var detailType = document.getElementById('detailType').value.toLowerCase();
         var time = $('#timepicker1').val();
+        var jobDays = document.getElementById('dropdownMenuDays').textContent.trim();
         var id = Jobs.insert({type: jobType, details: {type:detailType,schedule_text:'at '+ time + ' on ' + jobDays}});
         Meteor.call('scheduleJob', Jobs.findOne({_id: id}));
     }
