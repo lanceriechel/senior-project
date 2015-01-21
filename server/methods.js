@@ -43,7 +43,12 @@ Meteor.startup(function () {
                         );
                     }
                         else{
-                        console.log(previousTimesheet);
+                       var old = previousTimesheet['projectEntriesArray'];
+                       for(var entry in  old){
+                           old[entry].Approved = false;
+                           old[entry].rejectMessage = '';
+                           old[entry].SentBack = false;
+                       }
                         TimeSheet.insert(
                             {
                                 'startDate': dStr,
@@ -51,7 +56,7 @@ Meteor.startup(function () {
                                 'userId': user['_id'],
                                 'active': 1,
                                 'revision': [],
-                                'projectEntriesArray': previousTimesheet['projectEntriesArray'],
+                                'projectEntriesArray': old,
                                 'type': 1,
                                 'generalComment': previousTimesheet['generalComment'],
                                 'concerns': previousTimesheet['concerns'],
