@@ -14,6 +14,20 @@ Template.current_jobs.helpers({
     }
 });
 
+Template.all_pdfs.events({
+    'click .btn': function(){
+        var startDate = Session.get('startDate');
+        var startDate2 = new Date(startDate);
+        var startDate3 = startDate2.toLocaleDateString();
+
+        TimeSheet.find({'startDate':startDate3}).forEach(
+            function(sheet) {
+                var userID = sheet.userId;
+                generalHelpers.makePDF(startDate3, userID);
+            });
+    }
+});
+
 Template.current_jobs.events({
     'click button': function (event) {
         var job = Jobs.findOne({_id: event.target.id});

@@ -6,6 +6,9 @@
             {{> current_jobs}}
             <div class="row-item-divider width-98"></div>
             {{> add_new_job}}
+            <br>
+            <div class="row-item-divider width-98"></div>
+            {{> all_pdfs}}
         </div>
     </div>
 </template>
@@ -26,6 +29,14 @@
             <div class="row-item-divider width-98"></div>
         {{/each}}
     </div>
+</template>
+
+<template name="all_pdfs">
+    <h2>All Weekly Timesheets to PDF</h2>
+    {{> date_picker}}
+    &nbsp;
+    &nbsp;
+    <button class="approve btn btn-success">All PDFs</button>
 </template>
 
 <template name="add_new_job">
