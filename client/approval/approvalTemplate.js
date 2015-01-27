@@ -43,26 +43,28 @@ Template.toApprove_Template.helpers({
                         }
                     });
                 }
-                if (totals[t.userId] == null) {
-                    totals[t.userId] = {
-                        total: 0,
-                        sentBack: false,
-                        approved: false
+                if (Meteor.users.findOne({_id: t.userId, projects: {$in : [selected]}})){
+                    if (totals[t.userId] == null) {
+                        totals[t.userId] = {
+                            total: 0,
+                            sentBack: false,
+                            approved: false
+                        };
+                    }
+                    totals[t.userId] =
+                    {
+                        total: totals[t.userId].total + total,
+                        sentBack: totals[t.userId].sentBack || (pe.SentBack && pe.projectID == selected) || !t.submitted,
+                        approved: totals[t.userId].approved || (pe.Approved && pe.projectID == selected)
                     };
                 }
-                totals[t.userId] =
-                {
-                    total: totals[t.userId].total + total,
-                    sentBack: totals[t.userId].sentBack || (pe.SentBack && pe.projectID == selected),
-                    approved: totals[t.userId].approved || (pe.Approved && pe.projectID == selected)
-                };
             });
             hasSubmitted[t.userId] = t.submitted;
             if (totals[t.userId] == null) {
                 if (Meteor.users.findOne({_id: t.userId, projects: {$in : [selected]}})){
                     totals[t.userId] = {
                         total: 0,
-                        sentBack: false,
+                        sentBack: !t.submitted,
                         approved: false
                     };
                 }
@@ -85,13 +87,19 @@ Template.toApprove_Template.helpers({
         }
 
         var compare = function (a,b) {
-            if (a.submitted > b.submitted && a.sentBack > b.sentBack) {
+            if (a.submitted > b.submitted) {
                 return -1;
+            }else if (a.submitted == b.submitted){
+                if (a.sentBack > b.sentBack){
+                    return 1;
+                }else if (a.sentBack < b.sentBack){
+                    return -1;
+                }else {
+                    return 0;
+                }
             }
-            if (a.submitted < b.submitted && a.sentBack < b.sentBack){
-                return 1;
-            }
-            return 0;
+
+            return 1;
         };
 
         toReturn = toReturn.sort(compare);
@@ -200,16 +208,18 @@ Template.approval_Template.helpers({
 
         var needsApproving = false;
         timesheets.forEach(function (t) {
+            var nAprroving = false;
             t.projectEntriesArray.forEach(function (pe) {
                 if (pe.projectID === selected) {
-                    needsApproving = needsApproving || !pe.Approved;
+                    nAprroving == true;
                 }
             });
-            //if (!needsApproving) {
-            //    if (Meteor.users.findOne({_id: t.userId, projects: {$in : [selected]}})){
-            //        needsApproving =  true;
-            //    }
-            //}
+            if (!nAprroving) {
+                if (Meteor.users.findOne({_id: t.userId, projects: {$in : [selected]}})){
+                    nAprroving =  true;
+                }
+            }
+            needsApproving = needsApproving || nAprroving;
         });
 
         return needsApproving;

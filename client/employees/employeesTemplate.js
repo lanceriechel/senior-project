@@ -9,7 +9,15 @@ Template.associatedProjects.helpers({
     },
     chargeNumbers: function () {
         'use strict';
-        return DatabaseService.getUnsubscribedProjects(this.projects);
+        var toReturn = [];
+        DatabaseService.getUnsubscribedProjects(this.projects).forEach(function (cn) {
+            toReturn.push({
+                id : cn.id,
+                text : cn.id + '   ( ' + cn.name + ' )',
+                end_date : cn.end_date
+            });
+        });
+        return toReturn;
     },
     isActive: function (date) {
         'use strict';
