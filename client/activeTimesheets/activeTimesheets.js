@@ -354,22 +354,23 @@ Template.projectListDropDown.helpers({
         var date = Session.get("startDate");
         var userId = Session.get('LdapId');
         var data = Session.get('editing-user-page');
+        var projectsNotAllowed = [];
         if (data){
             var userO = Meteor.users.findOne({username : data.username});
             if (userO){
                 userId = userO._id;
             }
+            ChargeNumbers.find({id : {$ne: data.project}}).forEach(function (proj) {
+                projectsNotAllowed.push(proj.id);
+            });
         }
         var sheet = TimeSheet.findOne({'startDate': date, 'userId': userId});
 
         var projectEntries = sheet['projectEntriesArray'];
 
-        var projectsNotAllowed = [];
-
         for (i = 0; i < projectEntries.length; i++) {
             var project = projectEntries[i]['projectID'];
 
-            var data = Session.get('editing-user-page');
             if (data){
                 if (project != data.project){
                     projectsNotAllowed.push(project);
@@ -390,7 +391,7 @@ Template.projectListDropDown.helpers({
 
         projects = projects.fetch();
 
-
+        console.log(projectSelected);
         projects.forEach(function (p) {
             if (projectSelected == p['id']) {
                 selected = true;
