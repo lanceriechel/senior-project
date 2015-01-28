@@ -6,6 +6,13 @@
             {{> current_jobs}}
             <div class="row-item-divider width-98"></div>
             {{> add_new_job}}
+            <br>
+            <div class="row-item-divider width-98"></div>
+            {{> all_pdfs}}
+            <br>
+            <br>
+            <div class="row-item-divider width-98"></div>
+            {{> monthly_status}}
         </div>
     </div>
 </template>
@@ -25,6 +32,32 @@
             </div>
             <div class="row-item-divider width-98"></div>
         {{/each}}
+    </div>
+</template>
+
+<template name="all_pdfs">
+    <h2>All Weekly Timesheets to PDF</h2>
+    {{> date_picker}}
+    &nbsp;
+    &nbsp;
+    <button class="approve btn btn-success">All PDFs</button>
+</template>
+
+<template name="monthly_status">
+    <h2>Monthly Status Report</h2>
+    {{> month_picker}}
+    &nbsp;
+    &nbsp;
+    <button class="approve btn btn-success">Generate</button>
+</template>
+
+<template name="month_picker">
+    <div class="col-xs-12" style="display:inline-block;">
+        <div class="prevWeek glyphicon glyphicon-chevron-left no-select" style="display:inline-block;cursor: pointer;"></div>
+        &nbsp;
+        <div style="display:inline-block;"><h4>{{currentMonth}}</h4></div>
+        &nbsp;
+        <div class="nextWeek glyphicon glyphicon-chevron-right no-select" style="display:inline-block;cursor: pointer;"></div>
     </div>
 </template>
 
