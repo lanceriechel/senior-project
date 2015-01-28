@@ -33,6 +33,22 @@ ProjectService = {
         }
         return valid;
     },
+    ensureValidIndirectProject: function(row, chargeNumber, name, manager) {
+        var valid = true;
+        if(chargeNumber === ''){
+            ProjectService.addError(row, '#charge_number', 'Missing charge number');
+            valid = false;
+        }
+        if(name === ''){
+            ProjectService.addError(row, '#project_name', 'Missing project name');
+            valid = false;
+        }
+        if(manager === ''){
+            ProjectService.addError(row, '#manager', 'Missing manager');
+            valid = false;
+        }
+        return valid;
+    },
     datesValid: function(startDate, endDate) {
         if(startDate == '' || endDate == ''){
             return true;

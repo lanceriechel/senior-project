@@ -1,10 +1,13 @@
 <template name="activeProjects">
+    {{getHoliday}}
     <div class="container-fluid">
         <h2><span class="label">Add a Project</span></h2>
         <br>
         {{> addProject}}
         <h2><span class="label">ActiveProjects</span></h2>
         {{> activeProjectEntries}}
+        <h2><span class="label">Indirect Charge Items</span></h2>
+        {{> indirectChargeItems}}
         <h2><span class="label">Archived Projects</span></h2>
         {{> archivedProjectsEntries}}
     </div>
@@ -31,12 +34,19 @@
 
 <template name="addProject">
     <div class="row">
-        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control" id="charge_number" placeholder="Charge Number"></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"> <input type="text" class="large-input form-control" id="charge_number" placeholder="Charge Number"></div>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control" id="project_name" placeholder="Project Name"></div>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control" id="start_date" placeholder="Start Date"></div>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control" id="end_date" placeholder="End Date"></div>
         <div class="col-md-2 col-sm-2 col-xs-2">{{> employeesListDropDown}}</div>
-        <div class="col-md-2 col-sm-2 col-xs-2"><button type="button" class="btn btn-primary">Add</button></div>
+        <div class="col-md-2 col-sm-2 col-xs-2 text-center">
+            <label>Indirect Project?</label><br>
+            <label for="y">Yes</label>
+            <input type="radio" id="indirect" name="indirect" value="y">
+            <label for="n">No</label>
+            <input type="radio" id="nonIndirect" name="indirect" value="n" checked>
+        </div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary">Add</button></div>
     </div>
 </template>
 
@@ -64,5 +74,28 @@
         <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Start Date</h4></div>
         <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>End Date</h4></div>
         <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Manager</h4></div>
+    </div>
+</template>
+
+<template name="indirectChargeItems">
+    {{> indirectHeader}}
+    {{#each projects}}
+        {{> indirectInfo}}
+    {{/each}}
+</template>
+
+<template name="indirectHeader">
+    <div class="row">
+        <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Charge Number</h4></div>
+        <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Project Name</h4></div>
+        <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Manager</h4></div>
+    </div>
+</template>
+
+<template name="indirectInfo">
+    <div class="row">
+        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control charge_number" id="charge_number" value={{id}}></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control  project_name" id="project_name" value={{name}}></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control manager" id="manager" value={{manager}}></div>
     </div>
 </template>
