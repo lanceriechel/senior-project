@@ -1,3 +1,13 @@
+Template.PDF.events = {
+  'click button': function(event){
+  		var userID = Session.get('LdapId');
+        if (Session.get('search_employee')) {
+            userID = Session.get('search_employee');
+        }
+   		generalHelpers.makePDF(Session.get("startDate"), userID);
+  }
+};
+
 Template.historyHeader.helpers({
 	getTimesheets: function (project) {
 		var userId = '';

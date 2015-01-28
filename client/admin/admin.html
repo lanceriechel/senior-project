@@ -6,6 +6,13 @@
             {{> current_jobs}}
             <div class="row-item-divider width-98"></div>
             {{> add_new_job}}
+            <br>
+            <div class="row-item-divider width-98"></div>
+            {{> all_pdfs}}
+            <br>
+            <br>
+            <div class="row-item-divider width-98"></div>
+            {{> monthly_status}}
         </div>
     </div>
 </template>
@@ -28,6 +35,32 @@
     </div>
 </template>
 
+<template name="all_pdfs">
+    <h2>All Weekly Timesheets to PDF</h2>
+    {{> date_picker}}
+    &nbsp;
+    &nbsp;
+    <button class="approve btn btn-success">All PDFs</button>
+</template>
+
+<template name="monthly_status">
+    <h2>Monthly Status Report</h2>
+    {{> month_picker}}
+    &nbsp;
+    &nbsp;
+    <button class="approve btn btn-success">Generate</button>
+</template>
+
+<template name="month_picker">
+    <div class="col-xs-12" style="display:inline-block;">
+        <div class="prevWeek glyphicon glyphicon-chevron-left no-select" style="display:inline-block;cursor: pointer;"></div>
+        &nbsp;
+        <div style="display:inline-block;"><h4>{{currentMonth}}</h4></div>
+        &nbsp;
+        <div class="nextWeek glyphicon glyphicon-chevron-right no-select" style="display:inline-block;cursor: pointer;"></div>
+    </div>
+</template>
+
 <template name="add_new_job">
     <div class="container-fluid">
         <h2>New Jobs</h2>
@@ -41,33 +74,24 @@
             Email Type:
             <select id="detailType">
                 <option>Reminder</option>
+                <option>Report</option>
             </select>
         </div>
         <div class="row" style="display: inline-block">
             Schedule: @
-            <div style="width:auto;display: inline" class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuHours" data-toggle="dropdown" aria-expanded="true" style="min-width: 80px;text-align: left">
-                    00
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuHours">
-                    {{#each hours}}
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{this}}</a></li>
-                    {{/each}}
-                </ul>
+            <div class="input-append bootstrap-timepicker" style="width:auto;display: inline">
+                <input id="timepicker1" type="text" class="input-small">
+                            <span class="add-on input-group-addon" id="basic-addon2" style="width:auto;display: inline">
+                <i class="icon-time"><div class="glyphicon glyphicon-time"></div></i>
+            </span>
             </div>
-            :
-            <div style="width:auto;display: inline" class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuMins" data-toggle="dropdown" aria-expanded="true" style="min-width: 80px;text-align: left">
-                    00
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuMins">
-                {{#each mins}}
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{this}}</a></li>
-                {{/each}}
-                </ul>
-            </div>
+
+            <script type="text/javascript">
+                $('#timepicker1').timepicker({
+                    minuteStep: 1,
+                    showSeconds: false,
+                    showMeridian: false});
+            </script>
              on
             <div class="dropdown" style="text-align: left;display: inline">
                 <button class="btn btn-default dropdown-toggle" style="min-width: 80px;" type="button" id="dropdownMenuDays" data-toggle="dropdown" aria-expanded="true">

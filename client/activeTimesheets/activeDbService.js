@@ -22,29 +22,33 @@ ActiveDBService = {
             This is so a manager cannot see historical timesheets for other employees.
         */
         var user = Meteor.users.findOne({'_id':Session.get('LdapId')});
-
+        
         if (user.admin) {
-            var employees = Meteor.users.find();
-            var employeeIds = [];
+            var employees = Meteor.users.find();   
+            var employeeIds = [];         
             employees.forEach(function (e) {
                 employeeIds.push(e._id);
             });
             return employeeIds
         }
 
-        var projects = ChargeNumbers.find({'manager':user.username});
-        var projectIds = [];
-        projects.forEach(function (p) {
-            projectIds.push(p.id);
-        });
+        if (user.manager){
+            var projects = ChargeNumbers.find({'manager':user.username});
+            var projectIds = [];
+            projects.forEach(function (p) {
+                projectIds.push(p.id);
+            });
 
-        var employees = Meteor.users.find({'projects': { $in: projectIds}});
-        var employeeIds = [];
-        employees.forEach(function (e) {
-            employeeIds.push(e._id);
-        });
+            var employees = Meteor.users.find({'projects': { $in: projectIds}});
+            var employeeIds = [];
+            employees.forEach(function (e) {
+                employeeIds.push(e._id);
+            });
 
-        return employeeIds;
+            return employeeIds;
+        }
+
+        return [user._id];
     },
     updateRowInTimeSheet: function(date, user, project, comment,Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, rowID){
         /*

@@ -1,0 +1,15 @@
+{
+  "meteor": {},
+  "dependencies": {
+    "basePackages": {
+      "bootstrap-timepicker": {}
+    },
+    "packages": {
+      "bootstrap-timepicker": {
+        "git": "https://github.com/BenjaminRH/meteor-bootstrap-timepicker.git",
+        "tag": "v0.1.0",
+        "commit": "fa61edb82752e5c682dbaafd5412f4d29f8b72e0"
+      }
+    }
+  }
+}
