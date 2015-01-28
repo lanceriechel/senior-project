@@ -28,6 +28,149 @@ Template.all_pdfs.events({
     }
 });
 
+Template.month_picker.helpers({
+    currentMonth: function () {
+        if(Session.get('statusDate') == null){
+            var currentTime = new Date();
+            currentTime.setDate(1);
+            Session.set('statusDate', currentTime);
+        }else{
+            var currentTime = Session.get('statusDate') 
+        }
+        var month = currentTime.getMonth() + 1;
+        var year = currentTime.getFullYear()
+
+        return month + "/" + year;
+    }
+});
+
+Template.month_picker.events({
+    'click .prevWeek': function () {
+        var startDate = Session.get("statusDate");
+
+        var d2 = new Date(startDate);
+        var mo = d2.getMonth() - 1;
+        if(mo == -1){
+            mo = 11;
+            d2.setYear(d2.getFullYear()-1);
+        }
+        d2.setMonth(mo);
+
+        Session.set("statusDate", d2);
+    },
+    'click .nextWeek': function () {
+        var startDate = Session.get("statusDate");
+
+        var d2 = new Date(startDate);
+        var mo = d2.getMonth() + 1;
+        if(mo == 12){
+            mo = 0;
+            d2.setYear(d2.getFullYear()+1);
+        }
+        d2.setMonth(mo);
+
+        //don't advance past current month
+        if (d2 > generalHelpers.getCurrentDate()) {
+            return;
+        }
+
+        Session.set("statusDate", d2);
+    }
+});
+
+Template.monthly_status.events({
+    'click .btn':function(){
+        var date = Session.get('statusDate');
+        var month = date.getMonth()+1;
+        var year = date.getFullYear();
+
+        var startDate = new Date(month+ '/' + '1' + '/' + year);
+        if(month == 11){
+            month = -1;
+        }
+        var endDate = new Date(month+1 + '/'+'1'+'/'+year);
+        endDate.setDate(endDate.getDate() - 1);
+
+        var comments = [];
+        var rawComments = '';
+        comments.push(['Project','Employee','Comment']);
+
+        TimeSheet.find({'submitted':true}).forEach(
+            function (sheet) {
+                var sheetStartDate = new Date(sheet.startDate);
+                var sheetEndDate = new Date(sheet.endDate);
+                var prEntriesArray = sheet.projectEntriesArray;
+
+                var i;
+                var j;
+
+                var employee = Meteor.users.findOne({'_id': sheet.userId});
+                var employeename = employee.username;
+
+                if(((sheetStartDate > startDate) && (sheetStartDate < endDate)) || ((sheetEndDate < endDate) && (sheetEndDate > startDate))){
+                    for(i=0; i<prEntriesArray.length; i++){
+                        var project = prEntriesArray[i]['projectID'];
+                        var project2 = ChargeNumbers.findOne({'id': project});
+                        var entryArray = prEntriesArray[i].EntryArray;
+                        for(j=0; j<entryArray.length; j++){
+                            comments.push([project2.name,employeename,entryArray[j].Comment]);
+                            rawComments += entryArray[j].Comment + '\n';
+                        }    
+                    }
+                }
+            });
+        function Comparator(a,b){
+            if (a[0] < b[0]) return -1;
+            if (a[0] > b[0]) return 1;
+            return 0;
+        }
+        comments = comments.sort(Comparator);
+
+
+        var docDefinition = { 
+        content: [
+            { text: 'Monthly Status Report for ' +month + '/' + year, fontSize: 30, 
+
+             },
+             { text: ' ', fontSize: 17, 
+
+             },
+            { text: 'Comments with context', fontSize: 20, 
+
+             },
+             { text: ' ', fontSize: 17, 
+
+             },
+            {
+                table: {
+                    // headers are automatically repeated if the table spans over multiple pages
+                    // you can declare how many rows should be treated as headers
+                    headerRows: 1,
+                    widths: [ '*', '*' , '*'],
+
+                    body: comments
+                  }
+            },
+            { text: ' ', fontSize: 17, 
+
+             },
+            { text: 'Comments only', fontSize: 20, 
+
+             },
+             { text: ' ', fontSize: 17, 
+
+             },
+             { text: rawComments, fontSize: 14, 
+
+             },
+
+            ]
+        };
+      pdfMake.createPdf(docDefinition).download('Monthly Status for ' +month + '\/' + year);
+    }
+
+});
+
 Template.current_jobs.events({
     'click button': function (event) {
         var job = Jobs.findOne({_id: event.target.id});

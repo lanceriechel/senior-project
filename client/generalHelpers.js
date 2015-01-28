@@ -9,6 +9,11 @@ generalHelpers = {
   		d.setDate((d.getDate() - (d.getDay() + 6) % 7 ) + 6);
   		return d.toLocaleDateString();
     },
+    getCurrentDate: function() {
+    var d = new Date();
+    d.setDate((d.getDate() - (d.getDay() + 6) % 7) - 1);
+    return d;
+    },
     MakeTimesheetForNewUser: function(id, user){
         var d = new Date(),
             d2 = new Date();
