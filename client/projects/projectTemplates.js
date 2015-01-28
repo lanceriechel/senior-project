@@ -1,6 +1,6 @@
 Template.activeProjectEntries.helpers({
     projects: function(){
-        return DatabaseService.getProjects();
+        return ChargeNumbers.find({"indirect": {$exists: false}});
     },
     isActive: function(date){
         return ProjectService.isActive(date);
@@ -77,9 +77,25 @@ Template.addProject.events = {
         var startDate = $(row).find('#start_date')[0].value;
         var endDate = $(row).find('#end_date')[0].value;
         var manager = $(row).find('#manager')[0].value;
+        var indirect = $(row).find('#indirect')[0].checked;
 
         ProjectService.removeErrorClasses(row, ['#charge_number', '#project_name', '#start_date', '#end_date','#manager']);
 
+        if (indirect) {
+            if(ProjectService.ensureValidIndirectProject(row, chargeNumber, name, manager)) {
+            DatabaseService.addNewProject({
+                'id': chargeNumber,
+                'name': name,
+                'manager': manager,
+                'indirect': true
+            });
+            $(row).find('#charge_number')[0].value = '';
+            $(row).find('#project_name')[0].value = '';
+            $(row).find('#start_date')[0].value = '';
+            $(row).find('#end_date')[0].value = '';
+            $(row).find('#manager')[0].value = '';
+        }
+        } else {
         if(ProjectService.ensureValidProject(row, chargeNumber, name, startDate, endDate, manager)) {
             DatabaseService.addNewProject({
                 'id': chargeNumber,
@@ -95,6 +111,7 @@ Template.addProject.events = {
             $(row).find('#manager')[0].value = '';
         }
     }
+    }
 };
 
 Template.employeesListDropDown.helpers({
@@ -105,7 +122,7 @@ Template.employeesListDropDown.helpers({
 
 Template.archivedProjectsEntries.helpers({
     projects: function() {
-        return DatabaseService.getProjects();
+        return ChargeNumbers.find({"indirect": {$exists: false}});
     },
     isArchived: function(date) {
         return !ProjectService.isActive(date);
@@ -132,8 +149,15 @@ Template.activeProjects.helpers({
                     start_date: startDate,
                     end_date: endDate,
                     manager: admin.username,
-                    is_holiday: true
+                    is_holiday: true,
+                    indirect: true
                 });
         }
+    }
+});
+
+Template.indirectChargeItems.helpers({
+    projects: function(){
+        return ChargeNumbers.find({"indirect": true});
     }
 });

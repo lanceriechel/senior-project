@@ -104,3 +104,24 @@ Template.associatedProjects.events(okCancelEvents(
         }
     }
 ));
+
+Template.employeeSettings.helpers({
+    addHolidayProjects: function() {
+        'use strict';
+        var employees = DatabaseService.getEmployees();
+        var holiday = ChargeNumbers.findOne({'is_holiday': true});
+        if (!holiday) { return; }
+        employees.forEach(function (e) {
+            if (e.fulltime) {
+                if (e.projects.indexOf(holiday.id) == -1) {
+                    e.projects.push(holiday.id);
+                    Meteor.users.update(
+                        {'_id': e._id},
+                        {$set: {
+                            'projects': e.projects
+                        }});
+                }
+            }
+        });
+    }
+});
