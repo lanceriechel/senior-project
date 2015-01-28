@@ -211,6 +211,7 @@ Meteor.startup(function () {
                                     Meteor.call('sendEmail', toSendEmail, 'Please Submit Your Timesheet', EmailTemplates.getReminderEmail());
                                 }
                             });
+                            break;
                         case 'report' :
 
                            SyncedCron.add({
@@ -246,7 +247,7 @@ Meteor.startup(function () {
                                                 var entry= sheet.projectEntriesArray[pIndex].EntryArray[eIndex];
                                                 var sum =0;
                                                 for (var hours in entry.hours){
-                                                    sum+=entry.hours[hours];
+                                                    sum+=parseInt(entry.hours[hours]);
                                                 }
                                                 projectHours[currentProject]+=sum;
                                                 projectComments[currentProject].push(entry.Comment);
@@ -265,6 +266,7 @@ Meteor.startup(function () {
                                 }
                                    
                             });
+                            break;
                     }
                     break;
             }
