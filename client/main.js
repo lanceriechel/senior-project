@@ -20,6 +20,7 @@ Template.pages.events({
     'mousedown .tag': function (evt) {
         Session.set('editing-user-page', false);
         Session.set('current_page', evt.currentTarget.id);
+        Session.set('search_employee',null);
     }
 });
 

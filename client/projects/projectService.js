@@ -75,6 +75,9 @@ ProjectService = {
             animation: false
         });
         $(row).find(selector).tooltip('show');
+    },
+    getManagers: function(){
+	return Meteor.users.find({});
     }
 };
 
