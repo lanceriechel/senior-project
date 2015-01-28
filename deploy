@@ -1,5 +1,10 @@
 #!/bin/bash
 #Script for deploying the meteor code on the server
+if [ "$HOSTNAME" -ne scientia-timesheet ]; then
+    printf "this script can only be run on scientia-timesheet.csse.rose-hulman.edu"
+    exit 1
+fi
+
 if [[ $UID != 0 ]]; then
     echo "Please run this script with sudo:"
     echo "sudo $0 $*"
@@ -10,6 +15,7 @@ echo beginning deploy...
 echo
 echo
 echo pulling code from github.com...
+git reset --hard
 git pull
 echo finished pull
 
