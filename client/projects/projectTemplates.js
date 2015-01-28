@@ -100,6 +100,9 @@ Template.addProject.events = {
 Template.employeesListDropDown.helpers({
     employees: function() {
         return DatabaseService.getEmployees();
+    },
+    managers: function() {
+	return DatabaseService.getManagers();
     }
 });
 

@@ -8,6 +8,9 @@ DatabaseService = {
     getEmployees: function(){
         return Meteor.users.find({});
     },
+    getManagers: function(){
+	return Meteor.users.find({manager:true});
+    },
     updateProject: function(id, project){
         ChargeNumbers.update(
             {

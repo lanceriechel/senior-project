@@ -93,3 +93,9 @@ Template.add_new_job.events({
         Meteor.call('scheduleJob', Jobs.findOne({_id: id}));
     }
 });
+
+Template.addProject.helpers({
+	'managersList': function() {
+		return Meteor.users.find({});
+	}
+});

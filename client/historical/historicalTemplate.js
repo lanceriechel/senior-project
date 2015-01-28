@@ -391,3 +391,26 @@ Template.historyEmployeeSelect.events({
     	Session.set('current_page', 'historical_page');
     }
 });
+Template.historyEmployeeSelect.helpers({
+	'managedProjects': function () {
+		'use strict';
+		var person = Meteor.users.findOne({'_id': Session.get('LdapId')});
+		if (person == null || (!person.manager && !person.admin)) return;
+		//Get first one to set selected row
+		if (person.admin){
+			var id = ChargeNumbers.findOne().id;
+		}else{
+			var id = ChargeNumbers.findOne({'manager': person.username}).id;
+		}
+		//Session.set('current_project_to_approve', id);
+		if (person.admin){
+			return ChargeNumbers.find();
+		}
+		return ChargeNumbers.find({'manager': person.username});
+	
+	},
+	employees: function () {
+	"use strict";
+	return DatabaseService.getEmployees();
+	}
+});
