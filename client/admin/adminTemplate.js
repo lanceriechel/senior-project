@@ -93,8 +93,7 @@ Template.monthly_status.events({
 
         var comments = [];
         var rawComments = '';
-        comments.push(['Project','Employee','Comment']);
-
+        
         TimeSheet.find({'submitted':true}).forEach(
             function (sheet) {
                 var sheetStartDate = new Date(sheet.startDate);
@@ -114,7 +113,6 @@ Template.monthly_status.events({
                         var entryArray = prEntriesArray[i].EntryArray;
                         for(j=0; j<entryArray.length; j++){
                             comments.push([project2.name,employeename,entryArray[j].Comment]);
-                            rawComments += entryArray[j].Comment + '\n';
                         }    
                     }
                 }
@@ -124,7 +122,35 @@ Template.monthly_status.events({
             if (a[0] > b[0]) return 1;
             return 0;
         }
+
+
         comments = comments.sort(Comparator);
+
+        alert(comments)
+
+        var lastproj = '';
+        // for(item in comments){
+        //     if(item[0] != lastrow[0]){
+        //         rawComments += '\n'+ item[0] + '\n';
+        //     }
+        //     if(item[2] != ''){
+        //         rawComments += item[2] + '\n';
+        //     }
+
+        //     var lastrow = item.[0];
+        // }
+        var k;
+        var comment;
+
+        for(k=0; k<comments.length; k++){
+            comment = comments[k][2];
+            if(lastproj != comments[k][0]){
+                rawComments += '\n'+ comments[k][0] + '\n';
+            }
+            rawComments+= comment +'\n';
+
+            lastproj = comments[k][0];
+        }
 
 
         var docDefinition = { 
@@ -132,29 +158,10 @@ Template.monthly_status.events({
             { text: 'Monthly Status Report for ' +month + '/' + year, fontSize: 30, 
 
              },
-             { text: ' ', fontSize: 17, 
-
-             },
-            { text: 'Comments with context', fontSize: 20, 
-
-             },
-             { text: ' ', fontSize: 17, 
-
-             },
-            {
-                table: {
-                    // headers are automatically repeated if the table spans over multiple pages
-                    // you can declare how many rows should be treated as headers
-                    headerRows: 1,
-                    widths: [ '*', '*' , '*'],
-
-                    body: comments
-                  }
-            },
             { text: ' ', fontSize: 17, 
 
              },
-            { text: 'Comments only', fontSize: 20, 
+            { text: 'Comments', fontSize: 20, 
 
              },
              { text: ' ', fontSize: 17, 
