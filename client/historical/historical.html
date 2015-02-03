@@ -22,20 +22,32 @@
     <div class="row">
         <!--<div class="col-md-2 col-sm-2 col-xs-2"><input id="employeeSearch" type="text" class="large-input form-control"></div>-->
 	<div class="col-xs-2">
-	<select id="employeeSearch" class="large-input form-control" type="currtent-project-checkbox" name="currentprojectCombo">
-		<option value=""></option>
-		{{#each employees}}
-		    <option value="{{username}}">{{username}}</option>
-		{{/each}}
-	</select>
+        <input class="form-control typeahead" name="employee" type="text"
+               onClick="this.setSelectionRange(0, this.value.length)"
+               id="employeeSearch"
+               placeholder="Username"
+               autocomplete="off" spellcheck="off"
+               data-source="auto_employees"/>
+	<!--<select id="employeeSearch" class="large-input form-control" type="currtent-project-checkbox" name="currentprojectCombo">-->
+		<!--<option value=""></option>-->
+		<!--{{#each employees}}-->
+		    <!--<option value="{{username}}">{{username}}</option>-->
+		<!--{{/each}}-->
+	<!--</select>-->
 	</div>
 	<div class="col-xs-2">
-	<select id="projectSearch" class="large-input form-control" type="current-project-checkbox" name="currentprojectCombo">
-		<option value=""></option>
-		{{#each managedProjects}}
-		    <option value="{{name}}">{{name}}</option>
-		{{/each}}
-	</select>
+        <input class="form-control typeahead" name="projects" type="text"
+               onClick="this.setSelectionRange(0, this.value.length)"
+               id="projectSearch"
+               placeholder="Project"
+               autocomplete="off" spellcheck="off"
+               data-source="auto_projects"/>
+	<!--<select id="projectSearch" class="large-input form-control" type="current-project-checkbox" name="currentprojectCombo">-->
+		<!--<option value=""></option>-->
+		<!--{{#each managedProjects}}-->
+		    <!--<option value="{{name}}">{{name}}</option>-->
+		<!--{{/each}}-->
+	<!--</select>-->
 	</div>
         <!--<div class="col-md-2 col-sm-2 col-xs-2"><input id="projectSearch" type="text" class="large-input form-control"></div>-->
         <div class="col-md-2 col-sm-2 col-xs-2"><button type="button" class="btn btn-success">Search</button></div>

@@ -67,7 +67,7 @@ Template.historyHeader.helpers({
 Template.historicalEntries.helpers({
 	isManager: function() {
 		var user = Meteor.users.findOne({'_id':Session.get('LdapId')});
-		if (user.manager || user.admin) {
+		if (user && (user.manager || user.admin)) {
 			return true;
 		} else {
 			return false;
@@ -378,6 +378,9 @@ Template.historyEmployeeSelect.events({
         });
 
 		var project = template.find("#projectSearch").value;
+		if (project != ''){
+			project = project.split(' - ')[1];
+		}
 		var projectID = '';
 		var projects = ChargeNumbers.find({'name':project});
 		projects.forEach(function (p) {
@@ -401,26 +404,32 @@ Template.historyEmployeeSelect.events({
     	Session.set('current_page', 'historical_page');
     }
 });
+
+Template.historyEmployeeSelect.rendered = function () {
+	Meteor.typeahead.inject();
+	//$('.tt-dropdown-menu')
+
+};
+
 Template.historyEmployeeSelect.helpers({
-	'managedProjects': function () {
+	auto_projects: function () {
 		'use strict';
 		var person = Meteor.users.findOne({'_id': Session.get('LdapId')});
 		if (person == null || (!person.manager && !person.admin)) return;
 		//Get first one to set selected row
-		if (person.admin){
-			var id = ChargeNumbers.findOne().id;
-		}else{
-			var id = ChargeNumbers.findOne({'manager': person.username}).id;
-		}
+		//if (person.admin){
+		//	var id = ChargeNumbers.findOne().id;
+		//}else{
+		//	var id = ChargeNumbers.findOne({'manager': person.username}).id;
+		//}
 		//Session.set('current_project_to_approve', id);
 		if (person.admin){
-			return ChargeNumbers.find();
+			return ChargeNumbers.find().fetch().map(function(cn){ return '' + cn.id + ' - ' + cn.name;});
 		}
-		return ChargeNumbers.find({'manager': person.username});
+		return ChargeNumbers.find({'manager': person.username}).fetch().map(function(cn){ return '' + cn.id + ' - ' + cn.name;});
 	
 	},
-	employees: function () {
-	"use strict";
-	return DatabaseService.getEmployees();
+	auto_employees: function () {
+		return Meteor.users.find().fetch().map(function(emp){ return emp.username; });
 	}
 });
