@@ -391,7 +391,7 @@ Template.projectListDropDown.helpers({
 
         projects = projects.fetch();
 
-        console.log(projectSelected);
+        // console.log(projectSelected);
         projects.forEach(function (p) {
             if (projectSelected == p['id']) {
                 selected = true;
@@ -469,7 +469,7 @@ Template.lastSection.rendered = function () {
 
     if (!sheet) return;
 
-    var disable = sheet['submitted'] && !data;
+    var disable = data || (sheet['submitted']  && !TimeSheetService.checkSentBack());
     $('#generalComment').prop('disabled', disable);
     $('#concerns').prop('disabled', disable);
 
@@ -585,7 +585,9 @@ Template.lastSection.events = {
 
         var revision = sheet.revision;
 
+        var isTimesheetEmpty = true;
         sheet.projectEntriesArray.forEach(function (p) {
+            isTimesheetEmpty = false
             var projectId = p.projectID;
             var projectName = ChargeNumbers.findOne({'id': projectId}).name;
             var totalHours = ActiveDBService.getTotalHoursForProject(sheet, projectId);
@@ -602,18 +604,28 @@ Template.lastSection.events = {
             }
         });
 
-        TimeSheet.update({'_id': sheet._id},
+        if(isTimesheetEmpty){
+            // alert('empty');
+            var row = event.currentTarget.parentNode;
+            TimeSheetService.addError(row, '#submitButton', "Cannot contain 0 hours");
+
+        }else{
+            var row = event.currentTarget.parentNode;
+            TimeSheet.update({'_id': sheet._id},
             {
                 $set: {
                     'revision': revision
                 },
             });
 
-        ActiveDBService.submitTimesheet(Session.get("startDate"), user);
-        ActiveDBService.updateSentBackStatus(Session.get("startDate"), user);
+            TimeSheetService.removeErrorClasses(row, ['#submitButton']);
 
-        if (!data){
-            Session.set('current_page', 'time_sheet');
+            ActiveDBService.submitTimesheet(Session.get("startDate"), user);
+            ActiveDBService.updateSentBackStatus(Session.get("startDate"), user);
+
+            if (!data){
+                Session.set('current_page', 'time_sheet');
+            }
         }
 
     },
