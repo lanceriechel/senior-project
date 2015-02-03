@@ -391,7 +391,7 @@ Template.projectListDropDown.helpers({
 
         projects = projects.fetch();
 
-        console.log(projectSelected);
+        // console.log(projectSelected);
         projects.forEach(function (p) {
             if (projectSelected == p['id']) {
                 selected = true;
@@ -469,7 +469,7 @@ Template.lastSection.rendered = function () {
 
     if (!sheet) return;
 
-    var disable = sheet['submitted'] && !data;
+    var disable = data || (sheet['submitted']  && !TimeSheetService.checkSentBack());
     $('#generalComment').prop('disabled', disable);
     $('#concerns').prop('disabled', disable);
 

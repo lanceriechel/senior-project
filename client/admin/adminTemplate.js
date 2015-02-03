@@ -93,7 +93,7 @@ Template.monthly_status.events({
 
         var comments = [];
         var rawComments = '';
-        
+
         TimeSheet.find({'submitted':true}).forEach(
             function (sheet) {
                 var sheetStartDate = new Date(sheet.startDate);
@@ -125,20 +125,7 @@ Template.monthly_status.events({
 
 
         comments = comments.sort(Comparator);
-
-        alert(comments)
-
         var lastproj = '';
-        // for(item in comments){
-        //     if(item[0] != lastrow[0]){
-        //         rawComments += '\n'+ item[0] + '\n';
-        //     }
-        //     if(item[2] != ''){
-        //         rawComments += item[2] + '\n';
-        //     }
-
-        //     var lastrow = item.[0];
-        // }
         var k;
         var comment;
 

@@ -209,9 +209,10 @@ ActiveDBService = {
         */
         var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
         
-        //make sure not submitting when it shouldn't
-        var submitted = sheet['submitted'];
-        if(submitted){
+        //make sure not updating when it shouldn't
+        var data = Session.get('editing-user-page');
+        var disable = data || (sheet['submitted']  && !TimeSheetService.checkSentBack());
+        if(disable){
             return;
         }
         TimeSheet.update({'_id':sheet._id},
