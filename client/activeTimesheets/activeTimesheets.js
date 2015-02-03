@@ -546,6 +546,34 @@ Template.projectListDropDown.rendered = function () {
     $(this.firstNode).find("#" + id).prop("selected", true);
 };
 
+function checkNonEmptyAddRow(){
+    var row = $('.add_row');
+    var comment_t = $(row).find('#Comment')[0].value;
+    var sunday_t = parseInt($(row).find('#Sunday')[0].value, 10);
+    var monday_t = parseInt($(row).find('#Monday')[0].value, 10);
+    var tuesday_t = parseInt($(row).find('#Tuesday')[0].value, 10);
+    var wednesday_t = parseInt($(row).find('#Wednesday')[0].value, 10);
+    var thursday_t = parseInt($(row).find('#Thursday')[0].value, 10);
+    var friday_t = parseInt($(row).find('#Friday')[0].value, 10);
+    var saturday_t = parseInt($(row).find('#Saturday')[0].value, 10);
+
+    var nonEmpty = !(comment_t == '');
+    var day_times = [sunday_t, monday_t, tuesday_t, wednesday_t, thursday_t, friday_t, saturday_t];
+    for(i in day_times){
+        nonEmpty = nonEmpty || day_times[i] != 0;
+    }
+
+    if (nonEmpty) {
+        $('#myModal').modal('toggle');
+        $('#modal_yes').on("click", function (event){
+            Session.set("submission_overide",true);
+            $('#submitButton').click();
+        });
+    }
+
+    return nonEmpty;
+}
+
 Template.lastSection.events = {
     'blur .commentRow': function (event) {
             /*
@@ -610,6 +638,8 @@ Template.lastSection.events = {
             TimeSheetService.addError(row, '#submitButton', "Cannot contain 0 hours");
 
         }else{
+            if (!Session.get("submission_overide") && checkNonEmptyAddRow()) return;
+            Session.set("submission_overide",false);
             var row = event.currentTarget.parentNode;
             TimeSheet.update({'_id': sheet._id},
             {

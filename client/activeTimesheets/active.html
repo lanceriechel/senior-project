@@ -38,6 +38,22 @@
         <hr>
         {{> lastSection}}
     </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Row Warning</h4>
+                </div>
+                <div class="modal-body">
+                    <p>You have unadded content. Do you want to continue with your submission?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="modal_yes" data-dismiss="modal">Yes</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 </template>
 
    
@@ -90,7 +106,7 @@
 </template>
 
 <template name="projectHours">
-    <div class="row">
+    <div class="row add_row">
         <div class="col-md-2 col-sm-2 col-xs-2">{{> projectListDropDown}}</div>
         <div class="col-md-1 col-sm-1 col-xs-1"><input id="Sunday" type="text" class="large-input form-control enterable {{sentBack}}" value="0"></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><input id="Monday" type="text" class="large-input form-control enterable {{sentBack}}" value="0"></div>
