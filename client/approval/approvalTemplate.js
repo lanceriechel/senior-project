@@ -235,18 +235,32 @@ Template.approval_Template.helpers({
             id = ChargeNumbers.findOne({}).id;
             Session.set('current_project_to_approve', id);
             ChargeNumbers.find({}).forEach(function (cn){
-                toReturn.push({
-                    charge_number: cn.id,
-                    text: cn.id + '   ( ' + cn.name + ' )'
-                });
+                if (cn.indirect) {
+                    toReturn.push({
+                        charge_number: cn.id,
+                        text: 'Indirect   ( ' + cn.name + ' )'
+                    });
+                } else {
+                    toReturn.push({
+                        charge_number: cn.id,
+                        text: cn.id + '   ( ' + cn.name + ' )'
+                    });
+                }
             });
         }else{
             id = ChargeNumbers.findOne({'manager': person.username}).id;
             ChargeNumbers.find({'manager': person.username}).forEach(function (cn){
-                toReturn.push({
-                    charge_number: cn.id,
-                    text: cn.id + '   ( ' + cn.name + ' )'
-                });
+                if (cn.indirect) {
+                    toReturn.push({
+                        charge_number: cn.id,
+                        text: 'Indirect   ( ' + cn.name + ' )'
+                    });
+                } else {
+                    toReturn.push({
+                        charge_number: cn.id,
+                        text: cn.id + '   ( ' + cn.name + ' )'
+                    });
+                }
             });
         }
 

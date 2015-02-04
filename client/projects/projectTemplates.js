@@ -12,16 +12,19 @@ Template.projectInfo.events = {
         var row = event.currentTarget.parentNode.parentNode;
         var chargeNumber =  $(row).find('#charge_number')[0].value;
         var name = $(row).find('#project_name')[0].value;
+        var customer = $(row).find('#customer')[0].value;
         var startDate = $(row).find('#start_date')[0].value;
         var endDate = $(row).find('#end_date')[0].value;
         var manager = $(row).find('#manager')[0].value;
 
-        ProjectService.removeErrorClasses(row, ['#charge_number', '#project_name', '#start_date', '#end_date','#manager']);
 
-        if(ProjectService.ensureValidProject(row, chargeNumber, name, startDate, endDate, manager)) {
+        ProjectService.removeErrorClasses(row, ['#charge_number', '#project_name', '#customer', '#start_date', '#end_date','#manager']);
+
+        if(ProjectService.ensureValidProject(row, chargeNumber, name, customer, startDate, endDate, manager)) {
             DatabaseService.updateProject(this._id, {
                 'id': chargeNumber,
                 'name': name,
+                'customer': customer,
                 'start_date': startDate,
                 'end_date': endDate,
                 'manager': manager
@@ -32,14 +35,16 @@ Template.projectInfo.events = {
         var row = event.currentTarget.parentNode.parentNode;
         var chargeNumber = $(row).find('#charge_number')[0].value;
         var name = $(row).find('#project_name')[0].value;
+        var customer = $(row).find('#customer')[0].value;
         var startDate = $(row).find('#start_date')[0].value;
         var endDate = $(row).find('#end_date')[0].value;
         var manager = $(row).find('select')[0].value;
 
-        if(ProjectService.ensureValidProject(row, chargeNumber, name, startDate, endDate, manager)) {
+        if(ProjectService.ensureValidProject(row, chargeNumber, name, customer, startDate, endDate, manager)) {
             DatabaseService.updateProject(this._id, {
                 'id': chargeNumber,
                 'name': name,
+                'customer': customer,
                 'start_date': startDate,
                 'end_date': endDate,
                 'manager': manager
@@ -77,40 +82,69 @@ Template.addProject.events = {
         var startDate = $(row).find('#start_date')[0].value;
         var endDate = $(row).find('#end_date')[0].value;
         var manager = $(row).find('#manager')[0].value;
-        var indirect = $(row).find('#indirect')[0].checked;
+        var customer = $(row).find('#customer')[0].value;
 
         ProjectService.removeErrorClasses(row, ['#charge_number', '#project_name', '#start_date', '#end_date','#manager']);
 
-        if (indirect) {
-            if(ProjectService.ensureValidIndirectProject(row, chargeNumber, name, manager)) {
-            DatabaseService.addNewProject({
-                'id': chargeNumber,
-                'name': name,
-                'manager': manager,
-                'indirect': true
+        if (chargeNumber == 'Indirect') {
+            if(ProjectService.ensureValidIndirectProject(row, chargeNumber, customer, name, manager)) {
+                var projects = ChargeNumbers.find({});
+                var projIds = [];
+                projects.forEach(function(p) {
+                    projIds.push(p.id);
+                });
+                var chargeNum = Math.floor(Math.random()*9000) + 1000;
+
+                while($.inArray(chargeNum, projIds) != -1) {
+                    chargeNum = Math.floor(Math.random()*9000) + 1000;
+                }
+
+                DatabaseService.addNewProject({
+                    'id': chargeNum.toString(),
+                    'name': name,
+                    'customer': customer,
+                    'manager': manager,
+                    'indirect': true
             });
             $(row).find('#charge_number')[0].value = '';
             $(row).find('#project_name')[0].value = '';
+            $(row).find('#customer')[0].value = '';
             $(row).find('#start_date')[0].value = '';
             $(row).find('#end_date')[0].value = '';
             $(row).find('#manager')[0].value = '';
         }
         } else {
-        if(ProjectService.ensureValidProject(row, chargeNumber, name, startDate, endDate, manager)) {
+        if(ProjectService.ensureValidProject(row, chargeNumber, name, customer, startDate, endDate, manager)) {
             DatabaseService.addNewProject({
                 'id': chargeNumber,
                 'name': name,
+                'customer': customer,
                 'start_date': startDate,
                 'end_date': endDate,
                 'manager': manager
             });
             $(row).find('#charge_number')[0].value = '';
             $(row).find('#project_name')[0].value = '';
+            $(row).find('#customer')[0].value = '';
             $(row).find('#start_date')[0].value = '';
             $(row).find('#end_date')[0].value = '';
             $(row).find('#manager')[0].value = '';
         }
     }
+    },
+    'click #indirect': function(event) {
+        var row = event.currentTarget.parentNode.parentNode;
+        $(row).find('#charge_number')[0].value = 'Indirect';
+        $(row).find('#charge_number')[0].disabled = true;
+        $(row).find('#start_date')[0].disabled = true;
+        $(row).find('#end_date')[0].disabled = true;
+    },
+    'click #nonIndirect': function(event) {
+        var row = event.currentTarget.parentNode.parentNode;
+        $(row).find('#charge_number')[0].value = '';
+        $(row).find('#charge_number')[0].disabled = false;
+        $(row).find('#start_date')[0].disabled = false;
+        $(row).find('#end_date')[0].disabled = false;
     }
 };
 
@@ -138,19 +172,13 @@ Template.activeProjects.helpers({
         var holiday = ChargeNumbers.findOne({'is_holiday': true});
 
         if (!holiday) {
-            var d = new Date();
-            var startDate = d.getMonth()+1 + "/" + d.getDate() + "/" + d.getFullYear();
-            d.setFullYear(d.getFullYear() + 100); 
-            var endDate = d.getMonth()+1 + "/" + d.getDate() + "/" + d.getFullYear();
-
             admin = Meteor.users.findOne({'admin': true});
 
             ChargeNumbers.insert(
                 {
                     id: '1000',
                     name: 'Holiday',
-                    start_date: startDate,
-                    end_date: endDate,
+                    customer: 'Scientia',
                     manager: admin.username,
                     is_holiday: true,
                     indirect: true
