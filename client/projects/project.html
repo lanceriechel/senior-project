@@ -26,6 +26,7 @@
     <div class="row">
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control charge_number" id="charge_number" value={{id}}></div>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control  project_name" id="project_name" value={{name}}></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control  customer" id="customer" value={{customer}}></div>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control date" id="start_date" value={{start_date}}></div>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control date" id="end_date" value={{end_date}}></div>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control manager" id="manager" value={{manager}}></div>
@@ -34,17 +35,19 @@
 
 <template name="addProject">
     <div class="row">
-        <div class="col-md-1 col-sm-1 col-xs-1"> <input type="text" class="large-input form-control" id="charge_number" placeholder="Charge Number"></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control" id="charge_number" placeholder="Job"></div>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control" id="project_name" placeholder="Project Name"></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control" id="customer" placeholder="Customer"></div>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control" id="start_date" placeholder="Start Date"></div>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control" id="end_date" placeholder="End Date"></div>
         <div class="col-md-2 col-sm-2 col-xs-2">{{> employeesListDropDown}}</div>
-        <div class="col-md-2 col-sm-2 col-xs-2 text-center">
-            <label>Indirect Project?</label><br>
-            <label for="y">Yes</label>
-            <input type="radio" id="indirect" name="indirect" value="y">
-            <label for="n">No</label>
-            <input type="radio" id="nonIndirect" name="indirect" value="n" checked>
+        <hr>
+        <div class="col-md-3 col-sm-3 col-xs-3 text-center">
+            <label>Indirect Project?</label>
+            <label class="indirect" for="y">Yes</label>
+            <input type="radio" class="indirect" id="indirect" name="indirect" value="y">
+            <label class="nonIndirect" for="n">No</label>
+            <input type="radio" class="nonIndirect" id="nonIndirect" name="indirect" value="n" checked>
         </div>
         <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary">Add</button></div>
     </div>
@@ -71,6 +74,7 @@
     <div class="row">
         <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Charge Number</h4></div>
         <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Project Name</h4></div>
+        <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Customer</h4></div>
         <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Start Date</h4></div>
         <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>End Date</h4></div>
         <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Manager</h4></div>
@@ -86,16 +90,16 @@
 
 <template name="indirectHeader">
     <div class="row">
-        <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Charge Number</h4></div>
         <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Project Name</h4></div>
+        <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Customer</h4></div>
         <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Manager</h4></div>
     </div>
 </template>
 
 <template name="indirectInfo">
     <div class="row">
-        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control charge_number" id="charge_number" value={{id}}></div>
-        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control  project_name" id="project_name" value={{name}}></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control charge_number" id="charge_number" value={{name}}></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control  project_name" id="project_name" value={{customer}}></div>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control manager" id="manager" value={{manager}}></div>
     </div>
 </template>

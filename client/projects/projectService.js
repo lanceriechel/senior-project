@@ -4,7 +4,7 @@ ProjectService = {
         var dateObj = new Date(date[2], parseInt(date[0], 10) - 1, parseInt(date[1], 10)+1);
         return dateObj.getTime() >= Date.now();
     },
-    ensureValidProject: function(row, chargeNumber, name, startDate, endDate, manager) {
+    ensureValidProject: function(row, chargeNumber, name, customer, startDate, endDate, manager) {
         var valid = true;
         if(chargeNumber === ''){
             ProjectService.addError(row, '#charge_number', 'Missing charge number');
@@ -12,6 +12,10 @@ ProjectService = {
         }
         if(name === ''){
             ProjectService.addError(row, '#project_name', 'Missing project name');
+            valid = false;
+        }
+        if(customer === ''){
+            ProjectService.addError(row, '#customer', 'Missing customer');
             valid = false;
         }
         if(startDate === ''){
@@ -33,10 +37,14 @@ ProjectService = {
         }
         return valid;
     },
-    ensureValidIndirectProject: function(row, chargeNumber, name, manager) {
+    ensureValidIndirectProject: function(row, chargeNumber, name, customer, manager) {
         var valid = true;
         if(chargeNumber === ''){
             ProjectService.addError(row, '#charge_number', 'Missing charge number');
+            valid = false;
+        }
+        if(customer === ''){
+            ProjectService.addError(row, '#customer', 'Missing customer');
             valid = false;
         }
         if(name === ''){
