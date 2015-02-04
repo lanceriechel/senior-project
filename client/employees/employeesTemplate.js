@@ -11,17 +11,31 @@ Template.associatedProjects.helpers({
         'use strict';
         var toReturn = [];
         DatabaseService.getUnsubscribedProjects(this.projects).forEach(function (cn) {
-            toReturn.push({
-                id : cn.id,
-                text : cn.id + '   ( ' + cn.name + ' )',
-                end_date : cn.end_date
-            });
+            if (cn.indirect) {
+                var dateObj = new Date();
+                toReturn.push({
+                    id: cn.id,
+                    text: 'Indirect   ( ' + cn.name + ' )',
+                    end_date : dateObj.getMonth() + '/' + dateObj.getDate() + '/' + dateObj.getFullYear()+1
+                });
+            } else {
+                toReturn.push({
+                    id : cn.id,
+                    text : cn.id + '   ( ' + cn.name + ' )',
+                    end_date : cn.end_date
+                });
+            }
         });
         return toReturn;
     },
     isActive: function (date) {
         'use strict';
         return ProjectService.isActive(date);
+    },
+    getName: function (id) {
+        'use strict';
+        var proj = ChargeNumbers.findOne({'id':id});
+        return proj.name;
     }
 });
 
