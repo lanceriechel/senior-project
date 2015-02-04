@@ -74,7 +74,16 @@ Template.historicalEntries.helpers({
 		}
 	}
 })
-
+Template.historyInfo.helpers({
+	isAdmin: function() {
+		var user = Meteor.users.findOne({'_id':Session.get('LdapId')});
+		if (user && user.admin){
+			return true;
+		} else {
+			return false;
+		}
+	}
+})
 Template.historyYearSelect.helpers({
 	getYears: function () {
     	var userId = Session.get('LdapId');
@@ -105,13 +114,23 @@ Template.historyYearSelect.events({
 });
 
 Template.historyInfo.events({
-    'click button': function(event){
+    'click .view': function(event){
     	Session.set('current_page', 'historical_timesheet');
     	var row = event.currentTarget.parentNode.parentNode;
     	var startDate = $(row).find('#StartDate')[0].value;
     	Session.set('startDate', startDate);
     	Session.set('search_employee', Meteor.users.findOne({'username': $(row).find('#Employee')[0].value})._id);
-    }
+    },
+    'click .reject': function (event){
+	var row = event.currentTarget.parentNode.parentNode;
+	var date = $(row).find('#StartDate')[0].value;
+	var userId = Meteor.users.findOne({'username': $(row).find('#Employee')[0].value})._id;
+	var projectId = event.currentTarget.name;
+	var rejectComment = $(row).find('#rejectComment')[0].value;
+	alert('date: ' + date + ' userId: ' + userId + ' projectId: ' + projectId + ' rejectComment: ' + rejectComment);
+	ActiveDBService.updateApprovalStatusInTimeSheet(date, userId, projectId, false, rejectComment);
+	ActiveDBService.updateActiveStatusInTimesheet(date, userId, projectId);
+	}
 });
 
 Template.SelectedHistoryTimesheet.helpers({

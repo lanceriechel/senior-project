@@ -74,7 +74,11 @@
         <div class="col-md-1 col-sm-1 col-xs-1"><input id="Thursday" type="text" class="large-input form-control" value="{{thu}}" readonly></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><input id="Friday" type="text" class="large-input form-control" value="{{fri}}" readonly></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><input id="Saturday" type="text" class="large-input form-control" value="{{sat}}" readonly></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="view btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></div>
+        {{#if isAdmin}}
+	<div class="col-md-1 col-sm-1 col-xs-1"><button name="{{../id}}" type="button" class="reject btn btn-danger">Reject</button></div>
+	<input id="rejectComment" type="text" class="large-input form-control enterable" value="">
+	{{/if}}
     </div>
 </template>
 
@@ -96,9 +100,13 @@
             <hr>
             <h3><span class="label">{{name}}</span></h3>
             <br>
+	    <p>{{id}}</p>
             {{#each getTimesheets id}}
+		<div id="ProjectID" value="{{../id}}">
                 {{> historyInfo}}
+		</div>
             {{/each}}
+	    
         {{/each}}
     </div>
 </template>
