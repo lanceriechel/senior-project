@@ -103,6 +103,8 @@ Template.addProject.events = {
                     'id': chargeNum.toString(),
                     'name': name,
                     'customer': customer,
+                    'start_date': startDate,
+                    'end_date': endDate,
                     'manager': manager,
                     'indirect': true
             });
@@ -136,8 +138,8 @@ Template.addProject.events = {
         var row = event.currentTarget.parentNode.parentNode;
         $(row).find('#charge_number')[0].value = 'Indirect';
         $(row).find('#charge_number')[0].disabled = true;
-        $(row).find('#start_date')[0].disabled = true;
-        $(row).find('#end_date')[0].disabled = true;
+        //$(row).find('#start_date')[0].disabled = true;
+        //$(row).find('#end_date')[0].disabled = true;
     },
     'click #nonIndirect': function(event) {
         var row = event.currentTarget.parentNode.parentNode;
@@ -159,7 +161,7 @@ Template.employeesListDropDown.helpers({
 
 Template.archivedProjectsEntries.helpers({
     projects: function() {
-        return ChargeNumbers.find({"indirect": {$exists: false}});
+        return ChargeNumbers.find();
     },
     isArchived: function(date) {
         return !ProjectService.isActive(date);
@@ -187,8 +189,44 @@ Template.activeProjects.helpers({
     }
 });
 
+
+Template.indirectChargeItems.events({
+    'blur .charge_number, blur .project_name, blur .date': function(event){
+        var row = event.currentTarget.parentNode.parentNode;
+        var name =  $(row).find('#charge_number')[0].value;
+        var id =  $(row).find('#id')[0].value;
+        var _id=row.id;
+        //var name = $(row).find('#project_name')[0].value;
+        var customer = $(row).find('#project_name')[0].value;
+        var startDate = $(row).find('#start_date')[0].value;
+        var endDate = $(row).find('#end_date')[0].value;
+        var manager = $(row).find('#manager')[0].value;
+
+
+        //ProjectService.removeErrorClasses(row, ['#charge_number', '#project_name', '#customer', '#start_date', '#end_date','#manager']);
+
+        //if(ProjectService.ensureValidProject(row, chargeNumber, name, customer, startDate, endDate, manager)) {
+            DatabaseService.updateProject(_id, {
+                'id': id,
+                'name': name,
+                'customer': customer,
+                'start_date': startDate,
+                'end_date': endDate,
+                'manager': manager,
+                'indirect': true
+            });
+        }
+    //}
+});
+
 Template.indirectChargeItems.helpers({
     projects: function(){
         return ChargeNumbers.find({"indirect": true});
+    },
+    isActive: function(date) {
+        if (!date){
+            return true;
+        }
+        return ProjectService.isActive(date);
     }
 });

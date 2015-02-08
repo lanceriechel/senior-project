@@ -1,8 +1,12 @@
 ProjectService = {
     isActive: function(date) {
-        date = date.split('/');
-        var dateObj = new Date(date[2], parseInt(date[0], 10) - 1, parseInt(date[1], 10)+1);
-        return dateObj.getTime() >= Date.now();
+        if (!date){
+            return true;
+        }else{
+            date = date.split('/');
+            var dateObj = new Date(date[2], parseInt(date[0], 10) - 1, parseInt(date[1], 10)+1);
+            return dateObj.getTime() >= Date.now();
+        }
     },
     ensureValidProject: function(row, chargeNumber, name, customer, startDate, endDate, manager) {
         var valid = true;
