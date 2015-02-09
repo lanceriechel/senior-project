@@ -74,16 +74,6 @@ Template.historicalEntries.helpers({
 		}
 	}
 })
-Template.historyInfo.helpers({
-	isAdmin: function() {
-		var user = Meteor.users.findOne({'_id':Session.get('LdapId')});
-		if (user && user.admin){
-			return true;
-		} else {
-			return false;
-		}
-	}
-})
 Template.historyYearSelect.helpers({
 	getYears: function () {
     	var userId = Session.get('LdapId');
@@ -347,8 +337,16 @@ Template.historyLastSection.helpers({
 
     	return sheet['concerns'];
 
-    }
-});
+    },
+	isAdmin: function() {
+		var user = Meteor.users.findOne({'_id':Session.get('LdapId')});
+		if (user && user.admin){
+			return true;
+		} else {
+			return false;
+		}
+	}
+})
 
 Template.historyLog.helpers({
     revisions : function(){
