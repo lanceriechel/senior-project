@@ -14,31 +14,33 @@ Template.historyHeader.helpers({
 		if (Session.get('search_employee')) {
 			userId = Session.get('search_employee');
 		}
-		var year = Session.get('year');
 		var timesheetsMap = {};
 		var timesheets = [];
 		var subordinates = ActiveDBService.getEmployeesUnderManager();
+		var sort = {
+			'sort': { 'userId': 1, 'startDate': -1 }
+		}
 
 		if (userId) {
 			if (project != '') {
-				TimeSheet.find({'userId': userId, 'projectEntriesArray.projectID':project}).forEach(
+				TimeSheet.find({'userId': userId, 'projectEntriesArray.projectID':project}, sort).forEach(
 				function (u) {
 					timesheets = ActiveDBService.getTimesheetRowInfo(u, timesheets);
 				});
 			} else {
-				TimeSheet.find({'userId': userId}).forEach(
+				TimeSheet.find({'userId': userId}).sort({userId: 1, startDate: -1}, sort).forEach(
 				function (u) {
 					timesheets = ActiveDBService.getTimesheetRowInfo(u, timesheets);
 				});
 			}
 		} else {
 			if (project != '') {
-				TimeSheet.find({'userId': {$in: subordinates}, 'projectEntriesArray.projectID':project}).forEach(
+				TimeSheet.find({'userId': {$in: subordinates}, 'projectEntriesArray.projectID':project}, sort).forEach(
 				function (u) {
 					timesheets = ActiveDBService.getTimesheetRowInfo(u, timesheets);
 				});
 			} else {
-				TimeSheet.find({'userId': {$in: subordinates}}).forEach(
+				TimeSheet.find({'userId': {$in: subordinates}}, sort).forEach(
 				function (u) {
 					timesheets = ActiveDBService.getTimesheetRowInfo(u, timesheets);
 				});
@@ -84,6 +86,57 @@ Template.historyInfo.helpers({
 		}
 	}
 })
+
+Template.history_month_picker.helpers({
+    currentMonth: function () {
+        if(Session.get('historyDate') == null){
+            var currentTime = new Date();
+            currentTime.setDate(1);
+            Session.set('historyDate', currentTime);
+        }else{
+            var currentTime = Session.get('historyDate');
+        }
+        var month = currentTime.getMonth() + 1;
+        var year = currentTime.getFullYear();
+
+        return month + "/" + year;
+    }
+});
+
+Template.history_month_picker.events({
+    'click .prevWeek': function () {
+        var startDate = Session.get("historyDate");
+
+        var d2 = new Date(startDate);
+        var mo = d2.getMonth() - 1;
+        if(mo == -1){
+            mo = 11;
+            d2.setYear(d2.getFullYear()-1);
+        }
+        d2.setMonth(mo);
+
+        Session.set("historyDate", d2);
+    },
+    'click .nextWeek': function () {
+        var startDate = Session.get("historyDate");
+
+        var d2 = new Date(startDate);
+        var mo = d2.getMonth() + 1;
+        if(mo == 12){
+            mo = 0;
+            d2.setYear(d2.getFullYear()+1);
+        }
+        d2.setMonth(mo);
+
+        //don't advance past current month
+        if (d2 > new Date()) {
+            return;
+        }
+
+        Session.set("historyDate", d2);
+    }
+});
+
 Template.historyYearSelect.helpers({
 	getYears: function () {
     	var userId = Session.get('LdapId');
@@ -102,15 +155,6 @@ Template.historyYearSelect.helpers({
 		return years;
 	},
 
-});
-
-Template.historyYearSelect.events({
-    'click button': function(event){
-    	Session.set('current_page', 'historical_page');
-    	var year = event.currentTarget.innerHTML;
-
-    	Session.set('year', year);
-    }
 });
 
 Template.historyInfo.events({

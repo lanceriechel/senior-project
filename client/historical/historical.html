@@ -55,11 +55,19 @@
 </template>
 
 <template name="historyYearSelect">
-    <div class="row">
-        <hr>
-        {{#each getYears}}
-            <div class="col-md-2 col-sm-2 col-xs-2"><button type="button" class="btn btn-primary">{{year}}</button></div>
-        {{/each}}
+    <h2>Filter by Month</h2>
+    {{> history_month_picker}}
+    &nbsp;
+    &nbsp;
+</template>
+
+<template name="history_month_picker">
+    <div class="col-xs-12" style="display:inline-block;">
+        <div class="prevWeek glyphicon glyphicon-chevron-left no-select" style="display:inline-block;cursor: pointer;"></div>
+        &nbsp;
+        <div style="display:inline-block;"><h4>{{currentMonth}}</h4></div>
+        &nbsp;
+        <div class="nextWeek glyphicon glyphicon-chevron-right no-select" style="display:inline-block;cursor: pointer;"></div>
     </div>
 </template>
 
@@ -101,9 +109,9 @@
             <h3><span class="label">{{name}}</span></h3>
             <br>
             {{#each getTimesheets id}}
-		<div id="ProjectID" value="{{../id}}">
-                {{> historyInfo}}
-		</div>
+        		<div id="ProjectID" value="{{../id}}">
+                        {{> historyInfo}}
+        		</div>
             {{/each}}
 	    
         {{/each}}

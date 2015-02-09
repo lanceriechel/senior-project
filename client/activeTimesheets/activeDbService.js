@@ -423,12 +423,13 @@ ActiveDBService = {
     },
 
     getTimesheetRowInfo: function(sheet, timesheets) {
-        var year = Session.get('year');
+        var date = Session.get('historyDate');
         var timesheetsMap = {};
         var timesheetYear = sheet.startDate.split('/')[2];
+        var timesheetMonth = sheet.startDate.split('/')[0];
         var employee = Meteor.users.findOne({'_id': sheet.userId}).username;
 
-        if (timesheetYear == year) {
+        if (timesheetYear == date.getFullYear().toString() && timesheetMonth == (date.getMonth() + 1).toString()) {
             if (!(sheet.startDate in timesheetsMap)) {
                 timesheetsMap[sheet.startDate] = timesheets.length;
                 timesheets[timesheetsMap[sheet.startDate]] = {
