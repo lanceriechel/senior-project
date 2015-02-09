@@ -93,6 +93,7 @@ Template.monthly_status.events({
 
         var comments = [];
         var rawComments = '';
+        var docbody = [];
 
         TimeSheet.find({'submitted':true}).forEach(
             function (sheet) {
@@ -129,36 +130,23 @@ Template.monthly_status.events({
         var k;
         var comment;
 
+        docbody.push({ text: 'Monthly Status Report for ' +month + '/' + year, fontSize: 30, })
+
         for(k=0; k<comments.length; k++){
             comment = comments[k][2];
             if(lastproj != comments[k][0]){
                 rawComments += '\n'+ comments[k][0] + '\n';
+                docbody.push({ text: '\n'+ comments[k][0] + '\n\n', fontSize: 20,});
             }
             rawComments+= comment +'\n';
+            docbody.push({text: comment, fontSize:14});
 
             lastproj = comments[k][0];
         }
 
 
         var docDefinition = { 
-        content: [
-            { text: 'Monthly Status Report for ' +month + '/' + year, fontSize: 30, 
-
-             },
-            { text: ' ', fontSize: 17, 
-
-             },
-            { text: 'Comments', fontSize: 20, 
-
-             },
-             { text: ' ', fontSize: 17, 
-
-             },
-             { text: rawComments, fontSize: 14, 
-
-             },
-
-            ]
+        content: [docbody]
         };
       pdfMake.createPdf(docDefinition).download('Monthly Status for ' +month + '\/' + year);
     }
