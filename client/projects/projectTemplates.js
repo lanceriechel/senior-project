@@ -1,6 +1,6 @@
 Template.activeProjectEntries.helpers({
     projects: function(){
-        return ChargeNumbers.find({"indirect": {$exists: false}});
+        return ChargeNumbers.find({"indirect": false});
     },
     isActive: function(date){
         return ProjectService.isActive(date);
@@ -17,6 +17,7 @@ Template.projectInfo.events = {
         var endDate = $(row).find('#end_date')[0].value;
         var manager = $(row).find('#manager')[0].value;
 
+        var project = ChargeNumbers.findOne({'_id': row.id});
 
         ProjectService.removeErrorClasses(row, ['#charge_number', '#project_name', '#customer', '#start_date', '#end_date','#manager']);
 
@@ -27,6 +28,8 @@ Template.projectInfo.events = {
                 'customer': customer,
                 'start_date': startDate,
                 'end_date': endDate,
+                'is_holiday': project.is_holiday,
+                'indirect': project.indirect,
                 'manager': manager
             });
         }
@@ -40,6 +43,8 @@ Template.projectInfo.events = {
         var endDate = $(row).find('#end_date')[0].value;
         var manager = $(row).find('select')[0].value;
 
+        var project = ChargeNumbers.findOne({'_id': row.id});
+
         if(ProjectService.ensureValidProject(row, chargeNumber, name, customer, startDate, endDate, manager)) {
             DatabaseService.updateProject(this._id, {
                 'id': chargeNumber,
@@ -47,6 +52,8 @@ Template.projectInfo.events = {
                 'customer': customer,
                 'start_date': startDate,
                 'end_date': endDate,
+                'is_holiday': project.is_holiday,
+                'indirect': project.indirect,
                 'manager': manager
             });
         }
@@ -123,7 +130,8 @@ Template.addProject.events = {
                 'customer': customer,
                 'start_date': startDate,
                 'end_date': endDate,
-                'manager': manager
+                'manager': manager,
+                'indirect': false
             });
             $(row).find('#charge_number')[0].value = '';
             $(row).find('#project_name')[0].value = '';
@@ -166,35 +174,23 @@ Template.archivedProjectsEntries.helpers({
     isArchived: function(date) {
         return !ProjectService.isActive(date);
     }
+    //////
 });
 
-Template.activeProjects.helpers({
-    getHoliday: function() {
-        var projects = DatabaseService.getProjects();
-        var holiday = ChargeNumbers.findOne({'is_holiday': true});
-
-        if (!holiday) {
-            admin = Meteor.users.findOne({'admin': true});
-
-            ChargeNumbers.insert(
-                {
-                    id: '1000',
-                    name: 'Holiday',
-                    customer: 'Scientia',
-                    manager: admin.username,
-                    is_holiday: true,
-                    indirect: true
-                });
-        }
-    }
-});
-
+Template.indirectInfo.rendered = function(){
+    $.each($('[id=start_date]'), function(index, value){
+        $(value).datepicker({});
+    });
+    $.each($('[id=end_date]'), function(index, value){
+        $(value).datepicker({});
+    });
+};
 
 Template.indirectChargeItems.events({
     'blur .charge_number, blur .project_name, blur .date': function(event){
         var row = event.currentTarget.parentNode.parentNode;
         var name =  $(row).find('#charge_number')[0].value;
-        var id =  $(row).find('#id')[0].value;
+        //var id =  $(row).find('#id')[0].value;
         var _id=row.id;
         //var name = $(row).find('#project_name')[0].value;
         var customer = $(row).find('#project_name')[0].value;
@@ -202,20 +198,26 @@ Template.indirectChargeItems.events({
         var endDate = $(row).find('#end_date')[0].value;
         var manager = $(row).find('#manager')[0].value;
 
+        var project = ChargeNumbers.findOne({'_id': _id});
 
         //ProjectService.removeErrorClasses(row, ['#charge_number', '#project_name', '#customer', '#start_date', '#end_date','#manager']);
 
         //if(ProjectService.ensureValidProject(row, chargeNumber, name, customer, startDate, endDate, manager)) {
             DatabaseService.updateProject(_id, {
-                'id': id,
+                'id': project.id,
                 'name': name,
                 'customer': customer,
                 'start_date': startDate,
                 'end_date': endDate,
                 'manager': manager,
-                'indirect': true
+                'is_holiday': project.is_holiday,
+                'indirect': project.indirect
             });
-        }
+        },
+    'click .manager': function(evt){
+        var parent = evt.currentTarget.parentNode;
+        parent.innerHTML = Blaze.toHTML(Blaze.With("", function() { return Template.employeesListDropDown; }));
+    }
     //}
 });
 

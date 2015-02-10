@@ -13,6 +13,31 @@ Meteor.startup(function () {
 
     process.env.MAIL_URL = 'smtp://noreply.scientiallc.timesheet%40gmail.com:N1esZd02FBi06WW@smtp.gmail.com:587/';
 
+    function createHoliday() {
+        var holiday = ChargeNumbers.findOne({'is_holiday': true});
+        var date = new Date();
+        var start = date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear();
+
+
+        if (!holiday) {
+            admin = Meteor.users.findOne({'admin': true});
+
+            ChargeNumbers.insert(
+                {
+                    id: '1000',
+                    name: 'Holiday',
+                    customer: 'Scientia',
+                    startDate: start,
+                    endDate: '∞',
+                    manager: admin.username,
+                    is_holiday: true,
+                    indirect: true
+                });
+        }
+    }
+
+    createHoliday();
+
     // First, checks if it isn't implemented yet.
 
 
