@@ -35,6 +35,7 @@ Template.toApprove_Template.helpers({
 
         timesheets.forEach(function (t) {
             t.projectEntriesArray.forEach(function (pe) {
+                console.log('has entry array');
                 var total = 0;
                 if (pe.projectID == selected && !pe.Approved) {
                     pe.EntryArray.forEach(function (a) {
@@ -43,12 +44,20 @@ Template.toApprove_Template.helpers({
                         }
                     });
                 }
-                if (Meteor.users.findOne({_id: t.userId, projects: {$in : [selected]}})){
+                var show = true;
+                var rejected = false;
+                t.projectApprovalArray.forEach(function (paa) {
+                    if (paa.projectId == selected){
+                        show = !paa.approved;
+                        rejected = paa.sentBack;
+                    }
+                });
+                if (Meteor.users.findOne({_id: t.userId, projects: {$in : [selected]}}) && show){
                     if (totals[t.userId] == null) {
                         totals[t.userId] = {
                             total: 0,
-                            sentBack: false,
-                            approved: false
+                            sentBack: rejected,
+                            approved: !show
                         };
                     }
                     totals[t.userId] =
@@ -61,17 +70,23 @@ Template.toApprove_Template.helpers({
             });
             hasSubmitted[t.userId] = t.submitted;
             if (totals[t.userId] == null) {
-                if (Meteor.users.findOne({_id: t.userId, projects: {$in : [selected]}})){
+                var show = true;
+                t.projectApprovalArray.forEach(function (paa) {
+                    if (paa.projectId == selected){
+                        show = !paa.approved;
+                    }
+                });
+                if (Meteor.users.findOne({_id: t.userId, projects: {$in : [selected]}}) && show){
                     totals[t.userId] = {
                         total: 0,
                         sentBack: !t.submitted,
-                        approved: false
+                        approved: !show
                     };
                 }
             }
         });
 
-        console.log(totals);
+        //console.log(totals);
 
         for (var key in totals) {
             if (totals.hasOwnProperty(key) && !totals[key].approved) {
@@ -174,6 +189,7 @@ Template.toApprove_Template.events({
 
         var revision = sheet.revision;
 
+        console.log("reject");
         ActiveDBService.updateApprovalStatusInTimeSheet(date, userId, projectId, false, rejectComment);
 
         historyEntry = {

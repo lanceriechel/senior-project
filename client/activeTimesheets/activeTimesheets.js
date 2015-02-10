@@ -84,11 +84,14 @@ Template.projectComments.helpers({
 
         var prEntriesArr = sheet['projectEntriesArray'];
 
-        var index = 0;
-        for (i = 0; i < prEntriesArr.length; i++) {
+        var index = -1;
+        for (var i in prEntriesArr) {
             if (prEntriesArr[i]['projectID'] == projectID) {
                 index = i;
             }
+        }
+        if (index == -1) {
+            return '';
         }
         return sheet['projectEntriesArray'][index]['next'];
     },
@@ -109,12 +112,16 @@ Template.projectComments.helpers({
 
         var prEntriesArr = sheet['projectEntriesArray'];
 
-        var index = 0;
+        var index = -1;
 
         for (i = 0; i < prEntriesArr.length; i++) {
             if (prEntriesArr[i]['projectID'] == projectID) {
                 index = i;
             }
+        }
+
+        if (index == -1) {
+            return '';
         }
 
         return sheet['projectEntriesArray'][index]['issues'];
@@ -136,12 +143,22 @@ Template.projectComments.helpers({
 
         var prEntriesArr = sheet['projectEntriesArray'];
 
-        var index = 0;
+        var index = -1;
 
         for (i = 0; i < prEntriesArr.length; i++) {
             if (prEntriesArr[i]['projectID'] == projectID) {
                 index = i;
             }
+        }
+
+        if (index == -1) {
+            var comment = '';
+            for (var i in sheet.projectApprovalArray){
+                if (sheet.projectApprovalArray[i].projectId == projectID){
+                    comment = sheet.projectApprovalArray[i].comment;
+                }
+            }
+            return comment;
         }
 
         return sheet['projectEntriesArray'][index]['rejectMessage'];
@@ -169,11 +186,15 @@ Template.SelectedTimesheet.helpers({
 
         var rows = [];
         var maxRow = -1;
+        var pSentBacks = {};
+        for (var i in sheet.projectApprovalArray){
+            pSentBacks[sheet.projectApprovalArray[i].projectId] = sheet.projectApprovalArray[i].sentBack;
+        }
         for (i = 0; i < projectEntries.length; i++) {
             var project = projectEntries[i]['projectID'];
             var sentBack;
             //sentBack means the manager has rejected it, so it should be left unlocked
-            if (projectEntries[i]['SentBack']) {
+            if (projectEntries[i]['SentBack'] || pSentBacks[project]) {
                 sentBack = "sentBack";
             } else {
                 sentBack = "notSentBack";
@@ -241,11 +262,15 @@ Template.SelectedTimesheet.helpers({
         if (!sheet) return;
         var projectEntries = sheet['projectEntriesArray'];
         var projects = [];
+        var pSentBacks = {};
+        for (var i in sheet.projectApprovalArray){
+            pSentBacks[sheet.projectApprovalArray[i].projectId] = sheet.projectApprovalArray[i];
+        }
+        var managerEdit = "notSentBack";
         for (i = 0; i < projectEntries.length; i++) {
             var project = projectEntries[i]['projectID'];
-            var managerEdit = "notSentBack";
             var sentBack;
-            if (projectEntries[i]['SentBack'] || (data && data.project == project)) {
+            if (projectEntries[i]['SentBack'] || (data && data.project == project) || pSentBacks[project].sentBack) {
                 sentBack = "sentBack";
             } else {
                 sentBack = "notSentBack";
@@ -264,6 +289,18 @@ Template.SelectedTimesheet.helpers({
                 'sentBack': sentBack,
                 'managerEdit': managerEdit
             });
+
+            pSentBacks[project] = false;
+        }
+
+        for(var i in pSentBacks){
+            if (pSentBacks[i] && (pSentBacks[i].sentBack || pSentBacks[i].approved)) {
+                projects.push({
+                    'project': pSentBacks[i].projectId,
+                    'sentBack': pSentBacks[i].sentBack ? "sentBack" : "notSentBack",
+                    'managerEdit': managerEdit
+                });
+            }
         }
 
         return projects;
@@ -297,19 +334,15 @@ Template.SelectedTimesheet.helpers({
         }
         var sheet = TimeSheet.findOne({'startDate': date, 'userId': user});
         if (!sheet) return;
-        var projectEntries = sheet['projectEntriesArray'];
 
         var sentBack = "notSentBack";
         if (data){
             sentBack = "sentBack";
         }else {
-            for (i = 0; i < projectEntries.length; i++) {
-                if (projectEntries[i]['SentBack']) {
-                    sentBack = "sentBack";
-                }
+            if(sheet.globalSentBack){
+                sentBack = "sentBack";
             }
         }
-
 
         var returned = [];
         returned.push({'sentBack': sentBack});
@@ -368,6 +401,12 @@ Template.projectListDropDown.helpers({
 
         var projectEntries = sheet['projectEntriesArray'];
 
+        for (var i in sheet.projectApprovalArray){
+            if(sheet.projectApprovalArray[i].approved){
+                projectsNotAllowed.push(sheet.projectApprovalArray[i].projectId);
+            }
+        }
+
         for (i = 0; i < projectEntries.length; i++) {
             var project = projectEntries[i]['projectID'];
 
@@ -376,7 +415,6 @@ Template.projectListDropDown.helpers({
                     projectsNotAllowed.push(project);
                 }
             }else {
-
                 if ((projectEntries[i]['Approved'] || !projectEntries[i]['SentBack']) && sheet['submitted']) {
                     projectsNotAllowed.push(project);
 
@@ -527,14 +565,13 @@ Template.lastSection.helpers({
         }
         var sheet = TimeSheet.findOne({'startDate': date, 'userId': user});
 
+        if (!sheet){
+            return false;
+        }
+
         var projectEntries = sheet['projectEntriesArray'];
 
-        var sentBack = false;
-        for (i = 0; i < projectEntries.length; i++) {
-            if (projectEntries[i]['SentBack']) {
-                sentBack = true;
-            }
-        }
+        var sentBack = sheet.globalSentBack;
 
         return Session.get('editing-user-page') && sheet.submitted && !sentBack;
 
@@ -985,7 +1022,7 @@ TimeSheetService = {
                 sentBack = true;
             }
         }
-        return sentBack;
+        return sentBack || sheet.globalSentBack;
     },
     addError: function (row, selector, message) {
         /*

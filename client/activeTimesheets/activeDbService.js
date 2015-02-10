@@ -132,27 +132,51 @@ ActiveDBService = {
         */
         var sheet = TimeSheet.findOne({'startDate':date,'userId':user,'submitted':true});
         var prEntriesArr = sheet['projectEntriesArray'];
+        var projectApprovalArray = sheet.projectApprovalArray;
+        var found = false;
+        for (var key in projectApprovalArray){
+            if (projectApprovalArray[key].projectId == projectId){
+                projectApprovalArray[key] = {
+                    projectId : projectId,
+                    approved : approvalStatus,
+                    sentBack : !approvalStatus,
+                    comment: rejectMessage
+                };
+                found = true;
+            }
+        }
+        if (!found){
+            projectApprovalArray.push({
+                projectId : projectId,
+                approved : approvalStatus,
+                sentBack : !approvalStatus,
+                comment: rejectMessage
+            });
+        }
         for (var index in prEntriesArr){
             if (prEntriesArr[index].projectID == projectId){
                 console.log(prEntriesArr[index]);
                 prEntriesArr[index].Approved = approvalStatus;
                 console.log(prEntriesArr[index]);
                 prEntriesArr[index].rejectMessage = rejectMessage;
-                if(rejectMessage != "Approved"){
+                if(!approvalStatus){
                     prEntriesArr[index].SentBack = true;
-                }else{
+                }else {
                     prEntriesArr[index].SentBack = false;
                 }
-                TimeSheet.update({'_id':sheet._id},
-                    {
-                        $set:{
-                            'projectEntriesArray': prEntriesArr
-                        }
-                    });
 
-                return;
+                break;
             }
         }
+        TimeSheet.update({'_id':sheet._id},
+            {
+                $set:{
+                    'projectEntriesArray': prEntriesArr,
+                    'globalSentBack' : !approvalStatus,
+                    'projectApprovalArray' : projectApprovalArray
+                }
+            });
+
     },
     updateActiveStatusInTimesheet: function(date, user, projectId){
         /*
@@ -286,10 +310,21 @@ ActiveDBService = {
         */
         var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
 
+        var projectApprovalArray = sheet.projectApprovalArray;
+        for (var key in projectApprovalArray){
+                projectApprovalArray[key] = {
+                    projectId : projectApprovalArray[key].projectId,
+                    approved : false,
+                    sentBack : false
+                };
+        }
+
         TimeSheet.update({'_id':sheet._id},
             {
                 $set:{
-                    'submitted': true
+                    'submitted': true,
+                    'globalSentBack': false,
+                    'projectApprovalArray' : projectApprovalArray
                 }
         });
     },
