@@ -23,11 +23,12 @@ Template.toApprove_Template.helpers({
         var totals = {};
         var hasSubmitted = {};
 
+        var show = Session.get('showAll');
+
         var isActive = 1;
         var startDateStr = Session.get("startDate");
         var startDate = new Date(startDateStr);
         var timesheets = TimeSheet.find({
-            'active': isActive,
             'startDate': startDate.toLocaleDateString()
         });
 
@@ -35,23 +36,23 @@ Template.toApprove_Template.helpers({
 
         timesheets.forEach(function (t) {
             t.projectEntriesArray.forEach(function (pe) {
-                console.log('has entry array');
                 var total = 0;
-                if (pe.projectID == selected && !pe.Approved) {
+                if (pe.projectID == selected && (!pe.Approved || Session.get('showAll'))) {
                     pe.EntryArray.forEach(function (a) {
                         for (var b in a.hours) {
                             total += parseInt(a.hours[b]);
                         }
                     });
                 }
-                var show = true;
+                
                 var rejected = false;
                 t.projectApprovalArray.forEach(function (paa) {
                     if (paa.projectId == selected){
-                        show = !paa.approved;
+                        show = (!paa.approved || Session.get('showAll'));
                         rejected = paa.sentBack;
                     }
                 });
+
                 if (Meteor.users.findOne({_id: t.userId, projects: {$in : [selected]}}) && show){
                     if (totals[t.userId] == null) {
                         totals[t.userId] = {
@@ -73,7 +74,7 @@ Template.toApprove_Template.helpers({
                 var show = true;
                 t.projectApprovalArray.forEach(function (paa) {
                     if (paa.projectId == selected){
-                        show = !paa.approved;
+                        show = (!paa.approved || Session.get('showAll'));
                     }
                 });
                 if (Meteor.users.findOne({_id: t.userId, projects: {$in : [selected]}}) && show){
@@ -89,14 +90,16 @@ Template.toApprove_Template.helpers({
         //console.log(totals);
 
         for (var key in totals) {
-            if (totals.hasOwnProperty(key) && !totals[key].approved) {
+            if (totals.hasOwnProperty(key) && (!totals[key].approved || Session.get('showAll'))) {
+                // var color = totals[key].approved ? "style=\"color:#00FF00\"" : "";
                 var u = Meteor.users.findOne({_id: key});
                 toReturn.push({
                     selected: '',
                     submitted: hasSubmitted[key],
                     sentBack:  totals[key].sentBack,
                     username: u.username,
-                    total: totals[key].total
+                    total: totals[key].total,
+                    color2: totals[key].approved ? "color:#5CB85C" : ""
                 });
             }
         }
@@ -212,6 +215,18 @@ Template.toApprove_Template.events({
 });
 
 Template.approval_Template.helpers({
+    Active: function() {
+        var username = Session.get('current_user_to_approve');
+        var startDate = new Date(Session.get("startDate"));
+        if (!username) return false;
+        var userId = Meteor.users.findOne({username: username})._id;
+        var sheet = TimeSheet.findOne({
+            'startDate': startDate.toLocaleDateString(),
+            'userId': userId
+        });
+        return (sheet.active == 1);
+
+    },
     needsApproving: function () {
         var selected = Session.get('current_project_to_approve');
 
@@ -298,7 +313,6 @@ Template.approval_Template.helpers({
         var startDateStr = Session.get("startDate");
         var startDate = new Date(startDateStr);
         var timesheets = TimeSheet.find({
-            'active': isActive,
             'userId': userId,
             'startDate': startDate.toLocaleDateString()
         });
@@ -307,7 +321,7 @@ Template.approval_Template.helpers({
 
         timesheets.forEach(function (t) {
             t.projectEntriesArray.forEach(function (pe) {
-                if (pe.projectID === chargeNumber && !pe.Approved) {
+                if (pe.projectID === chargeNumber && (!pe.Approved || Session.get('showAll'))) {
                     pe.EntryArray.forEach(function (a) {
                         for (var b in a.hours) {
                             if (toReturn[b] == null) {
@@ -362,6 +376,14 @@ Template.approval_Template.helpers({
         });
 
         return toReturn;
+    },
+    isAdmin: function() {
+        var user = Meteor.users.findOne({'_id':Session.get('LdapId')});
+        if (user && user.admin){
+            return true;
+        } else {
+            return false;
+        }
     }
 });
 
@@ -415,6 +437,19 @@ Template.approval_Template.events({
         var d = new Date(Session.get("startDate"));
         Session.set('startDate', d.toLocaleDateString());
         Session.set('editing-user-page', data);
+    },
+    'click #showbtn': function(e) {
+        if(Session.get('showAll') == null){
+            Session.set('showAll', false);
+        }
+        Session.set('showAll', !Session.get('showAll'));
+
+        if(Session.get('showAll')){
+            e.target.innerHTML = "Hide Approved Time";
+        }else{
+            e.target.innerHTML = "Show Approved Time";
+        }
+
     }
 });
 

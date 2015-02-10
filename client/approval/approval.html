@@ -15,9 +15,9 @@
                     <div>
                         <div style="display: flex;align-items: center;float:left;z-index:-1">
                             {{#if sentBack}}
-                                <div class="glyphicon glyphicon-repeat" title='Submitted and sent back'></div>
+                                <div class="glyphicon glyphicon-repeat" style={{color2}} title='Submitted and sent back'></div>
                             {{else}}
-                                <div class="glyphicon glyphicon-ok" title='Timesheet has been Submitted'></div>
+                                <div class="glyphicon glyphicon-ok" style={{color2}} title='Timesheet has been Submitted'></div>
                             {{/if}}
                         </div>
                         <div class="text-center" id="username">
@@ -76,13 +76,16 @@
         <div class="col-xs-2">
             <select id="currentproject" class="form-control" type="current-project-checkbox" name="currentprojectCombo">
                 {{#each managedProjects}}
-                    <!--TODO Check to see if the managed project has active time sheets to approve-->
-                        <!--{{#if isActive end_date}}-->
                     <option value="{{charge_number}}">{{text}}</option>
-                        <!--{{/if}}-->
                 {{/each}}
             </select>
         </div>
+        {{#if isAdmin}}
+        <div>
+           <button id="showbtn" class="btn btn-primary">Show Approved Time</button>
+        </div>
+        {{/if}}
+
     </div>
     <div class="row">
         {{> date_picker}}
@@ -124,9 +127,12 @@
                 </div>
             </div>
             <div class="row">
+                {{#if Active}}
                 <div class="col-xs-12">
                     <button type="button" style="float: right;" class="btn btn-lg btn-default edit-sheet">Edit</button>
                 </div>
+                {{/if}}
+
             </div>
         {{else}}
             <div class="row">

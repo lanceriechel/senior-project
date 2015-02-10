@@ -131,6 +131,10 @@ ActiveDBService = {
             is allowed to change and what is locked.
         */
         var sheet = TimeSheet.findOne({'startDate':date,'userId':user,'submitted':true});
+        var active = sheet.active;
+        if(!approvalStatus){
+            active = 1;
+        }
         var prEntriesArr = sheet['projectEntriesArray'];
         var projectApprovalArray = sheet.projectApprovalArray;
         var found = false;
@@ -173,7 +177,8 @@ ActiveDBService = {
                 $set:{
                     'projectEntriesArray': prEntriesArr,
                     'globalSentBack' : !approvalStatus,
-                    'projectApprovalArray' : projectApprovalArray
+                    'projectApprovalArray' : projectApprovalArray,
+                    'active' : active
                 }
             });
 
