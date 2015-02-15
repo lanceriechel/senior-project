@@ -32,7 +32,9 @@ generalHelpers = {
             'type' : 1,
             'generalComment': '',
             'concerns': '',
-            'submitted': false
+            'submitted': false,
+            'globalSentBack': false,
+            'projectApprovalArray': projectApprovalArray
         });
     },
     makePDF: function(startDate, userID){
