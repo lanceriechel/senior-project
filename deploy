@@ -29,16 +29,22 @@ meteor remove velocity:html-reporter
 echo
 echo stopping meteor...
 # kill meteor
-fuser -n tcp -k 80
+fuser -n tcp -k 3000
 echo stopped successfully
 
 echo
 echo stopping mongo...
 # kill mongo
-fuser -n tcp -k 81
+fuser -n tcp -k 3001
+echo stopped successfully
+
+echo
+echo stopping node...
+# kill node
+fuser -n tcp -k 28437
 echo stopped successfully
 
 echo
 echo starting the meteor server...
 #start meteor
-meteor --port 80 --settings settings.json &
+meteor --settings settings.json &
