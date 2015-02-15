@@ -34,7 +34,7 @@ generalHelpers = {
             'concerns': '',
             'submitted': false,
             'globalSentBack': false,
-            'projectApprovalArray': projectApprovalArray
+            'projectApprovalArray': []
         });
     },
     makePDF: function(startDate, userID){
