@@ -19,8 +19,8 @@ Meteor.startup(function () {
         var start = date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear();
 
 
-        if (!holiday) {
-            admin = Meteor.users.findOne({'admin': true});
+        admin = Meteor.users.findOne({'admin': true});
+        if (!holiday && admin) {
 
             ChargeNumbers.insert(
                 {
