@@ -51,6 +51,7 @@ authenticateLdapEmployee = function(username, password) {
                         projects: [],
                         fulltime: true
                     });
+		    generalHelpers.createHoliday();
 		    generalHelpers.MakeTimesheetForNewUser(id, Meteor.users.findOne({username:username}) );
 		    
                 }
