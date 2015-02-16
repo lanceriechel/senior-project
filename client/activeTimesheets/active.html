@@ -19,11 +19,10 @@
         {{#each row}}
           {{> projectHoursFilled}}
         {{/each}}
-        <hr>
+        <br>
         {{#each timesheethack}}<!--this will return one field always-->
             {{> projectHours}}
         {{/each}}
-        <hr>
         <br>
         <div class="row">
             <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4>Project</h4></div>
@@ -34,7 +33,7 @@
         {{#each project}} 
           {{> projectComments}}
         {{/each}}
-        <hr>
+        <br>
         {{> lastSection}}
     </div>
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
