@@ -71,6 +71,24 @@ Template.associatedProjects.events({
         // wait for CSS animation to finish
         var userId = String(evt.target.parentNode.parentNode.id);
         Meteor.users.update({'_id': userId}, {$pull: {'projects': String(this)}});
+        var value = String(this);
+            TimeSheet.find({'userId': userId, 'active':1}).forEach(function (e){
+                var approveArray = e.projectApprovalArray;
+                var i = [];
+                for(var a in approveArray){
+                    // console.log(approveArray[a].projectId);
+                    if(approveArray[a].projectId != value){
+                       i.push(approveArray[a]);
+                    }
+                }
+
+                TimeSheet.update({'_id':e._id},
+                {
+                    $set:{
+                        'projectApprovalArray' : i
+                     }
+                 });
+            });
     }
 });
 
@@ -93,7 +111,7 @@ var okCancelEvents = function (selector, callbacks) {
                 if (value) {
                     ok.call(this, value, evt);
                 } else {
-                    cancel.call(this, evt);
+                    cancel.call(this, value, evt);
                 }
             }
         };
@@ -111,9 +129,26 @@ Template.associatedProjects.events(okCancelEvents(
     {
         ok: function (value) {
             Meteor.users.update({_id: this._id}, {$addToSet: {projects: value}});
+            TimeSheet.find({'userId': this._id, 'active':1}).forEach(function (e){
+                var approveArray = e.projectApprovalArray;
+                approveArray.push({
+                    projectId : value,
+                    approved : false,
+                    sentBack : false
+                });
+
+                TimeSheet.update({'_id':e._id},
+                {
+                    $set:{
+                        'projectApprovalArray' : approveArray
+                }
+
+                });
+
+            });
             Session.set('editing_addtag', null);
         },
-        cancel: function () {
+        cancel: function (value) {
             Session.set('editing_addtag', null);
         }
     }
