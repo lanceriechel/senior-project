@@ -15,9 +15,8 @@
 
 <template name="historyEmployeeSelect">
     <div class="row">
-        <hr>
-        <div class="text-left col-md-2 col-sm-2 col-xs-2"> Employee</div>
-        <div class="text-left col-md-2 col-sm-2 col-xs-2"> Project</div>
+        <div class="text-left col-md-2 col-sm-2 col-xs-2"><h4>Employee</h4></div>
+        <div class="text-left col-md-2 col-sm-2 col-xs-2"><h4>Project</h4></div>
     </div>
     <div class="row">
         <!--<div class="col-md-2 col-sm-2 col-xs-2"><input id="employeeSearch" type="text" class="large-input form-control"></div>-->
@@ -101,9 +100,10 @@
                 <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Sat</h4></div>
             </div>
         {{#each getProjects}}
-            <hr>
-            <h3><span class="label">{{name}}</span></h3>
-            <br>
+            {{#if getTimesheets id}}
+                <h3><span class="label">{{name}}</span></h3>
+                <br>
+            {{/if}}
             {{#each getTimesheets id}}
         		<div id="ProjectID" value="{{../id}}">
                         {{> historyInfo}}
@@ -125,32 +125,29 @@
     <br>
     <div class="container-fluid">
         <div class="row">
-            <div class="text-center col-md-2 col-sm-2 col-xs-2">Project</div>
-            <div class="text-center col-md-1 col-sm-1 col-xs-1">S</div>
-            <div class="text-center col-md-1 col-sm-1 col-xs-1">M</div>
-            <div class="text-center col-md-1 col-sm-1 col-xs-1">T</div>
-            <div class="text-center col-md-1 col-sm-1 col-xs-1">W</div>
-            <div class="text-center col-md-1 col-sm-1 col-xs-1">T</div>
-            <div class="text-center col-md-1 col-sm-1 col-xs-1">F</div>
-            <div class="text-center col-md-1 col-sm-1 col-xs-1">S</div>
-            <div class="text-center col-md-2 col-sm-2 col-xs-2">Comment</div>
+            <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4>Project</h4></div>
+            <div class="text-center col-md-1 col-sm-1 col-xs-1"><h4>S</h4></div>
+            <div class="text-center col-md-1 col-sm-1 col-xs-1"><h4>M</h4></div>
+            <div class="text-center col-md-1 col-sm-1 col-xs-1"><h4>T</h4></div>
+            <div class="text-center col-md-1 col-sm-1 col-xs-1"><h4>W</h4></div>
+            <div class="text-center col-md-1 col-sm-1 col-xs-1"><h4>T</h4></div>
+            <div class="text-center col-md-1 col-sm-1 col-xs-1"><h4>F</h4></div>
+            <div class="text-center col-md-1 col-sm-1 col-xs-1"><h4>S</h4></div>
+            <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4>Comment</h4></div>
         </div>
-        <br>
         {{#each row}}
           {{> historyProjectHours}}
         {{/each}}
-        <hr>
-        <div class="row">
-            <div class="text-center col-md-2 col-sm-2 col-xs-2">Project</div>
-            <div class="text-center col-md-3 col-sm-3 col-xs-3">This Week's Issues</div>
-            <div class="text-center col-md-3 col-sm-3 col-xs-3">Goals for Next Week</div>
-            <div class="text-center col-md-4 col-sm-4 col-xs-4">Manager Feedback</div>
-        </div>
         <br>
+        <div class="row">
+            <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4>Project</h4></div>
+            <div class="text-center col-md-3 col-sm-3 col-xs-3"><h4>This Week's Issues</h4></div>
+            <div class="text-center col-md-3 col-sm-3 col-xs-3"><h4>Goals for Next Week</h4></div>
+            <div class="text-center col-md-4 col-sm-4 col-xs-4"><h4>Manager Feedback</h4></div>
+        </div>
         {{#each project}} 
           {{> historyProjectComments}}
         {{/each}}
-        <hr>
         {{> historyLastSection}}
         {{> historyLog}}
     </div>
@@ -180,11 +177,11 @@
 </template>
 
 <template name="historyLastSection">
-    <div class="row">
-        <div class="text-center col-md-6 col-sm-6 col-xs-6">General Comment</div>
-        <div class="text-center col-md-5 col-sm-5 col-xs-5">Concerns</div>
-    </div>
     <br>
+    <div class="row">
+        <div class="text-center col-md-6 col-sm-6 col-xs-6"><h4>General Comment</h4></div>
+        <div class="text-center col-md-5 col-sm-5 col-xs-5"><h4>Concerns</h4></div>
+    </div>
     <div class="row commentRow">
         <div class="col-md-6 col-sm-6 col-xs-6"><input id="generalComment" type="text" class="large-input form-control enterable" disabled=true value={{genComment}}></div>       
         <div class="col-md-5 col-sm-5 col-xs-5"><input id="concerns" type="text" class="large-input form-control enterable" disabled=true value={{concerns}}></div>
@@ -208,15 +205,13 @@
 </template>
 
 <template name="historyLog">
-    <hr>
     <h2><span class="label">History</span></h2>
-    <hr>
     <div class="container-fluid">
-        <div class="row">
-            <div class="text-center col-md-2 col-sm-2 col-xs-2">Timestamp</div>
-            <div class="text-center col-md-10 col-sm-10 col-xs-10">Action</div>
-        </div>
         <br>
+        <div class="row">
+            <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4>Timestamp</h4></div>
+            <div class="text-center col-md-10 col-sm-10 col-xs-10"><h4>Action</h4></div>
+        </div>
         {{#each revisions}}
             <div class="row">
                 <div class="col-md-2 col-sm-2 col-xs-2"><input type="text" class="large-input form-control" disabled=true value={{timestamp}}></div>
