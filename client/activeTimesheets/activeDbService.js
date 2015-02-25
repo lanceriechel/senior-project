@@ -8,7 +8,7 @@ ActiveDBService = {
             if (pe.projectID == projectID) {
                 pe.EntryArray.forEach(function (a) {
                     for (var b in a.hours) {
-                        total += parseInt(a.hours[b]);
+                        total += parseFloat(a.hours[b]);
                     }
                 });
                 return total;
@@ -485,13 +485,13 @@ ActiveDBService = {
                     timesheets[timesheetsMap[sheet.startDate]] = {
                         employee: employee,
                         startDate: sheet.startDate,
-                        sun: parseInt(days[0]) + parseInt(current.sun),
-                        mon: parseInt(days[1]) + parseInt(current.mon),
-                        tue: parseInt(days[2]) + parseInt(current.tue),
-                        wed: parseInt(days[3]) + parseInt(current.wed),
-                        thu: parseInt(days[4]) + parseInt(current.thu),
-                        fri: parseInt(days[5]) + parseInt(current.fri),
-                        sat: parseInt(days[6]) + parseInt(current.sat)
+                        sun: parseFloat(days[0]) + parseFloat(current.sun),
+                        mon: parseFloat(days[1]) + parseFloat(current.mon),
+                        tue: parseFloat(days[2]) + parseFloat(current.tue),
+                        wed: parseFloat(days[3]) + parseFloat(current.wed),
+                        thu: parseFloat(days[4]) + parseFloat(current.thu),
+                        fri: parseFloat(days[5]) + parseFloat(current.fri),
+                        sat: parseFloat(days[6]) + parseFloat(current.sat)
                     };
                 }
             }

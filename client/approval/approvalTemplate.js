@@ -40,7 +40,7 @@ Template.toApprove_Template.helpers({
                 if (pe.projectID == selected && (!pe.Approved || Session.get('showAll'))) {
                     pe.EntryArray.forEach(function (a) {
                         for (var b in a.hours) {
-                            total += parseInt(a.hours[b]);
+                            total += parseFloat(a.hours[b]);
                         }
                     });
                 }
@@ -327,7 +327,7 @@ Template.approval_Template.helpers({
                             if (toReturn[b] == null) {
                                 toReturn[b] = {
                                     day: days[b],
-                                    hours: parseInt(a.hours[b]),
+                                    hours: parseFloat(a.hours[b]),
                                     comment: [{com: a.hours[b] > 0 ? a.Comment : ""}]
                                 }
                                 continue;
@@ -336,7 +336,7 @@ Template.approval_Template.helpers({
                                 toReturn[b].comment.push({com: a.Comment});
                                 toReturn[b] = {
                                     day: toReturn[b].day,
-                                    hours: toReturn[b].hours + parseInt(a.hours[b]),
+                                    hours: toReturn[b].hours + parseFloat(a.hours[b]),
                                     comment: toReturn[b].comment
                                 };
                             }

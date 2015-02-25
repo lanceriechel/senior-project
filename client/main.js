@@ -42,6 +42,13 @@ Template.pages.helpers({
     isAdminPage: function () {
         return Session.equals('current_page', 'admin_page');
     },
+    getUsername: function () {
+        var user = Meteor.users.findOne({_id: Session.get('LdapId')})
+        if (!user){
+            return "Please login"
+        }
+        return user.username;
+    },
     isSelectedTimesheet: function () {
         return Session.equals('current_page', 'selected_timesheet');
     },

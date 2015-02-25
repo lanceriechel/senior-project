@@ -24,6 +24,17 @@ ul[class="navbar nav-pills navbar-default"] {
     display: inline-block;
 }
 
+#login_info_spacer {
+    flex: 1;
+}
+
+#login_info {
+    margin-right: 40px;
+    vertical-align: middle;
+    text-align: left;
+    cursor: pointer;
+}
+
 input[type=checkbox] {
     margin-top: 1em;
 }

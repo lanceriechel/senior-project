@@ -5,7 +5,7 @@
 </head>
 <body>
 <div id="main-pane">
-    <div class="row navbar">
+    <div class="row navbar" style="display: flex;align-items: center;">
         <img src="/ScientiaLLC_Logo-300x64.png" class="header_logo">
         {{>pages}}
     </div>
@@ -14,9 +14,8 @@
 </body>
 
 <template name="pages">
+    {{#unless isLoginPage}}
     <ul class="navbar nav-pills navbar-default" role="tablist">
-
-        {{#unless isLoginPage}}
             <li class="{{#if isTimesheet}}active{{/if}} tag" role="presentation" id='time_sheet'>
                 Time Sheet
             </li>
@@ -40,9 +39,20 @@
                     Admin
                 </li>
             {{/if}}
-        {{/unless}}
-        
     </ul>
+    <div id="login_info_spacer"></div>
+    <div id="login_info">
+        <div class="btn-group">
+            <div class="btn-lg dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                {{getUsername}} <span class="caret"></span>
+            </div>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href=".">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+    <!--<div id="login_info"><h4>{{getUsername}}</h4></div>-->
+    {{/unless}}
 
 </template>
 
