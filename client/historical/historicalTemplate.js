@@ -21,30 +21,35 @@ Template.historyHeader.helpers({
 			'sort': { 'userId': 1, 'startDate': -1 }
 		}
 
+		var user = Meteor.users.findOne({'_id':Session.get('LdapId')});
+		var managerProjects = ChargeNumbers.find({'manager':user.username});
+		var managerProjIds = [];
+		managerProjects.forEach(function (p) {
+			managerProjIds.push(p.id);
+		});
+
 		if (userId) {
-			if (project != '') {
-				TimeSheet.find({'userId': userId, 'projectEntriesArray.projectID':project}, sort).forEach(
+			TimeSheet.find({'userId': userId, 'projectEntriesArray.projectID':project}, sort).forEach(
 				function (u) {
-					timesheets = ActiveDBService.getTimesheetRowInfo(u, timesheets);
+					timesheetProjects = [];
+					u.projectEntriesArray.forEach(function (p) {
+						timesheetProjects.push(p.projectID);
+					});
+					if (findOneInArray(managerProjIds, timesheetProjects) || user.admin) {
+						timesheets = ActiveDBService.getTimesheetRowInfo(u, timesheets);
+					}
 				});
-			} else {
-				TimeSheet.find({'userId': userId}).sort({userId: 1, startDate: -1}, sort).forEach(
-				function (u) {
-					timesheets = ActiveDBService.getTimesheetRowInfo(u, timesheets);
-				});
-			}
 		} else {
-			if (project != '') {
-				TimeSheet.find({'userId': {$in: subordinates}, 'projectEntriesArray.projectID':project}, sort).forEach(
+			TimeSheet.find({'userId': {$in: subordinates}, 'projectEntriesArray.projectID':project}, sort).forEach(
 				function (u) {
-					timesheets = ActiveDBService.getTimesheetRowInfo(u, timesheets);
+					timesheetProjects = [];
+					u.projectEntriesArray.forEach(function (p) {
+						timesheetProjects.push(p.projectID);
+					});
+					if (findOneInArray(managerProjIds, timesheetProjects) || u.userId == user._id || user.admin) {
+						timesheets = ActiveDBService.getTimesheetRowInfo(u, timesheets);
+					}
 				});
-			} else {
-				TimeSheet.find({'userId': {$in: subordinates}}, sort).forEach(
-				function (u) {
-					timesheets = ActiveDBService.getTimesheetRowInfo(u, timesheets);
-				});
-			}
 		}
 		return timesheets;
 	},
@@ -65,6 +70,20 @@ Template.historyHeader.helpers({
 		return false;
 	}
 });
+
+function findOneInArray (array1, array2) {
+	var found = false;
+	for (var i = 0; i < array1.length; i++) {
+		if (array2.indexOf(array1[i]) > -1) {
+			found = true;
+			break;
+		}
+	}
+	return found;
+	// return array2.some(function (v) {
+	// 	return array1.indexOf(v) >= 0;
+	// });
+}
 
 Template.historicalEntries.helpers({
 	isManager: function() {

@@ -307,7 +307,10 @@ Template.SelectedTimesheet.helpers({
     },
     date: function () {
         var date = Session.get("startDate");
-        return date;
+        var user = Session.get('LdapId');
+        var sheet = TimeSheet.findOne({'startDate': date, 'userId': user});
+        if (!sheet) return;
+        return date + " - " + sheet.endDate;
     },
     employeeName: function () {
         var data = Session.get('editing-user-page');
