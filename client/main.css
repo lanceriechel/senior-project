@@ -6,11 +6,6 @@
     margin-bottom: 0px;
 }
 
-.header_logo {
-    display: inline-block;
-    margin: 10px 30px 10px 10px;
-}
-
 ul[class="navbar nav-pills navbar-default"] {
     background: #eeeeee;
     border-radius: 1px;
@@ -29,9 +24,9 @@ ul[class="navbar nav-pills navbar-default"] {
 }
 
 #login_info {
-    margin-right: 40px;
-    vertical-align: middle;
-    text-align: left;
+    /*margin-right: 40px;*/
+    /*vertical-align: middle;*/
+    /*text-align: left;*/
     cursor: pointer;
 }
 
@@ -61,6 +56,24 @@ input[type=checkbox] {
     color: red;
 }
 
+#header_logo {
+    margin: 5px 0px;
+}
+
+/*.navbar-nav li {*/
+    /*line-height: 30px;*/
+    /*margin: 5px 0px;*/
+/*}*/
+
+#login_info, .navbar-nav {
+    cursor: pointer;
+    float: left;
+    margin: 5px 0px 0px;
+    text-align: center;
+    border-radius: 10px;
+    position: relative;
+}
+
 .tag {
     cursor: pointer;
     float: left;
@@ -76,6 +89,11 @@ input[type=checkbox] {
 
 .tag:hover {
     background-color: rgba(128, 128, 128, 0.30);
+}
+
+
+ul.navbar-nav {
+    margin-top: 10px;
 }
 
 .menu-options {

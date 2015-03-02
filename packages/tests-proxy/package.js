@@ -5,7 +5,8 @@ Package.describe({
 	debugOnly: true
 });
 
-Package.on_use(function (api) {
-	api.add_files("tests/jasmine/client/integration/projectService.js",["client"]);
+Package.onUse(function (api) {
+	api.use("coffeescript", ["client", "server"]);
 	api.add_files("tests/jasmine/client/integration/activeDbService.js",["client"]);
+	api.add_files("tests/jasmine/client/integration/projectService.js",["client"]);
 });

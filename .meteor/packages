@@ -14,7 +14,7 @@ velocity:html-reporter
 percolatestudio:synced-cron
 email
 meteorhacks:npm
-npm-container
 
 benjaminrh:bootstrap-timepicker
 sergeyt:typeahead
+npm-container
