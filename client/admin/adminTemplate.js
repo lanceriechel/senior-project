@@ -15,27 +15,28 @@ Template.current_jobs.helpers({
 });
 
 Template.all_pdfs.events({
-    'click .btn': function(){
+    'click .btn': function () {
         var startDate = Session.get('startDate');
         var startDate2 = new Date(startDate);
         var startDate3 = startDate2.toLocaleDateString();
 
-        TimeSheet.find({'startDate':startDate3}).forEach(
+        TimeSheet.find({'startDate': startDate3}).forEach(
             function(sheet) {
                 var userID = sheet.userId;
                 generalHelpers.makePDF(startDate3, userID);
-            });
+            }
+        );
     }
 });
 
 Template.month_picker.helpers({
     currentMonth: function () {
-        if(Session.get('statusDate') == null){
-            var currentTime = new Date();
+        var currentTime = new Date();
+        if (!Session.get('statusDate')) {
             currentTime.setDate(1);
             Session.set('statusDate', currentTime);
-        }else{
-            var currentTime = Session.get('statusDate') 
+        } else {
+            currentTime = Session.get('statusDate');
         }
         var month = currentTime.getMonth() + 1;
         var year = currentTime.getFullYear()
@@ -50,9 +51,9 @@ Template.month_picker.events({
 
         var d2 = new Date(startDate);
         var mo = d2.getMonth() - 1;
-        if(mo == -1){
+        if (mo === -1) {
             mo = 11;
-            d2.setYear(d2.getFullYear()-1);
+            d2.setYear(d2.getFullYear() - 1);
         }
         d2.setMonth(mo);
 
@@ -63,9 +64,9 @@ Template.month_picker.events({
 
         var d2 = new Date(startDate);
         var mo = d2.getMonth() + 1;
-        if(mo == 12){
+        if (mo == 12) {
             mo = 0;
-            d2.setYear(d2.getFullYear()+1);
+            d2.setYear(d2.getFullYear() + 1);
         }
         d2.setMonth(mo);
 
@@ -84,16 +85,16 @@ Template.monthly_status.events({
         var month = date.getMonth()+1;
         var year = date.getFullYear();
 
-        var startDate = new Date(month+ '/' + '1' + '/' + year);
-        if(month == 11){
+        var startDate = new Date(month + '/' + '1' + '/' + year);
+        if (month === 11) {
             month = -1;
         }
-        var endDate = new Date(month+1 + '/'+'1'+'/'+year);
+        var endDate = new Date(month + 1 + '/' + '1' + '/' + year);
         endDate.setDate(endDate.getDate() - 1);
 
         var comments = [];
         var rawComments = '';
-        var docbody = [];
+        var docBody = [];
 
         TimeSheet.find({'submitted':true}).forEach(
             function (sheet) {
@@ -104,9 +105,10 @@ Template.monthly_status.events({
                 var employee = Meteor.users.findOne({'_id': sheet.userId});
                 var employeeName = employee.username;
 
-                if(((sheetStartDate > startDate) && (sheetStartDate < endDate)) || ((sheetEndDate < endDate) && (sheetEndDate > startDate))){
+                if (((sheetStartDate > startDate) && (sheetStartDate < endDate)) ||
+                    ((sheetEndDate < endDate) && (sheetEndDate > startDate))) {
                     for(var i=0; i<prEntriesArray.length; i++){
-                        var project = prEntriesArray[i]['projectID'];
+                        var project = prEntriesArray[i].projectID;
                         var project2 = ChargeNumbers.findOne({'id': project});
                         var entryArray = prEntriesArray[i].EntryArray;
                         for(var j=0; j<entryArray.length; j++){
@@ -116,32 +118,36 @@ Template.monthly_status.events({
                 }
             });
         function Comparator(a,b){
-            if (a[0] < b[0]) return -1;
-            if (a[0] > b[0]) return 1;
+            if (a[0] < b[0]){
+                return -1;
+            }
+            if (a[0] > b[0]) {
+                return 1;
+            }
             return 0;
         }
 
 
         comments = comments.sort(Comparator);
-        var lastproj = '';
+        var lastProject = '';
 
-        docbody.push({ text: 'Monthly Status Report for ' +month + '/' + year, fontSize: 30, })
+        docBody.push({ text: 'Monthly Status Report for ' +month + '/' + year, fontSize: 30})
 
         for(var k=0; k<comments.length; k++){
             var comment = comments[k][2];
-            if(lastproj != comments[k][0]){
+            if(lastProject !== comments[k][0]){
                 rawComments += '\n'+ comments[k][0] + '\n';
-                docbody.push({ text: '\n'+ comments[k][0] + '\n\n', fontSize: 20,});
+                docBody.push({ text: '\n'+ comments[k][0] + '\n\n', fontSize: 20});
             }
             rawComments+= comment +'\n';
-            docbody.push({text: comment, fontSize:14});
+            docBody.push({text: comment, fontSize:14});
 
-            lastproj = comments[k][0];
+            lastProject = comments[k][0];
         }
 
 
         var docDefinition = { 
-        content: [docbody]
+            content: [docBody]
         };
       pdfMake.createPdf(docDefinition).download('Monthly Status for ' +month + '\/' + year);
     }
@@ -154,7 +160,6 @@ Template.current_jobs.events({
         if (job){
             Meteor.call('deleteJob', job);
         }
-        Jobs.remove({_id: event.target.id});
     }
 });
 
@@ -164,7 +169,7 @@ Template.add_new_job.helpers({
         for (var i = 0; i <= 23; i++) {
             var hour = '';
             if (i < 10) {
-                hour = '0'
+                hour = '0';
             }
             hours.push(hour + i);
         }
@@ -179,13 +184,13 @@ Template.add_new_job.events({
         var currentText = evt.target.parentNode.parentNode.parentNode.childNodes[1].childNodes[0].nodeValue;
 
         if (evt.target.classList.contains('day')) {
-            if (evt.target.childNodes.length == 1) {
+            if (evt.target.childNodes.length === 1) {
                 var div = document.createElement('div');
                 div.className = 'glyphicon glyphicon-ok';
                 div.style.float = 'right';
                 evt.target.appendChild(div);
 
-                if (currentText.charCodeAt(0) == 10 || currentText.charCodeAt(0) == 32) {
+                if (currentText.charCodeAt(0) === 10 || currentText.charCodeAt(0) === 32) {
                     currentText = day;
                 } else {
                     currentText = currentText.replace(', and ', ', ');
@@ -221,7 +226,6 @@ Template.add_new_job.events({
         var detailType = document.getElementById('detailType').value.toLowerCase();
         var time = $('#timepicker1').val();
         var jobDays = document.getElementById('dropdownMenuDays').textContent.trim();
-        var id = Jobs.insert({type: jobType, details: {type:detailType,schedule_text:'at '+ time + ' on ' + jobDays}});
-        Meteor.call('scheduleJob', Jobs.findOne({_id: id}));
+        Meteor.call('insertJob', jobType, detailType, 'at '+ time + ' on ' + jobDays);
     }
 });

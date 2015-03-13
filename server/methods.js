@@ -41,12 +41,12 @@ Meteor.startup(function () {
                 }
             );
         },
-        getCurrentWeekObject: function(){
+        getCurrentWeekObject: function () {
             var d = new Date(),
-                d1L = new Date(),
+                //d1L = new Date(),
                 d2 = new Date();
             d.setDate((d.getDate() - (d.getDay() + 6) % 7) - 1);
-            d1L.setDate((d1L.getDate() - (d1L.getDay() + 6) % 7) - 8);
+            //d1L.setDate((d1L.getDate() - (d1L.getDay() + 6) % 7) - 8);
             d2.setDate((d2.getDate() - (d2.getDay() + 6) % 7) + 6);
             return {
                 start: d,
@@ -155,6 +155,102 @@ Meteor.startup(function () {
         },
         deleteJob: function (job) {
             SyncedCron.remove(job.type + 'job: ' + job._id);
+            Jobs.remove({_id: job._id});
+        },
+        insertJob: function(jobType, detailType, scheduleText) {
+            var id = Jobs.insert({
+                type: jobType,
+                details: {
+                        type: detailType,
+                        schedule_text: scheduleText
+                    }
+            });
+            Meteor.call('scheduleJob', Jobs.findOne({_id: id}));
+        },
+        updateActiveStatusInTimesheet: function (date, user, revision){
+            var sheet = TimeSheet.findOne({'startDate':date,'userId':user,'submitted':true});
+            var prEntriesArr = sheet['projectEntriesArray'];
+            var active = 0;
+
+            for (var index in prEntriesArr){
+                if(!prEntriesArr[index].Approved){ //If at least one entry is not approved, timesheet still active
+                    active = 1;
+                }
+            }
+
+            TimeSheet.update({'_id':sheet._id},
+                {
+                    $set:{
+                        'active': active,
+                        'revision': revision
+                    }
+                });
+        },
+        updateApprovalStatusInTimeSheet: function(date, user, projectId, approvalStatus, rejectMessage, revision){
+            /*
+             Updates each row's approval and sentBack status for the timesheet, so the activeTimesheet UI knows what the user
+             is allowed to change and what is locked.
+             */
+            var sheet = TimeSheet.findOne({'startDate':date,'userId':user,'submitted':true});
+            var active = sheet.active;
+            if(!approvalStatus){
+                active = 1;
+            }
+            var prEntriesArr = sheet.projectEntriesArray;
+            var projectApprovalArray = sheet.projectApprovalArray;
+            var found = false;
+            for (var key in projectApprovalArray){
+                if (projectApprovalArray[key].projectId == projectId){
+                    projectApprovalArray[key] = {
+                        projectId : projectId,
+                        approved : approvalStatus,
+                        sentBack : !approvalStatus,
+                        comment: rejectMessage
+                    };
+                    found = true;
+                }
+            }
+            if (!found){
+                projectApprovalArray.push({
+                    projectId : projectId,
+                    approved : approvalStatus,
+                    sentBack : !approvalStatus,
+                    comment: rejectMessage
+                });
+            }
+            for (var index in prEntriesArr){
+                if (prEntriesArr[index].projectID == projectId){
+                    console.log(prEntriesArr[index]);
+                    prEntriesArr[index].Approved = approvalStatus;
+                    console.log(prEntriesArr[index]);
+                    prEntriesArr[index].rejectMessage = rejectMessage;
+                    if(!approvalStatus){
+                        prEntriesArr[index].SentBack = true;
+                    }else {
+                        prEntriesArr[index].SentBack = false;
+                    }
+
+                    break;
+                }
+            }
+
+            var newRevision = sheet.revision
+            if (revision) {
+                // set to new revision if present
+                newRevision = revision;
+            }
+
+            TimeSheet.update({'_id':sheet._id},
+                {
+                    $set:{
+                        'projectEntriesArray': prEntriesArr,
+                        'globalSentBack' : !approvalStatus,
+                        'projectApprovalArray' : projectApprovalArray,
+                        'active' : active,
+                        'revision': newRevision
+                    }
+                });
+
         }
     });
 
