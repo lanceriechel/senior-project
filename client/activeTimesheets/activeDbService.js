@@ -204,7 +204,6 @@ ActiveDBService = {
                     'active': active
                 }
             });
-        return;
 
     },
     updateSentBackStatus: function(date, user){

@@ -2,19 +2,19 @@
  * Created by sternetj on 12/7/14.
  */
 Session.set('current_project_to_approve', 'none');
-var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Next Week Goals", "Issues", "Concerns", "General Comment"];
+var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Next Week Goals",
+            "Issues", "Concerns", "General Comment"];
 
-function getStartDate() {
-    var d = new Date();
-    d.setDate((d.getDate() - (d.getDay() + 6) % 7) - 8);
-    return d;
-}
+Meteor.call('getCurrentWeekObject',
+    function (error, result) {
+        if (error) {
+            console.log(error);
+        }
 
-function getCurrentDate() {
-    var d = new Date();
-    d.setDate((d.getDate() - (d.getDay() + 6) % 7) - 1);
-    return d;
-}
+        var d = new Date(result.start);
+        d.setDate(d.getDate() - 7);
+        Session.set('startDate', d.toISOString());
+    });
 
 //Methods for the rows that show which users need their timesheets approved
 Template.toApprove_Template.helpers({
@@ -23,9 +23,6 @@ Template.toApprove_Template.helpers({
         var totals = {};
         var hasSubmitted = {};
 
-        var show = Session.get('showAll');
-
-        var isActive = 1;
         var startDateStr = Session.get("startDate");
         var startDate = new Date(startDateStr);
         var timesheets = TimeSheet.find({
@@ -54,7 +51,7 @@ Template.toApprove_Template.helpers({
                 });
 
                 if (Meteor.users.findOne({_id: t.userId, projects: {$in : [selected]}}) && show){
-                    if (totals[t.userId] == null) {
+                    if (!totals[t.userId]) {
                         totals[t.userId] = {
                             total: 0,
                             sentBack: rejected,
@@ -87,11 +84,8 @@ Template.toApprove_Template.helpers({
             }
         });
 
-        //console.log(totals);
-
         for (var key in totals) {
             if (totals.hasOwnProperty(key) && (!totals[key].approved || Session.get('showAll'))) {
-                // var color = totals[key].approved ? "style=\"color:#00FF00\"" : "";
                 var u = Meteor.users.findOne({_id: key});
                 toReturn.push({
                     selected: '',
@@ -146,31 +140,28 @@ Template.toApprove_Template.events({
         var sheet = TimeSheet.findOne({'startDate':date,'userId':userId,'submitted':true});
         var totalHours = ActiveDBService.getTotalHoursForProject(sheet, projectId);
 
-        var managerName = Meteor.users.findOne({'_id':Session.get('LdapId')}).username;
+        var managerName = Meteor.users.findOne({'_id': Session.get('LdapId')}).username;
 
         var revision = sheet.revision;
 
-        ActiveDBService.updateApprovalStatusInTimeSheet(date, userId, projectId, true, 'Approved');
-        ActiveDBService.updateActiveStatusInTimesheet(date, userId, projectId);
+        Meteor.call('updateApprovalStatusInTimeSheet', date, userId, projectId, true, 'Approved');
 
-        historyEntry = {
+        revision.unshift({
             'manager':managerName,
             'project':projectName,
             'timestamp':new Date(),
             'totalHours':totalHours,
             'type':'approval'
-        };
-        revision.unshift(historyEntry);
+        });
 
-        TimeSheet.update({'_id':sheet._id},
-            {
-                $set:{
-                    'revision': revision
-                },
-            });
+        Meteor.call('updateActiveStatusInTimesheet', date, userId, revision);
+
+
     },
     'click .reject': function (e, t) {
-        if (!e.target.parentNode.parentNode.classList.contains("selected")) return;
+        if (!e.target.parentNode.parentNode.classList.contains("selected")){
+            return;
+        }
 
         console.log('rejecting');
 
@@ -188,29 +179,22 @@ Template.toApprove_Template.events({
         var sheet = TimeSheet.findOne({'startDate':date,'userId':userId,'submitted':true});
         var totalHours = ActiveDBService.getTotalHoursForProject(sheet, projectId);
 
-        var managerName = Meteor.users.findOne({'_id':Session.get('LdapId')}).username;
+        var managerName = Meteor.users.findOne({'_id': Session.get('LdapId')}).username;
 
         var revision = sheet.revision;
 
         console.log("reject");
-        ActiveDBService.updateApprovalStatusInTimeSheet(date, userId, projectId, false, rejectComment);
 
-        historyEntry = {
+        revision.unshift({
             'manager':managerName,
             'project':projectName,
             'timestamp':new Date(),
             'totalHours':totalHours,
             'type':'rejection',
             'comment':rejectComment
-        };
-        revision.unshift(historyEntry);
+        });
 
-        TimeSheet.update({'_id':sheet._id},
-            {
-                $set:{
-                    'revision': revision
-                }
-            });
+        Meteor.call('updateApprovalStatusInTimeSheet',date, userId, projectId, false, rejectComment, revision);
     }
 });
 
@@ -218,7 +202,9 @@ Template.approval_Template.helpers({
     Active: function() {
         var username = Session.get('current_user_to_approve');
         var startDate = new Date(Session.get("startDate"));
-        if (!username) return false;
+        if (!username) {
+            return false;
+        }
         var userId = Meteor.users.findOne({username: username})._id;
         var sheet = TimeSheet.findOne({
             'startDate': startDate.toLocaleDateString(),
@@ -232,38 +218,38 @@ Template.approval_Template.helpers({
 
         var isActive = 1;
         var startDate = new Date(Session.get("startDate"));
-        var timesheets = TimeSheet.find({
+        console.log(startDate.toLocaleDateString());
+        console.log(selected);
+        var result = false;
+        TimeSheet.find({
             'active': isActive,
             'startDate': startDate.toLocaleDateString()
-        });
-
-        var needsApproving = false;
-        timesheets.forEach(function (t) {
-            var nAprroving = false;
-            t.projectEntriesArray.forEach(function (pe) {
-                if (pe.projectID === selected) {
-                    nAprroving == true;
+        }).forEach(function (t) {
+            console.log(t.projectApprovalArray);
+            if (result){
+                return;
+            }
+            t.projectApprovalArray.forEach(function (pe) {
+                if (pe.projectId == selected && !pe.approved) {
+                    result =  true;
+                    return;
                 }
             });
-            if (!nAprroving) {
-                if (Meteor.users.findOne({_id: t.userId, projects: {$in : [selected]}})){
-                    nAprroving =  true;
-                }
-            }
-            needsApproving = needsApproving || nAprroving;
         });
 
-        return needsApproving;
+        return result;
     },
     'managedProjects': function () {
         "use strict";
-        var person = Meteor.users.findOne({'_id': Session.get('LdapId')});
-        if (person == null || (!person.manager && !person.admin)) return;
+        var user = Meteor.users.findOne({'_id': Session.get('LdapId')});
+        if (!user || (!user.manager && !user.admin)) {
+            return;
+        }
         var toReturn = [];
 
         var id;
-        if (person.admin){
-            id = ChargeNumbers.findOne({}).id;
+        if (user.admin){
+            id = ChargeNumbers.findOne().id;
             Session.set('current_project_to_approve', id);
             ChargeNumbers.find({}).forEach(function (cn){
                 if (cn.indirect) {
@@ -279,8 +265,8 @@ Template.approval_Template.helpers({
                 }
             });
         }else{
-            id = ChargeNumbers.findOne({'manager': person.username}).id;
-            ChargeNumbers.find({'manager': person.username}).forEach(function (cn){
+            id = ChargeNumbers.findOne({'manager': user.username}).id;
+            ChargeNumbers.find({'manager': user.username}).forEach(function (cn){
                 if (cn.indirect) {
                     toReturn.push({
                         charge_number: cn.id,
@@ -309,7 +295,6 @@ Template.approval_Template.helpers({
         if (!username) return;
         var userId = Meteor.users.findOne({username: username})._id;
 
-        var isActive = 1;
         var startDateStr = Session.get("startDate");
         var startDate = new Date(startDateStr);
         var timesheets = TimeSheet.find({
@@ -324,7 +309,7 @@ Template.approval_Template.helpers({
                 if (pe.projectID === chargeNumber && (!pe.Approved || Session.get('showAll'))) {
                     pe.EntryArray.forEach(function (a) {
                         for (var b in a.hours) {
-                            if (toReturn[b] == null) {
+                            if (!toReturn[b]) {
                                 toReturn[b] = {
                                     day: days[b],
                                     hours: parseFloat(a.hours[b]),
@@ -412,7 +397,7 @@ Template.approval_Template.events({
         }
 
         var lastSelection = e.target;
-        while (lastSelection != null && !lastSelection.classList.contains("row-item")) {
+        while (lastSelection && !lastSelection.classList.contains("row-item")) {
             lastSelection = lastSelection.parentNode;
         }
         lastSelection.classList.add("selected");
@@ -425,7 +410,9 @@ Template.approval_Template.events({
     },
     'click .edit-sheet': function() {
         var username = Session.get('current_user_to_approve');
-        if (!username) return;
+        if (!username) {
+            return;
+        }
 
         var data = {
             'username': username,
@@ -455,20 +442,17 @@ Template.approval_Template.events({
 
 Template.date_picker.helpers({
     currentDateRange: function () {
-        var startDate = Session.get("startDate");
-        if (startDate == null) {
-            startDate = getStartDate();
+        var startDate = new Date(Session.get("startDate"));
+        if (!startDate) {
+            return;
         }
-
-        var startDate2 = new Date(startDate);
 
         var d2 = new Date(startDate);
         d2.setDate(d2.getDate() + 6);
         var endDate = d2.toLocaleDateString();
 
-        var d2 = new Date(startDate);
-        Session.set("startDate", startDate2.toISOString());
-        var startDateStr = startDate2.toLocaleDateString();
+        Session.set("startDate", startDate.toISOString());
+        var startDateStr = startDate.toLocaleDateString();
 
         return startDateStr + " - " + endDate;
     }
@@ -490,10 +474,23 @@ Template.date_picker.events({
         d2.setDate(d2.getDate() + 7);
 
         //don't advance past current week
-        if (d2 > getCurrentDate()) {
-            return;
-        }
+        Meteor.call('getCurrentWeekObject',
+        function (error, result) {
+            if (error) {
+                console.log(error);
+            }
 
-        Session.set("startDate", d2.toISOString());
+            if (d2 > result.start) {
+                    return;
+            }
+
+            Session.set("startDate", d2.toISOString());
+        });
+        //return;
+        ////if (d2 > dObj.start) {
+        ////    return;
+        ////}
+        //
+        //Session.set("startDate", d2.toISOString());
     }
 })
