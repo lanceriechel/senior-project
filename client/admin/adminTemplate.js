@@ -101,19 +101,16 @@ Template.monthly_status.events({
                 var sheetEndDate = new Date(sheet.endDate);
                 var prEntriesArray = sheet.projectEntriesArray;
 
-                var i;
-                var j;
-
                 var employee = Meteor.users.findOne({'_id': sheet.userId});
-                var employeename = employee.username;
+                var employeeName = employee.username;
 
                 if(((sheetStartDate > startDate) && (sheetStartDate < endDate)) || ((sheetEndDate < endDate) && (sheetEndDate > startDate))){
-                    for(i=0; i<prEntriesArray.length; i++){
+                    for(var i=0; i<prEntriesArray.length; i++){
                         var project = prEntriesArray[i]['projectID'];
                         var project2 = ChargeNumbers.findOne({'id': project});
                         var entryArray = prEntriesArray[i].EntryArray;
-                        for(j=0; j<entryArray.length; j++){
-                            comments.push([project2.name,employeename,entryArray[j].Comment]);
+                        for(var j=0; j<entryArray.length; j++){
+                            comments.push([project2.name,employeeName,entryArray[j].Comment]);
                         }    
                     }
                 }
@@ -127,13 +124,11 @@ Template.monthly_status.events({
 
         comments = comments.sort(Comparator);
         var lastproj = '';
-        var k;
-        var comment;
 
         docbody.push({ text: 'Monthly Status Report for ' +month + '/' + year, fontSize: 30, })
 
-        for(k=0; k<comments.length; k++){
-            comment = comments[k][2];
+        for(var k=0; k<comments.length; k++){
+            var comment = comments[k][2];
             if(lastproj != comments[k][0]){
                 rawComments += '\n'+ comments[k][0] + '\n';
                 docbody.push({ text: '\n'+ comments[k][0] + '\n\n', fontSize: 20,});
