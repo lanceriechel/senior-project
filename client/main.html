@@ -5,18 +5,36 @@
 </head>
 <body>
 <div id="main-pane">
-    <div class="row navbar">
-        <img src="/ScientiaLLC_Logo-300x64.png" class="header_logo">
-        {{>pages}}
+    <div class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <img src="/ScientiaLLC_Logo-300x64.png" id="header_logo">
+                        </div>
+                    </div>
+                </nav>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#menu-navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="menu-navbar-collapse">
+                {{>pages}}
+            </div>
+        </div>
     </div>
     {{> mainSelector}}
 </div>
 </body>
 
 <template name="pages">
-    <ul class="navbar nav-pills navbar-default" role="tablist">
-
-        {{#unless isLoginPage}}
+    {{#unless isLoginPage}}
+        <ul class="navbar navbar-nav navbar-left" role="tablist">
             <li class="{{#if isTimesheet}}active{{/if}} tag" role="presentation" id='time_sheet'>
                 Time Sheet
             </li>
@@ -40,10 +58,20 @@
                     Admin
                 </li>
             {{/if}}
-        {{/unless}}
-        
-    </ul>
-
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <div class="btn-group" id="login_info">
+                    <div class="btn-lg dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        {{getUsername}} <span class="caret"></span>
+                    </div>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href=".">Logout</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    {{/unless}}
 </template>
 
 <template name="loginPage">

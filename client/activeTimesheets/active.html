@@ -12,7 +12,7 @@
             </div>
     <br>
         <div class="row">
-            <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4>Project</h4></div>
+            <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4 style='font-weight: bold;'>Project</h4></div>
             {{>daysOfWeek}}
             <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4>Comment</h4></div>
         </div>
@@ -157,7 +157,7 @@
 </template>
 
 <template name="projectListDropDown">
-    <select id="project_select" class="form-control enterable {{sentBack}}">
+    <select style='font-weight: bold;' id="project_select" class="form-control enterable {{sentBack}}">
         {{#each projectsDropdown project}}
                 {{#if selected}}
                     <option id={{id}} value={{name}} selected>{{name}}</option>

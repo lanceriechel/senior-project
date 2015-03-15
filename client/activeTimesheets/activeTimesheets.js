@@ -30,13 +30,13 @@ Template.activeTimesheets.helpers({
 							current = timesheets[timesheetsMap[u.startDate]];
 						timesheets[timesheetsMap[u.startDate]] = {
 							startDate: u.startDate,
-							sun: parseInt(days[0]) + parseInt(current.sun),
-							mon: parseInt(days[1]) + parseInt(current.mon),
-							tue: parseInt(days[2]) + parseInt(current.tue),
-							wed: parseInt(days[3]) + parseInt(current.wed),
-							thu: parseInt(days[4]) + parseInt(current.thu),
-							fri: parseInt(days[5]) + parseInt(current.fri),
-							sat: parseInt(days[6]) + parseInt(current.sat)
+							sun: parseFloat(days[0]) + parseFloat(current.sun),
+							mon: parseFloat(days[1]) + parseFloat(current.mon),
+							tue: parseFloat(days[2]) + parseFloat(current.tue),
+							wed: parseFloat(days[3]) + parseFloat(current.wed),
+							thu: parseFloat(days[4]) + parseFloat(current.thu),
+							fri: parseFloat(days[5]) + parseFloat(current.fri),
+							sat: parseFloat(days[6]) + parseFloat(current.sat)
 						};
 					}
 				}
@@ -307,7 +307,10 @@ Template.SelectedTimesheet.helpers({
     },
     date: function () {
         var date = Session.get("startDate");
-        return date;
+        var user = Session.get('LdapId');
+        var sheet = TimeSheet.findOne({'startDate': date, 'userId': user});
+        if (!sheet) return;
+        return date + " - " + sheet.endDate;
     },
     employeeName: function () {
         var data = Session.get('editing-user-page');
@@ -586,13 +589,13 @@ Template.projectListDropDown.rendered = function () {
 function checkNonEmptyAddRow(){
     var row = $('.add_row');
     var comment_t = $(row).find('#Comment')[0].value;
-    var sunday_t = parseInt($(row).find('#Sunday')[0].value, 10);
-    var monday_t = parseInt($(row).find('#Monday')[0].value, 10);
-    var tuesday_t = parseInt($(row).find('#Tuesday')[0].value, 10);
-    var wednesday_t = parseInt($(row).find('#Wednesday')[0].value, 10);
-    var thursday_t = parseInt($(row).find('#Thursday')[0].value, 10);
-    var friday_t = parseInt($(row).find('#Friday')[0].value, 10);
-    var saturday_t = parseInt($(row).find('#Saturday')[0].value, 10);
+    var sunday_t = parseFloat($(row).find('#Sunday')[0].value, 10);
+    var monday_t = parseFloat($(row).find('#Monday')[0].value, 10);
+    var tuesday_t = parseFloat($(row).find('#Tuesday')[0].value, 10);
+    var wednesday_t = parseFloat($(row).find('#Wednesday')[0].value, 10);
+    var thursday_t = parseFloat($(row).find('#Thursday')[0].value, 10);
+    var friday_t = parseFloat($(row).find('#Friday')[0].value, 10);
+    var saturday_t = parseFloat($(row).find('#Saturday')[0].value, 10);
 
     var nonEmpty = !(comment_t == '');
     var day_times = [sunday_t, monday_t, tuesday_t, wednesday_t, thursday_t, friday_t, saturday_t];
@@ -914,13 +917,13 @@ Template.projectHours.events = {
          */
         var row = event.currentTarget.parentNode.parentNode;
         var comment_t = $(row).find('#Comment')[0].value;
-        var sunday_t = parseInt($(row).find('#Sunday')[0].value, 10);
-        var monday_t = parseInt($(row).find('#Monday')[0].value, 10);
-        var tuesday_t = parseInt($(row).find('#Tuesday')[0].value, 10);
-        var wednesday_t = parseInt($(row).find('#Wednesday')[0].value, 10);
-        var thursday_t = parseInt($(row).find('#Thursday')[0].value, 10);
-        var friday_t = parseInt($(row).find('#Friday')[0].value, 10);
-        var saturday_t = parseInt($(row).find('#Saturday')[0].value, 10);
+        var sunday_t = parseFloat($(row).find('#Sunday')[0].value, 10);
+        var monday_t = parseFloat($(row).find('#Monday')[0].value, 10);
+        var tuesday_t = parseFloat($(row).find('#Tuesday')[0].value, 10);
+        var wednesday_t = parseFloat($(row).find('#Wednesday')[0].value, 10);
+        var thursday_t = parseFloat($(row).find('#Thursday')[0].value, 10);
+        var friday_t = parseFloat($(row).find('#Friday')[0].value, 10);
+        var saturday_t = parseFloat($(row).find('#Saturday')[0].value, 10);
 
         // I added this so we can retrieve the selected project's ID so we can add it to the Database
         var projectIndex = $(row).find('#project_select')[0].selectedIndex;
