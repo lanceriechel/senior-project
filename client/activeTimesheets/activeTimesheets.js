@@ -681,17 +681,18 @@ Template.lastSection.events = {
             if (!Session.get("submission_overide") && checkNonEmptyAddRow()) return;
             Session.set("submission_overide",false);
             var row = event.currentTarget.parentNode;
-            TimeSheet.update({'_id': sheet._id},
-            {
-                $set: {
-                    'revision': revision
-                },
-            });
+            // TimeSheet.update({'_id': sheet._id},
+            // {
+            //     $set: {
+            //         'revision': revision
+            //     },
+            // });
+            Meteor.call('updateRevision', sheet._id, revision);
 
             TimeSheetService.removeErrorClasses(row, ['#submitButton']);
 
-            ActiveDBService.submitTimesheet(Session.get("startDate"), user);
-            ActiveDBService.updateSentBackStatus(Session.get("startDate"), user);
+            Meteor.call('submitTimesheet', Session.get("startDate"), user);
+            Meteor.call('updateSentBackStatus', Session.get("startDate"), user);
 
             if (!data){
                 Session.set('current_page', 'time_sheet');
@@ -720,8 +721,8 @@ Template.lastSection.events = {
 
         var revision = sheet.revision;
 
-        ActiveDBService.updateApprovalStatusInTimeSheet(date, userId, projectId, true, "Approved");
-        ActiveDBService.updateActiveStatusInTimesheet(date, userId, projectId);
+        Meteor.call('updateApprovalStatusInTimeSheet', date, userId, projectId, true, "Approved");
+        Meteor.call('updateActiveStatusInTimesheet', date, userId, projectId);
 
         historyEntry = {
             'manager':managerName,
@@ -763,7 +764,7 @@ Template.lastSection.events = {
 
         var revision = sheet.revision;
 
-        ActiveDBService.updateApprovalStatusInTimeSheet(date, userId, projectId, false, rejectComment);
+        Meteor.call('updateApprovalStatusInTimeSheet', date, userId, projectId, false, rejectComment);
 
         historyEntry = {
             'manager':managerName,
@@ -774,13 +775,13 @@ Template.lastSection.events = {
             'comment':rejectComment
         };
         revision.unshift(historyEntry);
-
-        TimeSheet.update({'_id':sheet._id},
-            {
-                $set:{
-                    'revision': revision
-                }
-            });
+        Meteor.call('updateRevision', sheet._id, revision);
+        // TimeSheet.update({'_id':sheet._id},
+        //     {
+        //         $set:{
+        //             'revision': revision
+        //         }
+        //     });
 
         Session.set('current_page', 'approval_page');
     }
@@ -804,7 +805,7 @@ Template.projectComments.events = {
             }
         }
 
-        ActiveDBService.updateProjectCommentsTimeSheet(Session.get("startDate"), user, projectID, issues, next);
+        Meteor.call('updateProjectCommentsTimeSheet', Session.get("startDate"), user, projectID, issues, next, Session.get('editing-user-page'));
     }
 };
 
@@ -888,7 +889,7 @@ Template.projectHoursFilled.events = {
         var sheet = TimeSheet.findOne({'startDate': date, 'userId': user});
 
         if (!sheet['submitted'] || TimeSheetService.checkSentBack()) {
-            ActiveDBService.removeRowInTimeSheet(Session.get("startDate"), user, rowID, projectID);
+            Meteor.call('removeRowInTimeSheet', Session.get("startDate"), user, rowID, projectID);
             //Hack to make the next row not inherit it's previous's properties
             //Otherwise, the UI can unlock for a row that is pending/approved.
             //We haven't found a great solution to fix this, but this works fine and is not noticable to the user.

@@ -154,7 +154,7 @@ Template.toApprove_Template.events({
             'type':'approval'
         });
 
-        Meteor.call('updateActiveStatusInTimesheet', date, userId, revision);
+        Meteor.call('updateActiveStatusInTimesheetRevision', date, userId, revision);
 
 
     },

@@ -11,6 +11,14 @@ if (!String.prototype.format) {
 }
 Meteor.startup(function () {
     Meteor.methods({
+        updateRevision: function (id, revision){
+            TimeSheet.update({'_id':id},
+            {
+                $set:{
+                    'revision': revision
+                }
+            });
+        },
         getTotalHoursForProject: function(timesheet, projectID){
         /*
             For a given timesheet and projectID, this method sums up the total number of hours worked that week.
@@ -27,6 +35,17 @@ Meteor.startup(function () {
             }
         });
         return total;
+    },
+    updateGenComments: function(date, user, gen_comment, concerns){
+        var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
+        TimeSheet.update({'_id': sheet._id},
+            {
+                $set:{
+                    'generalComment': gen_comment,
+                    'concerns': concerns
+                }
+        });
+        return;
     },
     getEmployeesUnderManager: function() {
         /*
@@ -62,18 +81,14 @@ Meteor.startup(function () {
 
         return [user._id];
     },
-    updateRowInTimeSheet: function(date, user, project, comment,Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, rowID){
+    updateProjectCommentsTimeSheet: function(date, user, project, issues, next, data){
         /*
-            Updates a row in an active timesheet.  This should be called from an onBlur event.
-            Note that this is implemented by calling removeRowInTimesheet() followed by addRowToTimesheet().
-        */ 
-
+            Update project comments seciton of an active timesheet for a specified project.
+            This should be called from an onBlur event.
+        */
         var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
         var prEntriesArr = sheet['projectEntriesArray'];
         var entryArrToAdd = null;
-        var entryArray = null
-        var index1=0;
-        var index2=0;
         var oldproject;
 
         //check to make sure editable
@@ -86,25 +101,19 @@ Meteor.startup(function () {
             return;
         }
         
+        var index=0;
+
         for(i=0 ; i<prEntriesArr.length ; i++){
-                
-            entryArray = prEntriesArr[i]['EntryArray'];
-            for(j=0; j<entryArray.length; j++){
-                if(entryArray[j]['rowID'] == rowID){
-                    entryArray2 = prEntriesArr[i]['EntryArray'];
-                    oldproject = prEntriesArr[i]['projectID'];
-                    index2 = j;
-                    index1 = i;
-                    entryArrToAdd = prEntriesArr[i];
-                    sentBack = prEntriesArr[i]['SentBack']
-                }
+            if(prEntriesArr[i]['projectID'] == project){
+                index = i;
+                entryArrToAdd = prEntriesArr[i];
+                sentBack = prEntriesArr[i]['SentBack']
+                oldproject = prEntriesArr[i]['projectID'];
             }
         }
         
-        //return if the row should not be editable
-        var data = Session.get('editing-user-page');
-        
         if(data){
+            //alert("doesnt work C"); 
             if((!submitted || sentBack) || oldproject != data.project){ 
                 return; 
             }
@@ -112,30 +121,17 @@ Meteor.startup(function () {
             return;
         }
         
-        if(oldproject == project){
-            entryArray2.splice(index2, 1);
-            entryArray2.splice(index2, 0, {
-                'hours': [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday],
-                'Comment': comment,
-                'rowID' : rowID
-            });
-
-            entryArrToAdd['EntryArray'] = entryArray2;
-            prEntriesArr.splice(index1, 1);
-            prEntriesArr.splice(index1, 0, entryArrToAdd);
-
-            TimeSheet.update({'_id':sheet._id},
-            {
+        entryArrToAdd['next'] = next;
+        entryArrToAdd['issues'] = issues;
+        prEntriesArr.splice(index,1)
+        prEntriesArr.splice(index, 0, entryArrToAdd);
+ 
+        TimeSheet.update({'_id':sheet._id},{
                 $set:{
-                    'projectEntriesArray': prEntriesArr
-                }
-            });
+                        'projectEntriesArray': prEntriesArr
+                },
+        });
 
-        }else{
-            //Project has been changed
-             ActiveDBService.removeRowInTimeSheet(date,user, rowID, project);
-             ActiveDBService.addRowToTimeSheet(date, user, project, comment,Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, rowID);
-        }
     },
     updateApprovalStatusInTimeSheet: function(date, user, projectId, approvalStatus, rejectMessage){
         /*
@@ -265,62 +261,6 @@ Meteor.startup(function () {
         });
     },
 
-    updateProjectCommentsTimeSheet: function(date, user, project, issues, next){
-        /*
-            Update project comments seciton of an active timesheet for a specified project.
-            This should be called from an onBlur event.
-        */
-        var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
-        var prEntriesArr = sheet['projectEntriesArray'];
-        var entryArrToAdd = null;
-        var oldproject;
-
-        //check to make sure editable
-        var sentBack;
-        var approved;
-        var active = sheet['active'];
-        var submitted = sheet['submitted'];
-        //active = 1 and (SentBack = true or submitted = false)            
-        if (active != 1){
-            return;
-        }
-        
-        var index=0;
-
-        for(i=0 ; i<prEntriesArr.length ; i++){
-            if(prEntriesArr[i]['projectID'] == project){
-                index = i;
-                entryArrToAdd = prEntriesArr[i];
-                sentBack = prEntriesArr[i]['SentBack']
-                oldproject = prEntriesArr[i]['projectID'];
-            }
-        }
- 
-        //return if the row should not be editable
-        var data = Session.get('editing-user-page');
-        
-        if(data){
-            //alert("doesnt work C"); 
-            if((!submitted || sentBack) || oldproject != data.project){ 
-                return; 
-            }
-        } else if(submitted && !sentBack){
-            return;
-        }
-        
-        entryArrToAdd['next'] = next;
-        entryArrToAdd['issues'] = issues;
-        prEntriesArr.splice(index,1)
-        prEntriesArr.splice(index, 0, entryArrToAdd);
- 
-        TimeSheet.update({'_id':sheet._id},{
-                $set:{
-                        'projectEntriesArray': prEntriesArr
-                },
-        });
-
-    },
-
     submitTimesheet: function(date, user){
         /*
             Set a timesheet's submitted status to true.
@@ -406,7 +346,7 @@ Meteor.startup(function () {
                 });
     },
 
-    removeRowInTimeSheet: function(date, user, rowID, project){        
+    removeRowInTimeSheet: function(date, user, rowID, project, data){        
         var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
         var prEntriesArr = sheet['projectEntriesArray'];
         var entryArrToAdd = null;
@@ -443,7 +383,7 @@ Meteor.startup(function () {
         }
 
         //return if the row should not be editable
-        var data = Session.get('editing-user-page');
+        // var data = Session.get('editing-user-page');
         
         if(data){
             if((!submitted || sentBack) || oldproject != data.project){ 
@@ -667,7 +607,7 @@ Meteor.startup(function () {
             });
             Meteor.call('scheduleJob', Jobs.findOne({_id: id}));
         },
-        updateActiveStatusInTimesheet: function (date, user, revision){
+        updateActiveStatusInTimesheetRevision: function (date, user, revision){
             var sheet = TimeSheet.findOne({'startDate':date,'userId':user,'submitted':true});
             var prEntriesArr = sheet['projectEntriesArray'];
             var active = 0;
