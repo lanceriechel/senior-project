@@ -10,7 +10,7 @@ Template.associatedProjects.helpers({
     chargeNumbers: function () {
         'use strict';
         var toReturn = [];
-        DatabaseService.getUnsubscribedProjects(this.projects).forEach(function (cn) {
+        ChargeNumbers.find({ id: {$nin : this.projects }}).forEach(function (cn) {
             if (cn.indirect) {
                 var dateObj = new Date();
                 toReturn.push({
@@ -157,7 +157,7 @@ Template.associatedProjects.events(okCancelEvents(
 Template.employeeSettings.helpers({
     addHolidayProjects: function() {
         'use strict';
-        var employees = DatabaseService.getEmployees();
+        var employees = Meteor.users.find({});
         var holiday = ChargeNumbers.findOne({'is_holiday': true});
         if (!holiday) { return; }
         employees.forEach(function (e) {

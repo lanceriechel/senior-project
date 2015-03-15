@@ -8,7 +8,7 @@ Template.activeProjectEntries.helpers({
 });
 
 Template.projectInfo.events = {
-    'blur .charge_number, blur .project_name, blur .date': function(event){
+    'blur .charge_number, blur .project_name, blur .date, blur .customer': function(event){
         var row = event.currentTarget.parentNode.parentNode;
         var chargeNumber =  $(row).find('#charge_number')[0].value;
         var name = $(row).find('#project_name')[0].value;
@@ -22,7 +22,7 @@ Template.projectInfo.events = {
         ProjectService.removeErrorClasses(row, ['#charge_number', '#project_name', '#customer', '#start_date', '#end_date','#manager']);
 
         if(ProjectService.ensureValidProject(row, chargeNumber, name, customer, startDate, endDate, manager)) {
-            DatabaseService.updateProject(this._id, {
+            Meteor.call('updateProject', this._id, {
                 'id': chargeNumber,
                 'name': name,
                 'customer': customer,
@@ -46,7 +46,7 @@ Template.projectInfo.events = {
         var project = ChargeNumbers.findOne({'_id': row.id});
 
         if(ProjectService.ensureValidProject(row, chargeNumber, name, customer, startDate, endDate, manager)) {
-            DatabaseService.updateProject(this._id, {
+            Meteor.call('updateProject', this._id, {
                 'id': chargeNumber,
                 'name': name,
                 'customer': customer,
@@ -106,7 +106,7 @@ Template.addProject.events = {
                     chargeNum = Math.floor(Math.random()*9000) + 1000;
                 }
 
-                DatabaseService.addNewProject({
+                Meteor.call('addNewProject', {
                     'id': chargeNum.toString(),
                     'name': name,
                     'customer': customer,
@@ -124,7 +124,7 @@ Template.addProject.events = {
         }
         } else {
         if(ProjectService.ensureValidProject(row, chargeNumber, name, customer, startDate, endDate, manager)) {
-            DatabaseService.addNewProject({
+            Meteor.call('addNewProject', {
                 'id': chargeNumber,
                 'name': name,
                 'customer': customer,
@@ -146,8 +146,6 @@ Template.addProject.events = {
         var row = event.currentTarget.parentNode.parentNode;
         $(row).find('#charge_number')[0].value = 'Indirect';
         $(row).find('#charge_number')[0].disabled = true;
-        //$(row).find('#start_date')[0].disabled = true;
-        //$(row).find('#end_date')[0].disabled = true;
     },
     'click #nonIndirect': function(event) {
         var row = event.currentTarget.parentNode.parentNode;
@@ -160,10 +158,10 @@ Template.addProject.events = {
 
 Template.employeesListDropDown.helpers({
     employees: function() {
-        return DatabaseService.getEmployees();
+        return Meteor.users.find({});
     },
     managers: function() {
-	return DatabaseService.getManagers();
+	return Meteor.users.find({ manager: true });
     }
 });
 
@@ -174,7 +172,6 @@ Template.archivedProjectsEntries.helpers({
     isArchived: function(date) {
         return !ProjectService.isActive(date);
     }
-    //////
 });
 
 Template.indirectInfo.rendered = function(){
@@ -190,9 +187,7 @@ Template.indirectChargeItems.events({
     'blur .charge_number, blur .project_name, blur .date': function(event){
         var row = event.currentTarget.parentNode.parentNode;
         var name =  $(row).find('#charge_number')[0].value;
-        //var id =  $(row).find('#id')[0].value;
         var _id=row.id;
-        //var name = $(row).find('#project_name')[0].value;
         var customer = $(row).find('#project_name')[0].value;
         var startDate = $(row).find('#start_date')[0].value;
         var endDate = $(row).find('#end_date')[0].value;
@@ -200,10 +195,7 @@ Template.indirectChargeItems.events({
 
         var project = ChargeNumbers.findOne({'_id': _id});
 
-        //ProjectService.removeErrorClasses(row, ['#charge_number', '#project_name', '#customer', '#start_date', '#end_date','#manager']);
-
-        //if(ProjectService.ensureValidProject(row, chargeNumber, name, customer, startDate, endDate, manager)) {
-            DatabaseService.updateProject(_id, {
+            Meteor.call('updateProject', _id, {
                 'id': project.id,
                 'name': name,
                 'customer': customer,
@@ -218,7 +210,6 @@ Template.indirectChargeItems.events({
         var parent = evt.currentTarget.parentNode;
         parent.innerHTML = Blaze.toHTML(Blaze.With("", function() { return Template.employeesListDropDown; }));
     }
-    //}
 });
 
 Template.indirectChargeItems.helpers({
