@@ -691,6 +691,17 @@ Meteor.startup(function () {
                     }
                 });
 
+        },
+        addNewProject: function(project){
+            ChargeNumbers.insert(project);
+        },
+        updateProject: function(id, project){
+            ChargeNumbers.update(
+            {
+                '_id': id
+            },
+            project
+            );
         }
     });
 

@@ -9,6 +9,13 @@ Template.PDF.events = {
 };
 
 Template.historyHeader.helpers({
+	/*
+	 * Retreives all of the timesheets from the current user.
+	 * Also retreives timesheets of employees that are under a manager's supervision,
+	 *      but only if they have hours submitted for the manager's projects.
+	 * If the user is an admin, then it will retreive all timesheets.
+	 * If they searched for a specific employee name, get only that employee's timesheets.
+	 */
 	getTimesheets: function (project) {
 		var userId = '';
 		if (Session.get('search_employee')) {
@@ -80,9 +87,6 @@ function findOneInArray (array1, array2) {
 		}
 	}
 	return found;
-	// return array2.some(function (v) {
-	// 	return array1.indexOf(v) >= 0;
-	// });
 }
 
 Template.historicalEntries.helpers({
@@ -196,6 +200,10 @@ Template.historyInfo.events({
 	ActiveDBService.updateActiveStatusInTimesheet(date, userId, projectId);
 	}
 });
+
+/*
+ * Functions related to the individual timesheet lookup page.
+ */
 
 Template.SelectedHistoryTimesheet.helpers({
 	row: function(){
@@ -452,8 +460,6 @@ Template.historyEmployeeSelect.events({
 	'click button': function(event, template){
 		var employee = template.find('#employeeSearch').value;
 
-		/* Hack to circumvent an issue where findOne was being recognized as an undefined function
-		    for empty strings. */
 		var employeeID = '';
 		var employees = Meteor.users.find({'username':employee});
 		employees.forEach(function (e) {
@@ -490,7 +496,6 @@ Template.historyEmployeeSelect.events({
 
 Template.historyEmployeeSelect.rendered = function () {
 	Meteor.typeahead.inject();
-	//$('.tt-dropdown-menu')
 
 };
 
@@ -499,13 +504,7 @@ Template.historyEmployeeSelect.helpers({
 		'use strict';
 		var person = Meteor.users.findOne({'_id': Session.get('LdapId')});
 		if (person == null || (!person.manager && !person.admin)) return;
-		//Get first one to set selected row
-		//if (person.admin){
-		//	var id = ChargeNumbers.findOne().id;
-		//}else{
-		//	var id = ChargeNumbers.findOne({'manager': person.username}).id;
-		//}
-		//Session.set('current_project_to_approve', id);
+
 		if (person.admin){
 			return ChargeNumbers.find().fetch().map(function(cn){ return '' + cn.id + ' - ' + cn.name;});
 		}
