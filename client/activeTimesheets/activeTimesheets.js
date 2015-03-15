@@ -955,7 +955,7 @@ Template.projectHours.events = {
             var data = Session.get('editing-user-page');
 
             if (!sheet['submitted'] || TimeSheetService.checkSentBack() || data) {
-                ActiveDBService.addRowToTimeSheet(Session.get("startDate"), user, projectID,
+                Meteor.call('addRowToTimeSheet',Session.get("startDate"), user, projectID,
                     comment_t,
                     sunday_t,
                     monday_t,

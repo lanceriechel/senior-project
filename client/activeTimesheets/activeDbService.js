@@ -1,4 +1,8 @@
-ActiveDBService = { 
+Meteor.startup(function () {
+
+if(Meteor.isServer){
+
+Meteor.methods({ 
     getTotalHoursForProject: function(timesheet, projectID){
         /*
             For a given timesheet and projectID, this method sums up the total number of hours worked that week.
@@ -499,4 +503,8 @@ ActiveDBService = {
 
         return timesheets;
     }
-};
+});
+
+}
+
+});
