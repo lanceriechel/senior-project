@@ -61,7 +61,7 @@ Template.toApprove_Template.helpers({
                     totals[t.userId] =
                     {
                         total: totals[t.userId].total + total,
-                        sentBack: totals[t.userId].sentBack || (pe.SentBack && pe.projectID == selected) || !t.submitted,
+                        sentBack: totals[t.userId].sentBack || (rejected && pe.projectID == selected) || !t.submitted,
                         approved: totals[t.userId].approved || (pe.Approved && pe.projectID == selected)
                     };
                 }
@@ -222,17 +222,16 @@ Template.approval_Template.helpers({
         console.log(selected);
         var result = false;
         TimeSheet.find({
-            'active': isActive,
             'startDate': startDate.toLocaleDateString()
         }).forEach(function (t) {
-            console.log(t.projectApprovalArray);
             if (result){
-                return;
+                return result;
             }
             t.projectApprovalArray.forEach(function (pe) {
-                if (pe.projectId == selected && !pe.approved) {
+                console.log(pe.projectId);
+                if (pe.projectId == selected) {
                     result =  true;
-                    return;
+                    return result;
                 }
             });
         });
