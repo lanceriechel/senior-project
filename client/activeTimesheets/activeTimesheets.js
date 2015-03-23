@@ -194,7 +194,7 @@ Template.SelectedTimesheet.helpers({
             var project = projectEntries[i]['projectID'];
             var sentBack;
             //sentBack means the manager has rejected it, so it should be left unlocked
-            if (projectEntries[i]['SentBack'] || pSentBacks[project]) {
+            if (pSentBacks[project]) {
                 sentBack = "sentBack";
             } else {
                 sentBack = "notSentBack";
@@ -264,13 +264,13 @@ Template.SelectedTimesheet.helpers({
         var projects = [];
         var pSentBacks = {};
         for (var i in sheet.projectApprovalArray){
-            pSentBacks[sheet.projectApprovalArray[i].projectId] = sheet.projectApprovalArray[i];
+            pSentBacks[sheet.projectApprovalArray[i].projectId] = sheet.projectApprovalArray[i].sentBack;
         }
         var managerEdit = "notSentBack";
         for (i = 0; i < projectEntries.length; i++) {
             var project = projectEntries[i]['projectID'];
             var sentBack;
-            if (projectEntries[i]['SentBack'] || (data && data.project == project) || pSentBacks[project].sentBack) {
+            if (pSentBacks[project]) {
                 sentBack = "sentBack";
             } else {
                 sentBack = "notSentBack";
@@ -404,6 +404,11 @@ Template.projectListDropDown.helpers({
 
         var projectEntries = sheet['projectEntriesArray'];
 
+        var pSentBacks = {};
+        for (var i in sheet.projectApprovalArray){
+            pSentBacks[sheet.projectApprovalArray[i].projectId] = sheet.projectApprovalArray[i].sentBack;
+        }
+
         for (var i in sheet.projectApprovalArray){
             if(sheet.projectApprovalArray[i].approved){
                 projectsNotAllowed.push(sheet.projectApprovalArray[i].projectId);
@@ -418,7 +423,7 @@ Template.projectListDropDown.helpers({
                     projectsNotAllowed.push(project);
                 }
             }else {
-                if ((projectEntries[i]['Approved'] || !projectEntries[i]['SentBack']) && sheet['submitted']) {
+                if ((projectEntries[i]['Approved'] || !pSentBacks[project]) && sheet['submitted']) {
                     projectsNotAllowed.push(project);
 
                 }
@@ -653,6 +658,11 @@ Template.lastSection.events = {
 
         var revision = sheet.revision;
 
+        var pSentBacks = {};
+        for (var i in sheet.projectApprovalArray){
+            pSentBacks[sheet.projectApprovalArray[i].projectId] = sheet.projectApprovalArray[i].sentBack;
+        }
+
         var isTimesheetEmpty = true;
         sheet.projectEntriesArray.forEach(function (p) {
             isTimesheetEmpty = false
@@ -660,7 +670,7 @@ Template.lastSection.events = {
             var projectName = ChargeNumbers.findOne({'id': projectId}).name;
             var totalHours = ActiveDBService.getTotalHoursForProject(sheet, projectId);
 
-            if (!sheet.submitted || p.SentBack) {
+            if (!sheet.submitted || pSentBacks[projectId]) {
                 historyEntry = {
                     'employee': employeeName,
                     'project': projectName,
@@ -692,7 +702,7 @@ Template.lastSection.events = {
             TimeSheetService.removeErrorClasses(row, ['#submitButton']);
 
             Meteor.call('submitTimesheet', Session.get("startDate"), user);
-            Meteor.call('updateSentBackStatus', Session.get("startDate"), user);
+            // Meteor.call('updateSentBackStatus', Session.get("startDate"), user);
 
             if (!data){
                 Session.set('current_page', 'time_sheet');
@@ -1021,8 +1031,13 @@ TimeSheetService = {
         var projectEntries = sheet['projectEntriesArray'];
 
         var sentBack = false;
-        for (i = 0; i < projectEntries.length; i++) {
-            if (projectEntries[i]['SentBack']) {
+        // for (i = 0; i < projectEntries.length; i++) {
+        //     if (projectEntries[i]['SentBack']) {
+        //         sentBack = true;
+        //     }
+        // }
+        for (var i in sheet.projectApprovalArray){
+            if(sheet.projectApprovalArray[i].sentBack){
                 sentBack = true;
             }
         }

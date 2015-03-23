@@ -110,6 +110,11 @@ ActiveDBService = {
         if (active != 1){
             return;
         }
+
+        var pSentBacks = {};
+        for (var i in sheet.projectApprovalArray){
+            pSentBacks[sheet.projectApprovalArray[i].projectId] = sheet.projectApprovalArray[i].sentBack;
+        }
         
         for(i=0 ; i<prEntriesArr.length ; i++){
                 
@@ -121,7 +126,7 @@ ActiveDBService = {
                     index2 = j;
                     index1 = i;
                     entryArrToAdd = prEntriesArr[i];
-                    sentBack = prEntriesArr[i]['SentBack']
+                    sentBack = pSentBacks[oldproject];//prEntriesArr[i]['SentBack']
                 }
             }
         }
