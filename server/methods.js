@@ -100,14 +100,17 @@ Meteor.startup(function () {
         if (active != 1){
             return;
         }
-        
+        var pSentBacks = {};
+        for (var i in sheet.projectApprovalArray){
+            pSentBacks[sheet.projectApprovalArray[i].projectId] = sheet.projectApprovalArray[i].sentBack;
+        }
         var index=0;
 
         for(i=0 ; i<prEntriesArr.length ; i++){
             if(prEntriesArr[i]['projectID'] == project){
                 index = i;
                 entryArrToAdd = prEntriesArr[i];
-                sentBack = prEntriesArr[i]['SentBack']
+                sentBack = pSentBacks[project];
                 oldproject = prEntriesArr[i]['projectID'];
             }
         }
@@ -173,9 +176,10 @@ Meteor.startup(function () {
                 prEntriesArr[index].rejectMessage = rejectMessage;
                 if(!approvalStatus){
                     prEntriesArr[index].SentBack = true;
-                }else {
-                    prEntriesArr[index].SentBack = false;
                 }
+                // else {
+                //     prEntriesArr[index].SentBack = false;
+                // }
 
                 break;
             }
@@ -215,30 +219,30 @@ Meteor.startup(function () {
         return;
 
     },
-    updateSentBackStatus: function(date, user){
-        /*
-            Only updates the sentBack status for the timesheet, so the activeTimesheet UI knows what the user
-            is allowed to change and what is locked.
-        */
-        var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
-        var prEntriesArr = sheet['projectEntriesArray'];
-        var active = 0;
+    // updateSentBackStatus: function(date, user){
+    //     /*
+    //         Only updates the sentBack status for the timesheet, so the activeTimesheet UI knows what the user
+    //         is allowed to change and what is locked.
+    //     */
+    //     var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
+    //     var prEntriesArr = sheet['projectEntriesArray'];
+    //     var active = 0;
 
-        for (var index in prEntriesArr){
-            if(prEntriesArr[index].SentBack){ 
-                prEntriesArr[index].SentBack = false;
-            }
-        }
+    //     for (var index in prEntriesArr){
+    //         if(prEntriesArr[index].SentBack){ 
+    //             prEntriesArr[index].SentBack = false;
+    //         }
+    //     }
 
-        TimeSheet.update({'_id':sheet._id},
-            {
-                $set:{
-                    'projectEntriesArray': prEntriesArr
-                }
-            });
-        return;
+    //     TimeSheet.update({'_id':sheet._id},
+    //         {
+    //             $set:{
+    //                 'projectEntriesArray': prEntriesArr
+    //             }
+    //         });
+    //     return;
 
-    },
+    // },
     updateCommentsInTimeSheet: function(date, user, gen_comment, concerns){
         /*
             Update comments and concerns seciton of an active timesheet.
@@ -288,7 +292,7 @@ Meteor.startup(function () {
 
     addRowToTimeSheet: function(date, user, project, comment,Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, rowID) {
         /* 
-            Adds a single Entry to the Timesheet collection. 
+            Adds a single Entry to the Timesheet. 
             This entry corresponds to a single Row on the web page.
         */
         var sheet = TimeSheet.findOne({'startDate':date,'userId':user});

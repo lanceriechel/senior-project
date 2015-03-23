@@ -264,7 +264,7 @@ Template.SelectedTimesheet.helpers({
         var projects = [];
         var pSentBacks = {};
         for (var i in sheet.projectApprovalArray){
-            pSentBacks[sheet.projectApprovalArray[i].projectId] = sheet.projectApprovalArray[i];
+            pSentBacks[sheet.projectApprovalArray[i].projectId] = sheet.projectApprovalArray[i].sentBack;
         }
         var managerEdit = "notSentBack";
         for (i = 0; i < projectEntries.length; i++) {
@@ -702,7 +702,7 @@ Template.lastSection.events = {
             TimeSheetService.removeErrorClasses(row, ['#submitButton']);
 
             Meteor.call('submitTimesheet', Session.get("startDate"), user);
-            Meteor.call('updateSentBackStatus', Session.get("startDate"), user);
+            // Meteor.call('updateSentBackStatus', Session.get("startDate"), user);
 
             if (!data){
                 Session.set('current_page', 'time_sheet');
@@ -1031,8 +1031,13 @@ TimeSheetService = {
         var projectEntries = sheet['projectEntriesArray'];
 
         var sentBack = false;
-        for (i = 0; i < projectEntries.length; i++) {
-            if (projectEntries[i]['SentBack']) {
+        // for (i = 0; i < projectEntries.length; i++) {
+        //     if (projectEntries[i]['SentBack']) {
+        //         sentBack = true;
+        //     }
+        // }
+        for (var i in sheet.projectApprovalArray){
+            if(sheet.projectApprovalArray[i].sentBack){
                 sentBack = true;
             }
         }
