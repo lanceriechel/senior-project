@@ -21,11 +21,6 @@ git reset --hard
 git pull
 echo finished pull
 
-echo
-echo removing jasmine and velocity packages...
-meteor remove sanjo:jasmine
-meteor remove velocity:html-reporter
-
 #echo
 #echo making meteor secure...
 #meteor remove insecure
@@ -51,4 +46,4 @@ echo stopped successfully
 echo
 echo starting the meteor server...
 #start meteor
-meteor --settings settings.json &
+meteor --settings settings.json --production &

@@ -82,7 +82,6 @@ check_holiday = function (dt_date) {
         || s_date1 == '7/4' // Independence Day
         || s_date1 == '11/11' // Veterans Day
         || s_date1 == '12/25' // Christmas Day
-        || s_date1 == '3/11' // test
     ) return true;
 
     // weekday from beginning of the month (month/num/day)
