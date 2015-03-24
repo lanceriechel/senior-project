@@ -850,22 +850,22 @@ Template.projectHoursFilled.events = {
         TimeSheetService.removeErrorClasses(row, ['#Comment', '#Sunday', '#Monday', '#Tuesday', '#Wednesday', '#Thursday', '#Friday', '#Saturday', '#projectName']);
 
         if (TimeSheetService.ensureValidEntry(row, comment_t, sunday_t, monday_t, tuesday_t, wednesday_t, thursday_t, friday_t, saturday_t, projectID)) {
+            /*
+             Update Database
+             This will update the database correctly when the projectHoursFilled is fixed.-Dan
+             */
+            ActiveDBService.updateRowInTimeSheet(Session.get("startDate"), user, projectID,
+                comment_t,
+                sunday_t,
+                monday_t,
+                tuesday_t,
+                wednesday_t,
+                thursday_t,
+                friday_t,
+                saturday_t,
+                rowID
+            );
         }
-        /*
-         Update Database
-         This will update the database correctly when the projectHoursFilled is fixed.-Dan
-         */
-        ActiveDBService.updateRowInTimeSheet(Session.get("startDate"), user, projectID,
-            comment_t,
-            sunday_t,
-            monday_t,
-            tuesday_t,
-            wednesday_t,
-            thursday_t,
-            friday_t,
-            saturday_t,
-            rowID
-        );
         //Session.set("rows_have_been_update", projectID);
 
     }
