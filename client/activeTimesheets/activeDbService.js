@@ -135,7 +135,7 @@ ActiveDBService = {
         var data = Session.get('editing-user-page');
         
         if(data){
-            if((!submitted || sentBack) || oldproject != data.project){ 
+            if(oldproject != data.project){ 
                 return; 
             }
         } else if(submitted && !sentBack){

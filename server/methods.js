@@ -117,7 +117,7 @@ Meteor.startup(function () {
         
         if(data){
             //alert("doesnt work C"); 
-            if((!submitted || sentBack) || oldproject != data.project){ 
+            if(oldproject != data.project){ 
                 return; 
             }
         } else if(submitted && !sentBack){
@@ -414,7 +414,7 @@ Meteor.startup(function () {
         // var data = Session.get('editing-user-page');
         
         if(data){
-            if((!submitted || sentBack) || oldproject != data.project){ 
+            if(oldproject != data.project){ 
                 return; 
             }
         } else if(submitted && !sentBack){
