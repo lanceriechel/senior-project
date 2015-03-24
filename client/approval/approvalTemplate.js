@@ -32,9 +32,14 @@ Template.toApprove_Template.helpers({
         var toReturn = [];
 
         timesheets.forEach(function (t) {
+            var pApprovals = {};
+            for (var i in t.projectApprovalArray){
+                pApprovals[t.projectApprovalArray[i].projectId] = t.projectApprovalArray[i].approved;
+            }
+
             t.projectEntriesArray.forEach(function (pe) {
                 var total = 0;
-                if (pe.projectID == selected && (!pe.Approved || Session.get('showAll'))) {
+                if (pe.projectID == selected && (!pApprovals[pe.projectID] || Session.get('showAll'))) {
                     pe.EntryArray.forEach(function (a) {
                         for (var b in a.hours) {
                             total += parseFloat(a.hours[b]);
@@ -62,7 +67,7 @@ Template.toApprove_Template.helpers({
                     {
                         total: totals[t.userId].total + total,
                         sentBack: totals[t.userId].sentBack || (rejected && pe.projectID == selected) || !t.submitted,
-                        approved: totals[t.userId].approved || (pe.Approved && pe.projectID == selected)
+                        approved: totals[t.userId].approved || (pApprovals[pe.projectID] && pe.projectID == selected)
                     };
                 }
             });
@@ -304,8 +309,13 @@ Template.approval_Template.helpers({
         var toReturn = [];
 
         timesheets.forEach(function (t) {
+            var pApprovals = {};
+            for (var i in t.projectApprovalArray){
+                pApprovals[t.projectApprovalArray[i].projectId] = t.projectApprovalArray[i].approved;
+            }
+            
             t.projectEntriesArray.forEach(function (pe) {
-                if (pe.projectID === chargeNumber && (!pe.Approved || Session.get('showAll'))) {
+                if (pe.projectID === chargeNumber && (!pApprovals[pe.projectID] || Session.get('showAll'))) {
                     pe.EntryArray.forEach(function (a) {
                         for (var b in a.hours) {
                             if (!toReturn[b]) {
