@@ -171,8 +171,6 @@ Meteor.startup(function () {
         for (var index in prEntriesArr){
             if (prEntriesArr[index].projectID == projectId){
                 console.log(prEntriesArr[index]);
-                prEntriesArr[index].Approved = approvalStatus;
-                console.log(prEntriesArr[index]);
                 prEntriesArr[index].rejectMessage = rejectMessage;
                 // if(!approvalStatus){
                 //     prEntriesArr[index].SentBack = true;
@@ -201,11 +199,11 @@ Meteor.startup(function () {
             Otherwise, set active to true.
         */
         var sheet = TimeSheet.findOne({'startDate':date,'userId':user,'submitted':true});
-        var prEntriesArr = sheet['projectEntriesArray'];
+        var prApprovalArr = sheet['projectApprovalArray'];
         var active = 0;
 
-        for (var index in prEntriesArr){
-            if(!prEntriesArr[index].Approved){ //If at least one entry is not approved, timesheet still active
+        for (var index in prApprovalArr){
+            if(!prApprovalArr[index].approved){ //If at least one entry is not approved, timesheet still active
                 active = 1;
             }
         }
@@ -344,8 +342,7 @@ Meteor.startup(function () {
 
             entryArrToAdd = {
                 'projectID' : project,
-                'EntryArray' : entryArray,
-                'Approved' : false,
+                'EntryArray' : entryArray
             }
             // if(sheet['submitted']){ //Then we are fixing a rejected project row, and are sending it back to the manager
             //     entryArrToAdd['SentBack'] = true;
@@ -637,11 +634,11 @@ Meteor.startup(function () {
         },
         updateActiveStatusInTimesheetRevision: function (date, user, revision){
             var sheet = TimeSheet.findOne({'startDate':date,'userId':user,'submitted':true});
-            var prEntriesArr = sheet['projectEntriesArray'];
+            var prApprovalArr = sheet['projectApprovalArray'];
             var active = 0;
 
-            for (var index in prEntriesArr){
-                if(!prEntriesArr[index].Approved){ //If at least one entry is not approved, timesheet still active
+            for (var index in prApprovalArr){
+                if(!prApprovalArr[index].approved){ //If at least one entry is not approved, timesheet still active
                     active = 1;
                 }
             }
@@ -688,8 +685,6 @@ Meteor.startup(function () {
             }
             for (var index in prEntriesArr){
                 if (prEntriesArr[index].projectID == projectId){
-                    console.log(prEntriesArr[index]);
-                    prEntriesArr[index].Approved = approvalStatus;
                     console.log(prEntriesArr[index]);
                     prEntriesArr[index].rejectMessage = rejectMessage;
                     // if(!approvalStatus){
