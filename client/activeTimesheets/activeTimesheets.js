@@ -423,7 +423,7 @@ Template.projectListDropDown.helpers({
                     projectsNotAllowed.push(project);
                 }
             }else {
-                if ((projectEntries[i]['Approved'] || !pSentBacks[project]) && sheet['submitted']) {
+                if ((sheet.projectApprovalArray[i]['Approved'] || !pSentBacks[project]) && sheet['submitted']) {
                     projectsNotAllowed.push(project);
 
                 }
