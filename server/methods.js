@@ -369,8 +369,8 @@ Meteor.startup(function () {
                 });
     },
 
-    removeRowInTimeSheet: function(date, user, rowID, project, data){        
-        var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
+    removeRowInTimeSheet: function(date, userId, rowID, project, data){
+        var sheet = TimeSheet.findOne({'startDate':date,'userId':userId});
         var prEntriesArr = sheet['projectEntriesArray'];
         var entryArrToAdd = null;
         var entryArray = null;
