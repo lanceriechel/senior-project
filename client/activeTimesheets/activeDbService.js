@@ -167,7 +167,6 @@ ActiveDBService = {
              Meteor.call('addRowToTimeSheet',date, user, project, comment,Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, rowID);
         }
     },
-
     updateCommentsInTimeSheet: function(date, user, gen_comment, concerns){
         /*
             Update comments and concerns seciton of an active timesheet.
