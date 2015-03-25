@@ -99,7 +99,7 @@ describe("activeDbService", function () {
                 var result = TimeSheet.findOne({userId: this.user._id, startDate: startDate});
                 var projectEntry;
                 for (var pe in result.projectEntriesArray) {
-                    if (result.projectEntriesArray[pe].projectID == projectId) {
+                    if (result.projectEntriesArray[pe].projectId == projectId) {
                         projectEntry = result.projectEntriesArray[pe];
                         break;
                     }
@@ -109,6 +109,9 @@ describe("activeDbService", function () {
     });
 
     it("update Timesheet Row", function () {
+        var ts = TimeSheet.findOne({startDate: startDate, userId: this.user._id});
+        console.log(ts);
+        expect(ts).not.toBeUndefined();
         ActiveDBService.updateRowInTimeSheet(startDate, this.user._id, projectId,
             "new comment",
             1,
@@ -123,7 +126,7 @@ describe("activeDbService", function () {
                 var result = TimeSheet.findOne({userId: this.user._id, startDate: startDate});
                 var projectEntry;
                 for (var pe in result.projectEntriesArray) {
-                    if (result.projectEntriesArray[pe].projectID == projectId) {
+                    if (result.projectEntriesArray[pe].projectId == projectId) {
                         projectEntry = result.projectEntriesArray[pe];
                         break;
                     }

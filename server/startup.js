@@ -37,6 +37,7 @@ startup = function (){
 
         Meteor.users.find({}).forEach(
             function (user) {
+                addOrRemoveHolidayHours(d, user);
                 //Small Change (changed uppercase D to d in userId) here to see if this works
                 var projectApprovalArray = [];
                 user.projects.forEach(function (pId) {
@@ -64,8 +65,6 @@ startup = function (){
                         Meteor.call('insertTimesheet', dStr, d2Str, user['_id'], 1, [], old, 1,
                             previousTimesheet.generalComment, false, projectApprovalArray, previousTimesheet.concerns, false);
                     }
-
-                    addOrRemoveHolidayHours(d, user);
                 }
             }
         );

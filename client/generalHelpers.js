@@ -43,6 +43,15 @@ generalHelpers = {
         d2.setDate((d2.getDate() - (d2.getDay() + 6) % 7) + 6);
         var dStr = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear(),
             d2Str = (d2.getMonth() + 1) + '/' + d2.getDate() + '/' + d2.getFullYear();
+        var pApprovalArray = [];
+        if(user.fulltime){
+            pApprovalArray = [{
+                projectId : 1000,
+                approved: false,
+                sentBack: false,
+                comment: ''
+            }];
+        }
         TimeSheet.insert(
         {
             'startDate': dStr,
@@ -56,7 +65,7 @@ generalHelpers = {
             'concerns': '',
             'submitted': false,
             'globalSentBack': false,
-            'projectApprovalArray': []
+            'projectApprovalArray': pApprovalArray
         });
     },
     makePDF: function(startDate, userID){
@@ -130,7 +139,7 @@ generalHelpers = {
             }
         var maxRow=-1;
         for(i = 0; i < projectEntries.length; i++){
-            var project = projectEntries[i]['projectID'];
+            var project = projectEntries[i]['projectId'];
             var project2 = ChargeNumbers.findOne({'id': project});
             var EntryArray = projectEntries[i]['EntryArray'];
             var next = projectEntries[i]['next'];

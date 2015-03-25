@@ -108,7 +108,7 @@ Template.monthly_status.events({
                 if (((sheetStartDate > startDate) && (sheetStartDate < endDate)) ||
                     ((sheetEndDate < endDate) && (sheetEndDate > startDate))) {
                     for(var i=0; i<prEntriesArray.length; i++){
-                        var project = prEntriesArray[i].projectID;
+                        var project = prEntriesArray[i].projectId;
                         var project2 = ChargeNumbers.findOne({'id': project});
                         var entryArray = prEntriesArray[i].EntryArray;
                         for(var j=0; j<entryArray.length; j++){

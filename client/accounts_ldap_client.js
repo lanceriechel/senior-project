@@ -47,8 +47,8 @@ authenticateLdapEmployee = function(username, password) {
                         cn: user.cn,
                         manager: manager,
                         admin: admin,
-			email: user.mail,
-                        projects: [],
+			            email: user.mail,
+                        projects: ["1000"],
                         fulltime: true
                     });
 		    generalHelpers.createHoliday();

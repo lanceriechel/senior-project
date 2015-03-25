@@ -25,6 +25,7 @@ Template.toApprove_Template.helpers({
 
         var startDateStr = Session.get("startDate");
         var startDate = new Date(startDateStr);
+        //get timesheets for the selected startdate
         var timesheets = TimeSheet.find({
             'startDate': startDate.toLocaleDateString()
         });
@@ -39,7 +40,7 @@ Template.toApprove_Template.helpers({
 
             t.projectEntriesArray.forEach(function (pe) {
                 var total = 0;
-                if (pe.projectID == selected && (!pApprovals[pe.projectID] || Session.get('showAll'))) {
+                if (pe.projectId == selected && (!pApprovals[pe.projectId] || Session.get('showAll'))) {
                     pe.EntryArray.forEach(function (a) {
                         for (var b in a.hours) {
                             total += parseFloat(a.hours[b]);
@@ -66,8 +67,8 @@ Template.toApprove_Template.helpers({
                     totals[t.userId] =
                     {
                         total: totals[t.userId].total + total,
-                        sentBack: totals[t.userId].sentBack || (rejected && pe.projectID == selected) || !t.submitted,
-                        approved: totals[t.userId].approved || (pApprovals[pe.projectID] && pe.projectID == selected)
+                        sentBack: totals[t.userId].sentBack || (rejected && pe.projectId == selected) || !t.submitted,
+                        approved: totals[t.userId].approved || (pApprovals[pe.projectId] && pe.projectId == selected)
                     };
                 }
             });
@@ -220,25 +221,21 @@ Template.approval_Template.helpers({
     },
     needsApproving: function () {
         var selected = Session.get('current_project_to_approve');
-
-        var isActive = 1;
-        var startDate = new Date(Session.get("startDate"));
-        console.log(startDate.toLocaleDateString());
         console.log(selected);
+        var startDate = new Date(Session.get("startDate"));
         var result = false;
         TimeSheet.find({
             'startDate': startDate.toLocaleDateString()
         }).forEach(function (t) {
-            if (result){
-                return result;
+            if (!result) {
+                t.projectApprovalArray.forEach(function (pe) {
+                    console.log(pe.projectId)
+                    if (pe.projectId == selected) {
+                        result = true;
+                        return result;
+                    }
+                });
             }
-            t.projectApprovalArray.forEach(function (pe) {
-                console.log(pe.projectId);
-                if (pe.projectId == selected) {
-                    result =  true;
-                    return result;
-                }
-            });
         });
 
         return result;
@@ -315,7 +312,7 @@ Template.approval_Template.helpers({
             }
             
             t.projectEntriesArray.forEach(function (pe) {
-                if (pe.projectID === chargeNumber && (!pApprovals[pe.projectID] || Session.get('showAll'))) {
+                if (pe.projectId === chargeNumber && (!pApprovals[pe.projectId] || Session.get('showAll'))) {
                     pe.EntryArray.forEach(function (a) {
                         for (var b in a.hours) {
                             if (!toReturn[b]) {

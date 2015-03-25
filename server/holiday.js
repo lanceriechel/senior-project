@@ -3,8 +3,20 @@ addOrRemoveHolidayHours = function (d, user) {
     var timesheet = TimeSheet.findOne({'startDate': dStr, 'userId': user['_id']});
     var holidayProject = ChargeNumbers.findOne({'is_holiday': true});
 
-    if (!holidayProject || user['projects'].indexOf(holidayProject.id) == -1) {
+    if (!holidayProject) {
         return;
+    }
+
+    if (user['projects'].indexOf(holidayProject.id) == -1) {
+        if (user.fulltime) {
+            Meteor.users.update({_id: user._id}, {
+                $set: {
+                    projects: user.projects.append(holidayProject.id)
+                }
+            });
+        } else {
+            return;
+        }
     }
 
     var rowID = 0;
@@ -14,11 +26,11 @@ addOrRemoveHolidayHours = function (d, user) {
     }
 
     timesheet.projectEntriesArray.forEach(function (p) {
-        if (p.projectID == holidayProject.id) {
+        if (p.projectId == holidayProject.id) {
             var prEntriesArr = timesheet['projectEntriesArray'];
 
             for (var i = 0; i < prEntriesArr.length; i++) {
-                if (prEntriesArr[i]["projectID"] == holidayProject.id) {
+                if (prEntriesArr[i]["projectId"] == holidayProject.id) {
                     prEntriesArr.splice(i, 1);
                     break;
                 }
@@ -52,7 +64,7 @@ addOrRemoveHolidayHours = function (d, user) {
         }];
 
         var entryArrToAdd = {
-            'projectID': holidayProject.id,
+            'projectId': holidayProject.id,
             'EntryArray': entryArray,
             'Approved': false
         };

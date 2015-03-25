@@ -1,11 +1,11 @@
 ActiveDBService = {
-    getTotalHoursForProject: function(timesheet, projectID){
+    getTotalHoursForProject: function(timesheet, projectId){
         /*
             For a given timesheet and projectID, this method sums up the total number of hours worked that week.
         */
         var total = 0;
         timesheet.projectEntriesArray.forEach(function (pe) {
-            if (pe.projectID == projectID) {
+            if (pe.projectId == projectId) {
                 pe.EntryArray.forEach(function (a) {
                     for (var b in a.hours) {
                         total += parseFloat(a.hours[b]);
@@ -122,7 +122,7 @@ ActiveDBService = {
             for(j=0; j<entryArray.length; j++){
                 if(entryArray[j]['rowID'] == rowID){
                     entryArray2 = prEntriesArr[i]['EntryArray'];
-                    oldproject = prEntriesArr[i]['projectID'];
+                    oldproject = prEntriesArr[i]['projectId'];
                     index2 = j;
                     index1 = i;
                     entryArrToAdd = prEntriesArr[i];

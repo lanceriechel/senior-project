@@ -19,13 +19,13 @@ Meteor.startup(function () {
                 }
             });
         },
-        getTotalHoursForProject: function(timesheet, projectID){
+        getTotalHoursForProject: function(timesheet, projectId){
         /*
             For a given timesheet and projectID, this method sums up the total number of hours worked that week.
         */
         var total = 0;
         timesheet.projectEntriesArray.forEach(function (pe) {
-            if (pe.projectID == projectID) {
+            if (pe.projectId == projectId) {
                 pe.EntryArray.forEach(function (a) {
                     for (var b in a.hours) {
                         total += parseInt(a.hours[b]);
@@ -107,10 +107,10 @@ Meteor.startup(function () {
         var index=0;
 
         for(i=0 ; i<prEntriesArr.length ; i++){
-            if(prEntriesArr[i]['projectID'] == project){
+            if(prEntriesArr[i]['projectId'] == project){
                 index = i;
                 entryArrToAdd = prEntriesArr[i];
-                oldproject = prEntriesArr[i]['projectID'];
+                oldproject = prEntriesArr[i]['projectId'];
                 sentBack = pSentBacks[project];
             }
         }
@@ -169,7 +169,7 @@ Meteor.startup(function () {
             });
         }
         for (var index in prEntriesArr){
-            if (prEntriesArr[index].projectID == projectId){
+            if (prEntriesArr[index].projectId == projectId){
                 console.log(prEntriesArr[index]);
                 prEntriesArr[index].rejectMessage = rejectMessage;
                 // if(!approvalStatus){
@@ -301,7 +301,7 @@ Meteor.startup(function () {
         var index=0;
 
         for(i=0 ; i<prEntriesArr.length ; i++){
-            if(prEntriesArr[i]['projectID'] == project){
+            if(prEntriesArr[i]['projectId'] == project){
                 index = i;
                 entryArrToAdd = prEntriesArr[i];
                 entryArray = prEntriesArr[i]['EntryArray'];
@@ -341,7 +341,7 @@ Meteor.startup(function () {
                 }];
 
             entryArrToAdd = {
-                'projectID' : project,
+                'projectId' : project,
                 'EntryArray' : entryArray
             }
             // if(sheet['submitted']){ //Then we are fixing a rejected project row, and are sending it back to the manager
@@ -400,7 +400,7 @@ Meteor.startup(function () {
                         index1 = i;
                         entryArrToAdd = prEntriesArr[i];
                         entryArray2 = prEntriesArr[i]['EntryArray'];
-                        oldproject = prEntriesArr[i]['projectID'];
+                        oldproject = prEntriesArr[i]['projectId'];
                         sentBack = pSentBacks[oldproject];//prEntriesArr[i]['SentBack']
                     }
                 }
@@ -588,7 +588,7 @@ Meteor.startup(function () {
                                     });
                                     TimeSheet.find({startDate: dStr}).forEach(function (sheet) {
                                         for (var pIndex in sheet.projectEntriesArray) {
-                                            var currentProject = sheet.projectEntriesArray[pIndex].projectID;
+                                            var currentProject = sheet.projectEntriesArray[pIndex].projectId;
                                             for (var eIndex in sheet.projectEntriesArray[pIndex].EntryArray) {
                                                 var entry = sheet.projectEntriesArray[pIndex].EntryArray[eIndex];
                                                 var sum = 0;
@@ -684,8 +684,8 @@ Meteor.startup(function () {
                 });
             }
             for (var index in prEntriesArr){
-                if (prEntriesArr[index].projectID == projectId){
-                    console.log(prEntriesArr[index]);
+                if (prEntriesArr[index].projectId == projectId){
+                    //console.log(prEntriesArr[index]);
                     prEntriesArr[index].rejectMessage = rejectMessage;
                     // if(!approvalStatus){
                     //     prEntriesArr[index].SentBack = true;

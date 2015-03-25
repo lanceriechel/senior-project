@@ -36,22 +36,22 @@ Template.historyHeader.helpers({
 		});
 
 		if (userId) {
-			TimeSheet.find({'userId': userId, 'projectEntriesArray.projectID':project}, sort).forEach(
+			TimeSheet.find({'userId': userId, 'projectEntriesArray.projectId':project}, sort).forEach(
 				function (u) {
 					timesheetProjects = [];
 					u.projectEntriesArray.forEach(function (p) {
-						timesheetProjects.push(p.projectID);
+						timesheetProjects.push(p.projectId);
 					});
 					if (findOneInArray(managerProjIds, timesheetProjects) || user.admin) {
 						timesheets = ActiveDBService.getTimesheetRowInfo(u, timesheets);
 					}
 				});
 		} else {
-			TimeSheet.find({'userId': {$in: subordinates}, 'projectEntriesArray.projectID':project}, sort).forEach(
+			TimeSheet.find({'userId': {$in: subordinates}, 'projectEntriesArray.projectId':project}, sort).forEach(
 				function (u) {
 					timesheetProjects = [];
 					u.projectEntriesArray.forEach(function (p) {
-						timesheetProjects.push(p.projectID);
+						timesheetProjects.push(p.projectId);
 					});
 					if (findOneInArray(managerProjIds, timesheetProjects) || u.userId == user._id || user.admin) {
 						timesheets = ActiveDBService.getTimesheetRowInfo(u, timesheets);
@@ -220,7 +220,7 @@ Template.SelectedHistoryTimesheet.helpers({
 		var rows = [];
 		var maxRow=-1;
 		for(i = 0; i < projectEntries.length; i++){
-			var project = projectEntries[i]['projectID'];
+			var project = projectEntries[i]['projectId'];
 			var sentBack;
 			if(projectEntries[i]['SentBack']){
 				sentBack = "sentBack";
@@ -275,7 +275,7 @@ Template.SelectedHistoryTimesheet.helpers({
 		var projects = [];
 
 		for(i = 0; i < projectEntries.length; i++){
-			var project = projectEntries[i]['projectID'];
+			var project = projectEntries[i]['projectId'];
 			var sentBack;
 			if(projectEntries[i]['SentBack']){
 				sentBack = "sentBack";
@@ -322,18 +322,18 @@ Template.SelectedHistoryTimesheet.helpers({
 });
 
 Template.historyProjectHours.helpers({
-    'name' : function(projectID){
-      var name = ChargeNumbers.findOne({'id' : projectID});
+    'name' : function(projectId){
+      var name = ChargeNumbers.findOne({'id' : projectId});
       return name['name'];
     }
 });
 
 Template.historyProjectComments.helpers({
-	'name' : function(projectID){
-	    var name = ChargeNumbers.findOne({'id' : projectID});
+	'name' : function(projectId){
+	    var name = ChargeNumbers.findOne({'id' : projectId});
 	    return name['name'];
 	},	
-	next: function(projectID) {
+	next: function(projectId) {
 		var date = Session.get("startDate");
 		var user = Session.get('LdapId');
 		if (Session.get('search_employee')) {
@@ -345,13 +345,13 @@ Template.historyProjectComments.helpers({
 
 	    var index=0;
 	    for(i=0 ; i<prEntriesArr.length ; i++){
-	        if(prEntriesArr[i]['projectID'] == projectID){
+	        if(prEntriesArr[i]['projectId'] == projectId){
 	            index = i;
 	        }
    		 }
 		return sheet['projectEntriesArray'][index]['next'];
 	},
-	issues: function(projectID) {
+	issues: function(projectId) {
 		var date = Session.get("startDate");
 		var user = Session.get('LdapId');
 		if (Session.get('search_employee')) {
@@ -364,14 +364,14 @@ Template.historyProjectComments.helpers({
 	    var index=0;
 
 	    for(i=0 ; i<prEntriesArr.length ; i++){
-	        if(prEntriesArr[i]['projectID'] == projectID){
+	        if(prEntriesArr[i]['projectId'] == projectId){
 	            index = i;
 	        }
 	    }
 
 		return sheet['projectEntriesArray'][index]['issues'];
 	},
-  message: function(projectID) {
+  message: function(projectId) {
     var date = Session.get("startDate");
     var user = Session.get('LdapId');
     if (Session.get('search_employee')) {
@@ -384,7 +384,7 @@ Template.historyProjectComments.helpers({
       var index=0;
 
       for(i=0 ; i<prEntriesArr.length ; i++){
-          if(prEntriesArr[i]['projectID'] == projectID){
+          if(prEntriesArr[i]['projectId'] == projectId){
               index = i;
           }
       }
@@ -470,10 +470,10 @@ Template.historyEmployeeSelect.events({
 		if (project != ''){
 			project = project.split(' - ')[1];
 		}
-		var projectID = '';
+		var projectId = '';
 		var projects = ChargeNumbers.find({'name':project});
 		projects.forEach(function (p) {
-            projectID = p.id;
+            projectId = p.id;
         });
 
 		var user = Meteor.users.findOne({'_id':Session.get('LdapId')});
@@ -488,7 +488,7 @@ Template.historyEmployeeSelect.events({
 				Session.set('search_employee', '');
 			}
 		}
-		Session.set('search_project', projectID);
+		Session.set('search_project', projectId);
 
     	Session.set('current_page', 'historical_page');
     }

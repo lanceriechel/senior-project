@@ -1,6 +1,10 @@
-ChargeNumbers = new Meteor.Collection('charge_numbers');
-TimeSheet = new Meteor.Collection('time_sheets');
-Jobs = new Meteor.Collection('jobs');
+//ChargeNumbers = new Meteor.Collection('charge_numbers');
+//TimeSheet = new Meteor.Collection('time_sheets');
+//Jobs = new Meteor.Collection('jobs');
+
+ChargeNumbers = new Mongo.Collection('charge_numbers');
+TimeSheet = new Mongo.Collection('time_sheets');
+Jobs = new Mongo.Collection('jobs');
 
 Meteor.publish('userData', function() {
     return Meteor.users.find({}, {fields: {

@@ -60,14 +60,14 @@ Template.timesheetInfo.events = {
 };
 
 Template.projectComments.helpers({
-    'name': function (projectID) {
+    'name': function (projectId) {
         /*
          Returns the name of a project given its projectID (which is unique).
          */
-        var name = ChargeNumbers.findOne({'id': projectID});
+        var name = ChargeNumbers.findOne({'id': projectId});
         return name['name'];
     },
-    next: function (projectID) {
+    next: function (projectId) {
         /*
          Returns the 'Goals for Next Week' field for the selected timesheet
          */
@@ -86,7 +86,7 @@ Template.projectComments.helpers({
 
         var index = -1;
         for (var i in prEntriesArr) {
-            if (prEntriesArr[i]['projectID'] == projectID) {
+            if (prEntriesArr[i]['projectId'] == projectId) {
                 index = i;
             }
         }
@@ -95,7 +95,7 @@ Template.projectComments.helpers({
         }
         return sheet['projectEntriesArray'][index]['next'];
     },
-    issues: function (projectID) {
+    issues: function (projectId) {
         /*
          Returns the 'This Weeks Issues' field for the selected timesheet
          */
@@ -115,7 +115,7 @@ Template.projectComments.helpers({
         var index = -1;
 
         for (i = 0; i < prEntriesArr.length; i++) {
-            if (prEntriesArr[i]['projectID'] == projectID) {
+            if (prEntriesArr[i]['projectId'] == projectId) {
                 index = i;
             }
         }
@@ -126,7 +126,7 @@ Template.projectComments.helpers({
 
         return sheet['projectEntriesArray'][index]['issues'];
     },
-    message: function (projectID) {
+    message: function (projectId) {
         /*
          Returns the 'Manager Feedback' field for the selected timesheet
          */
@@ -146,7 +146,7 @@ Template.projectComments.helpers({
         var index = -1;
 
         for (i = 0; i < prEntriesArr.length; i++) {
-            if (prEntriesArr[i]['projectID'] == projectID) {
+            if (prEntriesArr[i]['projectId'] == projectId) {
                 index = i;
             }
         }
@@ -154,7 +154,7 @@ Template.projectComments.helpers({
         if (index == -1) {
             var comment = '';
             for (var i in sheet.projectApprovalArray){
-                if (sheet.projectApprovalArray[i].projectId == projectID){
+                if (sheet.projectApprovalArray[i].projectId == projectId){
                     comment = sheet.projectApprovalArray[i].comment;
                 }
             }
@@ -191,7 +191,7 @@ Template.SelectedTimesheet.helpers({
             pSentBacks[sheet.projectApprovalArray[i].projectId] = sheet.projectApprovalArray[i].sentBack;
         }
         for (i = 0; i < projectEntries.length; i++) {
-            var project = projectEntries[i]['projectID'];
+            var project = projectEntries[i]['projectId'];
             var sentBack;
             //sentBack means the manager has rejected it, so it should be left unlocked
             if (pSentBacks[project]) {
@@ -268,7 +268,7 @@ Template.SelectedTimesheet.helpers({
         }
         var managerEdit = "notSentBack";
         for (i = 0; i < projectEntries.length; i++) {
-            var project = projectEntries[i]['projectID'];
+            var project = projectEntries[i]['projectId'];
             var sentBack;
             if (pSentBacks[project]) {
                 sentBack = "sentBack";
@@ -416,7 +416,7 @@ Template.projectListDropDown.helpers({
         }
 
         for (i = 0; i < projectEntries.length; i++) {
-            var project = projectEntries[i]['projectID'];
+            var project = projectEntries[i]['projectId'];
 
             if (data){
                 if (project != data.project){
@@ -666,7 +666,8 @@ Template.lastSection.events = {
         var isTimesheetEmpty = true;
         sheet.projectEntriesArray.forEach(function (p) {
             isTimesheetEmpty = false
-            var projectId = p.projectID;
+            var projectId = p.projectId;
+            console.log(projectId);
             var projectName = ChargeNumbers.findOne({'id': projectId}).name;
             var totalHours = ActiveDBService.getTotalHoursForProject(sheet, projectId);
 
@@ -805,7 +806,7 @@ Template.projectComments.events = {
         var row = event.currentTarget;
         var issues = $(row).find('#Issues')[0].value;
         var next = $(row).find('#Next')[0].value;
-        var projectID = $(row).find('#project_comments_name')[0].parentNode.id;
+        var projectId = $(row).find('#project_comments_name')[0].parentNode.id;
         var user = Session.get('LdapId');
         var data = Session.get('editing-user-page');
         if (data){
@@ -815,7 +816,7 @@ Template.projectComments.events = {
             }
         }
 
-        Meteor.call('updateProjectCommentsTimeSheet', Session.get("startDate"), user, projectID, issues, next, Session.get('editing-user-page'));
+        Meteor.call('updateProjectCommentsTimeSheet', Session.get("startDate"), user, projectId, issues, next, Session.get('editing-user-page'));
     }
 };
 
@@ -836,7 +837,7 @@ Template.projectHoursFilled.events = {
         var saturday_t = $(row).find('#Saturday')[0].value;
         var rowID = $(row).attr('id');
         var projectIndex = $(row).find('#project_select')[0].selectedIndex;
-        var projectID = $(row).find('#project_select')[0].children[projectIndex].id;
+        var projectId = $(row).find('#project_select')[0].children[projectIndex].id;
 
         var user = Session.get('LdapId');
         var data = Session.get('editing-user-page');
@@ -849,12 +850,12 @@ Template.projectHoursFilled.events = {
 
         TimeSheetService.removeErrorClasses(row, ['#Comment', '#Sunday', '#Monday', '#Tuesday', '#Wednesday', '#Thursday', '#Friday', '#Saturday', '#projectName']);
 
-        if (TimeSheetService.ensureValidEntry(row, comment_t, sunday_t, monday_t, tuesday_t, wednesday_t, thursday_t, friday_t, saturday_t, projectID)) {
+        if (TimeSheetService.ensureValidEntry(row, comment_t, sunday_t, monday_t, tuesday_t, wednesday_t, thursday_t, friday_t, saturday_t, projectId)) {
             /*
              Update Database
              This will update the database correctly when the projectHoursFilled is fixed.-Dan
              */
-            ActiveDBService.updateRowInTimeSheet(Session.get("startDate"), user, projectID,
+            ActiveDBService.updateRowInTimeSheet(Session.get("startDate"), user, projectId,
                 comment_t,
                 sunday_t,
                 monday_t,
@@ -875,7 +876,7 @@ Template.projectHoursFilled.events = {
          Handle when the user hits the delete button for a row
          */
         var row = event.currentTarget.parentNode.parentNode;
-        var projectID = $(row).find('#project_select')[0].parentNode.id;
+        var projectId = $(row).find('#project_select')[0].parentNode.id;
 
         var comment_t = $(row).find('#Comment')[0].value;
         var sunday_t = $(row).find('#Sunday')[0].value;
@@ -899,7 +900,7 @@ Template.projectHoursFilled.events = {
         var sheet = TimeSheet.findOne({'startDate': date, 'userId': user});
 
         if (!sheet['submitted'] || TimeSheetService.checkSentBack()) {
-            Meteor.call('removeRowInTimeSheet', Session.get("startDate"), user, rowID, projectID);
+            Meteor.call('removeRowInTimeSheet', Session.get("startDate"), user, rowID, projectId);
             //Hack to make the next row not inherit it's previous's properties
             //Otherwise, the UI can unlock for a row that is pending/approved.
             //We haven't found a great solution to fix this, but this works fine and is not noticable to the user.
@@ -912,11 +913,11 @@ Template.projectHoursFilled.events = {
 }
 
 Template.projectHoursFilled.helpers({
-    'name' : function(projectID){
+    'name' : function(projectId){
       /*
         Returns the name of a project given its projectID
       */
-      var name = ChargeNumbers.findOne({'id' : projectID});
+      var name = ChargeNumbers.findOne({'id' : projectId});
       return name['name'];
     }
 });
@@ -938,7 +939,7 @@ Template.projectHours.events = {
 
         // I added this so we can retrieve the selected project's ID so we can add it to the Database
         var projectIndex = $(row).find('#project_select')[0].selectedIndex;
-        var projectID = $(row).find('#project_select')[0].children[projectIndex].id;
+        var projectId = $(row).find('#project_select')[0].children[projectIndex].id;
 
         Session.get("max_Row");
         var rowID = Session.get("max_Row") + 1;
@@ -969,7 +970,7 @@ Template.projectHours.events = {
             var data = Session.get('editing-user-page');
 
             if (!sheet['submitted'] || TimeSheetService.checkSentBack() || data) {
-                Meteor.call('addRowToTimeSheet',Session.get("startDate"), user, projectID,
+                Meteor.call('addRowToTimeSheet',Session.get("startDate"), user, projectId,
                     comment_t,
                     sunday_t,
                     monday_t,
@@ -1056,7 +1057,7 @@ TimeSheetService = {
         $(row).find(selector).tooltip('show');
     },
 
-    ensureValidEntry: function (row, comment_t, sunday_t, monday_t, tuesday_t, wednesday_t, thursday_t, friday_t, saturday_t, projectID) {
+    ensureValidEntry: function (row, comment_t, sunday_t, monday_t, tuesday_t, wednesday_t, thursday_t, friday_t, saturday_t, projectId) {
         /*
          Error handling for timesheet fields
          */
@@ -1066,7 +1067,7 @@ TimeSheetService = {
             valid = false;
         }
 
-        if (projectID === '') {
+        if (projectId === '') {
             TimeSheetService.addError(row, '#projectName', "Field Cannot be Empty");
             valid = false;
         }
