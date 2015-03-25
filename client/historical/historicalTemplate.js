@@ -63,7 +63,7 @@ Template.historyHeader.helpers({
 	getProjects: function() {
 		var projects = [];
 		if (Session.get('search_project')) {
-			var project = ChargeNumbers.findOne({'id': Session.get('search_project')});
+			var project = ChargeNumbers.findOne({'_id': Session.get('search_project')});
 			projects.push(project);
 		} else {
 			projects = ChargeNumbers.find();
@@ -323,14 +323,14 @@ Template.SelectedHistoryTimesheet.helpers({
 
 Template.historyProjectHours.helpers({
     'name' : function(projectId){
-      var name = ChargeNumbers.findOne({'id' : projectId});
+      var name = ChargeNumbers.findOne({'_id' : projectId});
       return name['name'];
     }
 });
 
 Template.historyProjectComments.helpers({
 	'name' : function(projectId){
-	    var name = ChargeNumbers.findOne({'id' : projectId});
+	    var name = ChargeNumbers.findOne({'_id' : projectId});
 	    return name['name'];
 	},	
 	next: function(projectId) {

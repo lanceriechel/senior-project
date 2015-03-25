@@ -41,8 +41,9 @@ startup = function (){
                 //Small Change (changed uppercase D to d in userId) here to see if this works
                 var projectApprovalArray = [];
                 user.projects.forEach(function (pId) {
+                    var projectId = ChargeNumbers.findOne({_id: pId}).projectId;
                     projectApprovalArray.push({
-                        projectId : pId,
+                        projectId : projectId,
                         approved: false,
                         sentBack: false,
                         comment: ''

@@ -67,7 +67,7 @@ Meteor.startup(function () {
             var projects = ChargeNumbers.find({'manager':user.username});
             var projectIds = [];
             projects.forEach(function (p) {
-                projectIds.push(p.id);
+                projectIds.push(p._id);
             });
 
             var employees = Meteor.users.find({'projects': { $in: projectIds}});
@@ -581,9 +581,9 @@ Meteor.startup(function () {
                                     var comments = {};
                                     ChargeNumbers.find().forEach(function (project) {
                                         //console.log(project.name);
-                                        projectArray[project.id] = project.name;
-                                        projectHours[project.id] = 0;
-                                        projectComments[project.id] = [];
+                                        projectArray[project._id] = project.name;
+                                        projectHours[project._id] = 0;
+                                        projectComments[project._id] = [];
                                         comments[project.name] = [];
                                     });
                                     TimeSheet.find({startDate: dStr}).forEach(function (sheet) {

@@ -44,9 +44,10 @@ generalHelpers = {
         var dStr = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear(),
             d2Str = (d2.getMonth() + 1) + '/' + d2.getDate() + '/' + d2.getFullYear();
         var pApprovalArray = [];
-        if(user.fulltime){
+        var holidayProject = ChargeNumbers.findOne({'is_holiday': true});
+        if(user.fulltime && holidayProject){
             pApprovalArray = [{
-                projectId : 1000,
+                projectId : holidayProject._id,
                 approved: false,
                 sentBack: false,
                 comment: ''
@@ -140,7 +141,7 @@ generalHelpers = {
         var maxRow=-1;
         for(i = 0; i < projectEntries.length; i++){
             var project = projectEntries[i]['projectId'];
-            var project2 = ChargeNumbers.findOne({'id': project});
+            var project2 = ChargeNumbers.findOne({'_id': project});
             var EntryArray = projectEntries[i]['EntryArray'];
             var next = projectEntries[i]['next'];
             if(next == null){

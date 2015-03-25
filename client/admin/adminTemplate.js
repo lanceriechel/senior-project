@@ -109,7 +109,7 @@ Template.monthly_status.events({
                     ((sheetEndDate < endDate) && (sheetEndDate > startDate))) {
                     for(var i=0; i<prEntriesArray.length; i++){
                         var project = prEntriesArray[i].projectId;
-                        var project2 = ChargeNumbers.findOne({'id': project});
+                        var project2 = ChargeNumbers.findOne({'_id': project});
                         var entryArray = prEntriesArray[i].EntryArray;
                         for(var j=0; j<entryArray.length; j++){
                             comments.push([project2.name,employeeName,entryArray[j].Comment]);

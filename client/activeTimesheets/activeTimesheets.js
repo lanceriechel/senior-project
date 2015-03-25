@@ -64,7 +64,7 @@ Template.projectComments.helpers({
         /*
          Returns the name of a project given its projectID (which is unique).
          */
-        var name = ChargeNumbers.findOne({'id': projectId});
+        var name = ChargeNumbers.findOne({'_id': projectId});
         return name['name'];
     },
     next: function (projectId) {
@@ -387,6 +387,7 @@ Template.projectListDropDown.helpers({
          Projects are not added to the list if the user is not working on a project.  Projects are also removed from
          the list if the timesheet is submitted and that project is already approved or pending.
          */
+        console.log(projectSelected);
         var date = Session.get("startDate");
         var userId = Session.get('LdapId');
         var data = Session.get('editing-user-page');
@@ -396,8 +397,8 @@ Template.projectListDropDown.helpers({
             if (userO){
                 userId = userO._id;
             }
-            ChargeNumbers.find({id : {$ne: data.project}}).forEach(function (proj) {
-                projectsNotAllowed.push(proj.id);
+            ChargeNumbers.find({_id : {$ne: data.project}}).forEach(function (proj) {
+                projectsNotAllowed.push(proj._id);
             });
         }
         var sheet = TimeSheet.findOne({'startDate': date, 'userId': userId});
@@ -430,7 +431,7 @@ Template.projectListDropDown.helpers({
             }
         }
         var user = Meteor.users.findOne({_id: userId});
-        var projects = ChargeNumbers.find({id: {$in: user['projects']}});
+        var projects = ChargeNumbers.find({_id: {$in: user['projects']}});
 
         var returnedProjects = [];
         var selected = false;
@@ -439,20 +440,20 @@ Template.projectListDropDown.helpers({
 
         // console.log(projectSelected);
         projects.forEach(function (p) {
-            if (projectSelected == p['id']) {
+            if (projectSelected == p['_id']) {
                 selected = true;
             }
 
-            if (!($.inArray(p['id'], projectsNotAllowed) > -1)) {
+            if (!($.inArray(p['_id'], projectsNotAllowed) > -1)) {
                 returnedProjects.push({
-                    'id': p['id'],
+                    'id': p['_id'],
                     'name': p['name'],
                     'selected': selected
                 });
 
-            } else if (projectSelected == p['id'] && ($.inArray(projectSelected, returnedProjects) == -1)) {
+            } else if (projectSelected == p['_id'] && ($.inArray(projectSelected, returnedProjects) == -1)) {
                 returnedProjects.push({
-                    'id': p['id'],
+                    'id': p['_id'],
                     'name': p['name'],
                     'selected': selected
                 });
@@ -465,7 +466,7 @@ Template.projectListDropDown.helpers({
     },
     employees: function (projectSelected) {
     var user = Meteor.users.findOne({_id: Session.get('LdapId')});
-    var projects =  ChargeNumbers.find({id: { $in : user['projects'] } });
+    var projects =  ChargeNumbers.find({_id: { $in : user['projects'] } });
     var returnedProjects = [];
     var selected = false;
     projects = projects.fetch();
@@ -475,17 +476,17 @@ Template.projectListDropDown.helpers({
         selected = true;
       }
       //Don't allow a project to show up in the dropdown if the user is not working for that project.
-      if(!($.inArray(p['id'], projectsNotAllowed) > -1)){
+      if(!($.inArray(p['_id'], projectsNotAllowed) > -1)){
         returnedProjects.push({
-           'id' : p['id'],
+           'id' : p['_id'],
            'name' : p['name'],
            'selected' : selected
         });
       //Still allow a project to be in list if it is currently selected (so it is pending or approved
       //and the row is locked- this is so we can see what project the locked row is for).
-      }else if(projectSelected == p['id'] && ($.inArray(projectSelected, returnedProjects) == -1)){
+      }else if(projectSelected == p['_id'] && ($.inArray(projectSelected, returnedProjects) == -1)){
           returnedProjects.push({
-           'id' : p['id'],
+           'id' : p['_id'],
            'name' : p['name'],
            'selected' : selected
         });
@@ -667,8 +668,8 @@ Template.lastSection.events = {
         sheet.projectEntriesArray.forEach(function (p) {
             isTimesheetEmpty = false
             var projectId = p.projectId;
-            console.log(projectId);
-            var projectName = ChargeNumbers.findOne({'id': projectId}).name;
+            // console.log(projectId);
+            var projectName = ChargeNumbers.findOne({'_id': projectId}).name;
             var totalHours = ActiveDBService.getTotalHoursForProject(sheet, projectId);
 
             if (!sheet.submitted || pSentBacks[projectId]) {
@@ -723,7 +724,7 @@ Template.lastSection.events = {
         var userId = Meteor.users.findOne({username: data.username})._id;
 
         var projectId = data.project;
-        var projectName = ChargeNumbers.findOne({'id' : projectId}).name;
+        var projectName = ChargeNumbers.findOne({'_id' : projectId}).name;
 
         var sheet = TimeSheet.findOne({'startDate':date,'userId':userId,'submitted':true});
         var totalHours = ActiveDBService.getTotalHoursForProject(sheet, projectId);
@@ -764,7 +765,7 @@ Template.lastSection.events = {
         var userId = Meteor.users.findOne({username: data.username})._id;
 
         var projectId = data.project;
-        var projectName = ChargeNumbers.findOne({'id' : projectId}).name;
+        var projectName = ChargeNumbers.findOne({'_id' : projectId}).name;
 
         var rejectComment = $('#rejectComment').val();
 
@@ -787,12 +788,6 @@ Template.lastSection.events = {
         };
         revision.unshift(historyEntry);
         Meteor.call('updateRevision', sheet._id, revision);
-        // TimeSheet.update({'_id':sheet._id},
-        //     {
-        //         $set:{
-        //             'revision': revision
-        //         }
-        //     });
 
         Session.set('current_page', 'approval_page');
     }
@@ -917,7 +912,7 @@ Template.projectHoursFilled.helpers({
       /*
         Returns the name of a project given its projectID
       */
-      var name = ChargeNumbers.findOne({'id' : projectId});
+      var name = ChargeNumbers.findOne({'_id' : projectId});
       return name['name'];
     }
 });

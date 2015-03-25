@@ -10,17 +10,17 @@ Template.associatedProjects.helpers({
     chargeNumbers: function () {
         'use strict';
         var toReturn = [];
-        ChargeNumbers.find({ id: {$nin : this.projects }}).forEach(function (cn) {
+        ChargeNumbers.find({ _id: {$nin : this.projects }}).forEach(function (cn) {
             if (cn.indirect) {
                 var dateObj = new Date();
                 toReturn.push({
-                    id: cn.id,
+                    id: cn._id,
                     text: 'Indirect   ( ' + cn.name + ' )',
                     end_date : dateObj.getMonth() + '/' + dateObj.getDate() + '/' + dateObj.getFullYear()+1
                 });
             } else {
                 toReturn.push({
-                    id : cn.id,
+                    id : cn._id,
                     text : cn.id + '   ( ' + cn.name + ' )',
                     end_date : cn.end_date
                 });
@@ -34,7 +34,7 @@ Template.associatedProjects.helpers({
     },
     getName: function (id) {
         'use strict';
-        var proj = ChargeNumbers.findOne({'id':id});
+        var proj = ChargeNumbers.findOne({'_id':id});
         return proj.name;
     }
 });
@@ -70,6 +70,7 @@ Template.associatedProjects.events({
         //evt.target.parentNode.style.opacity = 0;
         // wait for CSS animation to finish
         var userId = String(evt.target.parentNode.parentNode.id);
+        // #TODO Teddy fix the projects
         Meteor.users.update({'_id': userId}, {$pull: {'projects': String(this)}});
         var value = String(this);
             TimeSheet.find({'userId': userId, 'active':1}).forEach(function (e){
@@ -162,8 +163,8 @@ Template.employeeSettings.helpers({
         if (!holiday) { return; }
         employees.forEach(function (e) {
             if (e.fulltime) {
-                if (e.projects.indexOf(holiday.id) == -1) {
-                    e.projects.push(holiday.id);
+                if (e.projects.indexOf(holiday._id) == -1) {
+                    e.projects.push(holiday._id);
                     Meteor.users.update(
                         {'_id': e._id},
                         {$set: {

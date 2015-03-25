@@ -56,26 +56,28 @@
 
    
 <template name="lastSection">
-    <div class="row">
-        <div class="col-md-6 col-sm-6 col-xs-6"><h4>General Comment</h4></div>
-        <div class="col-md-5 col-sm-5 col-xs-5"><h4>Concerns</h4></div>
-    </div>
     <div class="row commentRow">
-        <div class="col-md-6 col-sm-6 col-xs-6"><input id="generalComment" type="text" class="large-input form-control" value={{genComment}}></div>
-        <div class="col-md-5 col-sm-5 col-xs-5"><input id="concerns" type="text" class="large-input form-control" value={{concerns}}></div>
-    {{#if isEditing}}
-        <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" id="acceptButton" class="btn btn-success approve">Approve Timesheet</button></div>
-        <br><br><br>
-        <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-6">Reason For Rejection</div>
+        <div class="col-md-6 col-xs-12">
+            <h4>General Comment</h4>
+            <input id="generalComment" type="text" class="large-input form-control" value={{genComment}}>
         </div>
+        <div class="col-md-6 col-xs-12">
+            <h4>Concerns</h4>
+            <input id="concerns" type="text" class="large-input form-control" value={{concerns}}>
+        </div>
+
+    {{#if isEditing}}
+        <div class="row col-xs-12"><button type="button" id="acceptButton" class="btn btn-success approve pull-right">Approve Timesheet</button></div>
         <div class="row">
-            <div class="col-xs-11"><input id="rejectComment" type="text" class="large-input form-control"></div>
-            <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" id="rejectButton" class="btn btn-danger reject">Reject Timesheet</button></div>
+            <div class="col-xs-12"><h4>Reason For Rejection</h4></div>
+            <div class="col-xs-9"><input id="rejectComment" type="text" class="large-input form-control"></div>
+            <div class="col-xs-3">
+                <button type="button" id="rejectButton" class="btn btn-danger reject pull-right">Reject Timesheet</button></div>
         </div>
     {{else}}
-        <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" id="submitButton" class="btn btn-primary enterable submit">Submit</button></div>
+        <div class="row col-xs-12"><button type="button" id="submitButton" class="btn btn-primary enterable submit pull-right">Submit</button></div>
     {{/if}}
+
     </div>
 </template>
 

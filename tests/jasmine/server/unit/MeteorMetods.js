@@ -7,55 +7,55 @@ Jobs = new Mongo.Collection('jobs');
 
 describe("meteorMethods", function () {
 
-    function guid() {
-        function s4() {
-            return Math.floor((1 + Math.random()) * 0x10000)
-                .toString(16)
-                .substring(1);
-        }
-
-        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-            s4() + '-' + s4() + s4() + s4();
-    }
-
-    var username = guid();
-    var projectId = guid();
-    var projectName = guid();
-    var startDate = '10/2/14';
-
-    Meteor.users.remove();
-    ChargeNumbers.remove();
-    TimeSheet.remove();
-
-    beforeEach(function () {
-        MeteorStubs.install();
-        mock(global, 'Meteor.users');
-        mock(global, 'Meteor.users');
-        mock(global, 'Meteor.users');
-        this.user = Meteor.users.findOne({username: username});
-        this.project = ChargeNumbers.findOne({id: projectId});
-        //expect(this.user).not.toBeUndefined();
-        ///expect(this.project).not.toBeUndefined();
-    });
-
-    it("set up user", function () {
-        Meteor.users.insert({
-            username: username,
-            cn: "Test Id",
-            manager: 0,
-            admin: 0,
-            email: "TestId@domain.com",
-            projects: [],
-            fulltime: true
-        });
-        console.log(username);
-        Meteor.users.find().forEach(function (u){
-            console.log(u);
-        });
-        this.user = Meteor.users.findOne({username: username});
-        console.log(this.user);
-        expect(this.user.username).toBe(username);
-    });
+    //function guid() {
+    //    function s4() {
+    //        return Math.floor((1 + Math.random()) * 0x10000)
+    //            .toString(16)
+    //            .substring(1);
+    //    }
+    //
+    //    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    //        s4() + '-' + s4() + s4() + s4();
+    //}
+    //
+    //var username = guid();
+    //var projectId = guid();
+    //var projectName = guid();
+    //var startDate = '10/2/14';
+    //
+    //Meteor.users.remove();
+    //ChargeNumbers.remove();
+    //TimeSheet.remove();
+    //
+    //beforeEach(function () {
+    //    MeteorStubs.install();
+    //    mock(global, 'Meteor.users');
+    //    mock(global, 'Meteor.users');
+    //    mock(global, 'Meteor.users');
+    //    this.user = Meteor.users.findOne({username: username});
+    //    this.project = ChargeNumbers.findOne({id: projectId});
+    //    //expect(this.user).not.toBeUndefined();
+    //    ///expect(this.project).not.toBeUndefined();
+    //});
+    //
+    //it("set up user", function () {
+    //    Meteor.users.insert({
+    //        username: username,
+    //        cn: "Test Id",
+    //        manager: 0,
+    //        admin: 0,
+    //        email: "TestId@domain.com",
+    //        projects: [],
+    //        fulltime: true
+    //    });
+    //    console.log(username);
+    //    Meteor.users.find().forEach(function (u){
+    //        console.log(u);
+    //    });
+    //    this.user = Meteor.users.findOne({username: username});
+    //    console.log(this.user);
+    //    expect(this.user.username).toBe(username);
+    //});
 
     //it("set up project", function () {
     //    Meteor.call('addNewProject', {

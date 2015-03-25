@@ -141,7 +141,7 @@ Template.toApprove_Template.events({
         var userId = Meteor.users.findOne({username: Session.get('current_user_to_approve')})._id;
 
         var projectId = Session.get('current_project_to_approve');
-        var projectName = ChargeNumbers.findOne({'id' : projectId}).name;
+        var projectName = ChargeNumbers.findOne({'_id' : projectId}).name;
 
         var sheet = TimeSheet.findOne({'startDate':date,'userId':userId,'submitted':true});
         var totalHours = ActiveDBService.getTotalHoursForProject(sheet, projectId);
@@ -177,7 +177,7 @@ Template.toApprove_Template.events({
         var userId = Meteor.users.findOne({username: Session.get('current_user_to_approve')})._id;
 
         var projectId = Session.get('current_project_to_approve');
-        var projectName = ChargeNumbers.findOne({'id' : projectId}).name;
+        var projectName = ChargeNumbers.findOne({'_id' : projectId}).name;
 
         var rejectComment = $(e.target.parentNode.parentNode).find('#rejectComment')[0].value;
         $(e.target.parentNode.parentNode).find('#rejectComment')[0].value = '';
@@ -221,23 +221,21 @@ Template.approval_Template.helpers({
     },
     needsApproving: function () {
         var selected = Session.get('current_project_to_approve');
-        console.log(selected);
         var startDate = new Date(Session.get("startDate"));
+        var showAll = Session.get("showAll");
         var result = false;
         TimeSheet.find({
             'startDate': startDate.toLocaleDateString()
         }).forEach(function (t) {
             if (!result) {
                 t.projectApprovalArray.forEach(function (pe) {
-                    console.log(pe.projectId)
-                    if (pe.projectId == selected) {
+                    if (pe.projectId == selected && (!pe.approved || showAll)) {
                         result = true;
                         return result;
                     }
                 });
             }
         });
-
         return result;
     },
     'managedProjects': function () {
@@ -250,23 +248,23 @@ Template.approval_Template.helpers({
 
         var id;
         if (user.admin){
-            id = ChargeNumbers.findOne().id;
+            id = ChargeNumbers.findOne()._id;
             Session.set('current_project_to_approve', id);
             ChargeNumbers.find({}).forEach(function (cn){
                 if (cn.indirect) {
                     toReturn.push({
-                        charge_number: cn.id,
+                        charge_number: cn._id,
                         text: 'Indirect   ( ' + cn.name + ' )'
                     });
                 } else {
                     toReturn.push({
-                        charge_number: cn.id,
+                        charge_number: cn._id,
                         text: cn.id + '   ( ' + cn.name + ' )'
                     });
                 }
             });
         }else{
-            id = ChargeNumbers.findOne({'manager': user.username}).id;
+            id = ChargeNumbers.findOne({'manager': user.username})._id;
             ChargeNumbers.find({'manager': user.username}).forEach(function (cn){
                 if (cn.indirect) {
                     toReturn.push({
@@ -291,7 +289,7 @@ Template.approval_Template.helpers({
         return ProjectService.isActive(date);
     },
     userTimesheet: function () {
-        var chargeNumber = Session.get('current_project_to_approve');
+        var chargeNumber_id = Session.get('current_project_to_approve');
         var username = Session.get('current_user_to_approve');
         if (!username) return;
         var userId = Meteor.users.findOne({username: username})._id;
@@ -312,7 +310,7 @@ Template.approval_Template.helpers({
             }
             
             t.projectEntriesArray.forEach(function (pe) {
-                if (pe.projectId === chargeNumber && (!pApprovals[pe.projectId] || Session.get('showAll'))) {
+                if (pe.projectId === chargeNumber_id && (!pApprovals[pe.projectId] || Session.get('showAll'))) {
                     pe.EntryArray.forEach(function (a) {
                         for (var b in a.hours) {
                             if (!toReturn[b]) {
@@ -433,7 +431,8 @@ Template.approval_Template.events({
     },
     'click #showbtn': function(e) {
         if(Session.get('showAll') == null){
-            Session.set('showAll', false);
+            Session.set('showAll', true);
+            e.target.innerHTML = "Hide Approved Time";
         }
         Session.set('showAll', !Session.get('showAll'));
 

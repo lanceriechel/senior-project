@@ -36,7 +36,7 @@ ActiveDBService = {
             var projects = ChargeNumbers.find({'manager':user.username});
             var projectIds = [];
             projects.forEach(function (p) {
-                projectIds.push(p.id);
+                projectIds.push(p._id);
             });
 
             var employees = Meteor.users.find({'projects': { $in: projectIds}});

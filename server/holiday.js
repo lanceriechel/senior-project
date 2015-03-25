@@ -7,11 +7,11 @@ addOrRemoveHolidayHours = function (d, user) {
         return;
     }
 
-    if (user['projects'].indexOf(holidayProject.id) == -1) {
+    if (user['projects'].indexOf(holidayProject._id) == -1) {
         if (user.fulltime) {
             Meteor.users.update({_id: user._id}, {
                 $set: {
-                    projects: user.projects.append(holidayProject.id)
+                    projects: user.projects.push(holidayProject._id)
                 }
             });
         } else {
@@ -26,11 +26,11 @@ addOrRemoveHolidayHours = function (d, user) {
     }
 
     timesheet.projectEntriesArray.forEach(function (p) {
-        if (p.projectId == holidayProject.id) {
+        if (p.projectId == holidayProject._id) {
             var prEntriesArr = timesheet['projectEntriesArray'];
 
             for (var i = 0; i < prEntriesArr.length; i++) {
-                if (prEntriesArr[i]["projectId"] == holidayProject.id) {
+                if (prEntriesArr[i]["projectId"] == holidayProject._id) {
                     prEntriesArr.splice(i, 1);
                     break;
                 }
@@ -64,7 +64,7 @@ addOrRemoveHolidayHours = function (d, user) {
         }];
 
         var entryArrToAdd = {
-            'projectId': holidayProject.id,
+            'projectId': holidayProject._id,
             'EntryArray': entryArray,
             'Approved': false
         };

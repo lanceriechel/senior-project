@@ -42,13 +42,18 @@ authenticateLdapEmployee = function(username, password) {
 			email: user.mail
 		    }});
                 } else {
+                    var holidayProject = ChargeNumbers.findOne({'is_holiday': true});
+                    var holiday = [];
+                    if (holidayProject){
+                        holiday = [holidayProject._id];
+                    }
                     id = Meteor.users.insert({
                         username: username,
                         cn: user.cn,
                         manager: manager,
                         admin: admin,
 			            email: user.mail,
-                        projects: ["1000"],
+                        projects: holiday,
                         fulltime: true
                     });
 		    generalHelpers.createHoliday();
