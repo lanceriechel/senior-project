@@ -13,8 +13,7 @@ sanjo:jasmine
 velocity:html-reporter
 percolatestudio:synced-cron
 email
-meteorhacks:npm
 
 benjaminrh:bootstrap-timepicker
 sergeyt:typeahead
-npm-container
+typ:ldapjs
