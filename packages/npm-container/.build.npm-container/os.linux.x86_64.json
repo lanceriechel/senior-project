@@ -1,0 +1,28 @@
+{
+  "format": "unipackage-unibuild-pre1",
+  "packageVariables": [],
+  "uses": [
+    {
+      "package": "meteor"
+    }
+  ],
+  "node_modules": "npm/node_modules",
+  "resources": [
+    {
+      "type": "asset",
+      "file": "os.linux.x86_64/packages.json",
+      "length": 42,
+      "offset": 0,
+      "servePath": "/packages.json",
+      "path": "../../packages.json"
+    },
+    {
+      "type": "prelink",
+      "file": "os.linux.x86_64/packages/npm-container.js",
+      "length": 1651,
+      "offset": 0,
+      "servePath": "/packages/npm-container.js",
+      "sourceMap": "os.linux.x86_64/packages/npm-container.js.map"
+    }
+  ]
+}
