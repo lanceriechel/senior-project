@@ -1,0 +1,40 @@
+{
+  "builtBy": "meteor/14",
+  "buildDependencies": {
+    "os.linux.x86_64.json": {
+      "files": {
+        "/home/kulczajr/senior-project/packages/npm-container/package.js": "84c1d5f873a7340463aed67449d527fd27396e06",
+        "/home/kulczajr/senior-project/packages/npm-container/.npm/package/npm-shrinkwrap.json": "347b48cd1b275bd8f8f9eb8ea981b40d6ee44053",
+        "/home/kulczajr/senior-project/packages/npm-container/index.js": "774dd6cbaa943da9c34e1ab7253441d12d3d74a5",
+        "/home/kulczajr/senior-project/packages.json": "b8c5e18f084d670ad2873a72720f93861b95b298"
+      },
+      "directories": []
+    },
+    "web.browser.json": {
+      "files": {
+        "/home/kulczajr/senior-project/packages/npm-container/package.js": "84c1d5f873a7340463aed67449d527fd27396e06",
+        "/home/kulczajr/senior-project/packages/npm-container/.npm/package/npm-shrinkwrap.json": "347b48cd1b275bd8f8f9eb8ea981b40d6ee44053"
+      },
+      "directories": []
+    },
+    "web.cordova.json": {
+      "files": {
+        "/home/kulczajr/senior-project/packages/npm-container/package.js": "84c1d5f873a7340463aed67449d527fd27396e06",
+        "/home/kulczajr/senior-project/packages/npm-container/.npm/package/npm-shrinkwrap.json": "347b48cd1b275bd8f8f9eb8ea981b40d6ee44053"
+      },
+      "directories": []
+    }
+  },
+  "pluginDependencies": {
+    "files": {
+      "/home/kulczajr/senior-project/packages/npm-container/package.js": "84c1d5f873a7340463aed67449d527fd27396e06"
+    },
+    "directories": []
+  },
+  "source": "/home/kulczajr/senior-project/packages/npm-container",
+  "buildTimeDirectDependencies": {
+    "meteor": "1.1.3"
+  },
+  "buildTimePluginDependencies": {},
+  "cordovaDependencies": null
+}

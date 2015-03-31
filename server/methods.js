@@ -725,6 +725,40 @@ Meteor.startup(function () {
             },
             project
             );
+        },
+        addProjectToApprovalArray: function(id, approve) {
+            TimeSheet.update({'_id':id}, { $addToSet:{'projectApprovalArray' : approve}});
+        },
+        removeProjectFromApprovalArray: function(id, approvalArray) {
+            TimeSheet.update({'_id':id}, { $set:{'projectApprovalArray' : approvalArray}});
+        },
+        addEmployeeToProject: function(id, project) {
+            Meteor.users.update({'_id': id}, {$addToSet: {'projects': project}});
+        },
+        removeEmployeeFromProject: function(id, project) {
+            Meteor.users.update({'_id': id}, {$pull: {'projects': project}});
+        },
+        setEmployeeFullTime: function(id, isFullTime) {
+            Meteor.users.update({'_id': id}, {$set: {'fulltime': isFullTime}});
+        },
+        /*
+        * Method used for testing purposes.
+        */
+        insertDummyUser: function() {
+            Meteor.users.update(
+                {"_id": "ABCDE"},
+                {
+                    "_id" : "ABCDE",
+                    "admin" : true,
+                    "cn" : "John Smith",
+                    "email" : "admintest@csse.rose-hulman.edu",
+                    "fulltime" : true,
+                    "manager" : true,
+                    "projects" : [],
+                    "username" : "admintest"
+                },
+                {upsert: true}
+            );
         }
     });
 
