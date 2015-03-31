@@ -37,34 +37,36 @@ startup = function (){
 
         Meteor.users.find({}).forEach(
             function (user) {
-                addOrRemoveHolidayHours(d, user);
-                //Small Change (changed uppercase D to d in userId) here to see if this works
-                var projectApprovalArray = [];
-                user.projects.forEach(function (pId) {
-                    var projectId = ChargeNumbers.findOne({_id: pId}).projectId;
-                    projectApprovalArray.push({
-                        projectId : projectId,
-                        approved: false,
-                        sentBack: false,
-                        comment: ''
+                if(user.projects == ''){
+                    addOrRemoveHolidayHours(d, user);
+                    //Small Change (changed uppercase D to d in userId) here to see if this works
+                    var projectApprovalArray = [];
+                    user.projects.forEach(function (pId) {
+                        var projectId = ChargeNumbers.findOne({_id: pId}).projectId;
+                        projectApprovalArray.push({
+                            projectId : projectId,
+                            approved: false,
+                            sentBack: false,
+                            comment: ''
+                        });
                     });
-                });
-                var previousTimesheet = TimeSheet.findOne({'startDate': dStrL, 'userId': user['_id']});
-                var currentTimesheet = TimeSheet.findOne({'startDate': dStr, 'userId': user['_id']});
-                if (!currentTimesheet) {
-                    if (!previousTimesheet) {
-                        Meteor.call('insertTimesheet', dStr, d2Str, user['_id'], 1, [], [], 1,
-                            '', false, projectApprovalArray, '', false);
-                    }
-                    else {
-                        var old = previousTimesheet['projectEntriesArray'];
-                        for (var entry in  old) {
-                            old[entry].Approved = false;
-                            old[entry].rejectMessage = '';
-                            old[entry].SentBack = false;
+                    var previousTimesheet = TimeSheet.findOne({'startDate': dStrL, 'userId': user['_id']});
+                    var currentTimesheet = TimeSheet.findOne({'startDate': dStr, 'userId': user['_id']});
+                    if (!currentTimesheet) {
+                        if (!previousTimesheet) {
+                            Meteor.call('insertTimesheet', dStr, d2Str, user['_id'], 1, [], [], 1,
+                                '', false, projectApprovalArray, '', false);
                         }
-                        Meteor.call('insertTimesheet', dStr, d2Str, user['_id'], 1, [], old, 1,
-                            previousTimesheet.generalComment, false, projectApprovalArray, previousTimesheet.concerns, false);
+                        else {
+                            var old = previousTimesheet['projectEntriesArray'];
+                            for (var entry in  old) {
+                                old[entry].Approved = false;
+                                old[entry].rejectMessage = '';
+                                old[entry].SentBack = false;
+                            }
+                            Meteor.call('insertTimesheet', dStr, d2Str, user['_id'], 1, [], old, 1,
+                                previousTimesheet.generalComment, false, projectApprovalArray, previousTimesheet.concerns, false);
+                        }
                     }
                 }
             }
