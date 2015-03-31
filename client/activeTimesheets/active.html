@@ -19,6 +19,7 @@
         {{#each row}}
           {{> projectHoursFilled}}
         {{/each}}
+        {{> totals}}
         <br>
         {{#each timesheethack}}<!--this will return one field always-->
             {{> projectHours}}
@@ -117,6 +118,19 @@
         <div class="col-md-1 col-sm-1 col-xs-1"><input id="Saturday" type="text" class="large-input form-control enterable {{sentBack}}" value="0"></div>
         <div class="col-md-2 col-sm-2 col-xs-2"><input id="Comment" type="text" class="large-input form-control enterable {{sentBack}}" value=""></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary enterable {{sentBack}}">Add</button></div>
+    </div>
+</template>
+
+<template name="totals">
+    <div class="row">
+        <div class="col-md-2 col-sm-2 col-xs-2 text-center">Totals</div>
+        <div class="col-md-1 col-sm-1 col-xs-1 text-center">{{getDayTotal 0}}</div>
+        <div class="col-md-1 col-sm-1 col-xs-1 text-center">{{getDayTotal 1}}</div>
+        <div class="col-md-1 col-sm-1 col-xs-1 text-center">{{getDayTotal 2}}</div>
+        <div class="col-md-1 col-sm-1 col-xs-1 text-center">{{getDayTotal 3}}</div>
+        <div class="col-md-1 col-sm-1 col-xs-1 text-center">{{getDayTotal 4}}</div>
+        <div class="col-md-1 col-sm-1 col-xs-1 text-center">{{getDayTotal 5}}</div>
+        <div class="col-md-1 col-sm-1 col-xs-1 text-center">{{getDayTotal 6}}</div>
     </div>
 </template>
 
