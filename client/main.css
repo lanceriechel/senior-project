@@ -448,12 +448,13 @@ ul {
 
 
 .toast {
-    background: #A3A3A3;
+    background: #C3C3C3;
+    color: #333333;
     border-radius: 30px;
     position: absolute;
     bottom: 10%;
     margin: 0 auto;
-    padding: 5px;
+    padding: 5px 15px;
     z-index: 2;
     left: 50%;
     opacity: 0;
