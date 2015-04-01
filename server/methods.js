@@ -217,30 +217,7 @@ Meteor.startup(function () {
         return;
 
     },
-    // updateSentBackStatus: function(date, user){
-    //     /*
-    //         Only updates the sentBack status for the timesheet, so the activeTimesheet UI knows what the user
-    //         is allowed to change and what is locked.
-    //     */
-    //     var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
-    //     var prEntriesArr = sheet['projectEntriesArray'];
-    //     var active = 0;
 
-    //     for (var index in prEntriesArr){
-    //         if(prEntriesArr[index].SentBack){ 
-    //             prEntriesArr[index].SentBack = false;
-    //         }
-    //     }
-
-    //     TimeSheet.update({'_id':sheet._id},
-    //         {
-    //             $set:{
-    //                 'projectEntriesArray': prEntriesArr
-    //             }
-    //         });
-    //     return;
-
-    // },
     updateCommentsInTimeSheet: function(date, user, gen_comment, concerns){
         /*
             Update comments and concerns seciton of an active timesheet.
@@ -602,7 +579,7 @@ Meteor.startup(function () {
 
                                     });
                                     var report = {};
-                                    //var comments= {};
+
                                     for (var key in projectHours) {
                                         report[projectArray[key]] = projectHours[key];
                                         comments[projectArray[key]] = projectComments[key];
@@ -685,13 +662,7 @@ Meteor.startup(function () {
             }
             for (var index in prEntriesArr){
                 if (prEntriesArr[index].projectId == projectId){
-                    //console.log(prEntriesArr[index]);
                     prEntriesArr[index].rejectMessage = rejectMessage;
-                    // if(!approvalStatus){
-                    //     prEntriesArr[index].SentBack = true;
-                    // }else {
-                    //     prEntriesArr[index].SentBack = false;
-                    // }
 
                     break;
                 }
@@ -716,6 +687,12 @@ Meteor.startup(function () {
 
         },
         addNewProject: function(project){
+            var startDate = new Date(project.start_date)
+            var endDate = new Date(project.end_date)
+            if(startDate > endDate){
+                //startDate is after endDate
+                return;
+            }
             ChargeNumbers.insert(project);
         },
         updateProject: function(id, project){
@@ -740,25 +717,6 @@ Meteor.startup(function () {
         },
         setEmployeeFullTime: function(id, isFullTime) {
             Meteor.users.update({'_id': id}, {$set: {'fulltime': isFullTime}});
-        },
-        /*
-        * Method used for testing purposes.
-        */
-        insertDummyUser: function() {
-            Meteor.users.update(
-                {"_id": "ABCDE"},
-                {
-                    "_id" : "ABCDE",
-                    "admin" : true,
-                    "cn" : "John Smith",
-                    "email" : "admintest@csse.rose-hulman.edu",
-                    "fulltime" : true,
-                    "manager" : true,
-                    "projects" : [],
-                    "username" : "admintest"
-                },
-                {upsert: true}
-            );
         }
     });
 
