@@ -19,7 +19,21 @@ Session.setDefault('current_page', 'login_page');
 Template.pages.events({
     'mousedown .tag': function (evt) {
         Session.set('editing-user-page', false);
-        Session.set('current_page', evt.currentTarget.id);
+        var selected = evt.currentTarget.id;
+        if (selected == 'time_sheet'){
+            var callback = function (error, data){
+                Session.set('current_page', 'selected_timesheet');
+                var date = (data.start.getMonth() + 1) + "/" + data.start.getDate() + "/" + data.start.getFullYear();
+                console.log(date);
+                Session.set('startDate', date);
+
+            };
+            var date = Meteor.call('getCurrentWeekObject', callback);
+            
+        }else{
+            Session.set('current_page', evt.currentTarget.id);
+        }
+        //Session.set('current_page', evt.currentTarget.id);
         Session.set('search_employee',null);
     }
 });

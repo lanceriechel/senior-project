@@ -381,6 +381,15 @@ Template.SelectedTimesheet.helpers({
     }
 });
 
+Template.SelectedTimesheet.events ={
+'click button': function(event){
+    /*
+      This sets the current page to the general list of all available timesheets
+    */
+    Session.set('current_page', 'time_sheet');
+  },
+};
+
 Template.SelectedTimesheet.rendered = function () {
     /*
      Logic to decide which fields in a timesheet are editable, depending on whether the timesheet is
