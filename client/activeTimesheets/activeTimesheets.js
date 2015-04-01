@@ -382,7 +382,7 @@ Template.SelectedTimesheet.helpers({
 });
 
 Template.SelectedTimesheet.events ={
-'click button': function(event){
+'click #back': function(event){
     /*
       This sets the current page to the general list of all available timesheets
     */
@@ -675,7 +675,12 @@ Template.lastSection.events = {
 
         TimeSheetService.removeErrorClasses(row, ['#concerns', '#generalComment']);
 
-        ActiveDBService.updateCommentsInTimeSheet(Session.get("startDate"), user, gen_comment, concerns);
+        ActiveDBService.updateCommentsInTimeSheet(Session.get("startDate"), user, gen_comment, concerns, function (){
+            $('.toast').addClass('active');
+            setTimeout(function () {
+                $('.toast').removeClass('active');
+            }, 5000);
+        });
     },
     'click .submit': function (event) {
         /*
@@ -727,24 +732,22 @@ Template.lastSection.events = {
 
         }else{
             if (!Session.get("submission_overide") && checkNonEmptyAddRow()) return;
-            Session.set("submission_overide",false);
-            var row = event.currentTarget.parentNode;
-            // TimeSheet.update({'_id': sheet._id},
-            // {
-            //     $set: {
-            //         'revision': revision
-            //     },
-            // });
-            Meteor.call('updateRevision', sheet._id, revision);
 
-            TimeSheetService.removeErrorClasses(row, ['#submitButton']);
+            $('#confirmSubmitModal').modal('toggle');
+            $('#confirmSubmitModal_yes').on("click", function (event){
+                Session.set("submission_overide",false);
+                var row = event.currentTarget.parentNode;
+                Meteor.call('updateRevision', sheet._id, revision);
 
-            Meteor.call('submitTimesheet', Session.get("startDate"), user);
-            // Meteor.call('updateSentBackStatus', Session.get("startDate"), user);
+                TimeSheetService.removeErrorClasses(row, ['#submitButton']);
 
-            if (!data){
-                Session.set('current_page', 'time_sheet');
-            }
+                Meteor.call('submitTimesheet', Session.get("startDate"), user);
+                // Meteor.call('updateSentBackStatus', Session.get("startDate"), user);
+
+                if (!data){
+                    Session.set('current_page', 'time_sheet');
+                }
+            });
         }
 
     },
@@ -770,7 +773,12 @@ Template.lastSection.events = {
         var revision = sheet.revision;
 
         Meteor.call('updateApprovalStatusInTimeSheet', date, userId, projectId, true, "Approved");
-        Meteor.call('updateActiveStatusInTimesheet', date, userId, projectId);
+        Meteor.call('updateActiveStatusInTimesheet', date, userId, projectId, function (){
+            $('.toast').addClass('active');
+            setTimeout(function () {
+                $('.toast').removeClass('active');
+            }, 5000);
+        });
 
         historyEntry = {
             'manager':managerName,
@@ -823,7 +831,12 @@ Template.lastSection.events = {
             'comment':rejectComment
         };
         revision.unshift(historyEntry);
-        Meteor.call('updateRevision', sheet._id, revision);
+        Meteor.call('updateRevision', sheet._id, revision, function (){
+            $('.toast').addClass('active');
+            setTimeout(function () {
+                $('.toast').removeClass('active');
+            }, 5000);
+        });
 
         Session.set('current_page', 'approval_page');
     }
@@ -847,7 +860,13 @@ Template.projectComments.events = {
             }
         }
 
-        Meteor.call('updateProjectCommentsTimeSheet', Session.get("startDate"), user, projectId, issues, next, Session.get('editing-user-page'));
+        Meteor.call('updateProjectCommentsTimeSheet', Session.get("startDate"), user, projectId, issues, next, Session.get('editing-user-page'),
+            function (){
+                $('.toast').addClass('active');
+                setTimeout(function () {
+                    $('.toast').removeClass('active');
+                }, 5000);
+        });
     }
 };
 
@@ -895,7 +914,13 @@ Template.projectHoursFilled.events = {
                 thursday_t,
                 friday_t,
                 saturday_t,
-                rowID
+                rowID,
+                function (){
+                    $('.toast').addClass('active');
+                    setTimeout(function () {
+                        $('.toast').removeClass('active');
+                    }, 5000);
+                }
             );
         }
         //Session.set("rows_have_been_update", projectID);
@@ -931,7 +956,12 @@ Template.projectHoursFilled.events = {
         var sheet = TimeSheet.findOne({'startDate': date, 'userId': user});
 
         if (!sheet['submitted'] || TimeSheetService.checkSentBack()) {
-            Meteor.call('removeRowInTimeSheet', Session.get("startDate"), user, rowID, projectId);
+            Meteor.call('removeRowInTimeSheet', Session.get("startDate"), user, rowID, projectId,function (){
+                $('.toast').addClass('active');
+                setTimeout(function () {
+                    $('.toast').removeClass('active');
+                }, 5000);
+            });
             //Hack to make the next row not inherit it's previous's properties
             //Otherwise, the UI can unlock for a row that is pending/approved.
             //We haven't found a great solution to fix this, but this works fine and is not noticable to the user.
@@ -1010,7 +1040,12 @@ Template.projectHours.events = {
                     thursday_t,
                     friday_t,
                     saturday_t,
-                    rowID);
+                    rowID,function (){
+                        $('.toast').addClass('active');
+                        setTimeout(function () {
+                            $('.toast').removeClass('active');
+                        }, 5000);
+                    });
                 comment_t = '';
                 sunday_t = 0;
                 monday_t = 0;

@@ -445,3 +445,87 @@ ul {
 .row-div-12, .row-header-div-12 {
     width: 100%;
 }
+
+
+.toast {
+    background: #C3C3C3;
+    color: #333333;
+    border-radius: 30px;
+    position: absolute;
+    bottom: 10%;
+    margin: 0 auto;
+    padding: 5px 15px;
+    z-index: 2;
+    left: 50%;
+    opacity: 0;
+    transform: translate(-50%, 0);
+}
+
+.toast.active{
+    -webkit-animation: toastIn ease-in 1 forwards 3s;
+    -moz-animation: toastIn ease-in 1 forwards 3s;
+    animation: toastIn ease-in 1 forwards 3s;
+}
+
+.toast.long.active{
+    -webkit-animation: toastIn ease-in 1 forwards 5s;
+    -moz-animation: toastIn ease-in 1 forwards 5s;
+    animation: toastIn ease-in 1 forwards 5s;
+}
+
+@-webkit-keyframes toastIn {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, 150%);
+    }
+    20% {
+        opacity: 0.9;
+        transform: translate(-50%, 0%);
+    }
+    80% {
+        opacity: 0.9;
+        transform: translate(-50%, 0%);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, 150%);
+    }
+}
+
+@-moz-keyframes toastIn {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, 150%);
+    }
+    20% {
+        opacity: 0.9;
+        transform: translate(-50%, 0%);
+    }
+    80% {
+        opacity: 0.9;
+        transform: translate(-50%, 0%);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, 150%);
+    }
+}
+
+@keyframes toastIn {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, 150%);
+    }
+    20% {
+        opacity: 0.9;
+        transform: translate(-50%, 0%);
+    }
+    80% {
+        opacity: 0.9;
+        transform: translate(-50%, 0%);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, 150%);
+    }
+}
