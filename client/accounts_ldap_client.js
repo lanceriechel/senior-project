@@ -62,7 +62,14 @@ authenticateLdapEmployee = function(username, password) {
                 }
            	// needs to set current user id
 	        Session.set('LdapId',id);
-		Session.set('current_page', 'time_sheet');
+		    var callback = function (error, data){
+                Session.set('current_page', 'selected_timesheet');
+                var date = (data.start.getMonth() + 1) + "/" + data.start.getDate() + "/" + data.start.getFullYear();
+                console.log(date);
+                Session.set('startDate', date);
+
+            };
+            var date = Meteor.call('getCurrentWeekObject', callback);
             } else{
 		$('#LDAPusername').parent().addClass('has-error');
             	$('#LDAPusername').tooltip({
