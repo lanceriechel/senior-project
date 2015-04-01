@@ -87,7 +87,7 @@ ActiveDBService = {
 
         return timesheets;
     },
-    updateRowInTimeSheet: function(date, user, project, comment,Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, rowID){
+    updateRowInTimeSheet: function(date, user, project, comment,Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, rowID, callback){
         /*
             Updates a row in an active timesheet.  This should be called from an onBlur event.
             Note that this is implemented by calling removeRowInTimesheet() followed by addRowToTimesheet().
@@ -164,10 +164,10 @@ ActiveDBService = {
         }else{
             //Project has been changed
              Meteor.call('removeRowInTimeSheet',date,user, rowID, project, Session.get('editing-user-page'));
-             Meteor.call('addRowToTimeSheet',date, user, project, comment,Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, rowID);
+             Meteor.call('addRowToTimeSheet',date, user, project, comment,Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, rowID, callback);
         }
     },
-    updateCommentsInTimeSheet: function(date, user, gen_comment, concerns){
+    updateCommentsInTimeSheet: function(date, user, gen_comment, concerns, callback){
         /*
             Update comments and concerns seciton of an active timesheet.
             This should be called from an onBlur event.
@@ -180,6 +180,6 @@ ActiveDBService = {
         if(disable){
             return;
         }
-        Meteor.call('updateGenComments', date, user, gen_comment, concerns);
+        Meteor.call('updateGenComments', date, user, gen_comment, concerns, callback);
     },
 }
