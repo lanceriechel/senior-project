@@ -35,7 +35,7 @@ Template.historyHeader.helpers({
 			managerProjIds.push(p.id);
 		});
 
-		if (userId) {
+		if (userId != '') {
 			TimeSheet.find({'userId': userId, 'projectEntriesArray.projectId':project}, sort).forEach(
 				function (u) {
 					timesheetProjects = [];
