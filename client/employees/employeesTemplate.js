@@ -42,10 +42,10 @@ Template.associatedProjects.helpers({
 Template.employees_Template.events({
     'click .full': function () {
         'use strict';
-        Meteor.users.update({_id: this._id}, {$set: {fulltime: true}});
+        Meteor.call('setEmployeeFullTime', this._id, true);
     },
     'click .part': function () {
-        Meteor.users.update({_id: this._id}, {$set: {fulltime: false}});
+        Meteor.call('setEmployeeFullTime', this._id, false);
     }
 });
 
@@ -70,8 +70,7 @@ Template.associatedProjects.events({
         //evt.target.parentNode.style.opacity = 0;
         // wait for CSS animation to finish
         var userId = String(evt.target.parentNode.parentNode.id);
-        // #TODO Teddy fix the projects
-        Meteor.users.update({'_id': userId}, {$pull: {'projects': String(this)}});
+        Meteor.call('removeEmployeeFromProject', userId, String(this));
         var value = String(this);
             TimeSheet.find({'userId': userId, 'active':1}).forEach(function (e){
                 var approveArray = e.projectApprovalArray;
@@ -83,12 +82,7 @@ Template.associatedProjects.events({
                     }
                 }
 
-                TimeSheet.update({'_id':e._id},
-                {
-                    $set:{
-                        'projectApprovalArray' : i
-                     }
-                 });
+                Meteor.call('removeProjectFromApprovalArray', e._id, i);
             });
     }
 });
@@ -129,22 +123,15 @@ Template.associatedProjects.events(okCancelEvents(
     '#edittag-input',
     {
         ok: function (value) {
-            Meteor.users.update({_id: this._id}, {$addToSet: {projects: value}});
+            Meteor.call('addEmployeeToProject', this._id, value);
             TimeSheet.find({'userId': this._id, 'active':1}).forEach(function (e){
-                var approveArray = e.projectApprovalArray;
-                approveArray.push({
+                var approve = {
                     projectId : value,
                     approved : false,
                     sentBack : false
-                });
+                };
 
-                TimeSheet.update({'_id':e._id},
-                {
-                    $set:{
-                        'projectApprovalArray' : approveArray
-                }
-
-                });
+                Meteor.call('addProjectToApprovalArray', e._id, approve);
 
             });
             Session.set('editing_addtag', null);
@@ -162,15 +149,16 @@ Template.employeeSettings.helpers({
         var holiday = ChargeNumbers.findOne({'is_holiday': true});
         if (!holiday) { return; }
         employees.forEach(function (e) {
-            if (e.fulltime) {
-                if (e.projects.indexOf(holiday._id) == -1) {
-                    e.projects.push(holiday._id);
-                    Meteor.users.update(
-                        {'_id': e._id},
-                        {$set: {
-                            'projects': e.projects
-                        }});
-                }
+            if (e.fulltime && e.projects.indexOf(holiday._id) == -1) {
+                Meteor.call('addEmployeeToProject', e._id, holiday._id);
+
+                var approve = {
+                    projectId : holiday._id,
+                    approved : false,
+                    sentBack : false
+                };
+
+                Meteor.call('addProjectToApprovalArray', e._id, approve);
             }
         });
     }

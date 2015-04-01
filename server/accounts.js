@@ -39,9 +39,9 @@ LDAP.search = function (username) {
     return wrappedLdapSearch(Meteor.settings.ldap_search_base, opts);
 };
 
-LDAP.isAdmin = function (username, checkAdmin) {
+LDAP.getGroupList = function (isAdminList) {
     var opts;
-    if (checkAdmin) {
+    if (isAdminList) {
         opts = {
             filter: '(cn=time_admins)',
             scope: 'sub',
@@ -73,7 +73,7 @@ Meteor.startup (function() {
         authenticateLdapEmployee : function (username, password){
             try {
                 if(LDAP.checkAccount(username, password)){
-                    return [LDAP.search(username), LDAP.isAdmin(username, true).member, LDAP.isAdmin(username, false).member];
+                    return [LDAP.search(username), LDAP.getGroupList(true).member, LDAP.getGroupList(false).member];
                 } else {
                     return null;
                 }
