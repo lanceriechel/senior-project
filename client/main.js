@@ -143,6 +143,19 @@ Template.loginPage.events({
         var username = $('#LDAPusername')[0].value;
         var password = $('#LDAPpassword')[0].value;  
 
-        authenticateLdapEmployee(username, password);
+        //authenticateLdapEmployee(username, password);
+
+        var user = Meteor.users.findOne({username: username});
+
+        if (!user) return;
+
+        Session.set('LdapId', user._id);
+        var callback = function (error, data){
+            Session.set('current_page', 'selected_timesheet');
+            var date = (data.start.getMonth() + 1) + "/" + data.start.getDate() + "/" + data.start.getFullYear();
+            Session.set('startDate', date);
+
+        };
+        var date = Meteor.call('getCurrentWeekObject', callback);
     }
 });

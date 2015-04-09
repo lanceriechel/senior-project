@@ -1,4 +1,38 @@
 
+@media (max-width: 768px) {
+    .pull-xs-left {
+        float: left;
+    }
+    .pull-xs-right {
+        float: right;
+    }
+}
+
+@media (max-width: 992px) {
+    .pull-sm-left {
+        float: left;
+    }
+    .pull-sm-right {
+        float: right;
+    }
+}
+
+@media (max-width: 1200px) {
+    .pull-md-left {
+        float: left;
+    }
+    .pull-md-right {
+        float: right;
+    }
+}
+
+.pull-lg-left {
+    float: left;
+}
+.pull-lg-right {
+    float: right;
+}
+
 .navbar {
     background: #eeeeee;
     border: #eeeeee;
@@ -459,6 +493,7 @@ ul {
     left: 50%;
     opacity: 0;
     transform: translate(-50%, 0);
+    text-align: center;
 }
 
 .toast.active{
