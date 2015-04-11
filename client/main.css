@@ -33,6 +33,14 @@
     float: right;
 }
 
+.no-transition {
+    -webkit-transition: height 0.0001s;
+    -moz-transition: height 0.00001s;
+    -ms-transition: height 0.00001s;
+    -o-transition: height 0.00001s;
+    transition: height 0.00001s;
+}
+
 .navbar {
     background: #eeeeee;
     border: #eeeeee;
