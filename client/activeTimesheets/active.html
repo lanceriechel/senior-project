@@ -8,62 +8,47 @@
             </div>
         {{/if}}
         <div class="row">
-            <button id='back'><span class='glyphicon glyphicon-chevron-left'></span></button>
-            <h2 style='display: inline-block;'><span class="label">{{date}}</span></h2>
+            <button id='back'> <span class='glyphicon glyphicon-chevron-left'></span></button>
+            <h2 style= 'display: inline-block;'><span class="label">{{date}}</span></h2>
         </div>
         <br>
-        <div class="row hidden-lg hidden-md hidden-sm">
-            <button type="button" class="navbar-toggle collapsed collapse in btn btn-default pull-right no-transition"
-                    data-toggle="collapse" id="show-hours-button"
-                    data-target="#time-hours-collapse,#time-hours-button,#hide-hours-button">Show
-                Project Hours
-            </button>
-            <!--<button type="button" class="navbar-toggle collapsed collapse in btn btn-default pull-right no-transition" data-toggle="collapse" id="hide-hours-button"-->
-            <!--data-target="#time-hours-collapse,#time-hours-button,#show-hours-button,#hide-hours-button">Hide Project Hours</button>-->
+        <div class="row hidden-sm hidden-xs">
+            <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4 style='font-weight: bold;'>Project</h4></div>
+            {{>daysOfWeek}}
+            <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4>Comment</h4></div>
         </div>
-        <div class="collapse navbar-collapse" id="time-hours-collapse">
-            <div class="row hidden-sm hidden-xs">
-                <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4 style='font-weight: bold;'>Project</h4></div>
-                {{>daysOfWeek}}
-                <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4>Comment</h4></div>
-            </div>
-            {{#each row}}
-                {{> projectHoursFilled}}
-            {{/each}}
-            <br>
-            {{> totals}}
-        </div>
-        <!--<div class="navbar-footer hidden-lg hidden-md hidden-sm">-->
-        <!--<button type="button" class="navbar-toggle collapse navbar-collapse btn btn-default pull-right no-transition" data-toggle="collapse" id="time-hours-button"-->
-        <!--data-target="#time-hours-collapse,#time-hours-button,#show-hours-button,#hide-hours-button">Project Hours</button>-->
-        <!--</div>-->
+        <div class="col-xs-12 hidden-lg hidden-md"><h3>Project Time</h3></div>
+        {{#each row}}
+            {{> projectHoursFilled}}
+        {{/each}}
+        {{> totals}}
         <br>
-        <div class="row">
+        <!--this will return one field always-->
+        <hr class="hidden-lg hidden-md">
+        <br class="hidden-lg hidden-md">
         {{#each timesheethack}}
             {{> projectHoursWrapper}}
         {{/each}}
-        </div>
         <br>
-
-        <div class="row hidden-lg hidden-md hidden-sm">
-            <button type="button" class="navbar-toggle collapsed btn btn-default pull-right" data-toggle="collapse"
-                    data-target="#project-comments-collapse">Project Comments
-            </button>
+        <hr class="hidden-lg hidden-md">
+        <br class="hidden-lg hidden-md">
+        <div class="col-xs-12 hidden-lg hidden-md"><h3>Project Comments</h3></div>
+        <div class="row hidden-sm hidden-xs">
+            <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4>Project</h4></div>
+            <div class="text-center col-md-3 col-sm-3 col-xs-3"><h4>This Week's Issues</h4></div>
+            <div class="text-center col-md-3 col-sm-3 col-xs-3"><h4>Goals for Next Week</h4></div>
+            <div class="text-center col-md-4 col-sm-4 col-xs-4"><h4>Manager Feedback</h4></div>
         </div>
-        <div class="collapse navbar-collapse" id="project-comments-collapse">
-            <div class="row hidden-sm hidden-xs">
-                <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4>Project</h4></div>
-                <div class="text-center col-md-3 col-sm-3 col-xs-3"><h4>This Week's Issues</h4></div>
-                <div class="text-center col-md-3 col-sm-3 col-xs-3"><h4>Goals for Next Week</h4></div>
-                <div class="text-center col-md-4 col-sm-4 col-xs-4"><h4>Manager Feedback</h4></div>
-            </div>
-            {{#each project}}
-                {{> projectComments}}
-            {{/each}}
-        </div>
-
+        {{#each project}}
+            {{> projectComments}}
+        {{/each}}
         <br>
+        <hr class="hidden-lg hidden-md">
+        <br class="hidden-lg hidden-md">
+        <div class="col-xs-12 hidden-lg hidden-md"><h3>Weekly Comments</h3></div>
         {{> lastSection}}
+        <br class="hidden-lg hidden-md">
+        <br class="hidden-lg hidden-md">
     </div>
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -78,14 +63,10 @@
                     <button type="button" class="btn btn-primary" id="modal_yes" data-dismiss="modal">Yes</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
                 </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
-    <div class="modal fade" id="confirmSubmitModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true">
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <div class="modal fade" id="confirmSubmitModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -95,16 +76,12 @@
                     <p>Are you sure you want to submit this time sheet?</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="confirmSubmitModal_yes" data-dismiss="modal">Yes
-                    </button>
+                    <button type="button" class="btn btn-primary" id="confirmSubmitModal_yes" data-dismiss="modal">Yes</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
                 </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
     <div class="toast">All changes have been saved...</div>
 </template>
 
@@ -142,7 +119,6 @@
 
     </div>
 </template>
-
 <template name="daysOfWeek">
     <div class="col-xs-1 text-center"><h4>Sun</h4></div>
     <div class="col-xs-1 text-center"><h4>Mon</h4></div>
@@ -152,7 +128,6 @@
     <div class="col-xs-1 text-center"><h4>Fri</h4></div>
     <div class="col-xs-1 text-center"><h4>Sat</h4></div>
 </template>
-
 <template name="activeTimesheets">
     <div class="container-fluid">
         <h2><span class="label">Active Time Sheets</span></h2>
@@ -167,16 +142,17 @@
 
     </div>
 </template>
-
 <template name="projectHoursWrapper">
     <div class="hidden-xs">
         {{> projectHours }}
     </div>
     <div class="hidden-sm hidden-md hidden-lg well">
+        <div class="row">
+            <div class="col-xs-12"><h3>Add Time</h3></div>
+        </div>
         {{> projectHours }}
     </div>
 </template>
-
 <template name="projectHours">
     <div class="row add_row">
         <div class="col-xs-12 hidden-md hidden-lg"><h4>Project</h4></div>
@@ -218,7 +194,6 @@
         </div>
     </div>
 </template>
-
 <template name="totals">
     <div class="row">
         <div class="col-md-2 col-sm-2 col-xs-2 text-center">Totals</div>
@@ -231,7 +206,6 @@
         <div class="col-md-1 col-sm-1 col-xs-1 text-center">{{getDayTotal 6}}</div>
     </div>
 </template>
-
 <template name="projectComments">
     <div class="row projectCommentsRow">
         <div class="col-md-12 hidden-lg hidden-md"><h4>Project</h4></div>
@@ -252,7 +226,6 @@
                                                                                value={{message project}}></div>
     </div>
 </template>
-
 <template name="projectHoursFilled">
     <div class="row" id={{rowID}}>
         <div class="col-xs-12 hidden-md hidden-lg"><h4>Project</h4></div>
@@ -260,11 +233,11 @@
         <div class="col-xs-1 col-xs-offset-1 hidden-md hidden-lg"><h5>Sun</h5></div>
         <div class="filledRow col-xs-4 col-md-1"><input id="Sunday" type="text"
                                                         class="large-input form-control enterable {{sentBack}}"
-                                                        value={{sunday}}/></div>
+                                                        value={{sunday}}></div>
         <div class="col-xs-1 col-sm-offset-1 hidden-md hidden-lg text-right"><h5>Mon</h5></div>
         <div class="filledRow col-xs-4 col-md-1 pull-xs-right"><input id="Monday" type="text"
                                                                       class="large-input form-control enterable {{sentBack}}"
-                                                                      value={{monday}}/></div>
+                                                                      value={{monday}}></div>
         <div class="clearfix visible-xs-block"></div>
         <div class="col-xs-1 col-xs-offset-1 hidden-md hidden-lg"><h5>Tue</h5></div>
         <div class="filledRow col-xs-4 col-md-1"><input id="Tuesday" type="text"
@@ -300,7 +273,6 @@
         </div>
     </div>
 </template>
-
 <template name="timesheetInfo">
     <div class="row">
         <div class="col-md-2 col-sm-2 col-xs-2"><input id="StartDate" type="text" class="large-input form-control"
@@ -324,7 +296,6 @@
         </div>
     </div>
 </template>
-
 <template name="projectListDropDown">
     <select style='font-weight: bold;' id="project_select" class="form-control enterable {{sentBack}}">
         {{#each projectsDropdown project}}
