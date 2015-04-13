@@ -245,24 +245,25 @@ Meteor.startup(function () {
             Set a timesheet's submitted status to true.
         */
         var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
+        if(sheet){
+            var projectApprovalArray = sheet.projectApprovalArray;
+            for (var key in projectApprovalArray){
+                    projectApprovalArray[key] = {
+                        projectId : projectApprovalArray[key].projectId,
+                        approved : false,
+                        sentBack : false
+                    };
+            }
 
-        var projectApprovalArray = sheet.projectApprovalArray;
-        for (var key in projectApprovalArray){
-                projectApprovalArray[key] = {
-                    projectId : projectApprovalArray[key].projectId,
-                    approved : false,
-                    sentBack : false
-                };
+            TimeSheet.update({'_id':sheet._id},
+                {
+                    $set:{
+                        'submitted': true,
+                        'globalSentBack': false,
+                        'projectApprovalArray' : projectApprovalArray
+                    }
+            });
         }
-
-        TimeSheet.update({'_id':sheet._id},
-            {
-                $set:{
-                    'submitted': true,
-                    'globalSentBack': false,
-                    'projectApprovalArray' : projectApprovalArray
-                }
-        });
     },
 
     addRowToTimeSheet: function(date, user, project, comment,Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, rowID) {
