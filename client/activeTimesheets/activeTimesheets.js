@@ -188,6 +188,38 @@ Template.totals.helpers({
             }
         }
         return total;
+    },
+
+    getWeekTotal: function(){
+        var date = Session.get("startDate");
+        var user = Session.get('LdapId');
+        var data = Session.get('editing-user-page');
+        var total = 0;
+        if (data){
+            var userO = Meteor.users.findOne({username : data.username});
+            if (userO){
+                user = userO._id;
+            }
+        }
+        var sheet = TimeSheet.findOne({'startDate': date, 'userId': user});
+        var projectEntries = sheet['projectEntriesArray'];
+        //console.log("projectsEntries Length: " + projectEntries.length);
+        for (var i = 0; i < projectEntries.length; i++) {
+            var EntryArray = projectEntries[i]['EntryArray'];
+            
+            //console.log("EntryArray Length: " + EntryArray.length);
+            for (var j = 0; j < EntryArray.length; j++) {
+                var hours = EntryArray[j]['hours'];
+                //console.log("Hours Length: "+ hours.length);
+                for (var k = 0; k < hours.length; k++){
+                    //console.log("Adding: "+ parseInt(hours[i]));
+                    total += parseInt(hours[k]);
+                }
+                
+            }
+        }
+        //console.log("Total: "+ total);
+        return total;
     }
 
 });
