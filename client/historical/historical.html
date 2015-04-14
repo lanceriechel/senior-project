@@ -87,11 +87,11 @@
                 <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Sat</h4></div>
             </div>
         {{#each getProjects}}
-            {{#if getTimesheets id}}
+            {{#if getTimesheets _id}}
                 <h3><span class="label">{{name}}</span></h3>
                 <br>
             {{/if}}
-            {{#each getTimesheets id}}
+            {{#each getTimesheets _id}}
         		<div id="ProjectID" value="{{../id}}">
                         {{> historyInfo}}
         		</div>

@@ -745,7 +745,11 @@ Template.lastSection.events = {
                 // Meteor.call('updateSentBackStatus', Session.get("startDate"), user);
 
                 if (!data){
+                    // Session.set('current_page', 'time_sheet');
                     Session.set('current_page', 'time_sheet');
+                    Meteor.flush();
+                    Session.set('current_page', 'selected_timesheet');
+                    Meteor.flush();
                 }
             });
         }
