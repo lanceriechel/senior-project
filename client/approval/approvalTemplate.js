@@ -246,7 +246,7 @@ Template.approval_Template.helpers({
         }
         var toReturn = [];
 
-        var id;
+        var id = null;
         if (user.admin){
             id = ChargeNumbers.findOne()._id;
             Session.set('current_project_to_approve', id);
@@ -264,8 +264,11 @@ Template.approval_Template.helpers({
                 }
             });
         }else{
-            id = ChargeNumbers.findOne({'manager': user.username})._id;
-            ChargeNumbers.find({'manager': user.username}).forEach(function (cn){
+            //user is a manager
+            ChargeNumbers.find({'manager': { $in: user.groups}}).forEach(function (cn){
+                if (id == null) {
+                    id = cn._id;
+                }
                 if (cn.indirect) {
                     toReturn.push({
                         charge_number: cn.id,

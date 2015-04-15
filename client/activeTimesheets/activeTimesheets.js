@@ -455,7 +455,6 @@ Template.projectListDropDown.helpers({
          Projects are not added to the list if the user is not working on a project.  Projects are also removed from
          the list if the timesheet is submitted and that project is already approved or pending.
          */
-        console.log(projectSelected);
         var date = Session.get("startDate");
         var userId = Session.get('LdapId');
         var data = Session.get('editing-user-page');

@@ -161,7 +161,19 @@ Template.employeesListDropDown.helpers({
         return Meteor.users.find({});
     },
     managers: function() {
-	return Meteor.users.find({ manager: true });
+        var managerGroups = [];
+        if (!Session.get('manager_groups')) {
+            Meteor.call("getLdapManagerGroups", function (error, data) {
+                if (!error){
+                    Session.set('manager_groups', data);
+                }
+            });
+        }else{
+            Session.get('manager_groups').forEach(function (group){
+                managerGroups.push({username: group});
+            })
+        }
+	return managerGroups;
     }
 });
 

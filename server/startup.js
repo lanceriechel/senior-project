@@ -12,7 +12,6 @@ startup = function (){
         dateObject.decrementWeek();
         var d1L = new Date(dateObject.start);
 
-
         //var d = new Date(),
         //    d1L = new Date(),
         //    d2 = new Date();
@@ -21,7 +20,7 @@ startup = function (){
         //d2.setDate((d2.getDate() - (d2.getDay() + 6) % 7) + 6);
 
         var holidays = [];
-        for (i = 0; i < 7; i++) {
+        for (var i = 0; i < 7; i++) {
             var dH = new Date();
             dH.setDate(d.getDate() + i);
             if (check_holiday(dH)) {
@@ -37,36 +36,33 @@ startup = function (){
 
         Meteor.users.find({}).forEach(
             function (user) {
-                if(user.projects == ''){
-                    addOrRemoveHolidayHours(d, user);
-                    //Small Change (changed uppercase D to d in userId) here to see if this works
-                    var projectApprovalArray = [];
-                    user.projects.forEach(function (pId) {
-                        var projectId = ChargeNumbers.findOne({_id: pId}).projectId;
-                        projectApprovalArray.push({
-                            projectId : projectId,
-                            approved: false,
-                            sentBack: false,
-                            comment: ''
-                        });
+                //Small Change (changed uppercase D to d in userId) here to see if this works
+                var projectApprovalArray = [];
+                user.projects.forEach(function (pId) {
+                    var projectId = ChargeNumbers.findOne({_id: pId}).projectId;
+                    projectApprovalArray.push({
+                        projectId : projectId,
+                        approved: false,
+                        sentBack: false,
+                        comment: ''
                     });
-                    var previousTimesheet = TimeSheet.findOne({'startDate': dStrL, 'userId': user['_id']});
-                    var currentTimesheet = TimeSheet.findOne({'startDate': dStr, 'userId': user['_id']});
-                    if (!currentTimesheet) {
-                        if (!previousTimesheet) {
-                            Meteor.call('insertTimesheet', dStr, d2Str, user['_id'], 1, [], [], 1,
-                                '', false, projectApprovalArray, '', false);
+                });
+                var previousTimesheet = TimeSheet.findOne({'startDate': dStrL, 'userId': user['_id']});
+                var currentTimesheet = TimeSheet.findOne({'startDate': dStr, 'userId': user['_id']});
+                if (!currentTimesheet) {
+                    if (!previousTimesheet) {
+                        Meteor.call('insertTimesheet', dStr, d2Str, user['_id'], 1, [], [], 1,
+                            '', false, projectApprovalArray, '', false, function(){addOrRemoveHolidayHours(d, user);});
+                    }
+                    else {
+                        var old = previousTimesheet['projectEntriesArray'];
+                        for (var entry in  old) {
+                            old[entry].Approved = false;
+                            old[entry].rejectMessage = '';
+                            old[entry].SentBack = false;
                         }
-                        else {
-                            var old = previousTimesheet['projectEntriesArray'];
-                            for (var entry in  old) {
-                                old[entry].Approved = false;
-                                old[entry].rejectMessage = '';
-                                old[entry].SentBack = false;
-                            }
-                            Meteor.call('insertTimesheet', dStr, d2Str, user['_id'], 1, [], old, 1,
-                                previousTimesheet.generalComment, false, projectApprovalArray, previousTimesheet.concerns, false);
-                        }
+                        Meteor.call('insertTimesheet', dStr, d2Str, user['_id'], 1, [], old, 1,
+                            previousTimesheet.generalComment, false, projectApprovalArray, previousTimesheet.concerns, false, function(){addOrRemoveHolidayHours(d, user);});
                     }
                 }
             }

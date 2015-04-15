@@ -12,7 +12,8 @@ Meteor.publish('userData', function() {
         fulltime: 1,
         admin: 1,
         manager: 1,
-        projects: 1
+        projects: 1,
+        groups: 1
     }});
 });
 

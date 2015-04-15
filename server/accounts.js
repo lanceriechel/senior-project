@@ -33,7 +33,7 @@ LDAP.search = function (username) {
     var opts = {
         filter: '(&(uid=' + username + ')(objectClass=posixAccount))',
         scope: 'sub',
-        attributes: ['cn', 'mail']  // add more ldap search attributes here when needed
+        attributes: ['cn', 'mail', 'memberof']  // add more ldap search attributes here when needed
     };
 
     return wrappedLdapSearch(Meteor.settings.ldap_search_base, opts);
@@ -41,15 +41,30 @@ LDAP.search = function (username) {
 
 LDAP.getGroupList = function (isAdminList) {
     var opts;
+    var filterStr = '';
+    var i = 1;
     if (isAdminList) {
+        if(Meteor.settings.ldap_admins.length > 0){
+            filterStr = "(cn=" + Meteor.settings.ldap_admins[0] + ")";
+            for (i; i < Meteor.settings.ldap_admins.length; i++) {
+                filterStr = "(|" + filterStr + "(cn=" + Meteor.settings.ldap_admins[i] + ")" + ")";
+            }
+
+        }
         opts = {
-            filter: '(cn=time_admins)',
+            filter: filterStr,
             scope: 'sub',
             attributes: ['member']  // add more ldap search attributes here when needed
         };
     } else {
+        if(Meteor.settings.ldap_managers.length > 0){
+            filterStr = "(cn=" + Meteor.settings.ldap_managers[0] + ")";
+            for (i; i < Meteor.settings.ldap_managers.length; i++) {
+                filterStr = "(|" + filterStr + "(cn=" + Meteor.settings.ldap_managers[i] + ")" + ")";
+            }
+        }
         opts = {
-            filter: '(cn=time_managers_proj_hunter)',
+            filter: filterStr,
             scope: 'sub',
             attributes: ['member']  // add more ldap search attributes here when needed
         };
