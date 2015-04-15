@@ -1,60 +1,59 @@
 <head>
     <title>Time Entry</title>
     <link rel="icon" sizes="16x16 " href="/ScientiaLLC_Logo-16x16.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
 </head>
 <body>
 <div id="main-pane">
-    <div class="navbar navbar-default">
+    <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
-                <nav class="navbar navbar-default">
-                    <div class="container-fluid">
-                        <div class="navbar-header">
-                            <img class="img-responsive" src="/ScientiaLLC_Logo-300x64.png" id="header_logo">
-                        </div>
+                <div class="vertical-center-xs">
+                    <img class="col-xs-6 col-sm-12 img-responsive" src="/ScientiaLLC_Logo-300x64.png" id="header_logo">
+
+                    <div class="pull-right col-xs-6">
+                        <button type="button" class="navbar-toggle collapsed pull-right" data-toggle="collapse"
+                                data-target="#menu-navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
                     </div>
-                </nav>
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                        data-target="#menu-navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+                </div>
             </div>
             <div class="collapse navbar-collapse" id="menu-navbar-collapse">
                 {{>pages}}
             </div>
         </div>
-    </div>
+    </nav>
     {{> mainSelector}}
 </div>
 </body>
 
 <template name="pages">
     {{#unless isLoginPage}}
-        <ul class="navbar navbar-nav navbar-left" role="tablist">
-            <li class="{{#if isTimesheet}}active{{/if}} tag" role="presentation" id='time_sheet'>
+        <ul class="navbar nav-pills navbar-nav navbar-left ">
+            <li role="presentation" class="{{#if isTimesheet}}active{{/if}} tag" id='time_sheet'>
                 Time Sheet
             </li>
-            <li id='historical_page' role="presentation" class="{{#if isHistorical}}active{{/if}} tag">
+            <li id='historical_page' class="{{#if isHistorical}}active{{/if}} tag">
                 Historical
             </li>
             {{#if isManager}}
-                <li role="presentation" id='approval_page' class="tag {{#if isApproval}}active{{/if}}">
+                <li id='approval_page' class="tag {{#if isApproval}}active{{/if}}">
                     Approval
                 </li>
             {{/if}}
             {{#if isAdmin}}
 
-                <li role="presentation" id='active_projects' class="tag {{#if isActiveProjects}}active{{/if}}">
+                <li id='active_projects' class="tag {{#if isActiveProjects}}active{{/if}}">
                     Projects
                 </li>
-                <li role="presentation" id='employees_settings' class="tag {{#if isEmployeeSettings}}active{{/if}}">
+                <li id='employees_settings' class="tag {{#if isEmployeeSettings}}active{{/if}}">
                     Employees
                 </li>
-                <li role="presentation" id='admin_page' class="tag {{#if isAdminPage}}active{{/if}}">
+                <li id='admin_page' class="tag {{#if isAdminPage}}active{{/if}}">
                     Admin
                 </li>
             {{/if}}
@@ -81,15 +80,15 @@
     <form action="/">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-2 col-sm-12"><h4>Username</h4></div>
-                <div class="col-md-3 col-sm-12"><input id="LDAPusername" class="large-input form-control"
-                                                               type="text" value="" autofocus></div>
+                <div class="col-md-2 col-sm-12 col-xs-12"><h4>Username</h4></div>
+                <div class="col-md-3 col-sm-6 col-xs-12"><input id="LDAPusername" class="large-input form-control"
+                                                                type="text" value="" autofocus></div>
             </div>
             <div class="row">
-                <div class="col-md-2 col-sm-12"><h4>Password</h4></div>
-                <div class="col-md-3 col-sm-12"><input id="LDAPpassword" class="large-input form-control"
-                                                               type="password" value=""></div>
-                <div class="col-md-1 pull-sm-right"><input type="submit" class="btn btn-warning" value="Enter">
+                <div class="col-md-2 col-sm-12 col-xs-12"><h4>Password</h4></div>
+                <div class="col-md-3 col-sm-6 col-xs-12"><input id="LDAPpassword" class="large-input form-control"
+                                                                type="password" value=""></div>
+                <div class="col-md-1 col-sm-6 pull-sm-right"><input type="submit" class="btn btn-warning" value="Enter">
                 </div>
             </div>
         </div>

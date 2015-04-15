@@ -21,6 +21,7 @@
         {{#each row}}
             {{> projectHoursFilled}}
         {{/each}}
+        <br>
         {{> totals}}
         <br>
         <!--this will return one field always-->
@@ -132,8 +133,8 @@
     <div class="container-fluid">
         <h2><span class="label">Active Time Sheets</span></h2>
 
-        <div class="row">
-            <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Start Date</h4></div>
+        <div class="row hidden-xs">
+            <div class="col-md-2 col-sm-2 text-center"><h4>Start Date</h4></div>
             {{>daysOfWeek}}
         </div>
         {{#each getTimesheets}}
@@ -143,10 +144,10 @@
     </div>
 </template>
 <template name="projectHoursWrapper">
-    <div class="hidden-xs">
+    <div class="hidden-xs hidden-sm">
         {{> projectHours }}
     </div>
-    <div class="hidden-sm hidden-md hidden-lg well">
+    <div class="hidden-md hidden-lg well">
         <div class="row">
             <div class="col-xs-12"><h3>Add Time</h3></div>
         </div>
@@ -156,37 +157,38 @@
 <template name="projectHours">
     <div class="row add_row">
         <div class="col-xs-12 hidden-md hidden-lg"><h4>Project</h4></div>
-        <div class="col-md-2 col-xs-12">{{> projectListDropDown}}</div>
-        <div class="col-xs-1 col-xs-offset-1 hidden-md hidden-lg"><h5>Sun</h5></div>
-        <div class="col-xs-4 col-md-1"><input id="Sunday" type="text"
+        <div class="filledRow col-md-2 col-sm-6 col-xs-12" id="projectFilledDrop">{{> projectListDropDown}}</div>
+        <div class="clearfix visible-sm-block visible-xs-block"></div>
+        <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Sun</h5></div>
+        <div class="col-xs-4 col-sm-2 col-md-1"><input id="Sunday" type="text"
                                               class="large-input form-control enterable {{sentBack}}" value="0"></div>
-        <div class="col-xs-1 col-sm-offset-1 hidden-md hidden-lg text-right"><h5>Mon</h5></div>
-        <div class="col-xs-4 col-md-1 pull-xs-right"><input id="Monday" type="text"
+        <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Mon</h5></div>
+        <div class="col-xs-4 col-sm-2 col-md-1 pull-xs-right"><input id="Monday" type="text"
                                                             class="large-input form-control enterable {{sentBack}}"
                                                             value="0"></div>
         <div class="clearfix visible-xs-block"></div>
-        <div class="col-xs-1 col-xs-offset-1 hidden-md hidden-lg"><h5>Tue</h5></div>
-        <div class="col-xs-4 col-md-1"><input id="Tuesday" type="text"
+        <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Tue</h5></div>
+        <div class="col-xs-4 col-sm-2 col-md-1"><input id="Tuesday" type="text"
                                               class="large-input form-control enterable {{sentBack}}" value="0"></div>
-        <div class="col-xs-1 col-sm-offset-1 hidden-md hidden-lg"><h5>Wed</h5></div>
-        <div class="col-xs-4 col-md-1 pull-xs-right"><input id="Wednesday" type="text"
+        <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Wed</h5></div>
+        <div class="col-xs-4 col-sm-2 col-md-1 pull-xs-right"><input id="Wednesday" type="text"
+                                                            class="large-input form-control enterable {{sentBack}}"
+                                                            value="0"></div>
+        <div class="clearfix visible-xs-block visible-sm-block"></div>
+        <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Thu</h5></div>
+        <div class="col-xs-4 col-sm-2 col-md-1"><input id="Thursday" type="text"
+                                              class="large-input form-control enterable {{sentBack}}" value="0"></div>
+        <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Fri</h5></div>
+        <div class="col-xs-4 col-sm-2 col-md-1 pull-xs-right"><input id="Friday" type="text"
                                                             class="large-input form-control enterable {{sentBack}}"
                                                             value="0"></div>
         <div class="clearfix visible-xs-block"></div>
-        <div class="col-xs-1 col-xs-offset-1 hidden-md hidden-lg"><h5>Thu</h5></div>
-        <div class="col-xs-4 col-md-1"><input id="Thursday" type="text"
-                                              class="large-input form-control enterable {{sentBack}}" value="0"></div>
-        <div class="col-xs-1 col-sm-offset-1 hidden-md hidden-lg"><h5>Fri</h5></div>
-        <div class="col-xs-4 col-md-1 pull-xs-right"><input id="Friday" type="text"
-                                                            class="large-input form-control enterable {{sentBack}}"
-                                                            value="0"></div>
-        <div class="clearfix visible-xs-block"></div>
-        <div class="col-xs-1 col-xs-offset-1 hidden-md hidden-lg"><h5>Sat</h5></div>
-        <div class="col-xs-4 col-md-1"><input id="Saturday" type="text"
+        <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Sat</h5></div>
+        <div class="col-xs-4 col-sm-2 col-md-1"><input id="Saturday" type="text"
                                               class="large-input form-control enterable {{sentBack}}" value="0"></div>
         <div class="clearfix visible-xs-block"></div>
-        <div class="col-xs-11 col-xs-offset-1 hidden-md hidden-lg"><h5>Comment</h5></div>
-        <div class="col-md-2 col-xs-offset-1 col-sm-offset-0 col-xs-11 pull-xs-right"><input id="Comment" type="text"
+        <div class="col-xs-11 col-sm-12 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg"><h5>Comment</h5></div>
+        <div class="col-md-2 col-sm-offset-0 col-xs-offset-1 col-xs-11 col-sm-11 pull-xs-right"><input id="Comment" type="text"
                                                                                              class="large-input form-control enterable {{sentBack}}"
                                                                                              value=""></div>
         <div class="col-md-1 col-sm-1 col-xs-12">
@@ -196,7 +198,7 @@
 </template>
 <template name="totals">
     <div class="row">
-        <div class="col-md-2 col-sm-2 col-xs-2 text-center">Totals</div>
+        <div class="col-md-2 col-sm-2 col-xs-2 text-center"><underline>Totals</underline></div>
         <div class="col-md-1 col-sm-1 col-xs-1 text-center">{{getDayTotal 0}}</div>
         <div class="col-md-1 col-sm-1 col-xs-1 text-center">{{getDayTotal 1}}</div>
         <div class="col-md-1 col-sm-1 col-xs-1 text-center">{{getDayTotal 2}}</div>
@@ -204,7 +206,8 @@
         <div class="col-md-1 col-sm-1 col-xs-1 text-center">{{getDayTotal 4}}</div>
         <div class="col-md-1 col-sm-1 col-xs-1 text-center">{{getDayTotal 5}}</div>
         <div class="col-md-1 col-sm-1 col-xs-1 text-center">{{getDayTotal 6}}</div>
-        <div class="col-md-1 col-sm-1 col-xs-1 text-center"> Weekly Total: {{getWeekTotal}}</div>
+        <div class="col-md-1 col-sm-1 col-xs-1 text-left hidden-sm hidden-xs"> Weekly Total: {{getWeekTotal}}</div>
+        <div class="col-md-1 col-sm-1 col-xs-1 text-left hidden-md hidden-lg">| <b class="text-right">{{getWeekTotal}}</b></div>
     </div>
 </template>
 <template name="projectComments">
@@ -230,72 +233,86 @@
 <template name="projectHoursFilled">
     <div class="row" id={{rowID}}>
         <div class="col-xs-12 hidden-md hidden-lg"><h4>Project</h4></div>
-        <div class="filledRow col-md-2 col-xs-12" id="projectFilledDrop">{{> projectListDropDown}}</div>
-        <div class="col-xs-1 col-xs-offset-1 hidden-md hidden-lg"><h5>Sun</h5></div>
-        <div class="filledRow col-xs-4 col-md-1"><input id="Sunday" type="text"
+        <div class="filledRow col-md-2 col-sm-6 col-xs-12" id="projectFilledDrop">{{> projectListDropDown}}</div>
+        <div class="clearfix visible-sm-block visible-xs-block"></div>
+        <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Sun</h5></div>
+        <div class="filledRow col-xs-4 col-sm-2 col-md-1"><input id="Sunday" type="text"
                                                         class="large-input form-control enterable {{sentBack}}"
                                                         value={{sunday}}></div>
-        <div class="col-xs-1 col-sm-offset-1 hidden-md hidden-lg text-right"><h5>Mon</h5></div>
-        <div class="filledRow col-xs-4 col-md-1 pull-xs-right"><input id="Monday" type="text"
+        <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Mon</h5></div>
+        <div class="filledRow col-xs-4 col-md-1 col-sm-2 pull-xs-right"><input id="Monday" type="text"
                                                                       class="large-input form-control enterable {{sentBack}}"
                                                                       value={{monday}}></div>
         <div class="clearfix visible-xs-block"></div>
-        <div class="col-xs-1 col-xs-offset-1 hidden-md hidden-lg"><h5>Tue</h5></div>
-        <div class="filledRow col-xs-4 col-md-1"><input id="Tuesday" type="text"
+        <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Tue</h5></div>
+        <div class="filledRow col-xs-4 col-sm-2 col-md-1"><input id="Tuesday" type="text"
                                                         class="large-input form-control enterable {{sentBack}}"
                                                         value={{tuesday}}></div>
-        <div class="col-xs-1 col-sm-offset-1 hidden-md hidden-lg"><h5>Wed</h5></div>
-        <div class="filledRow col-xs-4 col-md-1 pull-xs-right"><input id="Wednesday" type="text"
+        <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Wed</h5></div>
+        <div class="filledRow col-xs-4 col-sm-2 col-md-1 pull-xs-right"><input id="Wednesday" type="text"
                                                                       class="large-input form-control enterable {{sentBack}}"
                                                                       value={{wednesday}}></div>
-        <div class="clearfix visible-xs-block"></div>
-        <div class="col-xs-1 col-xs-offset-1 hidden-md hidden-lg"><h5>Thu</h5></div>
-        <div class="filledRow col-xs-4 col-md-1"><input id="Thursday" type="text"
+        <div class="clearfix visible-xs-block visible-sm-block"></div>
+        <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Thu</h5></div>
+        <div class="filledRow col-xs-4 col-sm-2 col-md-1"><input id="Thursday" type="text"
                                                         class="large-input form-control enterable {{sentBack}}"
                                                         value={{thursday}}></div>
-        <div class="col-xs-1 col-sm-offset-1 hidden-md hidden-lg"><h5>Fri</h5></div>
-        <div class="filledRow col-xs-4 col-md-1 pull-xs-right"><input id="Friday" type="text"
+        <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Fri</h5></div>
+        <div class="filledRow col-xs-4 col-sm-2 col-md-1 pull-xs-right"><input id="Friday" type="text"
                                                                       class="large-input form-control enterable {{sentBack}}"
                                                                       value={{friday}}></div>
         <div class="clearfix visible-xs-block"></div>
-        <div class="col-xs-1 col-xs-offset-1 hidden-md hidden-lg"><h5>Sat</h5></div>
-        <div class="filledRow col-xs-4 col-md-1"><input id="Saturday" type="text"
+        <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Sat</h5></div>
+        <div class="filledRow col-xs-4 col-sm-2 col-md-1"><input id="Saturday" type="text"
                                                         class="large-input form-control enterable {{sentBack}}"
                                                         value={{saturday}}></div>
         <div class="clearfix visible-xs-block"></div>
-        <div class="col-xs-11 col-xs-offset-1 hidden-md hidden-lg"><h5>Comment</h5></div>
-        <div class="filledRow col-md-2 col-sm-offset-0 col-xs-offset-1 col-xs-11 pull-xs-right"><input id="Comment"
+        <div class="col-xs-11 col-sm-12 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg"><h5>Comment</h5></div>
+        <div class="filledRow col-md-2 col-sm-offset-0 col-xs-offset-1 col-xs-11 col-sm-11 pull-xs-right"><input id="Comment"
                                                                                                        type="text"
                                                                                                        class="large-input form-control enterable {{sentBack}}"
                                                                                                        value={{comment}}>
         </div>
-        <div class="col-md-1 col-sm-1 col-xs-12">
+        <div class="col-md-1 col-xs-12 col-sm-1">
             <button type="button" class="btn btn-primary enterable {{sentBack}} pull-right">Delete</button>
         </div>
     </div>
 </template>
 <template name="timesheetInfo">
     <div class="row">
-        <div class="col-md-2 col-sm-2 col-xs-2"><input id="StartDate" type="text" class="large-input form-control"
-                                                       value={{startDate}} readonly></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Sunday" type="text" class="large-input form-control"
-                                                       value="{{sun}}" readonly></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Monday" type="text" class="large-input form-control"
-                                                       value="{{mon}}" readonly></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Tuesday" type="text" class="large-input form-control"
-                                                       value="{{tue}}" readonly></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Wednesday" type="text" class="large-input form-control"
-                                                       value="{{wed}}" readonly></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Thursday" type="text" class="large-input form-control"
-                                                       value="{{thu}}" readonly></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Friday" type="text" class="large-input form-control"
-                                                       value="{{fri}}" readonly></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Saturday" type="text" class="large-input form-control"
-                                                       value="{{sat}}" readonly></div>
-        <div class="col-md-2 col-sm-2 col-xs-2">
+        <div class="col-xs-12 text-left visible-xs"><h4>Start Date</h4></div>
+        <div class="col-sm-2 col-xs-8"><input id="StartDate" type="text" class="large-input form-control"
+                                              value={{startDate}} readonly></div>
+        <div class="clearfix visible-xs-block"></div>
+        <div class="col-xs-3 text-center visible-xs-block"><h5>Sun</h5></div>
+        <div class="col-xs-3 text-center visible-xs-block"><h5>Mon</h5></div>
+        <div class="col-xs-3 text-center visible-xs-block"><h5>Tue</h5></div>
+        <div class="col-xs-3 text-center visible-xs-block"><h5>Wed</h5></div>
+        <div class="clearfix visible-xs-block"></div>
+        <div class="col-sm-1 col-xs-3"><input id="Sunday" type="text" class="form-control"
+                                              value="{{sun}}" readonly></div>
+        <div class="col-sm-1 col-xs-3"><input id="Monday" type="text" class="form-control"
+                                              value="{{mon}}" readonly></div>
+        <div class="col-sm-1 col-xs-3"><input id="Tuesday" type="text" class="form-control"
+                                              value="{{tue}}" readonly></div>
+        <div class="col-sm-1 col-xs-3"><input id="Wednesday" type="text" class="form-control"
+                                              value="{{wed}}" readonly></div>
+        <div class="clearfix visible-xs-block"></div>
+        <div class="col-xs-3 text-center visible-xs-block"><h5>Thu</h5></div>
+        <div class="col-xs-3 text-center visible-xs-block"><h5>Fri</h5></div>
+        <div class="col-xs-3 text-center visible-xs-block"><h5>Sat</h5></div>
+        <div class="clearfix visible-xs-block"></div>
+        <div class="col-sm-1 col-xs-3"><input id="Thursday" type="text" class="form-control"
+                                              value="{{thu}}" readonly></div>
+        <div class="col-sm-1 col-xs-3"><input id="Friday" type="text" class="form-control"
+                                              value="{{fri}}" readonly></div>
+        <div class="col-sm-1 col-xs-3"><input id="Saturday" type="text" class="form-control"
+                                              value="{{sat}}" readonly></div>
+        <div class="col-sm-2 col-xs-3">
             <button type="button" class="btn btn-primary">Edit</button>
         </div>
     </div>
+    <hr class="visible-xs-block">
 </template>
 <template name="projectListDropDown">
     <select style='font-weight: bold;' id="project_select" class="form-control enterable {{sentBack}}">

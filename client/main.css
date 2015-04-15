@@ -6,6 +6,10 @@
     .pull-xs-right {
         float: right;
     }
+    .vertical-center-xs {
+        display: flex;
+        align-items: center;
+    }
 }
 
 @media (max-width: 992px) {
@@ -81,6 +85,7 @@ input[type=checkbox] {
 }
 
 #login {
+    float: right;
     float: right;
     vertical-align: middle;
     padding-top: 15px;
