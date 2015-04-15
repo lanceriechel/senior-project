@@ -31,7 +31,13 @@ Template.projectInfo.events = {
                 'is_holiday': project.is_holiday,
                 'indirect': project.indirect,
                 'manager': manager
-            });
+            },
+            function (){
+            $('.toast').addClass('active');
+            setTimeout(function () {
+                $('.toast').removeClass('active');
+            }, 5000);
+        });
         }
     },
     'blur .manager-dropdown': function(event){
@@ -55,7 +61,13 @@ Template.projectInfo.events = {
                 'is_holiday': project.is_holiday,
                 'indirect': project.indirect,
                 'manager': manager
-            });
+            },
+            function (){
+            $('.toast').addClass('active');
+            setTimeout(function () {
+                $('.toast').removeClass('active');
+            }, 5000);
+        });
         }
 
         var parent = event.currentTarget.parentNode;
@@ -161,7 +173,19 @@ Template.employeesListDropDown.helpers({
         return Meteor.users.find({});
     },
     managers: function() {
-	return Meteor.users.find({ manager: true });
+        var managerGroups = [];
+        if (!Session.get('manager_groups')) {
+            Meteor.call("getLdapManagerGroups", function (error, data) {
+                if (!error){
+                    Session.set('manager_groups', data);
+                }
+            });
+        }else{
+            Session.get('manager_groups').forEach(function (group){
+                managerGroups.push({username: group});
+            })
+        }
+	return managerGroups;
     }
 });
 
@@ -204,7 +228,13 @@ Template.indirectChargeItems.events({
                 'manager': manager,
                 'is_holiday': project.is_holiday,
                 'indirect': project.indirect
-            });
+            },
+            function (){
+            $('.toast').addClass('active');
+            setTimeout(function () {
+                $('.toast').removeClass('active');
+            }, 5000);
+        });
         },
     'click .manager': function(evt){
         var parent = evt.currentTarget.parentNode;

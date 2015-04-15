@@ -142,7 +142,7 @@ Template.loginPage.events({
         $('#LDAPpassword').tooltip('destroy');
 
         var username = $('#LDAPusername')[0].value;
-        var password = $('#LDAPpassword')[0].value;  
+        var password = $('#LDAPpassword')[0].value;
 
         authenticateLdapEmployee(username, password);
 
