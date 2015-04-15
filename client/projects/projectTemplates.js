@@ -81,16 +81,16 @@ Template.projectInfo.events = {
 
 Template.projectInfo.rendered = function(){
     $.each($('[id=start_date]'), function(index, value){
-        $(value).datepicker({});
+        $(value).datepicker({autoclose: true, todayHighlight: true});
     });
     $.each($('[id=end_date]'), function(index, value){
-        $(value).datepicker({});
+        $(value).datepicker({autoclose: true, todayHighlight: true});
     });
 };
 
 Template.addProject.rendered = function(){
-    $('#start_date').datepicker({});
-    $('#end_date').datepicker({});
+    $('#start_date').datepicker({orientation: 'top auto', autoclose: true, todayHighlight: true});
+    $('#end_date').datepicker({orientation: 'top auto', autoclose: true, todayHighlight: true});
 };
 
 Template.addProject.events = {
@@ -200,10 +200,10 @@ Template.archivedProjectsEntries.helpers({
 
 Template.indirectInfo.rendered = function(){
     $.each($('[id=start_date]'), function(index, value){
-        $(value).datepicker({});
+        $(value).datepicker({autoclose: true, todayHighlight: true});
     });
     $.each($('[id=end_date]'), function(index, value){
-        $(value).datepicker({});
+        $(value).datepicker({autoclose: true, todayHighlight: true});
     });
 };
 

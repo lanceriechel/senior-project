@@ -48,13 +48,19 @@
 </template>
 
 <template name="history_month_picker">
-    <div class="col-xs-12" style="display:inline-block;">
+    <div class="col-md-2 col-sm-2 col-xs-2">
+        <input type="text" class="form-control" id="month_select" placeholder="mm/yyyy">
+    </div>
+    <div class="col-md-2 col-sm-2 col-xs-2">
+        <button type="button" class="btn btn-primary">Show All For Year</button>
+    </div>
+    <!-- <div class="col-xs-12" style="display:inline-block;">
         <div class="prevWeek glyphicon glyphicon-chevron-left no-select" style="display:inline-block;cursor: pointer;"></div>
         &nbsp;
         <div style="display:inline-block;"><h4>{{currentMonth}}</h4></div>
         &nbsp;
         <div class="nextWeek glyphicon glyphicon-chevron-right no-select" style="display:inline-block;cursor: pointer;"></div>
-    </div>
+    </div> -->
 </template>
 
 <template name="historyInfo">
@@ -87,11 +93,11 @@
                 <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Sat</h4></div>
             </div>
         {{#each getProjects}}
-            {{#if getTimesheets id}}
+            {{#if getTimesheets _id}}
                 <h3><span class="label">{{name}}</span></h3>
                 <br>
             {{/if}}
-            {{#each getTimesheets id}}
+            {{#each getTimesheets _id}}
         		<div id="ProjectID" value="{{../id}}">
                         {{> historyInfo}}
         		</div>
@@ -112,7 +118,7 @@
     <br>
     <div class="container-fluid">
         <div class="row">
-            <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4>Project</h4></div>
+            <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4 style='font-weight: bold;'>Project</h4></div>
             <div class="text-center col-md-1 col-sm-1 col-xs-1"><h4>S</h4></div>
             <div class="text-center col-md-1 col-sm-1 col-xs-1"><h4>M</h4></div>
             <div class="text-center col-md-1 col-sm-1 col-xs-1"><h4>T</h4></div>
@@ -142,7 +148,7 @@
 
 <template name="historyProjectHours">
     <div class="row" id={{rowID}}>
-         <div class="filledRow col-md-2 col-sm-2 col-xs-2"><input id="Sunday" type="text" class="large-input form-control enterable {{sentBack}}" disabled=true value={{name project}}></div>
+         <div class="filledRow col-md-2 col-sm-2 col-xs-2"><input id="Sunday" type="text" class="large-input form-control enterable {{sentBack}}" style='font-weight: bold;' disabled=true value={{name project}}></div>
         <div class="filledRow col-md-1 col-sm-1 col-xs-1"><input id="Sunday" type="text" class="large-input form-control enterable {{sentBack}}" disabled=true value={{sunday}}></div>
         <div class="filledRow col-md-1 col-sm-1 col-xs-1"><input id="Monday" type="text" class="large-input form-control enterable {{sentBack}}" disabled=true value={{monday}}></div>
         <div class="filledRow col-md-1 col-sm-1 col-xs-1"><input id="Tuesday" type="text" class="large-input form-control enterable {{sentBack}}" disabled=true value={{tuesday}}></div>

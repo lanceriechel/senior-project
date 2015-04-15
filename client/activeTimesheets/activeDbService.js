@@ -57,7 +57,7 @@ ActiveDBService = {
         var timesheetMonth = sheet.startDate.split('/')[0];
         var employee = Meteor.users.findOne({'_id': sheet.userId}).username;
 
-        if (timesheetYear == date.getFullYear().toString() && timesheetMonth == (date.getMonth() + 1).toString()) {
+        if (timesheetYear == date.getFullYear().toString() && (Session.get('yearSelect') || timesheetMonth == (date.getMonth() + 1).toString())) {
             if (!(sheet.startDate in timesheetsMap)) {
                 timesheetsMap[sheet.startDate] = timesheets.length;
                 timesheets[timesheetsMap[sheet.startDate]] = {
