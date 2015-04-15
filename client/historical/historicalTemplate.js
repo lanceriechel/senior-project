@@ -98,7 +98,7 @@ Template.historicalEntries.helpers({
 			return false;
 		}
 	}
-})
+});
 
 Template.historyInfo.helpers({
 	isAdmin: function() {
@@ -109,7 +109,24 @@ Template.historyInfo.helpers({
 			return false;
 		}
 	}
-})
+});
+
+Template.history_month_picker.rendered = function() {
+    $('#month_select').datepicker({
+    	format: "mm/yyyy",
+    	startView: 2,
+    	minViewMode: 1,
+    	autoclose: true,
+    	setDate: new Date()
+    });
+
+    $("#month_select").on("changeDate", function(event) {
+    	Session.set('yearSelect', false);
+    	Session.set("historyDate", $("#month_select").datepicker('getDate'));
+	});
+
+
+}
 
 Template.history_month_picker.helpers({
     currentMonth: function () {
@@ -128,6 +145,10 @@ Template.history_month_picker.helpers({
 });
 
 Template.history_month_picker.events({
+	'click .btn': function () {
+        Session.set('yearSelect', true);
+        Session.set('historyDate', Session.get('historyDate'));
+    },
     'click .prevWeek': function () {
         var startDate = Session.get("historyDate");
 
@@ -292,7 +313,9 @@ Template.SelectedHistoryTimesheet.helpers({
 	},
 	date: function(){
 		var date = Session.get("startDate");
-		return date;
+        var sheet = TimeSheet.findOne({'startDate': date});
+        if (!sheet) return;
+        return date + " - " + sheet.endDate;
 	},
 	timesheethack: function(){
 		var date = Session.get("startDate");

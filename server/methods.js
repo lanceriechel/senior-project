@@ -417,43 +417,6 @@ Meteor.startup(function () {
         return TimeSheet.find({'startDate': date, 'userId': user});
     },
 
-    getTimesheetRowInfo: function(sheet, timesheets) {
-        var date = Session.get('historyDate');
-        var timesheetsMap = {};
-        var timesheetYear = sheet.startDate.split('/')[2];
-        var timesheetMonth = sheet.startDate.split('/')[0];
-        var employee = Meteor.users.findOne({'_id': sheet.userId}).username;
-
-        if (timesheetYear == date.getFullYear().toString() && timesheetMonth == (date.getMonth() + 1).toString()) {
-            if (!(sheet.startDate in timesheetsMap)) {
-                timesheetsMap[sheet.startDate] = timesheets.length;
-                timesheets[timesheetsMap[sheet.startDate]] = {
-                    employee: employee, startDate: sheet.startDate, sun: 0, mon: 0, tue: 0,
-                    wed: 0, thu: 0, fri: 0, sat: 0
-                };
-            }
-            for (var pIndex in sheet.projectEntriesArray) {
-                for (var eIndex in sheet.projectEntriesArray[pIndex].EntryArray){
-                    var entry = sheet.projectEntriesArray[pIndex].EntryArray[eIndex],
-                    days = entry.hours,
-                    current = timesheets[timesheetsMap[sheet.startDate]];
-                    timesheets[timesheetsMap[sheet.startDate]] = {
-                        employee: employee,
-                        startDate: sheet.startDate,
-                        sun: parseInt(days[0]) + parseInt(current.sun),
-                        mon: parseInt(days[1]) + parseInt(current.mon),
-                        tue: parseInt(days[2]) + parseInt(current.tue),
-                        wed: parseInt(days[3]) + parseInt(current.wed),
-                        thu: parseInt(days[4]) + parseInt(current.thu),
-                        fri: parseInt(days[5]) + parseInt(current.fri),
-                        sat: parseInt(days[6]) + parseInt(current.sat)
-                    };
-                }
-            }
-        }
-
-        return timesheets;
-    },
         sendEmail: function (to, subject, body) {
             /*
              Send the Email

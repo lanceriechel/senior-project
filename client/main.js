@@ -45,6 +45,7 @@ Template.pages.helpers({
     },
     isHistorical: function(){
         Session.set('historyDate', new Date());
+        Session.set('yearSelect', false);
         return Session.equals('current_page', 'historical_page');
     },
     isActiveProjects: function(){
