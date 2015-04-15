@@ -31,7 +31,13 @@ Template.projectInfo.events = {
                 'is_holiday': project.is_holiday,
                 'indirect': project.indirect,
                 'manager': manager
-            });
+            },
+            function (){
+            $('.toast').addClass('active');
+            setTimeout(function () {
+                $('.toast').removeClass('active');
+            }, 5000);
+        });
         }
     },
     'blur .manager-dropdown': function(event){
@@ -55,7 +61,13 @@ Template.projectInfo.events = {
                 'is_holiday': project.is_holiday,
                 'indirect': project.indirect,
                 'manager': manager
-            });
+            },
+            function (){
+            $('.toast').addClass('active');
+            setTimeout(function () {
+                $('.toast').removeClass('active');
+            }, 5000);
+        });
         }
 
         var parent = event.currentTarget.parentNode;
@@ -216,7 +228,13 @@ Template.indirectChargeItems.events({
                 'manager': manager,
                 'is_holiday': project.is_holiday,
                 'indirect': project.indirect
-            });
+            },
+            function (){
+            $('.toast').addClass('active');
+            setTimeout(function () {
+                $('.toast').removeClass('active');
+            }, 5000);
+        });
         },
     'click .manager': function(evt){
         var parent = evt.currentTarget.parentNode;
