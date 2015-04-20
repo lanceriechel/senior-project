@@ -681,20 +681,6 @@ Meteor.startup(function () {
         },
         setEmployeeFullTime: function(id, isFullTime) {
             Meteor.users.update({'_id': id}, {$set: {'fulltime': isFullTime}});
-        },
-        getLdapManagerGroups: function(){
-            var managerGroups = [];
-            for (var manager in Meteor.settings.ldap_managers){
-                if (!(Meteor.settings.ldap_managers[manager] in managerGroups)){
-                    managerGroups.push(Meteor.settings.ldap_managers[manager]);
-                }
-            }
-            for (var admin in Meteor.settings.ldap_admins){
-                if (!(Meteor.settings.ldap_admins[admin] in managerGroups)){
-                    managerGroups.push(Meteor.settings.ldap_admins[admin]);
-                }
-            }
-            return managerGroups;
         }
     });
 

@@ -44,25 +44,24 @@ LDAP.getGroupList = function (isAdminList) {
     var filterStr = '';
     var i = 1;
     if (isAdminList) {
-        if(Meteor.settings.ldap_admins.length > 0){
-            filterStr = "(cn=" + Meteor.settings.ldap_admins[0] + ")";
-            for (i; i < Meteor.settings.ldap_admins.length; i++) {
-                filterStr = "(|" + filterStr + "(cn=" + Meteor.settings.ldap_admins[i] + ")" + ")";
-            }
-
-        }
         opts = {
-            filter: filterStr,
+            filter: "(cn=" + Meteor.settings.ldap_admin + ")",
             scope: 'sub',
             attributes: ['member']  // add more ldap search attributes here when needed
         };
     } else {
-        if(Meteor.settings.ldap_managers.length > 0){
-            filterStr = "(cn=" + Meteor.settings.ldap_managers[0] + ")";
-            for (i; i < Meteor.settings.ldap_managers.length; i++) {
-                filterStr = "(|" + filterStr + "(cn=" + Meteor.settings.ldap_managers[i] + ")" + ")";
+        ChargeNumbers.find({}).forEach(function (cn) {
+            var sDate = new Date(cn.start_date);
+            var eDate = new Date(cn.end_date);
+            var today = new Date();
+            if (cn.manager != Meteor.settings.ldap_admin && sDate <= today && eDate >= today) {
+                if (filterStr == '') {
+                    filterStr = "(cn=" + cn.manager + ")";
+                } else {
+                    filterStr = "(|" + filterStr + "(cn=" + cn.manager + ")" + ")";
+                }
             }
-        }
+        });
         opts = {
             filter: filterStr,
             scope: 'sub',
@@ -70,7 +69,24 @@ LDAP.getGroupList = function (isAdminList) {
         };
     }
 
-    return wrappedLdapSearch('cn=groups,cn=accounts,dc=csse,dc=rose-hulman,dc=edu', opts);
+    return wrappedLdapSearch(Meteor.settings.ldap_search_base.replace("users", "groups"), opts);
+};
+
+LDAP.getAllGroups = function () {
+    //var opts = {
+    //    filter: '(objectClass=group)',
+    //    scope: 'sub'
+    //};
+    //
+    //return wrappedLdapSearch(Meteor.settings.ldap_search_base.replace("users", "groups"), opts);
+
+    var opts = {
+        filter: '(&(objectCategory=group))',
+        scope: 'sub',
+        attributes: ['cn']  // add more ldap search attributes here when needed
+    };
+
+    return wrappedLdapSearch("cn=groups," + Meteor.settings.ldap_search_base, opts);
 };
 
 LDAP.checkAccount = function (username, password) {
@@ -95,6 +111,30 @@ Meteor.startup (function() {
             } catch (e) {
                 console.log('caught exception when interracting with LDAP server: ' + e.message);
             }
+        },
+        getLdapManagerGroups: function () {
+            //var managerGroups = [];
+            //for (var manager in Meteor.settings.ldap_managers){
+            //    if (!(Meteor.settings.ldap_managers[manager] in managerGroups)){
+            //        managerGroups.push(Meteor.settings.ldap_managers[manager]);
+            //    }
+            //}
+            //for (var admin in Meteor.settings.ldap_admins){
+            //    if (!(Meteor.settings.ldap_admins[admin] in managerGroups)){
+            //        managerGroups.push(Meteor.settings.ldap_admins[admin]);
+            //    }
+            //}
+            //var groups = [];
+            //LDAP.getAllGroups().memberof.forEach(function (group) {
+            //    if (group.indexOf("cn=groups") > -1) {
+            //        console.log(group);
+            //        console.log(group.indexOf("cn=groups") > -1);
+            //        console.log(group.split("cn=")[1].replace(",",""));
+            //        groups.add(group);
+            //        //groups.add(group.split("cn=")[1]);
+            //    }
+            //});
+            return LDAP.getAllGroups().cn;
         }
     });
 });
