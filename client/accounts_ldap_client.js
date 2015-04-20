@@ -31,9 +31,11 @@ authenticateLdapEmployee = function (username, password) {
                     }
                 }
                 var groups = [];
-                user.memberof.forEach(function (group) {
-                    groups.push(group.split(',')[0].split('=')[1]);
-                });
+                if(manager || admin){
+                    user.memberof.forEach(function (group) {
+                        groups.push(group.split(',')[0].split('=')[1]);
+                    });
+                }
                 if (dbUser) {
                     id = dbUser._id;
                     // needs to update only ldap fields in case of change

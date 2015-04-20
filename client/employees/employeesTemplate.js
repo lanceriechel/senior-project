@@ -7,31 +7,6 @@ Template.associatedProjects.helpers({
         'use strict';
         return this.done ? 'done' : '';
     },
-    chargeNumbers: function () {
-        'use strict';
-        var toReturn = [];
-        ChargeNumbers.find({ _id: {$nin : this.projects }}).forEach(function (cn) {
-            if (cn.indirect) {
-                var dateObj = new Date();
-                toReturn.push({
-                    id: cn._id,
-                    text: 'Indirect   ( ' + cn.name + ' )',
-                    end_date : dateObj.getMonth() + '/' + dateObj.getDate() + '/' + dateObj.getFullYear()+1
-                });
-            } else {
-                toReturn.push({
-                    id : cn._id,
-                    text : cn.id + '   ( ' + cn.name + ' )',
-                    end_date : cn.end_date
-                });
-            }
-        });
-        return toReturn;
-    },
-    isActive: function (date) {
-        'use strict';
-        return ProjectService.isActive(date);
-    },
     getName: function (id) {
         'use strict';
         var proj = ChargeNumbers.findOne({'_id':id});
@@ -53,9 +28,26 @@ Template.associatedProjects.events({
     'click .addtag': function (evt, tmpl) {
         'use strict';
         //alert(this.username + " ");
-        Session.set('editing_addtag', this._id);
-        Deps.flush(); // update DOM before focus
-        activateInput(tmpl.find("#edittag-input"));
+        // Session.set('editing_addtag', this._id);
+        // Deps.flush(); // update DOM before focus
+        // activateInput(tmpl.find("#edittag-input"));
+        var id = $('#edittag-input').find(":selected").attr('value');
+        var userId = this._id
+
+        Meteor.call('addEmployeeToProject', userId, id);
+            TimeSheet.find({'userId': userId, 'active':1}).forEach(function (e){
+                var approve = {
+                    projectId : id,
+                    approved : false,
+                    sentBack : false
+                };
+
+                Meteor.call('addProjectToApprovalArray', e._id, approve);
+
+            });
+            Session.set('editing_addtag', null);
+
+
     },
 
     'dblclick .display .todo-text': function (evt, tmpl) {
@@ -161,5 +153,83 @@ Template.employeeSettings.helpers({
                 Meteor.call('addProjectToApprovalArray', e._id, approve);
             }
         });
+    },
+    chargeNumbers: function () {
+        'use strict';
+        var toReturn = [];
+        ChargeNumbers.find().forEach(function (cn) {
+            if (cn.indirect) {
+                var dateObj = new Date();
+                toReturn.push({
+                    id: cn._id,
+                    text: 'Indirect   ( ' + cn.name + ' )',
+                    end_date : dateObj.getMonth() + '/' + dateObj.getDate() + '/' + dateObj.getFullYear()+1
+                });
+            } else {
+                toReturn.push({
+                    id : cn._id,
+                    text : cn.id + '   ( ' + cn.name + ' )',
+                    end_date : cn.end_date
+                });
+            }
+        });
+        return toReturn;
+    },
+    isActive: function (date) {
+        'use strict';
+        return ProjectService.isActive(date);
+    },
+});
+
+Template.employeeSettings.events({
+    'click #addAll': function (evt) {
+        var ids = [];
+        var users = Meteor.users.find().forEach(function(user){
+            var userId = user._id;
+            ids.push(userId);
+        });
+
+        var tempId;
+        var projId = $('#edittag-input').find(":selected").attr('value');
+        for(tempId in ids){
+            Meteor.call('addEmployeeToProject', ids[tempId], projId);
+            TimeSheet.find({'userId': ids[tempId], 'active':1}).forEach(function (e){
+                var approve = {
+                    projectId : projId,
+                    approved : false,
+                    sentBack : false
+                };
+
+                Meteor.call('addProjectToApprovalArray', e._id, approve);
+
+            });
+        }
+    },
+    'click #removeAll': function (evt) {
+        var ids = [];
+        var users = Meteor.users.find().forEach(function(user){
+            var userId = user._id;
+            ids.push(userId);
+        });
+
+        var tempId;
+        var projId = $('#edittag-input').find(":selected").attr('value');
+        for(tempId in ids){
+
+            Meteor.call('removeEmployeeFromProject', ids[tempId], projId);
+            var value = projId;
+                TimeSheet.find({'userId': ids[tempId], 'active':1}).forEach(function (e){
+                    var approveArray = e.projectApprovalArray;
+                    var i = [];
+                    for(var a in approveArray){
+                        // console.log(approveArray[a].projectId);
+                        if(approveArray[a].projectId != value){
+                           i.push(approveArray[a]);
+                        }
+                    }
+
+                    Meteor.call('removeProjectFromApprovalArray', e._id, i);
+                });
+        }
     }
 });

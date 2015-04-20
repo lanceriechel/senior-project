@@ -1,7 +1,30 @@
 <template name="employeeSettings">
   {{addHolidayProjects}}
     <div class="container-fluid">
-        <h2><span class="label">Employees</span></h2>
+        <h2><span class="label">Employees</span> 
+        </h2>
+        <br>
+        <br>
+        <div class="row" style="align:center"> 
+              <div class="col-md-2 col-sm-2 col-xs-2">
+                <select id="edittag-input" class="enterable form-control">
+                  {{#each chargeNumbers}}
+                    {{#if isActive end_date}}
+                        <option value="{{id}}">{{text}}</option>
+                    {{/if}}
+                  {{/each}}
+                </select>
+              </div>
+              <div class="col-md-1 col-sm-1 col-xs-1">
+                <button type="button" id="addAll" class="btn btn-primary enterable submit">Add All
+                </button>
+              </div>
+              <div class="col-md-1 col-sm-1 col-xs-1">
+                <button type="button" id="removeAll" class="btn btn-primary enterable submit">Remove All
+                </button>
+              </div>
+          </div>
+        <br>
       {{>employees_Template}}
     </div>
 </template>
@@ -49,7 +72,7 @@
                   <div class="remove"></div>
               </div>
           {{/each}}
-          {{#if addingTag}}
+          <!-- {{#if addingTag}}
               <div class="tag edittag">
                   <select id="edittag-input" class="form-control">
                     {{#each chargeNumbers}}
@@ -59,11 +82,11 @@
                     {{/each}}
                   </select>
               </div>
-          {{else}}
+          {{else}} -->
               <div class="tag addtag">
-                  +Charge Number
+                  +Project
               </div>
-          {{/if}}
+          <!-- {{/if}} -->
         </div>
     </li>
 </template>
