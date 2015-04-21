@@ -1128,13 +1128,13 @@ Template.projectHours.events = {
         }
 
         $(row).find('#Comment')[0].value = comment_t;
-        $(row).find('#Sunday')[0].value = sunday_t;
-        $(row).find('#Monday')[0].value = monday_t;
-        $(row).find('#Tuesday')[0].value = tuesday_t;
-        $(row).find('#Wednesday')[0].value = wednesday_t;
-        $(row).find('#Thursday')[0].value = thursday_t;
-        $(row).find('#Friday')[0].value = friday_t;
-        $(row).find('#Saturday')[0].value = saturday_t;
+        $(row).find('#Sunday')[0].value = sunday_t == 0 ? '' : sunday_t;
+        $(row).find('#Monday')[0].value = monday_t == 0 ? '' : monday_t;
+        $(row).find('#Tuesday')[0].value = tuesday_t == 0 ? '' : tuesday_t;
+        $(row).find('#Wednesday')[0].value = wednesday_t == 0 ? '' : wednesday_t;
+        $(row).find('#Thursday')[0].value = thursday_t == 0 ? '' : thursday_t;
+        $(row).find('#Friday')[0].value = friday_t == 0 ? '' : friday_t;
+        $(row).find('#Saturday')[0].value = saturday_t == 0 ? '' : saturday_t;
     }
 };
 
@@ -1196,6 +1196,7 @@ TimeSheetService = {
         /*
          Error handling for timesheet fields
          */
+        console.log(sunday_t);
         var valid = true;
         if (comment_t === '') {
             TimeSheetService.addError(row, '#Comment', "Description is Required");
@@ -1206,7 +1207,7 @@ TimeSheetService = {
             TimeSheetService.addError(row, '#projectName', "Field Cannot be Empty");
             valid = false;
         }
-        if (sunday_t <0) {
+        if ((isNaN(sunday_t) && sunday_t != '') || sunday_t <0) {
             TimeSheetService.addError(row, '#Sunday', "Field is Not a Positive Number");
             valid = false;
         }
@@ -1214,7 +1215,7 @@ TimeSheetService = {
             TimeSheetService.addError(row, '#Sunday', "Field Must be a Multiple of .25 and less than 24");
             valid = false;
         }
-        if (monday_t <0) {
+        if ((isNaN(monday_t) && monday_t != '') || monday_t <0) {
             TimeSheetService.addError(row, '#Monday', "Field is Not a Positive Number");
             valid = false;
         }
@@ -1222,7 +1223,7 @@ TimeSheetService = {
             TimeSheetService.addError(row, '#Monday', "Field Must be a Multiple of .25 and less than 24");
             valid = false;
         }
-        if (tuesday_t <0) {
+        if ((isNaN(tuesday_t) && tuesday_t != '') || tuesday_t <0) {
             TimeSheetService.addError(row, '#Tuesday', "Field is Not a Positive Number");
             valid = false;
         }
@@ -1230,7 +1231,7 @@ TimeSheetService = {
             TimeSheetService.addError(row, '#Tuesday', "Field Must be a Multiple of .25 and less than 24");
             valid = false;
         }
-        if (wednesday_t <0) {
+        if ((isNaN(wednesday_t) && wednesday_t != '') || wednesday_t <0) {
             TimeSheetService.addError(row, '#Wednesday', "Field is Not a Positive Number");
             valid = false;
         }
@@ -1238,7 +1239,7 @@ TimeSheetService = {
             TimeSheetService.addError(row, '#Wednesday', "Field Must be a Multiple of .25 and less than 24");
             valid = false;
         }
-        if (thursday_t <0) {
+        if ((isNaN(thursday_t) && thursday_t != '') || thursday_t <0) {
             TimeSheetService.addError(row, '#Thursday', "Field is Not a Positive Number");
             valid = false;
         }
@@ -1246,7 +1247,7 @@ TimeSheetService = {
             TimeSheetService.addError(row, '#Thursday', "Field Must be a Multiple of .25 and less than 24");
             valid = false;
         }
-        if (friday_t <0) {
+        if ((isNaN(friday_t) && friday_t != '') || friday_t <0) {
             TimeSheetService.addError(row, '#Friday', "Field is Not a Positive Number");
             valid = false;
         }
@@ -1254,7 +1255,7 @@ TimeSheetService = {
             TimeSheetService.addError(row, '#Friday', "Field Must be a Multiple of .25 and less than 24");
             valid = false;
         }
-        if (saturday_t <0) {
+        if ((isNaN(saturday_t) && saturday_t != '') || saturday_t <0) {
             TimeSheetService.addError(row, '#Saturday', "Field is Not a Positive Number");
             valid = false;
         }
@@ -1262,13 +1263,13 @@ TimeSheetService = {
             TimeSheetService.addError(row, '#Saturday', "Field Must be a Multiple of .25 and less than 24");
             valid = false;
         }
-        if (((sunday_t === '') || (sunday_t === '0')) &&
-            ((monday_t === '') || (monday_t === '0')) &&
-            ((tuesday_t === '') || (tuesday_t === '0')) &&
-            ((wednesday_t === '') || (wednesday_t === '0')) &&
-            ((thursday_t === '') || (thursday_t === '0')) &&
-            ((friday_t === '') || (friday_t === '0')) &&
-            ((saturday_t === '') || (saturday_t === '0'))) {
+        if (((sunday_t === '') || (sunday_t === 0)) &&
+            ((monday_t === '') || (monday_t === 0)) &&
+            ((tuesday_t === '') || (tuesday_t === 0)) &&
+            ((wednesday_t === '') || (wednesday_t === 0)) &&
+            ((thursday_t === '') || (thursday_t === 0)) &&
+            ((friday_t === '') || (friday_t === 0)) &&
+            ((saturday_t === '') || (saturday_t === 0))) {
             TimeSheetService.addError(row, '#Sunday', "At least one day must have time entered");
             TimeSheetService.addError(row, '#Monday', "");
             TimeSheetService.addError(row, '#Tuesday', "");
