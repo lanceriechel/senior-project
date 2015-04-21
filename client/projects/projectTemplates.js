@@ -1,3 +1,10 @@
+//Get the manager groups
+Meteor.call("getLdapManagerGroups", function (error, data) {
+    if (!error){
+        Session.set('manager_groups', data);
+    }
+});
+
 Template.activeProjectEntries.helpers({
     projects: function(){
         return ChargeNumbers.find({"indirect": false});
@@ -174,20 +181,9 @@ Template.employeesListDropDown.helpers({
     },
     managers: function() {
         var managerGroups = [];
-        if (!Session.get('manager_groups')) {
-            console.log("request manager groups");
-            Meteor.call("getLdapManagerGroups", function (error, data) {
-                console.log(data);
-                if (!error){
-                    Session.set('manager_groups', data);
-                }
-            });
-        }else{
-            console.log("build manager group list");
-            //Session.get('manager_groups').forEach(function (group){
-            //    //managerGroups.push({username: group});
-            //});
-        }
+        Session.get('manager_groups').forEach(function (group){
+            managerGroups.push({username: group});
+        });
 	return managerGroups;
     }
 });

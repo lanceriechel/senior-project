@@ -34,7 +34,8 @@ Template.pages.events({
             Session.set('current_page', evt.currentTarget.id);
         }
         //Session.set('current_page', evt.currentTarget.id);
-        Session.set('search_employee',null);
+        Session.set('search_employee', null);
+        //Session.get('manager_groups', null);
     }
 });
 
@@ -160,3 +161,4 @@ Template.loginPage.events({
         //var date = Meteor.call('getCurrentWeekObject', callback);
     }
 });
+

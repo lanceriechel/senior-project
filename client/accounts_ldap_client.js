@@ -9,7 +9,7 @@ authenticateLdapEmployee = function (username, password) {
         if (err) {
             console.log("authentification error");
             // needs another way to alert this error
-            alert("LDAP error contact your system admin");
+            //alert("LDAP error contact your system admin");
             Session.set('loggingIn', false);
         } else {
             if (user) {

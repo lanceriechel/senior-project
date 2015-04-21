@@ -39,7 +39,12 @@ startup = function (){
                 //Small Change (changed uppercase D to d in userId) here to see if this works
                 var projectApprovalArray = [];
                 user.projects.forEach(function (pId) {
-                    var projectId = ChargeNumbers.findOne({_id: pId}).projectId;
+                    var projectId = ChargeNumbers.findOne({_id: pId});
+                    if (!projectId){
+                        Meteor.call("removeEmployeeFromProject", user._id, pId);
+                        return;
+                    }
+                    projectId = projectId.projectId;
                     projectApprovalArray.push({
                         projectId : projectId,
                         approved: false,

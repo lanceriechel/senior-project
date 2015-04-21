@@ -9,8 +9,7 @@ generalHelpers = {
         var date = new Date();
         var start = date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear();
 
-
-        admin = Meteor.users.findOne({'admin': true});
+        var admin = Meteor.users.findOne({'admin': true});
         if (!holiday && admin) {
 
             ChargeNumbers.insert(

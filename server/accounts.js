@@ -6,8 +6,10 @@ MeteorWrapperLdapjs.Attribute.settings.guid_format =
 LDAP = {};
 LDAP.ldap = MeteorWrapperLdapjs;
 LDAP.client = LDAP.ldap.createClient({
-    url: Meteor.settings.ldap_url + Meteor.settings.ldap_search_base
+    url: Meteor.settings.ldap_url + "cn=users,cn=accounts," + Meteor.settings.ldap_search_base
 });
+
+var ldapSearchResult = [];
 
 var wrappedLdapBind = Meteor.wrapAsync(LDAP.client.bind, LDAP.client);
 // the search method still requires a callback because it is an event-emitter
@@ -16,12 +18,22 @@ LDAP.asyncSearch = function (binddn, opts, callback) {
         if (err) {
             callback(false);
         } else {
+
             search.on('searchEntry', function (entry) {
-                callback(null, entry.object);
+                ldapSearchResult.push(entry.object);
+            });
+            search.on('end', function (entry) {
+                if (ldapSearchResult.length == 1) {
+                    ldapSearchResult = ldapSearchResult[0];
+                }
+                var tempLdapSearchResult = ldapSearchResult;
+                ldapSearchResult = [];
+                callback(null, tempLdapSearchResult);
             });
 
             search.on('error', function (err) {
                 console.log('search error: ' + err);
+                ldapSearchResult = [];
                 callback(false);
             });
         }
@@ -36,7 +48,7 @@ LDAP.search = function (username) {
         attributes: ['cn', 'mail', 'memberof']  // add more ldap search attributes here when needed
     };
 
-    return wrappedLdapSearch(Meteor.settings.ldap_search_base, opts);
+    return wrappedLdapSearch("cn=users,cn=accounts," + Meteor.settings.ldap_search_base, opts);
 };
 
 LDAP.getGroupList = function (isAdminList) {
@@ -69,34 +81,31 @@ LDAP.getGroupList = function (isAdminList) {
         };
     }
 
-    return wrappedLdapSearch(Meteor.settings.ldap_search_base.replace("users", "groups"), opts);
+    return wrappedLdapSearch("cn=groups,cn=accounts," + Meteor.settings.ldap_search_base, opts);
 };
 
 LDAP.getAllGroups = function () {
-    //var opts = {
-    //    filter: '(objectClass=group)',
-    //    scope: 'sub'
-    //};
-    //
-    //return wrappedLdapSearch(Meteor.settings.ldap_search_base.replace("users", "groups"), opts);
-
     var opts = {
-        filter: '(&(objectCategory=group))',
+        filter: '(objectClass=ipausergroup)',
         scope: 'sub',
         attributes: ['cn']  // add more ldap search attributes here when needed
     };
 
-    return wrappedLdapSearch("cn=groups," + Meteor.settings.ldap_search_base, opts);
+    return wrappedLdapSearch(Meteor.settings.ldap_search_base, opts);
 };
 
 LDAP.checkAccount = function (username, password) {
-    var binddn = 'uid=' + username + ',' + Meteor.settings.ldap_search_base;
+    var binddn = 'uid=' + username + ',' + "cn=users,cn=accounts," + Meteor.settings.ldap_search_base;
     if (wrappedLdapBind(binddn, password).status === 0) {
         return true;
     }
 
     return false;
 };
+
+LDAP.getLdapAdmin = function (){
+    return Meteor.settings.ldap_admin;
+}
 
 Meteor.startup (function() {
     Meteor.methods({
@@ -110,31 +119,18 @@ Meteor.startup (function() {
                 }
             } catch (e) {
                 console.log('caught exception when interracting with LDAP server: ' + e.message);
+                return [false, false, false];
             }
         },
         getLdapManagerGroups: function () {
-            //var managerGroups = [];
-            //for (var manager in Meteor.settings.ldap_managers){
-            //    if (!(Meteor.settings.ldap_managers[manager] in managerGroups)){
-            //        managerGroups.push(Meteor.settings.ldap_managers[manager]);
-            //    }
-            //}
-            //for (var admin in Meteor.settings.ldap_admins){
-            //    if (!(Meteor.settings.ldap_admins[admin] in managerGroups)){
-            //        managerGroups.push(Meteor.settings.ldap_admins[admin]);
-            //    }
-            //}
-            //var groups = [];
-            //LDAP.getAllGroups().memberof.forEach(function (group) {
-            //    if (group.indexOf("cn=groups") > -1) {
-            //        console.log(group);
-            //        console.log(group.indexOf("cn=groups") > -1);
-            //        console.log(group.split("cn=")[1].replace(",",""));
-            //        groups.add(group);
-            //        //groups.add(group.split("cn=")[1]);
-            //    }
-            //});
-            return LDAP.getAllGroups().cn;
+            var names = [];
+            LDAP.getAllGroups().forEach(function (group){
+                names.push(group.cn);
+            })
+            return names;
+        },
+        getLdapAdmin: function () {
+            return LDAP.getLdapAdmin();
         }
     });
 });
