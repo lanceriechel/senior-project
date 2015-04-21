@@ -38,7 +38,8 @@
             <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4>Project</h4></div>
             <div class="text-center col-md-3 col-sm-3 col-xs-3"><h4>This Week's Issues</h4></div>
             <div class="text-center col-md-3 col-sm-3 col-xs-3"><h4>Goals for Next Week</h4></div>
-            <div class="text-center col-md-4 col-sm-4 col-xs-4"><h4>Manager Feedback</h4></div>
+            <div class="text-center col-md-1 col-sm-3 col-xs-3"><h4>Project Hours</h4></div>
+            <div class="text-center col-md-3 col-sm-4 col-xs-4"><h4>Manager Feedback</h4></div>
         </div>
         {{#each project}}
             {{> projectComments}}
@@ -161,31 +162,31 @@
         <div class="clearfix visible-sm-block visible-xs-block"></div>
         <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Sun</h5></div>
         <div class="col-xs-4 col-sm-2 col-md-1"><input id="Sunday" type="text"
-                                              class="large-input form-control enterable {{sentBack}}" value="0"></div>
+                                              class="large-input form-control enterable {{sentBack}}" value=""></div>
         <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Mon</h5></div>
         <div class="col-xs-4 col-sm-2 col-md-1 pull-xs-right"><input id="Monday" type="text"
                                                             class="large-input form-control enterable {{sentBack}}"
-                                                            value="0"></div>
+                                                            value=""></div>
         <div class="clearfix visible-xs-block"></div>
         <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Tue</h5></div>
         <div class="col-xs-4 col-sm-2 col-md-1"><input id="Tuesday" type="text"
-                                              class="large-input form-control enterable {{sentBack}}" value="0"></div>
+                                              class="large-input form-control enterable {{sentBack}}" value=""></div>
         <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Wed</h5></div>
         <div class="col-xs-4 col-sm-2 col-md-1 pull-xs-right"><input id="Wednesday" type="text"
                                                             class="large-input form-control enterable {{sentBack}}"
-                                                            value="0"></div>
+                                                            value=""></div>
         <div class="clearfix visible-xs-block visible-sm-block"></div>
         <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Thu</h5></div>
         <div class="col-xs-4 col-sm-2 col-md-1"><input id="Thursday" type="text"
-                                              class="large-input form-control enterable {{sentBack}}" value="0"></div>
+                                              class="large-input form-control enterable {{sentBack}}" value=""></div>
         <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Fri</h5></div>
         <div class="col-xs-4 col-sm-2 col-md-1 pull-xs-right"><input id="Friday" type="text"
                                                             class="large-input form-control enterable {{sentBack}}"
-                                                            value="0"></div>
+                                                            value=""></div>
         <div class="clearfix visible-xs-block"></div>
         <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Sat</h5></div>
         <div class="col-xs-4 col-sm-2 col-md-1"><input id="Saturday" type="text"
-                                              class="large-input form-control enterable {{sentBack}}" value="0"></div>
+                                              class="large-input form-control enterable {{sentBack}}" value=""></div>
         <div class="clearfix visible-xs-block"></div>
         <div class="col-xs-11 col-sm-12 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg"><h5>Comment</h5></div>
         <div class="col-md-2 col-sm-offset-0 col-xs-offset-1 col-xs-11 col-sm-11 pull-xs-right"><input id="Comment" type="text"
@@ -224,8 +225,10 @@
         <div class="col-md-3 col-xs-11 col-md-offset-0 col-xs-offset-1"><input id="Next" type="text"
                                                                                class="large-input form-control enterable {{sentBack}}"
                                                                                value={{next project}}></div>
+        <div class="col-xs-11 col-sm-offset-1 col-xs-offset-1 hidden-lg hidden-md">Project Hours</div>
+        <div class="col-md-1 col-xs-11 col-md-offset-0 col-xs-offset-1 well well-sm">{{hours project}}</div>
         <div class="col-xs-11 col-sm-offset-1 col-xs-offset-1 hidden-lg hidden-md">Manager Feedback</div>
-        <div class="col-md-4 col-xs-11 col-md-offset-0 col-xs-offset-1"><input id="managerFeedback" type="text"
+        <div class="col-md-3 col-xs-11 col-md-offset-0 col-xs-offset-1"><input id="managerFeedback" type="text"
                                                                                class="large-input form-control" disabled
                                                                                value={{message project}}></div>
     </div>

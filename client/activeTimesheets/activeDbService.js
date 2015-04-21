@@ -8,7 +8,7 @@ ActiveDBService = {
             if (pe.projectId == projectId) {
                 pe.EntryArray.forEach(function (a) {
                     for (var b in a.hours) {
-                        total += parseFloat(a.hours[b]);
+                        total += parseFloat(a.hours[b]) || 0;
                     }
                 });
                 return total;

@@ -30,13 +30,13 @@ Template.activeTimesheets.helpers({
 							current = timesheets[timesheetsMap[u.startDate]];
 						timesheets[timesheetsMap[u.startDate]] = {
 							startDate: u.startDate,
-							sun: parseFloat(days[0]) + parseFloat(current.sun),
-							mon: parseFloat(days[1]) + parseFloat(current.mon),
-							tue: parseFloat(days[2]) + parseFloat(current.tue),
-							wed: parseFloat(days[3]) + parseFloat(current.wed),
-							thu: parseFloat(days[4]) + parseFloat(current.thu),
-							fri: parseFloat(days[5]) + parseFloat(current.fri),
-							sat: parseFloat(days[6]) + parseFloat(current.sat)
+							sun: (parseFloat(days[0]) || 0) + (parseFloat(current.sun) || 0),
+							mon: (parseFloat(days[1]) || 0) + (parseFloat(current.mon) || 0),
+							tue: (parseFloat(days[2]) || 0) + (parseFloat(current.tue) || 0),
+							wed: (parseFloat(days[3]) || 0) + (parseFloat(current.wed) || 0),
+							thu: (parseFloat(days[4]) || 0) + (parseFloat(current.thu) || 0),
+							fri: (parseFloat(days[5]) || 0) + (parseFloat(current.fri) || 0),
+							sat: (parseFloat(days[6]) || 0) + (parseFloat(current.sat) || 0)
 						};
 					}
 				}
@@ -66,6 +66,43 @@ Template.projectComments.helpers({
          */
         var name = ChargeNumbers.findOne({'_id': projectId});
         return name['name'];
+    },
+    hours: function (projectId){
+        var date = Session.get("startDate");
+        var user = Session.get('LdapId');
+        var data = Session.get('editing-user-page');
+        if (data){
+            var userO = Meteor.users.findOne({username : data.username});
+            if (userO){
+                user = userO._id;
+            }
+        }
+        var sheet = TimeSheet.findOne({'startDate': date, 'userId': user});
+
+        var projectEntries = sheet['projectEntriesArray'];
+
+        var total = 0;
+
+       
+        for (var i = 0; i < projectEntries.length; i++) {
+            if (projectEntries[i].projectId==projectId){
+                var EntryArray = projectEntries[i]['EntryArray'];
+            
+                //console.log("EntryArray Length: " + EntryArray.length);
+                for (var j = 0; j < EntryArray.length; j++) {
+                    var hours = EntryArray[j]['hours'];
+                    //console.log("Hours Length: "+ hours.length);
+                    for (var k = 0; k < hours.length; k++){
+                        //console.log("Adding: "+ parseInt(hours[i]));
+                        total += parseFloat(hours[k]) || 0;
+                    }
+                
+                }
+            }
+        }
+            
+        //console.log("Total: "+ total);
+        return total;
     },
     next: function (projectId) {
         /*
@@ -184,7 +221,7 @@ Template.totals.helpers({
             
             for (var j = 0; j < EntryArray.length; j++) {
                 var hours = EntryArray[j]['hours'];
-                total += parseInt(hours[day]);
+                total += parseFloat(hours[day])|| 0;
             }
         }
         return total;
@@ -213,7 +250,7 @@ Template.totals.helpers({
                 //console.log("Hours Length: "+ hours.length);
                 for (var k = 0; k < hours.length; k++){
                     //console.log("Adding: "+ parseInt(hours[i]));
-                    total += parseInt(hours[k]);
+                    total += parseFloat(hours[k]) || 0;
                 }
                 
             }
@@ -277,13 +314,13 @@ Template.SelectedTimesheet.helpers({
                 var hours = EntryArray[j]['hours'];
                 rows.push({
                     'project': project,
-                    'sunday': hours[0],
-                    'monday': hours[1],
-                    'tuesday': hours[2],
-                    'wednesday': hours[3],
-                    'thursday': hours[4],
-                    'friday': hours[5],
-                    'saturday': hours[6],
+                    'sunday': hours[0] == 0 ? '' : hours[0],
+                    'monday': hours[1] == 0 ? '' : hours[1],
+                    'tuesday': hours[2] == 0 ? '' : hours[2],
+                    'wednesday': hours[3] == 0 ? '' : hours[3],
+                    'thursday': hours[4] == 0 ? '' : hours[4],
+                    'friday': hours[5] == 0 ? '' : hours[5],
+                    'saturday': hours[6] == 0 ? '' : hours[6],
                     'comment': comment,
                     'rowID': rowID,
                     'sentBack': sentBack
@@ -913,13 +950,13 @@ Template.projectHoursFilled.events = {
 
         var row = event.currentTarget.parentNode;
         var comment_t = $(row).find('#Comment')[0].value;
-        var sunday_t = $(row).find('#Sunday')[0].value;
-        var monday_t = $(row).find('#Monday')[0].value;
-        var tuesday_t = $(row).find('#Tuesday')[0].value;
-        var wednesday_t = $(row).find('#Wednesday')[0].value;
-        var thursday_t = $(row).find('#Thursday')[0].value;
-        var friday_t = $(row).find('#Friday')[0].value;
-        var saturday_t = $(row).find('#Saturday')[0].value;
+        var sunday_t = parseFloat($(row).find('#Sunday')[0].value) || 0;
+        var monday_t = parseFloat($(row).find('#Monday')[0].value) || 0;
+        var tuesday_t = parseFloat($(row).find('#Tuesday')[0].value) || 0;
+        var wednesday_t = parseFloat($(row).find('#Wednesday')[0].value) || 0;
+        var thursday_t = parseFloat($(row).find('#Thursday')[0].value) || 0;
+        var friday_t = parseFloat($(row).find('#Friday')[0].value) || 0;
+        var saturday_t = parseFloat($(row).find('#Saturday')[0].value) || 0;
         var rowID = $(row).attr('id');
         var projectIndex = $(row).find('#project_select')[0].selectedIndex;
         var projectId = $(row).find('#project_select')[0].children[projectIndex].id;
@@ -936,10 +973,7 @@ Template.projectHoursFilled.events = {
         TimeSheetService.removeErrorClasses(row, ['#Comment', '#Sunday', '#Monday', '#Tuesday', '#Wednesday', '#Thursday', '#Friday', '#Saturday', '#projectName']);
 
         if (TimeSheetService.ensureValidEntry(row, comment_t, sunday_t, monday_t, tuesday_t, wednesday_t, thursday_t, friday_t, saturday_t, projectId)) {
-            /*
-             Update Database
-             This will update the database correctly when the projectHoursFilled is fixed.-Dan
-             */
+            
             ActiveDBService.updateRowInTimeSheet(Session.get("startDate"), user, projectId,
                 comment_t,
                 sunday_t,
@@ -1025,13 +1059,13 @@ Template.projectHours.events = {
          */
         var row = event.currentTarget.parentNode.parentNode;
         var comment_t = $(row).find('#Comment')[0].value;
-        var sunday_t = parseFloat($(row).find('#Sunday')[0].value, 10);
-        var monday_t = parseFloat($(row).find('#Monday')[0].value, 10);
-        var tuesday_t = parseFloat($(row).find('#Tuesday')[0].value, 10);
-        var wednesday_t = parseFloat($(row).find('#Wednesday')[0].value, 10);
-        var thursday_t = parseFloat($(row).find('#Thursday')[0].value, 10);
-        var friday_t = parseFloat($(row).find('#Friday')[0].value, 10);
-        var saturday_t = parseFloat($(row).find('#Saturday')[0].value, 10);
+        var sunday_t = parseFloat($(row).find('#Sunday')[0].value, 10) || 0;
+        var monday_t = parseFloat($(row).find('#Monday')[0].value, 10) || 0;
+        var tuesday_t = parseFloat($(row).find('#Tuesday')[0].value, 10) || 0;
+        var wednesday_t = parseFloat($(row).find('#Wednesday')[0].value, 10) || 0;
+        var thursday_t = parseFloat($(row).find('#Thursday')[0].value, 10) || 0;
+        var friday_t = parseFloat($(row).find('#Friday')[0].value, 10) || 0;
+        var saturday_t = parseFloat($(row).find('#Saturday')[0].value, 10) || 0;
 
         // I added this so we can retrieve the selected project's ID so we can add it to the Database
         var projectIndex = $(row).find('#project_select')[0].selectedIndex;
@@ -1082,13 +1116,13 @@ Template.projectHours.events = {
                         }, 5000);
                     });
                 comment_t = '';
-                sunday_t = 0;
-                monday_t = 0;
-                tuesday_t = 0;
-                wednesday_t = 0;
-                thursday_t = 0;
-                friday_t = 0;
-                saturday_t = 0;
+                sunday_t = '';
+                monday_t = '';
+                tuesday_t = '';
+                wednesday_t = '';
+                thursday_t = '';
+                friday_t = '';
+                saturday_t = '';
 
             }
         }
@@ -1172,7 +1206,7 @@ TimeSheetService = {
             TimeSheetService.addError(row, '#projectName', "Field Cannot be Empty");
             valid = false;
         }
-        if (isNaN(sunday_t) || (sunday_t <0)) {
+        if (sunday_t <0) {
             TimeSheetService.addError(row, '#Sunday', "Field is Not a Positive Number");
             valid = false;
         }
@@ -1180,7 +1214,7 @@ TimeSheetService = {
             TimeSheetService.addError(row, '#Sunday', "Field Must be a Multiple of .25 and less than 24");
             valid = false;
         }
-        if (isNaN(monday_t) || (monday_t <0)) {
+        if (monday_t <0) {
             TimeSheetService.addError(row, '#Monday', "Field is Not a Positive Number");
             valid = false;
         }
@@ -1188,7 +1222,7 @@ TimeSheetService = {
             TimeSheetService.addError(row, '#Monday', "Field Must be a Multiple of .25 and less than 24");
             valid = false;
         }
-        if (isNaN(tuesday_t) || (tuesday_t <0)) {
+        if (tuesday_t <0) {
             TimeSheetService.addError(row, '#Tuesday', "Field is Not a Positive Number");
             valid = false;
         }
@@ -1196,7 +1230,7 @@ TimeSheetService = {
             TimeSheetService.addError(row, '#Tuesday', "Field Must be a Multiple of .25 and less than 24");
             valid = false;
         }
-        if (isNaN(wednesday_t) || (wednesday_t <0)) {
+        if (wednesday_t <0) {
             TimeSheetService.addError(row, '#Wednesday', "Field is Not a Positive Number");
             valid = false;
         }
@@ -1204,7 +1238,7 @@ TimeSheetService = {
             TimeSheetService.addError(row, '#Wednesday', "Field Must be a Multiple of .25 and less than 24");
             valid = false;
         }
-        if (isNaN(thursday_t) || (thursday_t <0)) {
+        if (thursday_t <0) {
             TimeSheetService.addError(row, '#Thursday', "Field is Not a Positive Number");
             valid = false;
         }
@@ -1212,7 +1246,7 @@ TimeSheetService = {
             TimeSheetService.addError(row, '#Thursday', "Field Must be a Multiple of .25 and less than 24");
             valid = false;
         }
-        if (isNaN(friday_t) || (friday_t <0)) {
+        if (friday_t <0) {
             TimeSheetService.addError(row, '#Friday', "Field is Not a Positive Number");
             valid = false;
         }
@@ -1220,7 +1254,7 @@ TimeSheetService = {
             TimeSheetService.addError(row, '#Friday', "Field Must be a Multiple of .25 and less than 24");
             valid = false;
         }
-        if (isNaN(saturday_t) || (saturday_t <0)) {
+        if (saturday_t <0) {
             TimeSheetService.addError(row, '#Saturday', "Field is Not a Positive Number");
             valid = false;
         }
