@@ -79,6 +79,11 @@ LDAP.getGroupList = function (isAdminList) {
             scope: 'sub',
             attributes: ['member']  // add more ldap search attributes here when needed
         };
+        if (filterStr == ''){
+            return {
+                member: false
+            };
+        }
     }
 
     return wrappedLdapSearch("cn=groups,cn=accounts," + Meteor.settings.ldap_search_base, opts);
