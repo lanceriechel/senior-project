@@ -83,6 +83,34 @@ Template.projectInfo.events = {
     'click .manager': function(evt){
         var parent = evt.currentTarget.parentNode;
         parent.innerHTML = Blaze.toHTML(Blaze.With("", function() { return Template.employeesListDropDown; }));
+    },
+    'click button': function(event){
+        var row = event.currentTarget.parentNode.parentNode;
+        var chargeNumber = $(row).find('#charge_number')[0].value;
+        var name = $(row).find('#project_name')[0].value;
+        var customer = $(row).find('#customer')[0].value;
+        var startDate = $(row).find('#start_date')[0].value;
+        var endDate = $(row).find('#end_date')[0].value;
+        var manager = $(row).find('#manager')[0].value;
+
+        var project = ChargeNumbers.findOne({'_id': row.id});
+
+        Meteor.call('updateProject', this._id, {
+                'id': chargeNumber,
+                'name': name,
+                'customer': customer,
+                'start_date': startDate,
+                'end_date': endDate,
+                'is_holiday': project.is_holiday,
+                'indirect': true,
+                'manager': manager
+        },
+            function (){
+            $('.toast').addClass('active');
+            setTimeout(function () {
+                $('.toast').removeClass('active');
+            }, 5000);
+        });
     }
 };
 
@@ -207,11 +235,11 @@ Template.indirectInfo.rendered = function(){
 };
 
 Template.indirectChargeItems.events({
-    'blur .charge_number, blur .project_name, blur .date': function(event){
+    'blur .project_name, blur .customer, blur .date': function(event){
         var row = event.currentTarget.parentNode.parentNode;
-        var name =  $(row).find('#charge_number')[0].value;
+        var name =  $(row).find('#project_name')[0].value;
         var _id=row.id;
-        var customer = $(row).find('#project_name')[0].value;
+        var customer = $(row).find('#customer')[0].value;
         var startDate = $(row).find('#start_date')[0].value;
         var endDate = $(row).find('#end_date')[0].value;
         var manager = $(row).find('#manager')[0].value;
@@ -238,6 +266,33 @@ Template.indirectChargeItems.events({
     'click .manager': function(evt){
         var parent = evt.currentTarget.parentNode;
         parent.innerHTML = Blaze.toHTML(Blaze.With("", function() { return Template.employeesListDropDown; }));
+    },
+    'click button': function(event){
+        var row = event.currentTarget.parentNode.parentNode;
+        var name = $(row).find('#project_name')[0].value;
+        var customer = $(row).find('#customer')[0].value;
+        var startDate = $(row).find('#start_date')[0].value;
+        var endDate = $(row).find('#end_date')[0].value;
+        var manager = $(row).find('#manager')[0].value;
+
+        var project = ChargeNumbers.findOne({'_id': row.id});
+
+        Meteor.call('updateProject', this._id, {
+                'id': project.id,
+                'name': name,
+                'customer': customer,
+                'start_date': startDate,
+                'end_date': endDate,
+                'is_holiday': project.is_holiday,
+                'indirect': false,
+                'manager': manager
+        },
+            function (){
+            $('.toast').addClass('active');
+            setTimeout(function () {
+                $('.toast').removeClass('active');
+            }, 5000);
+        });
     }
 });
 
