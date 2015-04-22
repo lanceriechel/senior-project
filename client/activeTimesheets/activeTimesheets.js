@@ -712,7 +712,12 @@ Template.projectListDropDown.rendered = function () {
     var id = $(this.firstNode).parent().attr('id');
     $(this.firstNode).find("#" + id).prop("selected", true);
 };
-
+function hackRefresh(){
+    Session.set('current_page', 'faux');
+    setTimeout(function () {
+        Session.set('current_page', 'selected_timesheet');
+    }, 50);
+}
 function checkNonEmptyAddRow(){
     var row = $('.add_row');
     var comment_t = $(row).find('#Comment')[0].value;
@@ -809,7 +814,6 @@ Template.lastSection.events = {
                 revision.unshift(historyEntry);
             }
         });
-
         if(isTimesheetEmpty){
             // alert('empty');
             var row = event.currentTarget.parentNode;
@@ -828,17 +832,11 @@ Template.lastSection.events = {
 
                 Meteor.call('submitTimesheet', Session.get("startDate"), user);
                 // Meteor.call('updateSentBackStatus', Session.get("startDate"), user);
-
-                if (!data){
-                    // Session.set('current_page', 'time_sheet');
-                    Session.set('current_page', 'time_sheet');
-                    Meteor.flush();
-                    Session.set('current_page', 'selected_timesheet');
-                    Meteor.flush();
-                }
+               
+                hackRefresh();
+                
             });
         }
-
     },
     'click .approve': function (e) {
         var startDateStr = Session.get("startDate");
