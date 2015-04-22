@@ -12,13 +12,6 @@ startup = function (){
         dateObject.decrementWeek();
         var d1L = new Date(dateObject.start);
 
-        //var d = new Date(),
-        //    d1L = new Date(),
-        //    d2 = new Date();
-        //d.setDate((d.getDate() - (d.getDay() + 6) % 7) - 1);
-        //d1L.setDate((d1L.getDate() - (d1L.getDay() + 6) % 7) - 8);
-        //d2.setDate((d2.getDate() - (d2.getDay() + 6) % 7) + 6);
-
         var holidays = [];
         for (var i = 0; i < 7; i++) {
             var dH = new Date();

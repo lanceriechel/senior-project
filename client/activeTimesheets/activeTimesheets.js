@@ -59,6 +59,23 @@ Template.timesheetInfo.events = {
   },
 };
 
+/*
+ Returns the date string for the given day index
+ */
+day_date = function (dayIndex){
+    var date = new Date(Session.get("startDate"));
+
+    date.setDate(date.getDate()+dayIndex);
+
+    return " " + (date.getMonth() + 1) + "/" + date.getDate();
+}
+
+Template.daysOfWeek.helpers({
+    day_date : function(dayIndex){
+        return day_date(dayIndex);
+    }
+});
+
 Template.projectComments.helpers({
     'name': function (projectId) {
         /*
@@ -942,6 +959,12 @@ Template.projectComments.events = {
     }
 };
 
+Template.projectHours.helpers({
+    day_date : function(dayIndex){
+        return day_date(dayIndex);
+    }
+});
+
 Template.projectHoursFilled.events = {
     'blur .filledRow': function (event) {
         /*
@@ -1049,6 +1072,9 @@ Template.projectHoursFilled.helpers({
       */
       var name = ChargeNumbers.findOne({'_id' : projectId});
       return name['name'];
+    },
+    day_date : function(dayIndex){
+        return day_date(dayIndex);
     }
 });
 
