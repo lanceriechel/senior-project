@@ -706,6 +706,14 @@ Meteor.startup(function () {
                     groups:groups
                 }
             });
+        },
+        updateTimesheetProjectEntriesArray: function(id, projectEntriesArray){
+            TimeSheet.update({'_id':id},
+                {
+                    $set:{
+                        'projectEntriesArray': projectEntriesArray
+                    }
+                });
         }
     });
 

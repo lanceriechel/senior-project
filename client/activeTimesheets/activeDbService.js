@@ -154,12 +154,7 @@ ActiveDBService = {
             prEntriesArr.splice(index1, 1);
             prEntriesArr.splice(index1, 0, entryArrToAdd);
 
-            TimeSheet.update({'_id':sheet._id},
-            {
-                $set:{
-                    'projectEntriesArray': prEntriesArr
-                }
-            });
+            Meteor.call("updateTimesheetProjectEntriesArray", sheet._id, prEntriesArr);
 
         }else{
             //Project has been changed

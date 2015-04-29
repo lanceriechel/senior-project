@@ -901,12 +901,8 @@ Template.lastSection.events = {
         };
         revision.unshift(historyEntry);
 
-        TimeSheet.update({'_id':sheet._id},
-            {
-                $set:{
-                    'revision': revision
-                },
-            });
+        Meteor.call("updateRevision", id, revision);
+
         Session.set('current_page', 'approval_page');
     },
     'click .reject': function (e, t) {
