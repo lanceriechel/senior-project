@@ -56,7 +56,8 @@ Template.toApprove_Template.helpers({
                     }
                 });
 
-                if (Meteor.users.findOne({_id: t.userId, projects: {$in : [selected]}}) && show){
+                //Meteor.users.findOne({_id: t.userId, projects: {$in : [selected]}}) &&
+                if (show){
                     if (!totals[t.userId]) {
                         totals[t.userId] = {
                             total: 0,

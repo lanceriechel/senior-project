@@ -32,12 +32,12 @@ startup = function (){
                 //Small Change (changed uppercase D to d in userId) here to see if this works
                 var projectApprovalArray = [];
                 user.projects.forEach(function (pId) {
-                    var projectId = ChargeNumbers.findOne({_id: pId});
-                    if (!projectId){
+                    var project = ChargeNumbers.findOne({_id: pId});
+                    if (!project){
                         Meteor.call("removeEmployeeFromProject", user._id, pId);
                         return;
                     }
-                    projectId = projectId.projectId;
+                    projectId = project._id;
                     projectApprovalArray.push({
                         projectId : projectId,
                         approved: false,
@@ -53,12 +53,13 @@ startup = function (){
                             '', false, projectApprovalArray, '', false, function(){addOrRemoveHolidayHours(d, user);});
                     }
                     else {
-                        var old = previousTimesheet['projectEntriesArray'];
-                        for (var entry in  old) {
-                            old[entry].Approved = false;
-                            old[entry].rejectMessage = '';
-                            old[entry].SentBack = false;
-                        }
+                        //If there is a previous Timesheet copy forward the hours
+                        var old = [];
+                         previousTimesheet['projectEntriesArray'].forEach(function (projectEntry){
+                            if (user.projects.indexOf(projectEntry.projectId) > -1){
+                                old.push(projectEntry);
+                            }
+                         });
                         Meteor.call('insertTimesheet', dStr, d2Str, user['_id'], 1, [], old, 1,
                             previousTimesheet.generalComment, false, projectApprovalArray, previousTimesheet.concerns, false, function(){addOrRemoveHolidayHours(d, user);});
                     }

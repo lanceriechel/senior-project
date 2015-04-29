@@ -552,12 +552,23 @@ Template.projectListDropDown.helpers({
             }
         }
         var user = Meteor.users.findOne({_id: userId});
-        var projects = ChargeNumbers.find({_id: {$in: user['projects']}});
+        var projectsToList = user.projects;
+        sheet.projectApprovalArray.forEach(function (projectApprovalEntry){
+            if (($.inArray(projectApprovalEntry.projectId, projectsToList)) == -1){
+                //console.log("ADDING: " + projectApprovalEntry.projectId);
+                projectsToList.push(projectApprovalEntry.projectId);
+            }
+        });
+
+        //console.log("Project List: "+ projectsToList);
+        var projects = ChargeNumbers.find({_id: {$in: projectsToList}});
 
         var returnedProjects = [];
         var selected = false;
 
         projects = projects.fetch();
+
+
 
         // console.log(projectSelected);
         projects.forEach(function (p) {

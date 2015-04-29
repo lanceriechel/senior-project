@@ -140,6 +140,6 @@ Meteor.startup (function() {
     });
 });
 
-Accounts.registerLoginHandler('profileFields', function (options){
-    console.log('in the handler');
-});
+// Accounts.registerLoginHandler('profileFields', function (options){
+//     console.log('in the handler');
+// });

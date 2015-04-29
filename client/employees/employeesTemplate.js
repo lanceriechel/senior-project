@@ -74,7 +74,7 @@ Template.associatedProjects.events({
                     }
                 }
 
-                Meteor.call('removeProjectFromApprovalArray', e._id, i);
+                //Meteor.call('removeProjectFromApprovalArray', e._id, i);
             });
     }
 });
