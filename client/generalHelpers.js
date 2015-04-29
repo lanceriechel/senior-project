@@ -4,27 +4,6 @@ generalHelpers = {
   		d.setDate((d.getDate() - (d.getDay() + 6) % 7 )- 1);
   		return d.toLocaleDateString();
     },
-    createHoliday: function() {
-        var holiday = ChargeNumbers.findOne({'is_holiday': true});
-        var date = new Date();
-        var start = date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear();
-
-        var admin = Meteor.users.findOne({'admin': true});
-        if (!holiday && admin) {
-
-            ChargeNumbers.insert(
-                {
-                    id: '1000',
-                    name: 'Holiday',
-                    customer: 'Scientia',
-                    startDate: start,
-                    endDate: '∞',
-                    manager: admin.username,
-                    is_holiday: true,
-                    indirect: true
-                });
-        }
-    },
     getSaturday: function(){
         var d = new Date();
   		d.setDate((d.getDate() - (d.getDay() + 6) % 7 ) + 6);

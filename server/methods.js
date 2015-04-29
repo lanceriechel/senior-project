@@ -680,6 +680,32 @@ Meteor.startup(function () {
         },
         setEmployeeFullTime: function(id, isFullTime) {
             Meteor.users.update({'_id': id}, {$set: {'fulltime': isFullTime}});
+        },
+        insertNewUser: function(username, common_name, manager, admin, email, projects, fulltime, groups){
+            id = Meteor.users.insert({
+                username: username,
+                cn: common_name,
+                manager: manager,
+                admin: admin,
+                email: email,
+                projects: projects,
+                fulltime: fulltime,
+                groups: groups
+            });
+
+            return id;
+        },
+        updateUserInfo: function(id, manager, admin, email, groups){
+            Meteor.users.update({
+                _id: id
+            }, {
+                $set: {
+                    manager: manager,
+                    admin: admin,
+                    email: email,
+                    groups:groups
+                }
+            });
         }
     });
 

@@ -1,6 +1,26 @@
 startup = function (){
     process.env.MAIL_URL = 'smtp://noreply.scientiallc.timesheet%40gmail.com:N1esZd02FBi06WW@smtp.gmail.com:587/';
 
+    function setupHolidayProject(){
+        var holiday = ChargeNumbers.findOne({'is_holiday': true});
+        var date = new Date();
+        var start = date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear();
+
+        if (!holiday) {
+            ChargeNumbers.insert(
+                {
+                    id: '1000',
+                    name: 'Holiday',
+                    customer: 'Scientia',
+                    startDate: start,
+                    endDate: '∞',
+                    manager: Meteor.settings.ldap_admin,
+                    is_holiday: true,
+                    indirect: true
+                });
+        }
+    }
+
     // First, checks if it isn't implemented yet.
     function setupMissingTimesheets() {
         /*
@@ -67,6 +87,8 @@ startup = function (){
             }
         );
     }
+
+    setupHolidayProject();
 
     console.log("start missing setup");
     setupMissingTimesheets();

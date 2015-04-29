@@ -232,6 +232,11 @@ Template.totals.helpers({
             }
         }
         var sheet = TimeSheet.findOne({'startDate': date, 'userId': user});
+
+        if (!sheet){
+            return;
+        }
+
         var projectEntries = sheet['projectEntriesArray'];
         for (var i = 0; i < projectEntries.length; i++) {
             var EntryArray = projectEntries[i]['EntryArray'];
@@ -256,6 +261,11 @@ Template.totals.helpers({
             }
         }
         var sheet = TimeSheet.findOne({'startDate': date, 'userId': user});
+
+        if (!sheet){
+            return;
+        }
+
         var projectEntries = sheet['projectEntriesArray'];
         //console.log("projectsEntries Length: " + projectEntries.length);
         for (var i = 0; i < projectEntries.length; i++) {
@@ -523,6 +533,10 @@ Template.projectListDropDown.helpers({
             });
         }
         var sheet = TimeSheet.findOne({'startDate': date, 'userId': userId});
+
+        if (!sheet){
+            return;
+        }
 
         var projectEntries = sheet['projectEntriesArray'];
 

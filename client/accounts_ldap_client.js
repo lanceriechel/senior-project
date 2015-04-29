@@ -39,38 +39,24 @@ authenticateLdapEmployee = function (username, password) {
                 if (dbUser) {
                     id = dbUser._id;
                     // needs to update only ldap fields in case of change
-                    Meteor.users.update({
-                        _id: dbUser._id
-                    }, {
-                        $set: {
-                            manager: manager,
-                            admin: admin,
-                            email: user.mail,
-                            groups:groups
-                        }
-                    });
+                    Meteor.call("updateUserInfo", dbUser._id, manager, admin, user.mail, groups);
+                    Session.set('LdapId', id);
                 } else {
                     var holidayProject = ChargeNumbers.findOne({'is_holiday': true});
                     var holiday = [];
                     if (holidayProject) {
                         holiday = [holidayProject._id];
                     }
-                    id = Meteor.users.insert({
-                        username: username,
-                        cn: user.cn,
-                        manager: manager,
-                        admin: admin,
-                        email: user.mail,
-                        projects: holiday,
-                        fulltime: true,
-                        groups: groups
+
+                    Meteor.call("insertNewUser", username, user.cn, manager, admin, user.mail, holiday, true, groups, function(error, id) {
+                        if (!error){
+                            generalHelpers.MakeTimesheetForNewUser(id, Meteor.users.findOne({username: username}));
+                            Session.set('LdapId', id);
+                        }
                     });
-                    generalHelpers.createHoliday();
-                    generalHelpers.MakeTimesheetForNewUser(id, Meteor.users.findOne({username: username}));
 
                 }
                 // needs to set current user id
-                Session.set('LdapId', id);
                 var callback = function (error, data) {
                     if (!error) {
                         Session.set('current_page', 'selected_timesheet');
