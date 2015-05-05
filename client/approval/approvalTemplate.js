@@ -286,6 +286,12 @@ Template.approval_Template.helpers({
 
         Session.set('current_project_to_approve', id);
 
+        toReturn.sort(function(a, b) {
+            var textA = a.text.toUpperCase();
+            var textB = b.text.toUpperCase();
+            return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+        });
+
         return toReturn;
     },
     isActive: function (date) {

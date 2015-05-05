@@ -594,14 +594,16 @@ Template.projectListDropDown.helpers({
                 returnedProjects.push({
                     'id': p['_id'],
                     'name': p['name'],
-                    'selected': selected
+                    'selected': selected,
+                    'indirect':p['indirect']
                 });
 
             } else if (projectSelected == p['_id'] && ($.inArray(projectSelected, returnedProjects) == -1)) {
                 returnedProjects.push({
                     'id': p['_id'],
                     'name': p['name'],
-                    'selected': selected
+                    'selected': selected,
+                    'indirect':p['indirect']
                 });
 
             }
@@ -611,7 +613,15 @@ Template.projectListDropDown.helpers({
         returnedProjects.sort(function(a, b) {
             var textA = a.name.toUpperCase();
             var textB = b.name.toUpperCase();
-            return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+            if((a.indirect && b.indirect) || (!a.indirect && !b.indirect)){
+                return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+            }else{
+                if(a.indirect){
+                    return 1;
+                }else{
+                    return -1;
+                }
+            }
         });
 
         return returnedProjects;
@@ -860,6 +870,8 @@ Template.lastSection.events = {
                 Meteor.call('updateRevision', sheet._id, revision);
 
                 TimeSheetService.removeErrorClasses(row, ['#submitButton']);
+
+                $("input, button, select").attr('disabled','disabled');
 
                 Meteor.call('submitTimesheet', Session.get("startDate"), user);
                 // Meteor.call('updateSentBackStatus', Session.get("startDate"), user);
