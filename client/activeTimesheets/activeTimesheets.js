@@ -608,6 +608,12 @@ Template.projectListDropDown.helpers({
             selected = false;
         });
 
+        returnedProjects.sort(function(a, b) {
+            var textA = a.name.toUpperCase();
+            var textB = b.name.toUpperCase();
+            return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+        });
+
         return returnedProjects;
     },
     employees: function (projectSelected) {
@@ -757,7 +763,7 @@ function checkNonEmptyAddRow(){
     var nonEmpty = !(comment_t == '');
     var day_times = [sunday_t, monday_t, tuesday_t, wednesday_t, thursday_t, friday_t, saturday_t];
     for(i in day_times){
-        nonEmpty = nonEmpty || day_times[i] != 0;
+        nonEmpty = nonEmpty || (!isNaN(day_times[i]));
     }
 
     if (nonEmpty) {

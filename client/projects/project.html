@@ -27,10 +27,10 @@
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control charge_number" id="charge_number" value={{id}}></div>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control  project_name" id="project_name" value={{name}}></div>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control  customer" id="customer" value={{customer}}></div>
-        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control date" id="start_date" value={{start_date}}></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"> <input type="text" class="large-input form-control date" id="start_date" value={{start_date}}></div>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control date" id="end_date" value={{end_date}}></div>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control manager" id="manager" value={{manager}}></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary">Change to Indirect</button></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary">Make Indirect</button></div>
     </div>
 </template>
 
@@ -76,7 +76,7 @@
         <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Job</h4></div>
         <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Project Name</h4></div>
         <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Customer</h4></div>
-        <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Start Date</h4></div>
+        <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Start Date</h4></div>
         <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>End Date</h4></div>
         <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Manager</h4></div>
     </div>
@@ -109,6 +109,6 @@
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control date" id="start_date" value={{start_date}} disabled={{is_holiday}}></div>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control date" id="end_date" value={{end_date}} disabled={{is_holiday}}></div>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control manager" id="manager" value={{manager}} disabled={{is_holiday}}></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary" hidden={{is_holiday}}>Change to Active</button></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary" hidden={{is_holiday}}>Make Active</button></div>
     </div>
 </template>
