@@ -14,6 +14,10 @@ generalHelpers = {
     d.setDate((d.getDate() - (d.getDay() + 6) % 7) - 1);
     return d;
     },
+    getMonthName: function(i) {
+        var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        return monthNames[i];
+    },
     MakeTimesheetForNewUser: function(id, user){
         Meteor.call('getCurrentWeekObject', function (err, dateObject){
             if (!err){
