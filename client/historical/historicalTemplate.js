@@ -111,6 +111,9 @@ Template.historyInfo.helpers({
 	}
 });
 
+/* Historical Date picker
+ * Only if using datepicker box instead of forward/backward buttons
+ */
 Template.history_month_picker.rendered = function() {
     $('#month_select').datepicker({
     	format: "mm/yyyy",
@@ -124,11 +127,20 @@ Template.history_month_picker.rendered = function() {
     	Session.set('yearSelect', false);
     	Session.set("historyDate", $("#month_select").datepicker('getDate'));
 	});
-
-
 }
 
 Template.history_month_picker.helpers({
+	currentYear: function () {
+        if(Session.get('historyDate') == null){
+            var currentTime = new Date();
+            currentTime.setDate(1);
+            Session.set('historyDate', currentTime);
+        }else{
+            var currentTime = Session.get('historyDate');
+        }
+
+        return currentTime.getFullYear();
+    },
     currentMonth: function () {
         if(Session.get('historyDate') == null){
             var currentTime = new Date();
@@ -137,10 +149,11 @@ Template.history_month_picker.helpers({
         }else{
             var currentTime = Session.get('historyDate');
         }
-        var month = currentTime.getMonth() + 1;
-        var year = currentTime.getFullYear();
+        // var month = currentTime.getMonth() + 1;
+        // var year = currentTime.getFullYear();
 
-        return month + "/" + year;
+        // return month + "/" + year;
+        return generalHelpers.getMonthName(currentTime.getMonth());
     }
 });
 
@@ -149,7 +162,7 @@ Template.history_month_picker.events({
         Session.set('yearSelect', true);
         Session.set('historyDate', Session.get('historyDate'));
     },
-    'click .prevWeek': function () {
+    'click .prevMonth': function () {
         var startDate = Session.get("historyDate");
 
         var d2 = new Date(startDate);
@@ -162,7 +175,7 @@ Template.history_month_picker.events({
 
         Session.set("historyDate", d2);
     },
-    'click .nextWeek': function () {
+    'click .nextMonth': function () {
         var startDate = Session.get("historyDate");
 
         var d2 = new Date(startDate);
@@ -172,6 +185,29 @@ Template.history_month_picker.events({
             d2.setYear(d2.getFullYear()+1);
         }
         d2.setMonth(mo);
+
+        //don't advance past current month
+        if (d2 > new Date()) {
+            return;
+        }
+
+        Session.set("historyDate", d2);
+    },
+    'click .prevYear': function () {
+        var startDate = Session.get("historyDate");
+
+        var d2 = new Date(startDate);
+        var yr = d2.getFullYear() - 1;
+        d2.setFullYear(yr);
+
+        Session.set("historyDate", d2);
+    },
+    'click .nextYear': function () {
+        var startDate = Session.get("historyDate");
+
+        var d2 = new Date(startDate);
+        var yr = d2.getFullYear() + 1;
+        d2.setFullYear(yr);
 
         //don't advance past current month
         if (d2 > new Date()) {
