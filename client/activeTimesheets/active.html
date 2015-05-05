@@ -212,7 +212,7 @@
     </div>
 </template>
 <template name="projectComments">
-    <div class="row projectCommentsRow">
+    <div class="row top-buffer projectCommentsRow">
         <div class="col-md-12 hidden-lg hidden-md"><h4>Project</h4></div>
         <div class="col-md-2 col-sm-12" id={{project}}><input id="project_comments_name" type="text"
                                                               class="large-input form-control" readonly
@@ -226,7 +226,9 @@
                                                                                class="large-input form-control enterable {{sentBack}}"
                                                                                value={{next project}}></div>
         <div class="col-xs-11 col-sm-offset-1 col-xs-offset-1 hidden-lg hidden-md">Project Hours</div>
-        <div class="col-md-1 col-xs-11 col-md-offset-0 col-xs-offset-1 well well-sm">{{hours project}}</div>
+        <div class="col-md-1 col-xs-11 col-md-offset-0 col-xs-offset-1"><input id="hoursBox" type="text"
+                                                                               class="large-input form-control" disabled
+                                                                               value={{hours project}}></div>
         <div class="col-xs-11 col-sm-offset-1 col-xs-offset-1 hidden-lg hidden-md">Manager Feedback</div>
         <div class="col-md-3 col-xs-11 col-md-offset-0 col-xs-offset-1"><input id="managerFeedback" type="text"
                                                                                class="large-input form-control" disabled
@@ -234,7 +236,7 @@
     </div>
 </template>
 <template name="projectHoursFilled">
-    <div class="row" id={{rowID}}>
+    <div class="row top-buffer" id={{rowID}}>
         <div class="col-xs-12 hidden-md hidden-lg"><h4>Project</h4></div>
         <div class="filledRow col-md-2 col-sm-6 col-xs-12" id="projectFilledDrop">{{> projectListDropDown}}</div>
         <div class="clearfix visible-sm-block visible-xs-block"></div>
