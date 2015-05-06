@@ -50,23 +50,29 @@
 <template name="history_month_picker">
     <!-- <div class="col-md-2 col-sm-2 col-xs-2">
         <input type="text" class="form-control" id="month_select" placeholder="mm/yyyy">
-    </div>
-    <div class="col-md-2 col-sm-2 col-xs-2">
-        <button type="button" class="btn btn-primary">Show All For Year</button>
     </div> -->
-    <div class="col-xs-12" style="display:inline-block;">
-        <div class="prevYear glyphicon glyphicon-chevron-left no-select" style="display:inline-block;cursor: pointer;"></div>
-        &nbsp;
-        <div style="display:inline-block;"><h4>{{currentYear}}</h4></div>
-        &nbsp;
-        <div class="nextYear glyphicon glyphicon-chevron-right no-select" style="display:inline-block;cursor: pointer;"></div>
+    <div class="row">
+        <div class="col-xs-2">
+            <div class="row text-center" style="display:flex;align-items:center;">
+            <div class="pull-left prevYear glyphicon glyphicon-chevron-left no-select" style="cursor: pointer;"></div>
+            &nbsp;
+            <div class="col-xs-12"><h4>{{currentYear}}</h4></div>
+            &nbsp;
+            <div class="pull-right nextYear glyphicon glyphicon-chevron-right no-select" style="cursor: pointer;"></div>
+        </div>
+        </div>
+        <div class="col-md-2 col-sm-2 col-xs-2">
+            <button type="button" class="btn btn-primary">Show All For Year</button>
+        </div>
     </div>
-    <div class="col-xs-12" style="display:inline-block;">
-        <div class="prevMonth glyphicon glyphicon-chevron-left no-select" style="display:inline-block;cursor: pointer;"></div>
-        &nbsp;
-        <div style="display:inline-block;"><h4>{{currentMonth}}</h4></div>
-        &nbsp;
-        <div class="nextMonth glyphicon glyphicon-chevron-right no-select" style="display:inline-block;cursor: pointer;"></div>
+    <div class="col-xs-2">
+        <div class="row text-center" style="display:flex;align-items:center;">
+            <div class="pull-left prevMonth glyphicon glyphicon-chevron-left no-select" style="cursor: pointer;"></div>
+            &nbsp;
+            <div class="col-xs-12"><h4>{{currentMonth}}</h4></div>
+            &nbsp;
+            <div class="pull-right nextMonth glyphicon glyphicon-chevron-right no-select" style="cursor: pointer;"></div>
+        </div>
     </div>
 </template>
 
@@ -139,7 +145,7 @@
           {{> historyProjectHours}}
         {{/each}}
         <br>
-            {{> totals2}}
+            {{> historical_totals}}
         <br>
         <div class="row">
             <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4>Project</h4></div>
@@ -212,7 +218,7 @@
     </div>
 </template>
 
-<template name="totals2">
+<template name="historical_totals">
     <div class="row">
         <div class="col-md-2 col-sm-2 col-xs-2 text-center"><underline>Totals</underline></div>
         <div class="col-md-1 col-sm-1 col-xs-1 text-center">{{getDayTotal 0}}</div>
