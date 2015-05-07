@@ -7,10 +7,12 @@
             <div class="row-item-divider width-98"></div>
             {{> add_new_job}}
             <br>
+
             <div class="row-item-divider width-98"></div>
             {{> all_pdfs}}
             <br>
             <br>
+
             <div class="row-item-divider width-98"></div>
             {{> monthly_status}}
         </div>
@@ -28,7 +30,9 @@
                 <div class="col-xs-2 text-center"><h4>{{type}}</h4></div>
                 <div class="col-xs-2 text-center"><h4>{{details.type}}</h4></div>
                 <div class="col-xs-2 text-center"><h4>{{details.schedule_text}}</h4></div>
-                <div class="col-xs-2 text-center"><button type="button" id="{{_id}}" class="btn btn-danger">Delete</button></div>
+                <div class="col-xs-2 text-center">
+                    <button type="button" id="{{_id}}" class="btn btn-danger">Delete</button>
+                </div>
             </div>
             <div class="row-item-divider width-98"></div>
         {{/each}}
@@ -53,49 +57,57 @@
 
 <template name="month_picker">
     <div class="col-xs-12" style="display:inline-block;">
-        <div class="prevWeek glyphicon glyphicon-chevron-left no-select" style="display:inline-block;cursor: pointer;"></div>
+        <div class="prevWeek glyphicon glyphicon-chevron-left no-select"
+             style="display:inline-block;cursor: pointer;"></div>
         &nbsp;
         <div style="display:inline-block;"><h4>{{currentMonth}}</h4></div>
         &nbsp;
-        <div class="nextWeek glyphicon glyphicon-chevron-right no-select" style="display:inline-block;cursor: pointer;"></div>
+        <div class="nextWeek glyphicon glyphicon-chevron-right no-select"
+             style="display:inline-block;cursor: pointer;"></div>
     </div>
 </template>
 
 <template name="add_new_job">
     <div class="container-fluid">
         <h2>New Jobs</h2>
-        <div class="row">
-            Job Type:
-            <select id="jobType">
-                <option>Email</option>
-            </select>
-        </div>
-        <div class="row">
-            Email Type:
-            <select id="detailType">
-                <option>Reminder</option>
-                <option>Report</option>
-            </select>
-        </div>
-        <div class="row" style="display: inline-block">
-            Schedule: @
-            <div class="input-append bootstrap-timepicker" style="width:auto;display: inline">
-                <input id="timepicker1" type="text" class="input-small">
-                            <span class="add-on input-group-addon" id="basic-addon2" style="width:auto;display: inline">
-                <i class="icon-time"><div class="glyphicon glyphicon-time"></div></i>
-            </span>
-            </div>
 
-            <script type="text/javascript">
-                $('#timepicker1').timepicker({
-                    minuteStep: 1,
-                    showSeconds: false,
-                    showMeridian: false});
-            </script>
-             on
-            <div class="dropdown" style="text-align: left;display: inline">
-                <button class="btn btn-default dropdown-toggle" style="min-width: 80px;" type="button" id="dropdownMenuDays" data-toggle="dropdown" aria-expanded="true">
-                    <span class="caret"></span>
+        <div class="row">
+            <div class="form-inline">
+                <span class="form-group">
+                    <label>Job Type:</label>
+                    <select id="jobType" class="form-control enterable">
+                        <option>Email</option>
+                    </select>
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-inline">
+                <span class="form-group">
+                    <label>Email Type:</label>
+                    <select id="detailType" class="form-control enterable">
+                        <option>Reminder</option>
+                        <option>Report</option>
+                    </select>
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-inline">
+                <span class="form-group">
+                    <label>Schedule: @</label>
+                    <div class='input-group date' id='datetimepicker3'>
+                        <input type='text' id="timepicker1" class="form-control" />
+                        <span class="input-group-addon" id="timepicker_btn1">
+                            <span class="glyphicon glyphicon-time" id="timepicker_btn2"></span>
+                        </span>
+                    </div>
+                </span>
+            on
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" style="min-width: 80px;" type="button"
+                        id="dropdownMenuDays" data-toggle="dropdown" aria-expanded="true">
+                    <span class="caret pull-right"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDays">
                     <li role="presentation"><a role="menuitem" class="day" tabindex="-1" href="#">Sunday</a></li>
@@ -107,8 +119,27 @@
                     <li role="presentation"><a role="menuitem" class="day" tabindex="-1" href="#">Saturday</a></li>
                 </ul>
             </div>
+            </div>
+
+            <!--<div class="input-append bootstrap-timepicker" style="width:auto;display: inline">-->
+            <!--<input id="timepicker1" type="text" class="input-small">-->
+            <!--<span class="add-on input-group-addon" id="basic-addon2" style="width:auto;display: inline">-->
+            <!--<i class="icon-time">-->
+            <!--<div class="glyphicon glyphicon-time"></div>-->
+            <!--</i>-->
+            <!--</span>-->
+            <!--</div>-->
+
+            <!--<script type="text/javascript">-->
+            <!--$('#timepicker1').timepicker({-->
+            <!--minuteStep: 1,-->
+            <!--showSeconds: false,-->
+            <!--showMeridian: false-->
+            <!--});-->
+            <!--</script>-->
         </div>
-        <br />
+        <br/>
+
         <div class="row">
             <button type="button" id="submit_job" class="btn btn-success">Create Job</button>
         </div>

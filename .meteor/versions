@@ -4,7 +4,6 @@ accounts-ui-unstyled@1.1.7
 amplify@1.0.0
 autoupdate@1.2.1
 base64@1.0.3
-benjaminrh:bootstrap-timepicker@0.1.0
 binary-heap@1.0.3
 blaze@2.1.2
 blaze-tools@1.0.3
@@ -36,6 +35,7 @@ minifiers@1.1.5
 minimongo@1.0.8
 mizzao:bootstrap-3@3.3.1_1
 mobile-status-bar@1.0.3
+momentjs:moment@2.8.4
 mongo@1.1.0
 observe-sequence@1.0.6
 ordered-dict@1.0.3
@@ -60,6 +60,7 @@ spacebars@1.0.6
 spacebars-compiler@1.0.6
 templating@1.1.1
 tracker@1.0.7
+tsega:bootstrap3-datetimepicker@4.7.14_4
 typ:ldapjs@0.7.3
 ui@1.0.6
 underscore@1.0.3

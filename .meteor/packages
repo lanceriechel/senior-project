@@ -10,9 +10,9 @@ velocity:html-reporter
 percolatestudio:synced-cron
 email
 
-benjaminrh:bootstrap-timepicker
 sergeyt:typeahead
 typ:ldapjs
 mike:mocha
 accounts-base
 accounts-ui
+tsega:bootstrap3-datetimepicker

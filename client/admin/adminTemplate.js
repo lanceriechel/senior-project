@@ -1,13 +1,4 @@
 
-$('#timepicker').timepicker({
-    minuteStep: 1,
-    template: 'modal',
-    appendWidgetTo: 'body',
-    showSeconds: true,
-    showMeridian: false,
-    defaultTime: false
-});
-
 Template.current_jobs.helpers({
     jobsList: function () {
         return Jobs.find();
@@ -163,6 +154,14 @@ Template.current_jobs.events({
     }
 });
 
+Template.add_new_job.rendered = function(){
+    $('#datetimepicker3').datetimepicker({
+        format: 'LT',
+        defaultDate: 'moment'//,
+        //allowInputToggle: true
+    });
+};
+
 Template.add_new_job.helpers({
     hours: function () {
         var hours = [];
@@ -178,6 +177,11 @@ Template.add_new_job.helpers({
 });
 
 Template.add_new_job.events({
+    'focus #timepicker1': function(evt) {
+        console.log("click");
+        $("#timepicker_btn1").click();
+
+    },
     'click a': function (evt) {
         var day = evt.target.childNodes[0].nodeValue;
 

@@ -320,7 +320,7 @@
     <hr class="visible-xs-block">
 </template>
 <template name="projectListDropDown">
-    <select style='font-weight: bold;' id="project_select" class="form-control enterable {{sentBack}}">
+    <select style="font-weight: bold;" id="project_select" class="form-control enterable {{sentBack}}">
         {{#each projectsDropdown project}}
             {{#if selected}}
                 <option id={{id}} value={{name}} selected>{{name}}</option>
