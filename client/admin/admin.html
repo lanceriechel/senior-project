@@ -4,13 +4,11 @@
 
         <div class="row">
             {{> current_jobs}}
-            <div class="row-item-divider width-98"></div>
             {{> add_new_job}}
             <br>
 
             <div class="row-item-divider width-98"></div>
             {{> all_pdfs}}
-            <br>
             <br>
 
             <div class="row-item-divider width-98"></div>
@@ -20,124 +18,146 @@
 </template>
 
 <template name="current_jobs">
+    <h2>Scheduled Jobs</h2>
     <div class="container-fluid">
-        <div class="row row-header-div-12">
-            <div class="col-xs-2 text-center"><h3>Type</h3></div>
-            <div class="col-xs-2 text-center"><h3>Details</h3></div>
-        </div>
-        {{#each jobsList}}
-            <div class="row row-item">
-                <div class="col-xs-2 text-center"><h4>{{type}}</h4></div>
-                <div class="col-xs-2 text-center"><h4>{{details.type}}</h4></div>
-                <div class="col-xs-2 text-center"><h4>{{details.schedule_text}}</h4></div>
-                <div class="col-xs-2 text-center">
-                    <button type="button" id="{{_id}}" class="btn btn-danger">Delete</button>
-                </div>
+        {{#if hasJobs}}
+            <div class="row row-header-div-12">
+                <div class="col-xs-2 text-center"><h3>Type</h3></div>
+                <div class="col-xs-2 text-center"><h3>Details</h3></div>
+                <div class="col-xs-2 text-center"><h3>Run On</h3></div>
             </div>
-            <div class="row-item-divider width-98"></div>
-        {{/each}}
+            {{#each jobsList}}
+                <div class="row row-item">
+                    <div class="col-xs-2 text-center"><h4>{{type}}</h4></div>
+                    <div class="col-xs-2 text-center"><h4>{{details.type}}</h4></div>
+                    <div class="col-xs-6 text-left"><h4>{{details.schedule_text}}</h4></div>
+                    <div class="col-xs-2 text-center">
+                        <button type="button" id="{{_id}}" class="btn btn-danger">Delete</button>
+                    </div>
+                </div>
+                <div class="row-item-divider width-98"></div>
+            {{/each}}
+        {{else}}
+            <div class="row row-header-div-12">
+                <h4>There are no scheduled jobs.</h4>
+            </div>
+        {{/if}}
     </div>
 </template>
 
 <template name="all_pdfs">
-    <h2>All Weekly Timesheets to PDF</h2>
-    {{> date_picker}}
-    &nbsp;
-    &nbsp;
-    <button class="approve btn btn-success">All PDFs</button>
+    <h2>Weekly Timesheets to PDF</h2>
+    <div class="container-fluid">
+        {{> date_picker}}
+        <br>
+        &nbsp;
+        &nbsp;
+        <button class="approve btn btn-success">Generate</button>
+    </div>
 </template>
 
 <template name="monthly_status">
     <h2>Monthly Status Report</h2>
-    {{> month_picker}}
-    &nbsp;
-    &nbsp;
-    <button class="approve btn btn-success">Generate</button>
+    <div class="container-fluid">
+        <div class="row">
+        {{> month_picker}}
+        </div>
+        <div class="row">
+        <button class="approve btn btn-success">Generate</button>
+            </div>
+    </div>
 </template>
 
 <template name="month_picker">
-    <div class="col-xs-12" style="display:inline-block;">
-        <div class="prevWeek glyphicon glyphicon-chevron-left no-select"
-             style="display:inline-block;cursor: pointer;"></div>
-        &nbsp;
-        <div style="display:inline-block;"><h4>{{currentMonth}}</h4></div>
-        &nbsp;
-        <div class="nextWeek glyphicon glyphicon-chevron-right no-select"
-             style="display:inline-block;cursor: pointer;"></div>
+    <!--<div class="col-xs-12 noselect" style="display:inline-block;">-->
+        <!--<div class="prevWeek glyphicon glyphicon-chevron-left no-select"-->
+             <!--style="display:inline-block;cursor: pointer;"></div>-->
+        <!--&nbsp;-->
+        <!--<div style="display:inline-block;"><h4>{{currentMonth}}</h4></div>-->
+        <!--&nbsp;-->
+        <!--<div class="nextWeek glyphicon glyphicon-chevron-right no-select"-->
+             <!--style="display:inline-block;cursor: pointer;"></div>-->
+    <!--</div>-->
+
+    <div class="col-xs-4 col-sm-2 col-md-1">
+        <table>
+            <tr>
+                <td>
+                    <div class="pull-left prevWeek glyphicon glyphicon-chevron-left no-select" style="cursor: pointer;"></div>
+                </td>
+                <td>
+                    <h4>{{currentMonth}}</h4>
+                </td>
+                <td>
+                    <div class="pull-right nextWeek glyphicon glyphicon-chevron-right no-select" style="cursor: pointer;"></div>
+                </td>
+            </tr>
+        </table>
+        <!--<div class="row text-center" style="display:flex;align-items:center;">-->
+            <!--<div class="pull-left prevWeek glyphicon glyphicon-chevron-left no-select" style="cursor: pointer;"></div>-->
+            <!--<div class="col-xs-12"><h4>{{currentMonth}}</h4></div>-->
+            <!--<div class="pull-right nextWeek glyphicon glyphicon-chevron-right no-select" style="cursor: pointer;"></div>-->
+        <!--</div>-->
     </div>
 </template>
 
 <template name="add_new_job">
+    <h2>Add a Job</h2>
     <div class="container-fluid">
-        <h2>New Jobs</h2>
-
-        <div class="row">
-            <div class="form-inline">
-                <span class="form-group">
-                    <label>Job Type:</label>
+        <table>
+            <tr>
+                <td>Job Type:</td>
+                <td></td>
+                <td>
                     <select id="jobType" class="form-control enterable">
                         <option>Email</option>
                     </select>
-                </span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-inline">
-                <span class="form-group">
-                    <label>Email Type:</label>
+                </td>
+            </tr>
+            <tr>
+                <td>Email Type:</td>
+                <td></td>
+                <td>
                     <select id="detailType" class="form-control enterable">
                         <option>Reminder</option>
                         <option>Report</option>
                     </select>
-                </span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-inline">
-                <span class="form-group">
-                    <label>Schedule: @</label>
-                    <div class='input-group date' id='datetimepicker3'>
-                        <input type='text' id="timepicker1" class="form-control" />
+                </td>
+            </tr>
+            <tr>
+                <td>Schedule:</td>
+                <td>@</td>
+                <td>
+                        <div class='input-group date' id='datetimepicker3'>
+                            <input type='text' id="timepicker1" class="form-control" />
                         <span class="input-group-addon" id="timepicker_btn1">
                             <span class="glyphicon glyphicon-time" id="timepicker_btn2"></span>
                         </span>
-                    </div>
-                </span>
-            on
-            <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle" style="min-width: 80px;" type="button"
-                        id="dropdownMenuDays" data-toggle="dropdown" aria-expanded="true">
-                    <span class="caret pull-right"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDays">
-                    <li role="presentation"><a role="menuitem" class="day" tabindex="-1" href="#">Sunday</a></li>
-                    <li role="presentation"><a role="menuitem" class="day" tabindex="-1" href="#">Monday</a></li>
-                    <li role="presentation"><a role="menuitem" class="day" tabindex="-1" href="#">Tuesday</a></li>
-                    <li role="presentation"><a role="menuitem" class="day" tabindex="-1" href="#">Wednesday</a></li>
-                    <li role="presentation"><a role="menuitem" class="day" tabindex="-1" href="#">Thursday</a></li>
-                    <li role="presentation"><a role="menuitem" class="day" tabindex="-1" href="#">Friday</a></li>
-                    <li role="presentation"><a role="menuitem" class="day" tabindex="-1" href="#">Saturday</a></li>
-                </ul>
-            </div>
-            </div>
-
-            <!--<div class="input-append bootstrap-timepicker" style="width:auto;display: inline">-->
-            <!--<input id="timepicker1" type="text" class="input-small">-->
-            <!--<span class="add-on input-group-addon" id="basic-addon2" style="width:auto;display: inline">-->
-            <!--<i class="icon-time">-->
-            <!--<div class="glyphicon glyphicon-time"></div>-->
-            <!--</i>-->
-            <!--</span>-->
-            <!--</div>-->
-
-            <!--<script type="text/javascript">-->
-            <!--$('#timepicker1').timepicker({-->
-            <!--minuteStep: 1,-->
-            <!--showSeconds: false,-->
-            <!--showMeridian: false-->
-            <!--});-->
-            <!--</script>-->
-        </div>
+                        </div>
+                    </td>
+                <td>
+                    <p>on</p>
+                </td>
+                <td>
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" style="min-width: 80px;" type="button"
+                                    id="dropdownMenuDays" data-toggle="dropdown" aria-expanded="true">
+                                Choose Day
+                                <i class="caret"></i>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDays">
+                                <li role="presentation"><a role="menuitem" class="day" tabindex="-1" href="#">Sunday</a></li>
+                                <li role="presentation"><a role="menuitem" class="day" tabindex="-1" href="#">Monday</a></li>
+                                <li role="presentation"><a role="menuitem" class="day" tabindex="-1" href="#">Tuesday</a></li>
+                                <li role="presentation"><a role="menuitem" class="day" tabindex="-1" href="#">Wednesday</a></li>
+                                <li role="presentation"><a role="menuitem" class="day" tabindex="-1" href="#">Thursday</a></li>
+                                <li role="presentation"><a role="menuitem" class="day" tabindex="-1" href="#">Friday</a></li>
+                                <li role="presentation"><a role="menuitem" class="day" tabindex="-1" href="#">Saturday</a></li>
+                            </ul>
+                        </div>
+                </td>
+            </tr>
+        </table>
         <br/>
 
         <div class="row">

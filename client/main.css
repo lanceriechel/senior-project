@@ -52,6 +52,14 @@
     margin-bottom: 0px;
 }
 
+table {
+    border-collapse: separate;
+}
+
+td {
+    padding: 1px 3px;
+}
+
 ul[class="navbar nav-pills navbar-default"] {
     background: #eeeeee;
     border-radius: 1px;
@@ -64,6 +72,15 @@ ul[class="navbar nav-pills navbar-default"] {
     border: #eeeeee;
     display: inline-block;
 }
+
+/*.bootstrap-datetimepicker-widget table {*/
+    /*height: 75px;*/
+    /*width: 100px;*/
+/*}*/
+
+/*.bootstrap-datetimepicker-widget table tr {*/
+    /*height: 25px;*/
+/*}*/
 
 #login_info_spacer {
     flex: 1;

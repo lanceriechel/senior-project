@@ -2,6 +2,9 @@
 Template.current_jobs.helpers({
     jobsList: function () {
         return Jobs.find();
+    },
+    hasJobs: function () {
+        return Jobs.find().count() > 0;
     }
 });
 
@@ -183,29 +186,41 @@ Template.add_new_job.events({
 
     },
     'click a': function (evt) {
-        var day = evt.target.childNodes[0].nodeValue;
+        var day = evt.target.childNodes[evt.target.childNodes.length - 1].nodeValue;
 
         var currentText = evt.target.parentNode.parentNode.parentNode.childNodes[1].childNodes[0].nodeValue;
 
+        if (currentText.indexOf('Choose Day') > -1){
+            currentText = ' ';
+        }
+
         if (evt.target.classList.contains('day')) {
             if (evt.target.childNodes.length === 1) {
-                var div = document.createElement('div');
+                var div = document.createElement('i');
                 div.className = 'glyphicon glyphicon-ok';
                 div.style.float = 'right';
-                evt.target.appendChild(div);
+                evt.target.insertBefore(div, evt.target.firstChild);
 
                 if (currentText.charCodeAt(0) === 10 || currentText.charCodeAt(0) === 32) {
                     currentText = day;
                 } else {
                     currentText = currentText.replace(', and ', ', ');
+                    currentText = currentText.replace(' and ', ', ');
                     currentText = currentText.trim();
-                    currentText += ', and ' + day;
+                    if (currentText.indexOf(',') > -1){
+                        currentText += ', and ' + day;
+                    }else{
+                        currentText += ' and ' + day;
+                    }
+
                 }
             } else {
-                evt.target.removeChild(evt.target.childNodes[1]);
+                evt.target.removeChild(evt.target.childNodes[0]);
                 currentText = currentText.replace(', and ' + day, '');
+                currentText = currentText.replace(' and ' + day, '');
                 currentText = currentText.replace(', ' + day, '');
                 currentText = currentText.replace(day + ', and ', '');
+                currentText = currentText.replace(day + ' and ', '');
                 currentText = currentText.replace(day + ', ', '');
                 currentText = currentText.replace(day + ' ', '');
 
@@ -217,19 +232,30 @@ Template.add_new_job.events({
                     }
                 }
 
+                if(currentText.indexOf(',') == currentText.lastIndexOf(',')){
+                    currentText = currentText.replace(',', '');
+                }
+                var shortDay = "Friday";
+                if (currentText.length < shortDay.length ){
+                    currentText = 'Choose Day';
+                }
             }
             evt.target.parentNode.parentNode.parentNode.childNodes[1].childNodes[0].nodeValue = currentText + ' ';
         }else{
             evt.target.parentNode.parentNode.parentNode.childNodes[1].childNodes[0].nodeValue = day + ' ';
         }
 
-        evt.preventDefault();
+        evt.stopPropagation();
     },
     'click #submit_job': function () {
         var jobType = document.getElementById('jobType').value.toLowerCase();
         var detailType = document.getElementById('detailType').value.toLowerCase();
         var time = $('#timepicker1').val();
         var jobDays = document.getElementById('dropdownMenuDays').textContent.trim();
+        if (jobDays.indexOf('Choose Day') > -1){
+            alert("Please choose at least one day.");
+            return;
+        }
         Meteor.call('insertJob', jobType, detailType, 'at '+ time + ' on ' + jobDays);
     }
 });
