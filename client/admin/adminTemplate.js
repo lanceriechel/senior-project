@@ -35,7 +35,7 @@ Template.month_picker.helpers({
         var month = currentTime.getMonth() + 1;
         var year = currentTime.getFullYear()
 
-        return month + "/" + year;
+        return (month < 10 ? "0" : "") + month + "/" + year;
     }
 });
 
@@ -185,7 +185,7 @@ Template.add_new_job.events({
         $("#timepicker_btn1").click();
 
     },
-    'click a': function (evt) {
+    'click .day': function (evt) {
         var day = evt.target.childNodes[evt.target.childNodes.length - 1].nodeValue;
 
         var currentText = evt.target.parentNode.parentNode.parentNode.childNodes[1].childNodes[0].nodeValue;
@@ -248,8 +248,8 @@ Template.add_new_job.events({
         evt.stopPropagation();
     },
     'click #submit_job': function () {
-        var jobType = document.getElementById('jobType').value.toLowerCase();
-        var detailType = document.getElementById('detailType').value.toLowerCase();
+        var jobType = document.getElementById('jobType').textContent.toLowerCase().trim();
+        var detailType = document.getElementById('detailType').textContent.toLowerCase().trim();
         var time = $('#timepicker1').val();
         var jobDays = document.getElementById('dropdownMenuDays').textContent.trim();
         if (jobDays.indexOf('Choose Day') > -1){

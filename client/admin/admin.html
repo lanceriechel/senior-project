@@ -59,109 +59,101 @@
 <template name="monthly_status">
     <h2>Monthly Status Report</h2>
     <div class="container-fluid">
-        <div class="row">
-        {{> month_picker}}
-        </div>
-        <div class="row">
-        <button class="approve btn btn-success">Generate</button>
-            </div>
+        <table>
+            <tr>
+                <td>
+                    {{> month_picker}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="approve btn btn-success">Generate</button>
+                </td>
+            </tr>
+        </table>
     </div>
 </template>
 
 <template name="month_picker">
-    <!--<div class="col-xs-12 noselect" style="display:inline-block;">-->
-        <!--<div class="prevWeek glyphicon glyphicon-chevron-left no-select"-->
-             <!--style="display:inline-block;cursor: pointer;"></div>-->
-        <!--&nbsp;-->
-        <!--<div style="display:inline-block;"><h4>{{currentMonth}}</h4></div>-->
-        <!--&nbsp;-->
-        <!--<div class="nextWeek glyphicon glyphicon-chevron-right no-select"-->
-             <!--style="display:inline-block;cursor: pointer;"></div>-->
-    <!--</div>-->
-
-    <div class="col-xs-4 col-sm-2 col-md-1">
-        <table>
-            <tr>
-                <td>
-                    <div class="pull-left prevWeek glyphicon glyphicon-chevron-left no-select" style="cursor: pointer;"></div>
-                </td>
-                <td>
-                    <h4>{{currentMonth}}</h4>
-                </td>
-                <td>
-                    <div class="pull-right nextWeek glyphicon glyphicon-chevron-right no-select" style="cursor: pointer;"></div>
-                </td>
-            </tr>
-        </table>
-        <!--<div class="row text-center" style="display:flex;align-items:center;">-->
-            <!--<div class="pull-left prevWeek glyphicon glyphicon-chevron-left no-select" style="cursor: pointer;"></div>-->
-            <!--<div class="col-xs-12"><h4>{{currentMonth}}</h4></div>-->
-            <!--<div class="pull-right nextWeek glyphicon glyphicon-chevron-right no-select" style="cursor: pointer;"></div>-->
-        <!--</div>-->
-    </div>
+    <table>
+        <tr>
+            <td>
+                <div class="pull-left prevWeek glyphicon glyphicon-chevron-left no-select" style="cursor: pointer;"></div>
+            </td>
+            <td>
+                <h4>{{currentMonth}}</h4>
+            </td>
+            <td>
+                <div class="pull-right nextWeek glyphicon glyphicon-chevron-right no-select" style="cursor: pointer;"></div>
+            </td>
+        </tr>
+    </table>
 </template>
 
 <template name="add_new_job">
     <h2>Add a Job</h2>
-    <div class="container-fluid">
-        <table>
-            <tr>
-                <td>Job Type:</td>
-                <td></td>
-                <td>
-                    <select id="jobType" class="form-control enterable">
-                        <option>Email</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Email Type:</td>
-                <td></td>
-                <td>
-                    <select id="detailType" class="form-control enterable">
-                        <option>Reminder</option>
-                        <option>Report</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Schedule:</td>
-                <td>@</td>
-                <td>
-                        <div class='input-group date' id='datetimepicker3'>
-                            <input type='text' id="timepicker1" class="form-control" />
+
+    <form class="form-horizontal well">
+        <div class="form-group">
+            <label class="col-md-1 col-xs-12">Job Type</label>
+            <div class="col-md-11">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="jobType" data-toggle="dropdown" aria-expanded="true">
+                        <span data-bind="label">Email</span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="jobType">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Email</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-1 col-xs-12">Email Type</label>
+            <div class="col-md-11 col-xs-12">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="detailType" data-toggle="dropdown" aria-expanded="true">
+                        <span data-bind="label">Reminder</span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="detailType">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Reminder</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Report</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <label class="col-md-1 col-xs-12">Schedule</label>
+            <div class="col-md-11 col-xs-12">
+                <span class='input-group date' id='datetimepicker3'>
+                    <input type='text' id="timepicker1" class="form-control" />
                         <span class="input-group-addon" id="timepicker_btn1">
                             <span class="glyphicon glyphicon-time" id="timepicker_btn2"></span>
                         </span>
-                        </div>
-                    </td>
-                <td>
-                    <p>on</p>
-                </td>
-                <td>
-                        <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle" style="min-width: 80px;" type="button"
-                                    id="dropdownMenuDays" data-toggle="dropdown" aria-expanded="true">
-                                Choose Day
-                                <i class="caret"></i>
-                            </button>
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDays">
-                                <li role="presentation"><a role="menuitem" class="day" tabindex="-1" href="#">Sunday</a></li>
-                                <li role="presentation"><a role="menuitem" class="day" tabindex="-1" href="#">Monday</a></li>
-                                <li role="presentation"><a role="menuitem" class="day" tabindex="-1" href="#">Tuesday</a></li>
-                                <li role="presentation"><a role="menuitem" class="day" tabindex="-1" href="#">Wednesday</a></li>
-                                <li role="presentation"><a role="menuitem" class="day" tabindex="-1" href="#">Thursday</a></li>
-                                <li role="presentation"><a role="menuitem" class="day" tabindex="-1" href="#">Friday</a></li>
-                                <li role="presentation"><a role="menuitem" class="day" tabindex="-1" href="#">Saturday</a></li>
-                            </ul>
-                        </div>
-                </td>
-            </tr>
-        </table>
-        <br/>
-
-        <div class="row">
-            <button type="button" id="submit_job" class="btn btn-success">Create Job</button>
+                </span>
+                <span>&nbsp;&nbsp;&nbsp;</span>
+                <div class="form-group">
+                <div class="dropdown">
+                    on
+                    <button class="btn btn-default dropdown-toggle" style="min-width: 80px;" type="button"
+                            id="dropdownMenuDays" data-toggle="dropdown" aria-expanded="true">
+                        Choose Day
+                        <i class="caret"></i>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDays">
+                        <li role="presentation"><a role="menuitem" class="day" tabindex="-1" href="#">Sunday</a></li>
+                        <li role="presentation"><a role="menuitem" class="day" tabindex="-1" href="#">Monday</a></li>
+                        <li role="presentation"><a role="menuitem" class="day" tabindex="-1" href="#">Tuesday</a></li>
+                        <li role="presentation"><a role="menuitem" class="day" tabindex="-1" href="#">Wednesday</a></li>
+                        <li role="presentation"><a role="menuitem" class="day" tabindex="-1" href="#">Thursday</a></li>
+                        <li role="presentation"><a role="menuitem" class="day" tabindex="-1" href="#">Friday</a></li>
+                        <li role="presentation"><a role="menuitem" class="day" tabindex="-1" href="#">Saturday</a></li>
+                    </ul>
+                </div>
+                </div>
+            </div>
         </div>
-    </div>
+        <button type="button" id="submit_job" class="btn btn-success">Create Job</button>
+    </form>
 </template>
