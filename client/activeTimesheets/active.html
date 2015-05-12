@@ -12,7 +12,7 @@
             <h2 style= 'display: inline-block;'><span class="label">{{date}}</span></h2>
         </div>
         <br>
-        <div class="row hidden-sm hidden-xs">
+        <div class="row hidden-sm hidden-xs no-gutter">
             <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4 style='font-weight: bold;'>Project</h4></div>
             {{>daysOfWeek}}
             <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4>Comment</h4></div>
@@ -30,7 +30,7 @@
         {{#each timesheethack}}
             {{> projectHoursWrapper}}
         {{/each}}
-        <br>
+        <hr>
         <hr class="hidden-lg hidden-md">
         <br class="hidden-lg hidden-md">
         <div class="col-xs-12 hidden-lg hidden-md"><h3>Project Comments</h3></div>
@@ -38,7 +38,7 @@
             <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4>Project</h4></div>
             <div class="text-center col-md-3 col-sm-3 col-xs-3"><h4>This Week's Issues</h4></div>
             <div class="text-center col-md-3 col-sm-3 col-xs-3"><h4>Goals for Next Week</h4></div>
-            <div class="text-center col-md-1 col-sm-3 col-xs-3"><h4>Project Hours</h4></div>
+            <div class="text-center col-md-1 col-sm-3 col-xs-3"><h4>Hours</h4></div>
             <div class="text-center col-md-3 col-sm-4 col-xs-4"><h4>Manager Feedback</h4></div>
         </div>
         {{#each project}}
@@ -89,7 +89,7 @@
 
 
 <template name="lastSection">
-    <div class="row commentRow">
+    <div class="row commentRow no-gutter">
         <div class="col-md-6 col-xs-12">
             <h4>General Comment</h4>
             <input id="generalComment" type="text" class="large-input form-control" value={{genComment}}>
@@ -156,7 +156,7 @@
     </div>
 </template>
 <template name="projectHours">
-    <div class="row add_row">
+    <div class="row add_row no-gutter">
         <div class="col-xs-12 hidden-md hidden-lg"><h4>Project</h4></div>
         <div class="filledRow col-md-2 col-sm-6 col-xs-12" id="projectFilledDrop">{{> projectListDropDown}}</div>
         <div class="clearfix visible-sm-block visible-xs-block"></div>
@@ -199,20 +199,20 @@
 </template>
 <template name="totals">
     <div class="row">
-        <div class="col-xs-2 text-center"><underline>Totals</underline></div>
-        <div class="col-xs-1 text-center">{{getDayTotal 0}}</div>
-        <div class="col-xs-1 text-center">{{getDayTotal 1}}</div>
-        <div class="col-xs-1 text-center">{{getDayTotal 2}}</div>
-        <div class="col-xs-1 text-center">{{getDayTotal 3}}</div>
-        <div class="col-xs-1 text-center">{{getDayTotal 4}}</div>
-        <div class="col-xs-1 text-center">{{getDayTotal 5}}</div>
-        <div class="col-xs-1 text-center">{{getDayTotal 6}}</div>
-        <div class="col-xs-3 text-left hidden-sm hidden-xs"> Weekly Total: {{getWeekTotal}}</div>
+        <div class="col-xs-2 pull-left left-offset"><underline>Totals</underline></div>
+        <div class="col-xs-1 pull-left left-offset">{{getDayTotal 0}}</div>
+        <div class="col-xs-1 pull-left left-offset">{{getDayTotal 1}}</div>
+        <div class="col-xs-1 pull-left left-offset">{{getDayTotal 2}}</div>
+        <div class="col-xs-1 pull-left left-offset">{{getDayTotal 3}}</div>
+        <div class="col-xs-1 pull-left left-offset">{{getDayTotal 4}}</div>
+        <div class="col-xs-1 pull-left left-offset">{{getDayTotal 5}}</div>
+        <div class="col-xs-1 pull-left left-offset">{{getDayTotal 6}}</div>
+        <div class="col-xs-3 pull-left hidden-sm hidden-xs left-offset"> Weekly Total: {{getWeekTotal}}</div>
         <div class="col-xs-3 text-left hidden-md hidden-lg">|&nbsp;&nbsp;&nbsp;&nbsp;<b>{{getWeekTotal}}</b></div>
     </div>
 </template>
 <template name="projectComments">
-    <div class="row top-buffer projectCommentsRow">
+    <div class="row top-buffer projectCommentsRow no-gutter">
         <div class="col-md-12 hidden-lg hidden-md"><h4>Project</h4></div>
         <div class="col-md-2 col-sm-12" id={{project}}><input id="project_comments_name" type="text"
                                                               class="large-input form-control" readonly
@@ -225,7 +225,7 @@
         <div class="col-md-3 col-xs-11 col-md-offset-0 col-xs-offset-1"><input id="Next" type="text"
                                                                                class="large-input form-control enterable {{sentBack}}"
                                                                                value={{next project}}></div>
-        <div class="col-xs-11 col-sm-offset-1 col-xs-offset-1 hidden-lg hidden-md">Project Hours</div>
+        <div class="col-xs-11 col-sm-offset-1 col-xs-offset-1 hidden-lg hidden-md">Hours</div>
         <div class="col-md-1 col-xs-11 col-md-offset-0 col-xs-offset-1"><input id="hoursBox" type="text"
                                                                                class="large-input form-control" disabled
                                                                                value={{hours project}}></div>
@@ -236,7 +236,7 @@
     </div>
 </template>
 <template name="projectHoursFilled">
-    <div class="row top-buffer" id={{rowID}}>
+    <div class="row top-buffer no-gutter" id={{rowID}}>
         <div class="col-xs-12 hidden-md hidden-lg"><h4>Project</h4></div>
         <div class="filledRow col-md-2 col-sm-6 col-xs-12" id="projectFilledDrop">{{> projectListDropDown}}</div>
         <div class="clearfix visible-sm-block visible-xs-block"></div>
@@ -320,7 +320,7 @@
     <hr class="visible-xs-block">
 </template>
 <template name="projectListDropDown">
-    <select style="font-weight: bold;" id="project_select" class="form-control enterable {{sentBack}}">
+    <select style='font-weight: bold;' id="project_select" class="form-control enterable {{sentBack}}">
         {{#each projectsDropdown project}}
             {{#if selected}}
                 <option id={{id}} value={{name}} selected>{{name}}</option>
