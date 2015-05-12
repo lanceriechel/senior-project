@@ -9,6 +9,7 @@ ProjectService = {
         }
     },
     ensureValidProject: function(row, chargeNumber, name, customer, startDate, endDate, manager) {
+
         var valid = true;
         if(chargeNumber === ''){
             ProjectService.addError(row, '#charge_number', 'Missing charge number');

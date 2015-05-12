@@ -1,13 +1,19 @@
 <template name="activeProjects">
     <div class="container-fluid">
-        <h2><span class="label">Add a Project</span></h2>
+        <div class="row shaded top-buffer">
+            <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4><div class="label2">Add a Project</div></h4></div>
+            <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Project Name</h4></div>
+            <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Customer</h4></div>
+            <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Start Date</h4></div>
+            <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>End Date</h4></div>
+            <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Manager</h4></div>
+        </div>
         <br>
         {{> addProject}}
-        <h2><span class="label">Active Projects</span></h2>
         {{> activeProjectEntries}}
-        <h2><span class="label">Indirect Charge Items</span></h2>
+        <!-- <h2><span class="label">Indirect Charge Items</span></h2> -->
         {{> indirectChargeItems}}
-        <h2><span class="label">Archived Projects</span></h2>
+        <!-- <h2><span class="label">Archived Projects</span></h2> -->
         {{> archivedProjectsEntries}}
     </div>
      <div class="toast">All changes have been saved...</div>
@@ -23,12 +29,12 @@
 </template>
 
 <template name="projectInfo">
-    <div class="row" id= {{_id}}>
+    <div class="row top-buffer" id= {{_id}}>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control charge_number" id="charge_number" value={{id}}></div>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control  project_name" id="project_name" value={{name}}></div>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control  customer" id="customer" value={{customer}}></div>
         <div class="col-md-1 col-sm-1 col-xs-1"> <input type="text" class="large-input form-control date" id="start_date" value={{start_date}}></div>
-        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control date" id="end_date" value={{end_date}}></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"> <input type="text" class="large-input form-control date" id="end_date" value={{end_date}}></div>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control manager" id="manager" value={{manager}}></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary">Make Indirect</button></div>
     </div>
@@ -39,8 +45,8 @@
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control" id="charge_number" placeholder="Job"></div>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control" id="project_name" placeholder="Project Name"></div>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control" id="customer" placeholder="Customer"></div>
-        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control" id="start_date" placeholder="Start Date"></div>
-        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control" id="end_date" placeholder="End Date"></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"> <input type="text" class="large-input form-control" id="start_date" placeholder="Start Date"></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"> <input type="text" class="large-input form-control" id="end_date" placeholder="End Date"></div>
         <div class="col-md-2 col-sm-2 col-xs-2">{{> employeesListDropDown}}</div>
         <hr>
         <div class="col-md-3 col-sm-3 col-xs-3 text-center">
@@ -63,7 +69,7 @@
 </template>
 
 <template name="archivedProjectsEntries">
-    {{> projectHeader}}
+    {{> projectHeaderArchive}}
     {{#each projects}}
         {{#if isArchived end_date}}
             {{> projectInfo}}
@@ -72,12 +78,25 @@
 </template>
 
 <template name="projectHeader">
-    <div class="row">
-        <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Job</h4></div>
+    <br>
+    <div class="row top-buffer shaded">
+        <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4><div class="label2">Active Projects</div></h4></div>
         <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Project Name</h4></div>
         <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Customer</h4></div>
         <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Start Date</h4></div>
-        <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>End Date</h4></div>
+        <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>End Date</h4></div>
+        <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Manager</h4></div>
+    </div>
+</template>
+
+<template name="projectHeaderArchive">
+    <br>
+    <div class="row top-buffer shaded">
+        <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4><div class="label2">Archived Projects</div></h4></div>
+        <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Project Name</h4></div>
+        <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Customer</h4></div>
+        <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Start Date</h4></div>
+        <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>End Date</h4></div>
         <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Manager</h4></div>
     </div>
 </template>
@@ -92,22 +111,25 @@
 </template>
 
 <template name="indirectHeader">
-    <div class="row">
+    <br>
+    <div class="row top-buffer shaded">
+        <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4><div class="label2">Indirect Charge Items</div></h4></div>
         <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Project Name</h4></div>
         <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Customer</h4></div>
-        <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Start Date</h4></div>
-        <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>End Date</h4></div>
+        <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Start Date</h4></div>
+        <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>End Date</h4></div>
         <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Manager</h4></div>
     </div>
 </template>
 
 <template name="indirectInfo">
-    <div class="row" id= {{_id}}>
+    <div class="row top-buffer" id= {{_id}}>
         <div id='id' value={{id}}> </div>
+        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" readonly class="large-input form-control indirectjob" id="indirectjob" value=Indirect></div>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control project_name" id="project_name" value={{name}}></div>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control  customer" id="customer" value={{customer}}></div>
-        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control date" id="start_date" value={{start_date}} disabled={{is_holiday}}></div>
-        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control date" id="end_date" value={{end_date}} disabled={{is_holiday}}></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"> <input type="text" class="large-input form-control date" id="start_date" value={{start_date}} disabled={{is_holiday}}></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"> <input type="text" class="large-input form-control date" id="end_date" value={{end_date}} disabled={{is_holiday}}></div>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control manager" id="manager" value={{manager}} disabled={{is_holiday}}></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary" hidden={{is_holiday}}>Make Active</button></div>
     </div>
