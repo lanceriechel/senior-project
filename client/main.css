@@ -529,6 +529,15 @@ ul {
     background-color: #d3d3d3;
 }
 
+.no-gutter > [class*='col-'] {
+    padding-right:5px;
+    padding-left:5px;
+}
+
+.left-offset {
+    left: 3px;
+}
+
 .top-buffer { margin-top:5px; }
 
 .toast.active{
