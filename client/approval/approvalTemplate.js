@@ -292,6 +292,10 @@ Template.approval_Template.helpers({
             return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
         });
 
+        if (toReturn.length > 0) {
+            Session.set('current_project_to_approve', toReturn[0].charge_number);
+        }
+
         return toReturn;
     },
     isActive: function (date) {
