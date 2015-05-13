@@ -33,7 +33,7 @@ ActiveDBService = {
         }
 
         if (user.manager){
-            var projects = ChargeNumbers.find({'manager':user.username});
+            var projects = ChargeNumbers.find({'manager':{ $in: user.groups}});
             var projectIds = [];
             projects.forEach(function (p) {
                 projectIds.push(p._id);

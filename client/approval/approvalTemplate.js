@@ -272,12 +272,12 @@ Template.approval_Template.helpers({
                 }
                 if (cn.indirect) {
                     toReturn.push({
-                        charge_number: cn.id,
+                        charge_number: cn._id,
                         text: 'Indirect   ( ' + cn.name + ' )'
                     });
                 } else {
                     toReturn.push({
-                        charge_number: cn.id,
+                        charge_number: cn._id,
                         text: cn.id + '   ( ' + cn.name + ' )'
                     });
                 }
