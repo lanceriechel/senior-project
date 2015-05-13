@@ -24,7 +24,23 @@ generalHelpers = {
                 var dStr = (dateObject.start.getMonth() + 1) + '/' + dateObject.start.getDate() + '/' + dateObject.start.getFullYear(),
                     d2Str = (dateObject.end.getMonth() + 1) + '/' + dateObject.end.getDate() + '/' + dateObject.end.getFullYear();
 
-                Meteor.call("insertTimesheet", dStr, d2Str, id, 1, [], [], 1, '', false, [], '', false);
+                var projectApprovalArray = [];
+                user.projects.forEach(function (pId) {
+                    var project = ChargeNumbers.findOne({_id: pId});
+                    if (!project){
+                        Meteor.call("removeEmployeeFromProject", user._id, pId);
+                        return;
+                    }
+                    projectId = project._id;
+                    projectApprovalArray.push({
+                        projectId : projectId,
+                        approved: false,
+                        sentBack: false,
+                        comment: ''
+                    });
+                });
+
+                Meteor.call("insertTimesheet", dStr, d2Str, id, 1, [], [], 1, '', false, projectApprovalArray, '', false);
 
             }
         });

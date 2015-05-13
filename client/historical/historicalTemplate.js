@@ -29,14 +29,14 @@ Template.historyHeader.helpers({
 		}
 
 		var user = Meteor.users.findOne({'_id':Session.get('LdapId')});
-		var managerProjects = ChargeNumbers.find({'manager':user.username});
+		var managerProjects = ChargeNumbers.find({'manager':{$in : user.groups}});
 		var managerProjIds = [];
 		managerProjects.forEach(function (p) {
 			managerProjIds.push(p.id);
 		});
 
 		if (userId != '') {
-			TimeSheet.find({'userId': userId, 'projectEntriesArray.projectId':project}, sort).forEach(
+			TimeSheet.find({'userId': userId, 'projectApprovalArray.projectId':project}, sort).forEach(
 				function (u) {
 					timesheetProjects = [];
 					u.projectEntriesArray.forEach(function (p) {
@@ -47,10 +47,10 @@ Template.historyHeader.helpers({
 					}
 				});
 		} else {
-			TimeSheet.find({'userId': {$in: subordinates}, 'projectEntriesArray.projectId':project}, sort).forEach(
+			TimeSheet.find({'userId': {$in: subordinates}, 'projectApprovalArray.projectId':project}, sort).forEach(
 				function (u) {
 					timesheetProjects = [];
-					u.projectEntriesArray.forEach(function (p) {
+					u.projectApprovalArray.forEach(function (p) {
 						timesheetProjects.push(p.projectId);
 					});
 					if (findOneInArray(managerProjIds, timesheetProjects) || u.userId == user._id || user.admin) {
@@ -567,7 +567,7 @@ Template.historyEmployeeSelect.helpers({
 		if (person.admin){
 			return ChargeNumbers.find().fetch().map(function(cn){ return '' + cn.id + ' - ' + cn.name;});
 		}
-		return ChargeNumbers.find({'manager': person.username}).fetch().map(function(cn){ return '' + cn.id + ' - ' + cn.name;});
+		return ChargeNumbers.find({'manager': {$in : person.groups}}).fetch().map(function(cn){ return '' + cn.id + ' - ' + cn.name;});
 	
 	},
 	auto_employees: function () {

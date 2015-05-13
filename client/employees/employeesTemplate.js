@@ -63,19 +63,6 @@ Template.associatedProjects.events({
         // wait for CSS animation to finish
         var userId = String(evt.target.parentNode.parentNode.id);
         Meteor.call('removeEmployeeFromProject', userId, String(this));
-        var value = String(this);
-            TimeSheet.find({'userId': userId, 'active':1}).forEach(function (e){
-                var approveArray = e.projectApprovalArray;
-                var i = [];
-                for(var a in approveArray){
-                    // console.log(approveArray[a].projectId);
-                    if(approveArray[a].projectId != value){
-                       i.push(approveArray[a]);
-                    }
-                }
-
-                //Meteor.call('removeProjectFromApprovalArray', e._id, i);
-            });
     }
 });
 
