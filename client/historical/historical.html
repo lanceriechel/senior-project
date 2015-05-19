@@ -77,7 +77,7 @@
 </template>
 
 <template name="historyInfo">
-    <div class="row">
+    <div class="row top-buffer no-gutter">
         <div class="col-md-2 col-sm-2 col-xs-2"><input id="Employee" type="text" class="large-input form-control" value="{{employee}}" readonly></div>
         <div class="col-md-2 col-sm-2 col-xs-2"><input id="StartDate" type="text" class="large-input form-control" value="{{startDate}}" readonly></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><input id="Sunday" type="text" class="large-input form-control" value="{{sun}}" readonly></div>
@@ -162,7 +162,7 @@
 </template>
 
 <template name="historyProjectHours">
-    <div class="row" id={{rowID}}>
+    <div class="row no-gutter top-buffer" id={{rowID}}>
          <div class="filledRow col-md-2 col-sm-2 col-xs-2"><input id="Sunday" type="text" class="large-input form-control enterable {{sentBack}}" style='font-weight: bold;' disabled=true value={{name project}}></div>
         <div class="filledRow col-md-1 col-sm-1 col-xs-1"><input id="Sunday" type="text" class="large-input form-control enterable {{sentBack}}" disabled=true value={{sunday}}></div>
         <div class="filledRow col-md-1 col-sm-1 col-xs-1"><input id="Monday" type="text" class="large-input form-control enterable {{sentBack}}" disabled=true value={{monday}}></div>
@@ -176,7 +176,7 @@
 </template>
 
 <template name="historyProjectComments">
-    <div class="row projectCommentsRow">
+    <div class="row no-gutter top-buffer projectCommentsRow">
      <div class="col-md-2 col-sm-2 col-xs-2" id={{project}}><input id="project_comments_name" type="text" class="large-input form-control" readonly value={{name project}}></div> 
       <div class="col-md-3 col-sm-3 col-xs-3"><input id="Issues" type="text" class="large-input form-control enterable {{sentBack}}" disabled=true value={{issues project}}></div>
       <div class="col-md-3 col-sm-3 col-xs-3"><input id="Next" type="text" class="large-input form-control enterable {{sentBack}}" disabled=true value={{next project}}></div>
@@ -210,7 +210,7 @@
             <div class="text-center col-md-10 col-sm-10 col-xs-10"><h4>Action</h4></div>
         </div>
         {{#each revisions}}
-            <div class="row">
+            <div class="row top-buffer no-gutter">
                 <div class="col-md-2 col-sm-2 col-xs-2"><input type="text" class="large-input form-control" disabled=true value={{timestamp}}></div>
                 <div class="col-md-10 col-sm-10 col-xs-10"><input type="text" class="large-input form-control" disabled=true value={{message}}></div>
             </div>
