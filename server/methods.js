@@ -60,12 +60,11 @@ Meteor.startup(function () {
             employees.forEach(function (e) {
                 employeeIds.push(e._id);
             });
-            return employeeIds
+            return employeeIds;
         }
 
         if (user.manager){
-
-            var projects = ChargeNumbers.find({'manager':user.username});
+            var projects = ChargeNumbers.find({'manager': { $in: user.groups}});
             var projectIds = [];
             projects.forEach(function (p) {
                 projectIds.push(p._id);

@@ -35,7 +35,12 @@
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control  customer" id="customer" value={{customer}}></div>
         <div class="col-md-1 col-sm-1 col-xs-1"> <input type="text" class="large-input form-control date" id="start_date" value={{start_date}}></div>
         <div class="col-md-1 col-sm-1 col-xs-1"> <input type="text" class="large-input form-control date" id="end_date" value={{end_date}}></div>
-        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control manager" id="manager" value={{manager}}></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"> <input class="large-input form-control manager typeahead" name="manager" type="text"
+               onClick="this.setSelectionRange(0, this.value.length)"
+               id="manager"
+               placeholder="Manager"
+               autocomplete="off" spellcheck="off"
+               data-source="auto_managers" value={{manager}}></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary">Make Indirect</button></div>
     </div>
 </template>
@@ -47,7 +52,12 @@
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control" id="customer" placeholder="Customer"></div>
         <div class="col-md-1 col-sm-1 col-xs-1"> <input type="text" class="large-input form-control" id="start_date" placeholder="Start Date"></div>
         <div class="col-md-1 col-sm-1 col-xs-1"> <input type="text" class="large-input form-control" id="end_date" placeholder="End Date"></div>
-        <div class="col-md-2 col-sm-2 col-xs-2">{{> employeesListDropDown}}</div>
+        <div class="col-md-2 col-sm-2 col-xs-2"><input class="form-control typeahead" name="managerSelect" type="text"
+               onClick="this.setSelectionRange(0, this.value.length)"
+               id="managerSearch"
+               placeholder="Manager"
+               autocomplete="off" spellcheck="off"
+               data-source="auto_managers"/></div>
         <div class="col-md-3 col-sm-3 col-xs-3 text-center">
             <label>Indirect Project?</label>
             <label class="indirect" for="y">Yes</label>
@@ -59,13 +69,13 @@
     </div>
 </template>
 
-<template name="employeesListDropDown">
+<!-- <template name="employeesListDropDown">
     <select id="manager" class="large-input form-control manager-dropdown">
         {{#each managers}}
             <option value={{username}}>{{username}}</option>
         {{/each}}
     </select>
-</template>
+</template> -->
 
 <template name="archivedProjectsEntries">
     {{> projectHeaderArchive}}
@@ -129,7 +139,12 @@
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control  customer" id="customer" value={{customer}}></div>
         <div class="col-md-1 col-sm-1 col-xs-1"> <input type="text" class="large-input form-control date" id="start_date" value={{start_date}} disabled={{is_holiday}}></div>
         <div class="col-md-1 col-sm-1 col-xs-1"> <input type="text" class="large-input form-control date" id="end_date" value={{end_date}} disabled={{is_holiday}}></div>
-        <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control manager" id="manager" value={{manager}} disabled={{is_holiday}}></div>
+        <div class="col-md-2 col-sm-2 col-xs-2"> <input class="large-input form-control manager typeahead" name="manager" type="text"
+               onClick="this.setSelectionRange(0, this.value.length)"
+               id="manager"
+               placeholder="Manager"
+               autocomplete="off" spellcheck="off"
+               data-source="auto_managers" value={{manager}} disabled={{is_holiday}}></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary" disabled={{is_holiday}}>Make Active</button></div>
     </div>
 </template>
