@@ -10,7 +10,7 @@ Meteor.startup(function() {
 
 Template.activeProjectEntries.helpers({
     projects: function(){
-        return ChargeNumbers.find({"indirect": false});
+        return ChargeNumbers.find({'indirect': false});
     },
     isActive: function(date){
         return ProjectService.isActive(date);
@@ -85,7 +85,7 @@ Template.projectInfo.events = {
     },
     'click .manager': function(evt){
         var parent = evt.currentTarget.parentNode;
-        parent.innerHTML = Blaze.toHTML(Blaze.With("", function() { return Template.employeesListDropDown; }));
+        parent.innerHTML = Blaze.toHTML(Blaze.With('', function() { return Template.employeesListDropDown; }));
     },
     'click button': function(event){
         var row = event.currentTarget.parentNode.parentNode;
@@ -143,7 +143,7 @@ Template.addProject.events = {
 
         ProjectService.removeErrorClasses(row, ['#charge_number', '#project_name', '#start_date', '#end_date','#manager']);
 
-        if (chargeNumber == 'Indirect') {
+        if (chargeNumber === 'Indirect') {
             if(ProjectService.ensureValidIndirectProject(row, chargeNumber, customer, name, manager)) {
                 var projects = ChargeNumbers.find({});
                 var projIds = [];
@@ -152,7 +152,7 @@ Template.addProject.events = {
                 });
                 var chargeNum = Math.floor(Math.random()*9000) + 1000;
 
-                while($.inArray(chargeNum, projIds) != -1) {
+                while($.inArray(chargeNum, projIds) !== -1) {
                     chargeNum = Math.floor(Math.random()*9000) + 1000;
                 }
 
@@ -268,7 +268,7 @@ Template.indirectChargeItems.events({
         },
     'click .manager': function(evt){
         var parent = evt.currentTarget.parentNode;
-        parent.innerHTML = Blaze.toHTML(Blaze.With("", function() { return Template.employeesListDropDown; }));
+        parent.innerHTML = Blaze.toHTML(Blaze.With('', function() { return Template.employeesListDropDown; }));
     },
     'click button': function(event){
         var row = event.currentTarget.parentNode.parentNode;
@@ -301,7 +301,7 @@ Template.indirectChargeItems.events({
 
 Template.indirectChargeItems.helpers({
     projects: function(){
-        return ChargeNumbers.find({"indirect": true});
+        return ChargeNumbers.find({'indirect': true});
     },
     isActive: function(date) {
         if (!date){
