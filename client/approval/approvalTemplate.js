@@ -136,6 +136,9 @@ Template.toApprove_Template.events({
     'click .approve': function (e) {
         if (!e.target.parentNode.parentNode.classList.contains('selected')) return;
 
+        var row = e.currentTarget.parentNode.parentNode;
+        ApprovalService.removeErrorClass(row,'#rejectComment');
+        
         var startDateStr = Session.get("startDate");
         var date = (new Date(startDateStr)).toLocaleDateString();
 
@@ -181,6 +184,13 @@ Template.toApprove_Template.events({
         var projectName = ChargeNumbers.findOne({'_id' : projectId}).name;
 
         var rejectComment = $(e.target.parentNode.parentNode).find('#rejectComment')[0].value;
+        var row = e.currentTarget.parentNode.parentNode;
+        ApprovalService.removeErrorClass(row,'#rejectComment');
+        if(rejectComment == ""){
+            ApprovalService.addError(row, '#rejectComment', "Description is Required");
+            return;
+        };
+
         $(e.target.parentNode.parentNode).find('#rejectComment')[0].value = '';
 
         var sheet = TimeSheet.findOne({'startDate':date,'userId':userId,'submitted':true});
@@ -204,6 +214,24 @@ Template.toApprove_Template.events({
         Meteor.call('updateApprovalStatusInTimeSheet',date, userId, projectId, false, rejectComment, revision);
     }
 });
+
+ApprovalService = {
+    addError: function (row, selector, message) {
+        $(row).find(selector).parent().addClass('has-error');
+        $(row).find(selector).tooltip({
+            title: message,
+            trigger: 'hover',
+            animation: false
+        });
+        $(row).find(selector).tooltip('show');
+    },
+    removeErrorClass: function (row, selector) {
+        
+        var item = $(row).find(selector);
+        item.parent().removeClass('has-error');
+        item.tooltip('destroy');
+    }
+};
 
 Template.approval_Template.helpers({
     Active: function() {

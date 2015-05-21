@@ -14,22 +14,37 @@ Accounts.ui.config({
     passwordSignupFields: 'USERNAME_ONLY'
 });
 
-Session.setDefault('current_page', 'login_page');
+headers.ready(function() {
+  var user = headers.get('x-forwarded-user');
+  if (!user) {
+    Session.setDefault('current_page', 'login_page');
+  } else {
+    Meteor.startup(function() {
+      Meteor.call('getLdapManagerGroups', function (error, data) {
+      if (!error){
+          Session.set('manager_groups', data);
+        }
+      });
+      permitLdapEmployee(user);
+    });
+    Session.setDefault('current_page', 'time_sheet');
+  }
+});
 
 Template.pages.events({
     'mousedown .tag': function (evt) {
         Session.set('editing-user-page', false);
         var selected = evt.currentTarget.id;
-        if (selected == 'time_sheet'){
+        if (selected === 'time_sheet'){
             var callback = function (error, data){
                 Session.set('current_page', 'selected_timesheet');
-                var date = (data.start.getMonth() + 1) + "/" + data.start.getDate() + "/" + data.start.getFullYear();
+                var date = (data.start.getMonth() + 1) + '/' + data.start.getDate() + '/' + data.start.getFullYear();
                 console.log(date);
                 Session.set('startDate', date);
 
             };
             var date = Meteor.call('getCurrentWeekObject', callback);
-            
+
         }else{
             Session.set('current_page', evt.currentTarget.id);
         }
@@ -59,9 +74,9 @@ Template.pages.helpers({
         return Session.equals('current_page', 'admin_page');
     },
     getUsername: function () {
-        var user = Meteor.users.findOne({_id: Session.get('LdapId')})
+        var user = Meteor.users.findOne({_id: Session.get('LdapId')});
         if (!user){
-            return "Please login"
+            return 'Please login';
         }
         return user.username;
     },
@@ -145,6 +160,12 @@ Template.loginPage.events({
         var username = $('#LDAPusername')[0].value;
         var password = $('#LDAPpassword')[0].value;
 
+
+        Meteor.call('getLdapManagerGroups', function (error, data) {
+        if (!error){
+            Session.set('manager_groups', data);
+          }
+        });
         authenticateLdapEmployee(username, password);
 
         //var user = Meteor.users.findOne({username: username});
