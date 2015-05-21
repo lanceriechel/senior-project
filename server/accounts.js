@@ -118,7 +118,15 @@ Meteor.startup (function() {
         authenticateLdapEmployee : function (username, password){
             try {
                 if(LDAP.checkAccount(username, password)){
-                    return [LDAP.search(username), LDAP.getGroupList(true).member, LDAP.getGroupList(false).member];
+		    var adminString = LDAP.getGroupList(true).member;
+		    var managerString = LDAP.getGroupList(false).member;
+		    if(adminString == null){
+			adminString = '';
+		    }
+		    if(managerString == null){
+			managerString = '';
+		    }
+                    return [LDAP.search(username), adminString, managerString];
                 } else {
                     return null;
                 }

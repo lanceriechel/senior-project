@@ -1,9 +1,12 @@
 //Get the manager groups
-Meteor.call("getLdapManagerGroups", function (error, data) {
-    if (!error){
-        Session.set('manager_groups', data);
-    }
-});
+
+Meteor.startup(function() {
+ Meteor.call('getLdapManagerGroups', function (error, data) {
+   if (!error){
+     Session.set('manager_groups', data);
+   }
+ });
+}); 
 
 Template.activeProjectEntries.helpers({
     projects: function(){
