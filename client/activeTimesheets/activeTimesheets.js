@@ -836,6 +836,18 @@ Template.lastSection.events = {
             pSentBacks[sheet.projectApprovalArray[i].projectId] = sheet.projectApprovalArray[i].sentBack;
         }
 
+        //var tooMuchTime = false;
+        //var i = 0;
+        //for (i =0; i<7; i++){
+        //    if (ActiveDBService.getDayTotal(i)>24){
+        //        tooMuchTime = true;
+        //    }
+        //}
+        //if (tooMuchTime){
+        //    TimeSheetService.addError(row, '#submitButton', "Cannot have more than 24 hours worked in a Day");
+        //}
+
+
         var isTimesheetEmpty = true;
         sheet.projectEntriesArray.forEach(function (p) {
             isTimesheetEmpty = false
@@ -1259,6 +1271,8 @@ TimeSheetService = {
         /*
          Error handling for timesheet fields
          */
+        var out_of_bounds_message = "Field must be a multiple of .25 and cannot exceed 24 hours in a day across all projects";
+
         console.log(sunday_t);
         var valid = true;
         if (comment_t === '') {
@@ -1274,56 +1288,56 @@ TimeSheetService = {
             TimeSheetService.addError(row, '#Sunday', "Field is Not a Positive Number");
             valid = false;
         }
-        if ((sunday_t % .25 != 0) || (sunday_t > 24)) {
-            TimeSheetService.addError(row, '#Sunday', "Field Must be a Multiple of .25 and less than 24");
+        if ((sunday_t % .25 != 0) ||  ActiveDBService.getDayTotal(0)+ sunday_t > 24) {
+            TimeSheetService.addError(row, '#Sunday', out_of_bounds_message);
             valid = false;
         }
         if ((isNaN(monday_t) && monday_t != '') || monday_t <0) {
             TimeSheetService.addError(row, '#Monday', "Field is Not a Positive Number");
             valid = false;
         }
-        if ((monday_t % .25 != 0) || (monday_t > 24)) {
-            TimeSheetService.addError(row, '#Monday', "Field Must be a Multiple of .25 and less than 24");
+        if ((monday_t % .25 != 0) || (ActiveDBService.getDayTotal(1)+ monday_t > 24)) {
+            TimeSheetService.addError(row, '#Monday', out_of_bounds_message);
             valid = false;
         }
         if ((isNaN(tuesday_t) && tuesday_t != '') || tuesday_t <0) {
             TimeSheetService.addError(row, '#Tuesday', "Field is Not a Positive Number");
             valid = false;
         }
-        if ((tuesday_t % .25 != 0) || (tuesday_t > 24) || (tuesday_t <0)) {
-            TimeSheetService.addError(row, '#Tuesday', "Field Must be a Multiple of .25 and less than 24");
+        if ((tuesday_t % .25 != 0) || (ActiveDBService.getDayTotal(2)+ tuesday_t > 24) || (tuesday_t <0)) {
+            TimeSheetService.addError(row, '#Tuesday', out_of_bounds_message);
             valid = false;
         }
         if ((isNaN(wednesday_t) && wednesday_t != '') || wednesday_t <0) {
             TimeSheetService.addError(row, '#Wednesday', "Field is Not a Positive Number");
             valid = false;
         }
-        if ((wednesday_t % .25 != 0) || (wednesday_t > 24)) {
-            TimeSheetService.addError(row, '#Wednesday', "Field Must be a Multiple of .25 and less than 24");
+        if ((wednesday_t % .25 != 0) || (ActiveDBService.getDayTotal(3)+ wednesday_t > 24)) {
+            TimeSheetService.addError(row, '#Wednesday', out_of_bounds_message);
             valid = false;
         }
         if ((isNaN(thursday_t) && thursday_t != '') || thursday_t <0) {
             TimeSheetService.addError(row, '#Thursday', "Field is Not a Positive Number");
             valid = false;
         }
-        if ((thursday_t % .25 != 0) || (thursday_t > 24)) {
-            TimeSheetService.addError(row, '#Thursday', "Field Must be a Multiple of .25 and less than 24");
+        if ((thursday_t % .25 != 0) || (ActiveDBService.getDayTotal(4)+ thursday_t > 24)) {
+            TimeSheetService.addError(row, '#Thursday', out_of_bounds_message);
             valid = false;
         }
         if ((isNaN(friday_t) && friday_t != '') || friday_t <0) {
             TimeSheetService.addError(row, '#Friday', "Field is Not a Positive Number");
             valid = false;
         }
-        if ((friday_t % .25 != 0) || (friday_t > 24)) {
-            TimeSheetService.addError(row, '#Friday', "Field Must be a Multiple of .25 and less than 24");
+        if ((friday_t % .25 != 0) || (ActiveDBService.getDayTotal(5)+ friday_t > 24)) {
+            TimeSheetService.addError(row, '#Friday', out_of_bounds_message);
             valid = false;
         }
         if ((isNaN(saturday_t) && saturday_t != '') || saturday_t <0) {
             TimeSheetService.addError(row, '#Saturday', "Field is Not a Positive Number");
             valid = false;
         }
-        if ((saturday_t % .25 != 0) || (saturday_t > 24)) {
-            TimeSheetService.addError(row, '#Saturday', "Field Must be a Multiple of .25 and less than 24");
+        if ((saturday_t % .25 != 0) || (ActiveDBService.getDayTotal(6)+ saturday_t > 24)) {
+            TimeSheetService.addError(row, '#Saturday', out_of_bounds_message);
             valid = false;
         }
         if (((sunday_t === '') || (sunday_t === 0)) &&

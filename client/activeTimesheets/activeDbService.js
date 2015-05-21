@@ -1,4 +1,32 @@
 ActiveDBService = {
+    getDayTotal: function(day) {
+        var date = Session.get("startDate");
+        var user = Session.get('LdapId');
+        var data = Session.get('editing-user-page');
+        var total = 0;
+        if (data){
+            var userO = Meteor.users.findOne({username : data.username});
+            if (userO){
+                user = userO._id;
+            }
+        }
+        var sheet = TimeSheet.findOne({'startDate': date, 'userId': user});
+
+        if (!sheet){
+            return;
+        }
+
+        var projectEntries = sheet['projectEntriesArray'];
+        for (var i = 0; i < projectEntries.length; i++) {
+            var EntryArray = projectEntries[i]['EntryArray'];
+
+            for (var j = 0; j < EntryArray.length; j++) {
+                var hours = EntryArray[j]['hours'];
+                total += parseFloat(hours[day])|| 0;
+            }
+        }
+        return total;
+    },
     getTotalHoursForProject: function(timesheet, projectId){
         /*
             For a given timesheet and projectID, this method sums up the total number of hours worked that week.
