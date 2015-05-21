@@ -1,3 +1,13 @@
+//Get the manager groups
+
+Meteor.startup(function() {
+ Meteor.call('getLdapManagerGroups', function (error, data) {
+   if (!error){
+     Session.set('manager_groups', data);
+   }
+ });
+}); 
+
 Template.activeProjectEntries.helpers({
     projects: function(){
         return ChargeNumbers.find({'indirect': false});

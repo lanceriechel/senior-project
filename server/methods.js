@@ -64,6 +64,7 @@ Meteor.startup(function () {
         }
 
         if (user.manager){
+
             var projects = ChargeNumbers.find({'manager':user.username});
             var projectIds = [];
             projects.forEach(function (p) {
