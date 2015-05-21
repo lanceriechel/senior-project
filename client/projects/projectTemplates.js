@@ -22,7 +22,7 @@ Template.projectInfo.events = {
         var customer = $(row).find('#customer')[0].value;
         var startDate = $(row).find('#start_date')[0].value;
         var endDate = $(row).find('#end_date')[0].value;
-        var manager = $(row).find('#manager')[0].value;
+        var manager = $(row).find('input')[6].value;
 
         var project = ChargeNumbers.findOne({'_id': row.id});
 
@@ -47,16 +47,18 @@ Template.projectInfo.events = {
         });
         }
     },
-    'blur .manager-dropdown': function(event){
-        var row = event.currentTarget.parentNode.parentNode;
+    'blur .manager': function(event){
+        var row = event.currentTarget.parentNode.parentNode.parentNode;
         var chargeNumber = $(row).find('#charge_number')[0].value;
         var name = $(row).find('#project_name')[0].value;
         var customer = $(row).find('#customer')[0].value;
         var startDate = $(row).find('#start_date')[0].value;
         var endDate = $(row).find('#end_date')[0].value;
-        var manager = $(row).find('select')[0].value;
+        var manager = event.currentTarget.value;
 
         var project = ChargeNumbers.findOne({'_id': row.id});
+
+        ProjectService.removeErrorClasses(row, ['#charge_number', '#project_name', '#customer', '#start_date', '#end_date','#manager']);
 
         if(ProjectService.ensureValidProject(row, chargeNumber, name, customer, startDate, endDate, manager)) {
             Meteor.call('updateProject', this._id, {
@@ -77,13 +79,13 @@ Template.projectInfo.events = {
         });
         }
 
-        var parent = event.currentTarget.parentNode;
-        parent.innerHTML = '<input type="text" class="large-input form-control manager" id="manager" value=' + manager + '>';
+        // var parent = event.currentTarget.parentNode;
+        // parent.innerHTML = '<input type="text" class="large-input form-control manager" id="manager" value=' + manager + '>';
     },
-    'click .manager': function(evt){
-        var parent = evt.currentTarget.parentNode;
-        parent.innerHTML = Blaze.toHTML(Blaze.With("", function() { return Template.employeesListDropDown; }));
-    },
+    // 'click .manager': function(evt){
+    //     var parent = evt.currentTarget.parentNode;
+    //     parent.innerHTML = Blaze.toHTML(Blaze.With("", function() { return Template.employeesListDropDown; }));
+    // },
     'click button': function(event){
         var row = event.currentTarget.parentNode.parentNode;
         var chargeNumber = $(row).find('#charge_number')[0].value;
@@ -91,7 +93,7 @@ Template.projectInfo.events = {
         var customer = $(row).find('#customer')[0].value;
         var startDate = $(row).find('#start_date')[0].value;
         var endDate = $(row).find('#end_date')[0].value;
-        var manager = $(row).find('#manager')[0].value;
+        var manager = $(row).find('input')[6].value;
 
         var project = ChargeNumbers.findOne({'_id': row.id});
 
@@ -114,6 +116,12 @@ Template.projectInfo.events = {
     }
 };
 
+Template.projectInfo.helpers({
+    auto_managers: function () {
+        return Session.get('manager_groups');
+    }
+});
+
 Template.projectInfo.rendered = function(){
     $.each($('[id=start_date]'), function(index, value){
         $(value).datepicker({autoclose: true, todayHighlight: true});
@@ -121,11 +129,13 @@ Template.projectInfo.rendered = function(){
     $.each($('[id=end_date]'), function(index, value){
         $(value).datepicker({autoclose: true, todayHighlight: true});
     });
+    Meteor.typeahead.inject();
 };
 
 Template.addProject.rendered = function(){
     $('#start_date').datepicker({orientation: 'top auto', autoclose: true, todayHighlight: true});
     $('#end_date').datepicker({orientation: 'top auto', autoclose: true, todayHighlight: true});
+    Meteor.typeahead.inject();
 };
 
 Template.addProject.events = {
@@ -135,7 +145,7 @@ Template.addProject.events = {
         var name = $(row).find('#project_name')[0].value;
         var startDate = $(row).find('#start_date')[0].value;
         var endDate = $(row).find('#end_date')[0].value;
-        var manager = $(row).find('#manager')[0].value;
+        var manager = $(row).find('input')[6].value;
         var customer = $(row).find('#customer')[0].value;
 
         ProjectService.removeErrorClasses(row, ['#charge_number', '#project_name', '#start_date', '#end_date','#manager']);
@@ -203,18 +213,24 @@ Template.addProject.events = {
     }
 };
 
-Template.employeesListDropDown.helpers({
-    employees: function() {
-        return Meteor.users.find({});
-    },
-    managers: function() {
-        var managerGroups = [];
-        Session.get('manager_groups').forEach(function (group){
-            managerGroups.push({username: group});
-        });
-	return managerGroups;
+Template.addProject.helpers({
+    auto_managers: function () {
+        return Session.get('manager_groups');
     }
 });
+
+// Template.employeesListDropDown.helpers({
+//     employees: function() {
+//         return Meteor.users.find({});
+//     },
+//     managers: function() {
+//         var managerGroups = [];
+//         Session.get('manager_groups').forEach(function (group){
+//             managerGroups.push({username: group});
+//         });
+// 	return managerGroups;
+//     }
+// });
 
 Template.archivedProjectsEntries.helpers({
     projects: function() {
@@ -225,6 +241,12 @@ Template.archivedProjectsEntries.helpers({
     }
 });
 
+Template.indirectInfo.helpers({
+    auto_managers: function () {
+        return Session.get('manager_groups');
+    }
+});
+
 Template.indirectInfo.rendered = function(){
     $.each($('[id=start_date]'), function(index, value){
         $(value).datepicker({autoclose: true, todayHighlight: true});
@@ -232,6 +254,7 @@ Template.indirectInfo.rendered = function(){
     $.each($('[id=end_date]'), function(index, value){
         $(value).datepicker({autoclose: true, todayHighlight: true});
     });
+    Meteor.typeahead.inject();
 };
 
 Template.indirectChargeItems.events({
@@ -242,7 +265,35 @@ Template.indirectChargeItems.events({
         var customer = $(row).find('#customer')[0].value;
         var startDate = $(row).find('#start_date')[0].value;
         var endDate = $(row).find('#end_date')[0].value;
-        var manager = $(row).find('#manager')[0].value;
+        var manager = $(row).find('input')[6].value;
+
+        var project = ChargeNumbers.findOne({'_id': _id});
+
+            Meteor.call('updateProject', _id, {
+                'id': project.id,
+                'name': name,
+                'customer': customer,
+                'start_date': startDate,
+                'end_date': endDate,
+                'manager': manager,
+                'is_holiday': project.is_holiday,
+                'indirect': project.indirect
+            },
+            function (){
+            $('.toast').addClass('active');
+            setTimeout(function () {
+                $('.toast').removeClass('active');
+            }, 5000);
+        });
+    },
+    'blur .manager': function(event){
+        var row = event.currentTarget.parentNode.parentNode.parentNode;
+        var name =  $(row).find('#project_name')[0].value;
+        var _id=row.id;
+        var customer = $(row).find('#customer')[0].value;
+        var startDate = $(row).find('#start_date')[0].value;
+        var endDate = $(row).find('#end_date')[0].value;
+        var manager = event.currentTarget.value;
 
         var project = ChargeNumbers.findOne({'_id': _id});
 
@@ -263,17 +314,17 @@ Template.indirectChargeItems.events({
             }, 5000);
         });
         },
-    'click .manager': function(evt){
-        var parent = evt.currentTarget.parentNode;
-        parent.innerHTML = Blaze.toHTML(Blaze.With("", function() { return Template.employeesListDropDown; }));
-    },
+    // 'click .manager': function(evt){
+    //     var parent = evt.currentTarget.parentNode;
+    //     parent.innerHTML = Blaze.toHTML(Blaze.With("", function() { return Template.employeesListDropDown; }));
+    // },
     'click button': function(event){
         var row = event.currentTarget.parentNode.parentNode;
         var name = $(row).find('#project_name')[0].value;
         var customer = $(row).find('#customer')[0].value;
         var startDate = $(row).find('#start_date')[0].value;
         var endDate = $(row).find('#end_date')[0].value;
-        var manager = $(row).find('#manager')[0].value;
+        var manager = $(row).find('input')[6].value;
 
         var project = ChargeNumbers.findOne({'_id': row.id});
 

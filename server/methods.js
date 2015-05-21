@@ -64,7 +64,7 @@ Meteor.startup(function () {
         }
 
         if (user.manager){
-            var projects = ChargeNumbers.find({'manager': { $in: user.groups});
+            var projects = ChargeNumbers.find({'manager': { $in: user.groups}});
             var projectIds = [];
             projects.forEach(function (p) {
                 projectIds.push(p._id);
