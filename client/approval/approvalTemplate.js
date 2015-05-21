@@ -136,7 +136,7 @@ Template.toApprove_Template.events({
     'click .approve': function (e) {
         if (!e.target.parentNode.parentNode.classList.contains('selected')) return;
 
-        var row = event.currentTarget.parentNode.parentNode;
+        var row = e.currentTarget.parentNode.parentNode;
         ApprovalService.removeErrorClass(row,'#rejectComment');
         
         var startDateStr = Session.get("startDate");
@@ -184,7 +184,7 @@ Template.toApprove_Template.events({
         var projectName = ChargeNumbers.findOne({'_id' : projectId}).name;
 
         var rejectComment = $(e.target.parentNode.parentNode).find('#rejectComment')[0].value;
-        var row = event.currentTarget.parentNode.parentNode;
+        var row = e.currentTarget.parentNode.parentNode;
         ApprovalService.removeErrorClass(row,'#rejectComment');
         if(rejectComment == ""){
             ApprovalService.addError(row, '#rejectComment', "Description is Required");

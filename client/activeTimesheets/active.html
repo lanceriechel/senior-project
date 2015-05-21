@@ -8,7 +8,7 @@
             </div>
         {{/if}}
         <div class="row">
-            <button id='back'> <span class='glyphicon glyphicon-chevron-left'></span></button>
+            <button class="btn btn-default" id='back'> <span class='glyphicon glyphicon-chevron-left'></span></button>
             <h2 style= 'display: inline-block;'><span class="label">{{date}}</span></h2>
         </div>
         <br>
@@ -199,15 +199,15 @@
 </template>
 <template name="totals">
     <div class="row">
-        <div class="col-xs-2 pull-left left-offset"><underline>Totals</underline></div>
-        <div class="col-xs-1 pull-left left-offset">{{getDayTotal 0}}</div>
-        <div class="col-xs-1 pull-left left-offset">{{getDayTotal 1}}</div>
-        <div class="col-xs-1 pull-left left-offset">{{getDayTotal 2}}</div>
-        <div class="col-xs-1 pull-left left-offset">{{getDayTotal 3}}</div>
-        <div class="col-xs-1 pull-left left-offset">{{getDayTotal 4}}</div>
-        <div class="col-xs-1 pull-left left-offset">{{getDayTotal 5}}</div>
-        <div class="col-xs-1 pull-left left-offset">{{getDayTotal 6}}</div>
-        <div class="col-xs-3 pull-left hidden-sm hidden-xs left-offset"> Weekly Total: {{getWeekTotal}}</div>
+        <div class="col-xs-2 pull-left left-offset"><underline><strong>Totals</strong></underline></div>
+        <div class="col-xs-1 pull-left left-offset"><strong>{{getDayTotal 0}}</strong></div>
+        <div class="col-xs-1 pull-left left-offset"><strong>{{getDayTotal 1}}</strong></div>
+        <div class="col-xs-1 pull-left left-offset"><strong>{{getDayTotal 2}}</strong></div>
+        <div class="col-xs-1 pull-left left-offset"><strong>{{getDayTotal 3}}</strong></div>
+        <div class="col-xs-1 pull-left left-offset"><strong>{{getDayTotal 4}}</strong></div>
+        <div class="col-xs-1 pull-left left-offset"><strong>{{getDayTotal 5}}</strong></div>
+        <div class="col-xs-1 pull-left left-offset"><strong>{{getDayTotal 6}}</strong></div>
+        <div class="col-xs-3 pull-left hidden-sm hidden-xs left-offset"><strong>Weekly Total: {{getWeekTotal}}</strong></div>
         <div class="col-xs-3 text-left hidden-md hidden-lg">|&nbsp;&nbsp;&nbsp;&nbsp;<b>{{getWeekTotal}}</b></div>
     </div>
 </template>
