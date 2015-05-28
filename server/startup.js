@@ -1,5 +1,5 @@
 startup = function (){
-    process.env.MAIL_URL = 'smtp://noreply.scientiallc.timesheet%40gmail.com:N1esZd02FBi06WW@smtp.gmail.com:587/';
+    process.env.MAIL_URL = Meteor.settings.mail_url;
 
     function setupHolidayProject(){
         var holiday = ChargeNumbers.findOne({'is_holiday': true});
