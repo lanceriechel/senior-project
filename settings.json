@@ -1,7 +1,7 @@
 {
 "ldap_admin_account" : "admin",
-"ldap_admin_password" : "foon4eeX",
-"ldap_url" : "ldap://meteor-timesheet.csse.rose-hulman.edu:389/",
-"ldap_search_base" : "dc=csse,dc=rose-hulman,dc=edu",
+"ldap_admin_password" : "password",
+"ldap_url" : "ldap://ldap.example.com:389/",
+"ldap_search_base" : "dc=example,dc=com",
 "ldap_admin" : "time_admins"
 }
