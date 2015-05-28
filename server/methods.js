@@ -10,6 +10,10 @@ if (!String.prototype.format) {
     };
 }
 Meteor.startup(function () {
+  // setup cron configuration
+  SyncedCron.options.log = true;
+  SyncedCron.options.utc = false;
+
     Meteor.methods({
         updateRevision: function (id, revision){
             TimeSheet.update({'_id':id},
@@ -53,10 +57,10 @@ Meteor.startup(function () {
             This is so a manager cannot see historical timesheets for other employees.
         */
         var user = Meteor.users.findOne({'_id':Session.get('LdapId')});
-        
+
         if (user.admin) {
-            var employees = Meteor.users.find();   
-            var employeeIds = [];         
+            var employees = Meteor.users.find();
+            var employeeIds = [];
             employees.forEach(function (e) {
                 employeeIds.push(e._id);
             });
@@ -97,7 +101,7 @@ Meteor.startup(function () {
         var approved;
         var active = sheet['active'];
         var submitted = sheet['submitted'];
-        //active = 1 and (SentBack = true or submitted = false)            
+        //active = 1 and (SentBack = true or submitted = false)
         if (active != 1){
             return;
         }
@@ -115,21 +119,21 @@ Meteor.startup(function () {
                 sentBack = pSentBacks[project];
             }
         }
-        
+
         if(data){
-            //alert("doesnt work C"); 
-            if(oldproject != data.project){ 
-                return; 
+            //alert("doesnt work C");
+            if(oldproject != data.project){
+                return;
             }
         } else if(submitted && !sentBack){
             return;
         }
-        
+
         entryArrToAdd['next'] = next;
         entryArrToAdd['issues'] = issues;
         prEntriesArr.splice(index,1)
         prEntriesArr.splice(index, 0, entryArrToAdd);
- 
+
         TimeSheet.update({'_id':sheet._id},{
                 $set:{
                         'projectEntriesArray': prEntriesArr
@@ -225,7 +229,7 @@ Meteor.startup(function () {
             This should be called from an onBlur event.
         */
         var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
-        
+
         //make sure not updating when it shouldn't
         var data = Session.get('editing-user-page');
         var disable = data || (sheet['submitted']  && !TimeSheetService.checkSentBack());
@@ -268,8 +272,8 @@ Meteor.startup(function () {
     },
 
     addRowToTimeSheet: function(date, user, project, comment,Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, rowID) {
-        /* 
-            Adds a single Entry to the Timesheet. 
+        /*
+            Adds a single Entry to the Timesheet.
             This entry corresponds to a single Row on the web page.
         */
         var sheet = TimeSheet.findOne({'startDate':date,'userId':user});
@@ -308,7 +312,7 @@ Meteor.startup(function () {
                     };
                 }
             }
-            
+
             prEntriesArr.splice(index,1)
             prEntriesArr.push(entryArrToAdd);
 
@@ -334,7 +338,7 @@ Meteor.startup(function () {
                     };
                 }
             }
-            
+
             prEntriesArr.push(entryArrToAdd);
         }
         TimeSheet.update({'_id':sheet._id},{
@@ -360,7 +364,7 @@ Meteor.startup(function () {
         var approved;
         var active = sheet['active'];
         var submitted = sheet['submitted'];
-        //active = 1 and (SentBack = true or submitted = false)            
+        //active = 1 and (SentBack = true or submitted = false)
         if (active != 1){
             return;
         }
@@ -369,9 +373,9 @@ Meteor.startup(function () {
         for (var i in sheet.projectApprovalArray){
             pSentBacks[sheet.projectApprovalArray[i].projectId] = sheet.projectApprovalArray[i].sentBack;
         }
-        
+
         for(i=0 ; i<prEntriesArr.length ; i++){
-                
+
                 entryArray = prEntriesArr[i]['EntryArray'];
                 for(j=0; j<entryArray.length; j++){
                     if(entryArray[j]['rowID'] == rowID){
@@ -388,15 +392,15 @@ Meteor.startup(function () {
 
         //return if the row should not be editable
         // var data = Session.get('editing-user-page');
-        
+
         if(data){
-            if(oldproject != data.project){ 
-                return; 
+            if(oldproject != data.project){
+                return;
             }
         } else if(submitted && !sentBack){
             return;
         }
-        
+
         entryArray2.splice(index2, 1);
 
         entryArrToAdd['EntryArray'] = entryArray2;
@@ -557,7 +561,6 @@ Meteor.startup(function () {
                     }
                     break;
             }
-            SyncedCron.start();
         },
         deleteJob: function (job) {
             SyncedCron.remove(job.type + 'job: ' + job._id);

@@ -1,6 +1,9 @@
 startup = function (){
     process.env.MAIL_URL = Meteor.settings.mail_url;
 
+    // setup logger
+    log = new Logger('startup');
+
     function setupHolidayProject(){
         var holiday = ChargeNumbers.findOne({'is_holiday': true});
         var date = new Date();
@@ -90,9 +93,9 @@ startup = function (){
 
     setupHolidayProject();
 
-    console.log("start missing setup");
+    log.debug("start missing setup");
     setupMissingTimesheets();
-    console.log("finish missing setup");
+    log.debug("finish missing setup");
 
     /*
      Create weekly timesheet adder job
