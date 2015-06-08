@@ -7,7 +7,6 @@ meteor-platform
 mizzao:bootstrap-3
 rajit:bootstrap3-datepicker
 velocity:html-reporter
-percolatestudio:synced-cron
 email
 
 sergeyt:typeahead
@@ -18,3 +17,7 @@ accounts-ui
 tsega:bootstrap3-datetimepicker
 gadicohen:headers
 jag:pince
+percolate:synced-cron
+practicalmeteor:chai
+msavin:mongol
+msavin:jetsetter
