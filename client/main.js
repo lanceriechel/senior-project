@@ -3,6 +3,8 @@ Employees = new Meteor.Collection('employees');
 TimeSheet = new Meteor.Collection('time_sheets');
 Jobs = new Meteor.Collection('jobs');
 
+logger.debug('loading client/main.js');
+
 Deps.autorun(function () {
   Meteor.subscribe('userData');
   Meteor.subscribe('projects');
@@ -16,6 +18,7 @@ Accounts.ui.config({
 
 headers.ready(function () {
   var user = headers.get('x-forwarded-user');
+  logger.debug('client/main.js: x-forwarded-user = ' + user);
   if (!user) {
     Session.setDefault('current_page', 'login_page');
   } else {
@@ -40,7 +43,7 @@ Template.pages.events({
       var callback = function (error, data) {
         Session.set('current_page', 'selected_timesheet');
         var date = (data.start.getMonth() + 1) + '/' + data.start.getDate() + '/' + data.start.getFullYear();
-        console.log(date);
+        logger.debug('start date = ' + date);
         Session.set('startDate', date);
 
       };

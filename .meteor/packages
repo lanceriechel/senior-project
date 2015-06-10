@@ -11,13 +11,12 @@ email
 
 sergeyt:typeahead
 typ:ldapjs
-mike:mocha
 accounts-base
 accounts-ui
 tsega:bootstrap3-datetimepicker
 gadicohen:headers
 jag:pince
 percolate:synced-cron
-practicalmeteor:chai
 msavin:mongol
 msavin:jetsetter
+mike:mocha@0.6.0

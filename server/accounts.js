@@ -109,6 +109,7 @@ LDAP.checkAccount = function (username, password) {
 
 LDAP.bind = function () {
   var binddn = 'uid=' + Meteor.settings.ldap_admin_account + ',cn=users,cn=accounts,' + Meteor.settings.ldap_search_base;
+  logger.debug('server/accounts.js: binddn = ' + binddn);
   if (wrappedLdapBind(binddn, Meteor.settings.ldap_admin_password).status === 0) {
     return true;
   }
