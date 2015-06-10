@@ -127,6 +127,19 @@ Template.pages.helpers({
       return false;
     }
     return user.admin;
+  },
+
+  displayLoginDropdown: function () {
+    headers.ready(function () {
+      var user = headers.get('x-forwarded-user');
+      if (user) {
+        console.log('return false');
+        return false;
+      } else {
+        console.log('return true');
+        return true;
+      }
+    });
   }
 });
 

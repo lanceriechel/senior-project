@@ -63,19 +63,21 @@
         </li>
       {{/if}}
     </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li>
-        <div class="btn-group" id="login_info">
-          <div class="btn-lg dropdown-toggle" data-toggle="dropdown"
-               aria-expanded="false">
-            {{getUsername}} <span class="caret"></span>
+    {{#if displayLoginDropdown}}
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <div class="btn-group" id="login_info">
+            <div class="btn-lg dropdown-toggle" data-toggle="dropdown"
+                 aria-expanded="false">
+              {{getUsername}} <span class="caret"></span>
+            </div>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href=".">Logout</a></li>
+            </ul>
           </div>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href=".">Logout</a></li>
-          </ul>
-        </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
+    {{/if}}
   {{/unless}}
 </template>
 
