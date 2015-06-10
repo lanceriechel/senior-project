@@ -14,6 +14,8 @@ var ldapSearchResult = [];
 var wrappedLdapBind = Meteor.wrapAsync(LDAP.client.bind, LDAP.client);
 // the search method still requires a callback because it is an event-emitter
 LDAP.asyncSearch = function (binddn, opts, callback) {
+  logger.debug('server/accounts.js: asyncSearch: binddn = ' + binddn +
+      ', opts = ' + JSON.stringify(opts, null, 4));
   LDAP.client.search(binddn, opts, function (err, search) {
     if (err) {
       callback(false);

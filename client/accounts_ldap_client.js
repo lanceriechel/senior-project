@@ -10,8 +10,8 @@ var updateDbUser = function (id, manager, admin, mail, groups) {
 };
 
 var userFound = function (username, userstring) {
-  logger.debug('userFound: username = ' + username + ', userstring = ' +
-      JSON.stringify(userstring, null, 4));
+  logger.debug('client/accounts_ldap_client.js: userFound: username = ' +
+      username + ', userstring = ' + JSON.stringify(userstring, null, 4));
   var adminstring = userstring[1];
   var managerstring = userstring[2];
   var user = userstring[0];
@@ -19,18 +19,27 @@ var userFound = function (username, userstring) {
   var admin = false;
 
   var i;
-  for (i = 0; i < adminstring.length; i++) {
-    if (adminstring[i].indexOf('uid=' + username + ',') === 0) {
-      admin = true;
+  if (adminstring) {
+    if (adminstring.constructor === Array) {
+      for (i = 0; i < adminstring.length; i++) {
+        if (adminstring[i].indexOf('uid=' + username + ',') === 0) {
+          admin = true;
+        }
+      }
     }
   }
 
   var manager = admin;
-  for (i = 0; i < managerstring.length; i++) {
-    if (managerstring[i].indexOf('uid=' + username + ',') === 0) {
-      manager = true;
+  if (managerstring) {
+    if (managerstring.constructor === Array) {
+      for (i = 0; i < managerstring.length; i++) {
+        if (managerstring[i].indexOf('uid=' + username + ',') === 0) {
+          manager = true;
+        }
+      }
     }
   }
+
   var groups = [];
   if (manager || admin) {
     if (user.memberof) {
@@ -38,7 +47,7 @@ var userFound = function (username, userstring) {
         groups.push(group.split(',')[0].split('=')[1]);
       });
     } else {
-      console.log('warning: not a member of any groups');
+      logger.debug('client/accounts_ldap_client.js: userFound: warning: not a member of any groups');
     }
   }
 

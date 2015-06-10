@@ -133,10 +133,8 @@ Template.pages.helpers({
     headers.ready(function () {
       var user = headers.get('x-forwarded-user');
       if (user) {
-        console.log('return false');
         return false;
       } else {
-        console.log('return true');
         return true;
       }
     });
