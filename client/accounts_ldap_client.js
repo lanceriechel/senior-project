@@ -51,6 +51,8 @@ var userFound = function (username, userstring) {
     }
   }
 
+  logger.debug('client/accounts_ldap_client.js: userFound: dbUser = ' +
+      JSON.stringify(dbUser, null, 4));
   if (dbUser) {
     updateDbUser(dbUser._id, manager, admin, user.mail, groups);
   } else {

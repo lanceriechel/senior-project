@@ -53,6 +53,7 @@ ActiveDBService = {
      Get all Employees that have worked for the given manager.
      This is so a manager cannot see historical timesheets for other employees.
      */
+    Meteor.user();
     var user = Meteor.users.findOne({'_id': Session.get('LdapId')});
 
     if (user.admin) {

@@ -41,8 +41,8 @@ if (!(typeof MochaWeb === 'undefined')) {
           'id': '489',
           'name': 'testProject1',
           'customer': 'lance',
-          'start_date': startDate.toString(),
-          'end_date': endDate.toString(),
+          'startDate': startDate.toString(),
+          'endDate': endDate.toString(),
           'manager': 'admintest',
           'indirect': false
         };
@@ -59,8 +59,8 @@ if (!(typeof MochaWeb === 'undefined')) {
           'id': '487',
           'customer': 'lance',
           'name': 'testProject2',
-          'start_date': endDate.toString(),
-          'end_date': startDate.toString(),
+          'startDate': endDate.toString(),
+          'endDate': startDate.toString(),
           'manager': 'admintest',
           'indirect': true
         }
@@ -76,8 +76,8 @@ if (!(typeof MochaWeb === 'undefined')) {
           'id': '45',
           'customer': 'lance',
           'name': 'testProject3',
-          'start_date': startDate.toString(),
-          'end_date': endDate.toString(),
+          'startDate': startDate.toString(),
+          'endDate': endDate.toString(),
           'manager': 'admintest',
           'indirect': true
         }

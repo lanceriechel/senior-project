@@ -1,16 +1,4 @@
-ChargeNumbers = new Meteor.Collection('charge_numbers');
-Employees = new Meteor.Collection('employees');
-TimeSheet = new Meteor.Collection('time_sheets');
-Jobs = new Meteor.Collection('jobs');
-
 logger.debug('loading client/main.js');
-
-Deps.autorun(function () {
-  Meteor.subscribe('userData');
-  Meteor.subscribe('projects');
-  Meteor.subscribe('timesheet');
-  Meteor.subscribe('serverjobs');
-});
 
 Accounts.ui.config({
   passwordSignupFields: 'USERNAME_ONLY'

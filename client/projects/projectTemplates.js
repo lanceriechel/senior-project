@@ -23,21 +23,21 @@ Template.projectInfo.events = {
         var chargeNumber =  $(row).find('#charge_number')[0].value;
         var name = $(row).find('#project_name')[0].value;
         var customer = $(row).find('#customer')[0].value;
-        var startDate = $(row).find('#start_date')[0].value;
-        var endDate = $(row).find('#end_date')[0].value;
+        var startDate = $(row).find('#startDate')[0].value;
+        var endDate = $(row).find('#endDate')[0].value;
         var manager = $(row).find('#manager')[0].value;
 
         var project = ChargeNumbers.findOne({'_id': row.id});
 
-        ProjectService.removeErrorClasses(row, ['#charge_number', '#project_name', '#customer', '#start_date', '#end_date','#manager']);
+        ProjectService.removeErrorClasses(row, ['#charge_number', '#project_name', '#customer', '#startDate', '#endDate','#manager']);
 
         if(ProjectService.ensureValidProject(row, chargeNumber, name, customer, startDate, endDate, manager)) {
             Meteor.call('updateProject', this._id, {
                 'id': chargeNumber,
                 'name': name,
                 'customer': customer,
-                'start_date': startDate,
-                'end_date': endDate,
+                'startDate': startDate,
+                'endDate': endDate,
                 'is_holiday': project.is_holiday,
                 'indirect': project.indirect,
                 'manager': manager
@@ -55,8 +55,8 @@ Template.projectInfo.events = {
         var chargeNumber = $(row).find('#charge_number')[0].value;
         var name = $(row).find('#project_name')[0].value;
         var customer = $(row).find('#customer')[0].value;
-        var startDate = $(row).find('#start_date')[0].value;
-        var endDate = $(row).find('#end_date')[0].value;
+        var startDate = $(row).find('#startDate')[0].value;
+        var endDate = $(row).find('#endDate')[0].value;
         var manager = $(row).find('select')[0].value;
 
         var project = ChargeNumbers.findOne({'_id': row.id});
@@ -66,8 +66,8 @@ Template.projectInfo.events = {
                 'id': chargeNumber,
                 'name': name,
                 'customer': customer,
-                'start_date': startDate,
-                'end_date': endDate,
+                'startDate': startDate,
+                'endDate': endDate,
                 'is_holiday': project.is_holiday,
                 'indirect': project.indirect,
                 'manager': manager
@@ -92,8 +92,8 @@ Template.projectInfo.events = {
         var chargeNumber = $(row).find('#charge_number')[0].value;
         var name = $(row).find('#project_name')[0].value;
         var customer = $(row).find('#customer')[0].value;
-        var startDate = $(row).find('#start_date')[0].value;
-        var endDate = $(row).find('#end_date')[0].value;
+        var startDate = $(row).find('#startDate')[0].value;
+        var endDate = $(row).find('#endDate')[0].value;
         var manager = $(row).find('#manager')[0].value;
 
         var project = ChargeNumbers.findOne({'_id': row.id});
@@ -102,8 +102,8 @@ Template.projectInfo.events = {
                 'id': chargeNumber,
                 'name': name,
                 'customer': customer,
-                'start_date': startDate,
-                'end_date': endDate,
+                'startDate': startDate,
+                'endDate': endDate,
                 'is_holiday': project.is_holiday,
                 'indirect': true,
                 'manager': manager
@@ -118,17 +118,17 @@ Template.projectInfo.events = {
 };
 
 Template.projectInfo.rendered = function(){
-    $.each($('[id=start_date]'), function(index, value){
+    $.each($('[id=startDate]'), function(index, value){
         $(value).datepicker({autoclose: true, todayHighlight: true});
     });
-    $.each($('[id=end_date]'), function(index, value){
+    $.each($('[id=endDate]'), function(index, value){
         $(value).datepicker({autoclose: true, todayHighlight: true});
     });
 };
 
 Template.addProject.rendered = function(){
-    $('#start_date').datepicker({orientation: 'top auto', autoclose: true, todayHighlight: true});
-    $('#end_date').datepicker({orientation: 'top auto', autoclose: true, todayHighlight: true});
+    $('#startDate').datepicker({orientation: 'top auto', autoclose: true, todayHighlight: true});
+    $('#endDate').datepicker({orientation: 'top auto', autoclose: true, todayHighlight: true});
 };
 
 Template.addProject.events = {
@@ -136,12 +136,12 @@ Template.addProject.events = {
         var row = event.currentTarget.parentNode.parentNode;
         var chargeNumber = $(row).find('#charge_number')[0].value;
         var name = $(row).find('#project_name')[0].value;
-        var startDate = $(row).find('#start_date')[0].value;
-        var endDate = $(row).find('#end_date')[0].value;
+        var startDate = $(row).find('#startDate')[0].value;
+        var endDate = $(row).find('#endDate')[0].value;
         var manager = $(row).find('#manager')[0].value;
         var customer = $(row).find('#customer')[0].value;
 
-        ProjectService.removeErrorClasses(row, ['#charge_number', '#project_name', '#start_date', '#end_date','#manager']);
+        ProjectService.removeErrorClasses(row, ['#charge_number', '#project_name', '#startDate', '#endDate','#manager']);
 
         if (chargeNumber === 'Indirect') {
             if(ProjectService.ensureValidIndirectProject(row, chargeNumber, customer, name, manager)) {
@@ -160,16 +160,16 @@ Template.addProject.events = {
                     'id': chargeNum.toString(),
                     'name': name,
                     'customer': customer,
-                    'start_date': startDate,
-                    'end_date': endDate,
+                    'startDate': startDate,
+                    'endDate': endDate,
                     'manager': manager,
                     'indirect': true
             });
             $(row).find('#charge_number')[0].value = '';
             $(row).find('#project_name')[0].value = '';
             $(row).find('#customer')[0].value = '';
-            $(row).find('#start_date')[0].value = '';
-            $(row).find('#end_date')[0].value = '';
+            $(row).find('#startDate')[0].value = '';
+            $(row).find('#endDate')[0].value = '';
             $(row).find('#manager')[0].value = '';
         }
         } else {
@@ -178,16 +178,16 @@ Template.addProject.events = {
                 'id': chargeNumber,
                 'name': name,
                 'customer': customer,
-                'start_date': startDate,
-                'end_date': endDate,
+                'startDate': startDate,
+                'endDate': endDate,
                 'manager': manager,
                 'indirect': false
             });
             $(row).find('#charge_number')[0].value = '';
             $(row).find('#project_name')[0].value = '';
             $(row).find('#customer')[0].value = '';
-            $(row).find('#start_date')[0].value = '';
-            $(row).find('#end_date')[0].value = '';
+            $(row).find('#startDate')[0].value = '';
+            $(row).find('#endDate')[0].value = '';
             $(row).find('#manager')[0].value = '';
         }
     }
@@ -201,8 +201,8 @@ Template.addProject.events = {
         var row = event.currentTarget.parentNode.parentNode;
         $(row).find('#charge_number')[0].value = '';
         $(row).find('#charge_number')[0].disabled = false;
-        $(row).find('#start_date')[0].disabled = false;
-        $(row).find('#end_date')[0].disabled = false;
+        $(row).find('#startDate')[0].disabled = false;
+        $(row).find('#endDate')[0].disabled = false;
     }
 };
 
@@ -229,10 +229,10 @@ Template.archivedProjectsEntries.helpers({
 });
 
 Template.indirectInfo.rendered = function(){
-    $.each($('[id=start_date]'), function(index, value){
+    $.each($('[id=startDate]'), function(index, value){
         $(value).datepicker({autoclose: true, todayHighlight: true});
     });
-    $.each($('[id=end_date]'), function(index, value){
+    $.each($('[id=endDate]'), function(index, value){
         $(value).datepicker({autoclose: true, todayHighlight: true});
     });
 };
@@ -243,8 +243,8 @@ Template.indirectChargeItems.events({
         var name =  $(row).find('#project_name')[0].value;
         var _id=row.id;
         var customer = $(row).find('#customer')[0].value;
-        var startDate = $(row).find('#start_date')[0].value;
-        var endDate = $(row).find('#end_date')[0].value;
+        var startDate = $(row).find('#startDate')[0].value;
+        var endDate = $(row).find('#endDate')[0].value;
         var manager = $(row).find('#manager')[0].value;
 
         var project = ChargeNumbers.findOne({'_id': _id});
@@ -253,8 +253,8 @@ Template.indirectChargeItems.events({
                 'id': project.id,
                 'name': name,
                 'customer': customer,
-                'start_date': startDate,
-                'end_date': endDate,
+                'startDate': startDate,
+                'endDate': endDate,
                 'manager': manager,
                 'is_holiday': project.is_holiday,
                 'indirect': project.indirect
@@ -274,8 +274,8 @@ Template.indirectChargeItems.events({
         var row = event.currentTarget.parentNode.parentNode;
         var name = $(row).find('#project_name')[0].value;
         var customer = $(row).find('#customer')[0].value;
-        var startDate = $(row).find('#start_date')[0].value;
-        var endDate = $(row).find('#end_date')[0].value;
+        var startDate = $(row).find('#startDate')[0].value;
+        var endDate = $(row).find('#endDate')[0].value;
         var manager = $(row).find('#manager')[0].value;
 
         var project = ChargeNumbers.findOne({'_id': row.id});
@@ -284,8 +284,8 @@ Template.indirectChargeItems.events({
                 'id': project.id,
                 'name': name,
                 'customer': customer,
-                'start_date': startDate,
-                'end_date': endDate,
+                'startDate': startDate,
+                'endDate': endDate,
                 'is_holiday': project.is_holiday,
                 'indirect': false,
                 'manager': manager

@@ -156,13 +156,13 @@ Template.employeeSettings.helpers({
         toReturn.push({
           id: cn._id,
           text: 'Indirect   ( ' + cn.name + ' )',
-          end_date: dateObj.getMonth() + '/' + dateObj.getDate() + '/' + dateObj.getFullYear() + 1
+          endDate: dateObj.getMonth() + '/' + dateObj.getDate() + '/' + dateObj.getFullYear() + 1
         });
       } else {
         toReturn.push({
           id: cn._id,
           text: cn.id + '   ( ' + cn.name + ' )',
-          end_date: cn.end_date
+          endDate: cn.endDate
         });
       }
     });
