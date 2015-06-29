@@ -7,13 +7,16 @@ meteor-platform
 mizzao:bootstrap-3
 rajit:bootstrap3-datepicker
 velocity:html-reporter
-percolatestudio:synced-cron
 email
 
 sergeyt:typeahead
 typ:ldapjs
-mike:mocha
 accounts-base
 accounts-ui
 tsega:bootstrap3-datetimepicker
 gadicohen:headers
+jag:pince
+percolate:synced-cron
+msavin:mongol
+msavin:jetsetter
+mike:mocha@0.6.0

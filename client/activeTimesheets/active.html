@@ -1,332 +1,471 @@
 <template name="SelectedTimesheet">
-    <div class="container-fluid">
-        {{#if isEditing}}
-            <div class="row">
-                <div class="col-xs-12 alert-editing">
-                    You are editing {{employeeName}}'s timesheet.
-                </div>
-            </div>
-        {{/if}}
-        <div class="row">
-            <button class="btn btn-default" id='back'> <span class='glyphicon glyphicon-chevron-left'></span></button>
-            <h2 style= 'display: inline-block;'><span class="label">{{date}}</span></h2>
+  <div class="container-fluid">
+    {{#if isEditing}}
+      <div class="row">
+        <div class="col-xs-12 alert-editing">
+          You are editing {{employeeName}}'s timesheet.
         </div>
-        <br>
-        <div class="row hidden-sm hidden-xs no-gutter">
-            <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4 style='font-weight: bold;'>Project</h4></div>
-            {{>daysOfWeek}}
-            <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4>Comment</h4></div>
-        </div>
-        <div class="col-xs-12 hidden-lg hidden-md"><h3>Project Time</h3></div>
-        {{#each row}}
-            {{> projectHoursFilled}}
-        {{/each}}
-        <br>
-        {{> totals}}
-        <br>
-        <!--this will return one field always-->
-        <hr class="hidden-lg hidden-md">
-        <br class="hidden-lg hidden-md">
-        {{#each timesheethack}}
-            {{> projectHoursWrapper}}
-        {{/each}}
-        <hr>
-        <hr class="hidden-lg hidden-md">
-        <br class="hidden-lg hidden-md">
-        <div class="col-xs-12 hidden-lg hidden-md"><h3>Project Comments</h3></div>
-        <div class="row hidden-sm hidden-xs">
-            <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4>Project</h4></div>
-            <div class="text-center col-md-3 col-sm-3 col-xs-3"><h4>This Week's Issues</h4></div>
-            <div class="text-center col-md-3 col-sm-3 col-xs-3"><h4>Goals for Next Week</h4></div>
-            <div class="text-center col-md-1 col-sm-3 col-xs-3"><h4>Hours</h4></div>
-            <div class="text-center col-md-3 col-sm-4 col-xs-4"><h4>Manager Feedback</h4></div>
-        </div>
-        {{#each project}}
-            {{> projectComments}}
-        {{/each}}
-        <br>
-        <hr class="hidden-lg hidden-md">
-        <br class="hidden-lg hidden-md">
-        <div class="col-xs-12 hidden-lg hidden-md"><h3>Weekly Comments</h3></div>
-        {{> lastSection}}
-        <br class="hidden-lg hidden-md">
-        <br class="hidden-lg hidden-md">
+      </div>
+    {{/if}}
+    <div class="row">
+      <button class="btn btn-default" id='back'><span
+          class='glyphicon glyphicon-chevron-left'></span></button>
+      <h2 style='display: inline-block;'><span
+          class="label">{{date}}</span></h2>
     </div>
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Add Row Warning</h4>
-                </div>
-                <div class="modal-body">
-                    <p>You have unadded content. Do you want to continue with your submission?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="modal_yes" data-dismiss="modal">Yes</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-    <div class="modal fade" id="confirmSubmitModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Submit Confirmation</h4>
-                </div>
-                <div class="modal-body">
-                    <p>Are you sure you want to submit this time sheet?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="confirmSubmitModal_yes" data-dismiss="modal">Yes</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-    <div class="toast">All changes have been saved...</div>
+    <br>
+
+    <div class="row hidden-sm hidden-xs no-gutter">
+      <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4
+          style='font-weight: bold;'>Project</h4></div>
+      {{>daysOfWeek}}
+      <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4>Comment</h4>
+      </div>
+    </div>
+    <div class="col-xs-12 hidden-lg hidden-md"><h3>Project Time</h3></div>
+    {{#each row}}
+      {{> projectHoursFilled}}
+    {{/each}}
+    <br>
+    {{> totals}}
+    <br>
+    <!--this will return one field always-->
+    <hr class="hidden-lg hidden-md">
+    <br class="hidden-lg hidden-md">
+    {{#each timesheethack}}
+      {{> projectHoursWrapper}}
+    {{/each}}
+    <hr>
+    <hr class="hidden-lg hidden-md">
+    <br class="hidden-lg hidden-md">
+
+    <div class="col-xs-12 hidden-lg hidden-md"><h3>Project Comments</h3>
+    </div>
+    <div class="row hidden-sm hidden-xs">
+      <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4>Project</h4>
+      </div>
+      <div class="text-center col-md-3 col-sm-3 col-xs-3"><h4>This Week's
+        Issues</h4></div>
+      <div class="text-center col-md-3 col-sm-3 col-xs-3"><h4>Goals for
+        Next Week</h4></div>
+      <div class="text-center col-md-1 col-sm-3 col-xs-3"><h4>Hours</h4>
+      </div>
+      <div class="text-center col-md-3 col-sm-4 col-xs-4"><h4>Manager
+        Feedback</h4></div>
+    </div>
+    {{#each project}}
+      {{> projectComments}}
+    {{/each}}
+    <br>
+    <hr class="hidden-lg hidden-md">
+    <br class="hidden-lg hidden-md">
+
+    <div class="col-xs-12 hidden-lg hidden-md"><h3>Weekly Comments</h3>
+    </div>
+    {{> lastSection}}
+    <br class="hidden-lg hidden-md">
+    <br class="hidden-lg hidden-md">
+  </div>
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+       aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add Row Warning</h4>
+        </div>
+        <div class="modal-body">
+          <p>You have unadded content. Do you want to continue with
+            your submission?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="modal_yes"
+                  data-dismiss="modal">Yes
+          </button>
+          <button type="button" class="btn btn-default"
+                  data-dismiss="modal">No
+          </button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+  <div class="modal fade" id="confirmSubmitModal" tabindex="-1" role="dialog"
+       aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Submit Confirmation</h4>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to submit this time sheet?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary"
+                  id="confirmSubmitModal_yes" data-dismiss="modal">Yes
+          </button>
+          <button type="button" class="btn btn-default"
+                  data-dismiss="modal">No
+          </button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+  <div class="toast">All changes have been saved...</div>
 </template>
 
 
 <template name="lastSection">
-    <div class="row commentRow no-gutter">
-        <div class="col-md-6 col-xs-12">
-            <h4>General Comment</h4>
-            <input id="generalComment" type="text" class="large-input form-control" value={{genComment}}>
-        </div>
-        <div class="col-md-6 col-xs-12">
-            <h4>Concerns</h4>
-            <input id="concerns" type="text" class="large-input form-control" value={{concerns}}>
-        </div>
-
-        {{#if isEditing}}
-            <div class="row col-xs-12">
-                <button type="button" id="acceptButton" class="btn btn-success approve pull-right">Approve Timesheet
-                </button>
-            </div>
-            <div class="row">
-                <div class="col-xs-12"><h4>Reason For Rejection</h4></div>
-                <div class="col-xs-9"><input id="rejectComment" type="text" class="large-input form-control"></div>
-                <div class="col-xs-3">
-                    <button type="button" id="rejectButton" class="btn btn-danger reject pull-right">Reject Timesheet
-                    </button>
-                </div>
-            </div>
-        {{else}}
-            <div class="row col-xs-12">
-                <button type="button" id="submitButton" class="btn btn-primary enterable submit pull-right">Submit
-                </button>
-            </div>
-        {{/if}}
-
+  <div class="row commentRow no-gutter">
+    <div class="col-md-6 col-xs-12">
+      <h4>General Comment</h4>
+      <input id="generalComment" type="text"
+             class="large-input form-control" value={{genComment}}>
     </div>
+    <div class="col-md-6 col-xs-12">
+      <h4>Concerns</h4>
+      <input id="concerns" type="text" class="large-input form-control"
+             value={{concerns}}>
+    </div>
+
+    {{#if isEditing}}
+      <div class="row col-xs-12">
+        <button type="button" id="acceptButton"
+                class="btn btn-success approve pull-right">Approve
+          Timesheet
+        </button>
+      </div>
+      <div class="row">
+        <div class="col-xs-12"><h4>Reason For Rejection</h4></div>
+        <div class="col-xs-9"><input id="rejectComment" type="text"
+                                     class="large-input form-control">
+        </div>
+        <div class="col-xs-3">
+          <button type="button" id="rejectButton"
+                  class="btn btn-danger reject pull-right">Reject
+            Timesheet
+          </button>
+        </div>
+      </div>
+    {{else}}
+      <div class="row col-xs-12">
+        <button type="button" id="submitButton"
+                class="btn btn-primary enterable submit pull-right">
+          Submit
+        </button>
+      </div>
+    {{/if}}
+
+  </div>
 </template>
 <template name="daysOfWeek">
-    <div class="col-xs-1 text-center"><h4>Sun{{day_date 0}}</h4></div>
-    <div class="col-xs-1 text-center"><h4>Mon{{day_date 1}}</h4></div>
-    <div class="col-xs-1 text-center"><h4>Tue{{day_date 2}}</h4></div>
-    <div class="col-xs-1 text-center"><h4>Wed{{day_date 3}}</h4></div>
-    <div class="col-xs-1 text-center"><h4>Thu{{day_date 4}}</h4></div>
-    <div class="col-xs-1 text-center"><h4>Fri{{day_date 5}}</h4></div>
-    <div class="col-xs-1 text-center"><h4>Sat{{day_date 6}}</h4></div>
+  <div class="col-xs-1 text-center"><h4>Sun{{day_date 0}}</h4></div>
+  <div class="col-xs-1 text-center"><h4>Mon{{day_date 1}}</h4></div>
+  <div class="col-xs-1 text-center"><h4>Tue{{day_date 2}}</h4></div>
+  <div class="col-xs-1 text-center"><h4>Wed{{day_date 3}}</h4></div>
+  <div class="col-xs-1 text-center"><h4>Thu{{day_date 4}}</h4></div>
+  <div class="col-xs-1 text-center"><h4>Fri{{day_date 5}}</h4></div>
+  <div class="col-xs-1 text-center"><h4>Sat{{day_date 6}}</h4></div>
 </template>
 <template name="activeTimesheets">
-    <div class="container-fluid">
-        <h2><span class="label">Active Time Sheets</span></h2>
+  <div class="container-fluid">
+    <h2><span class="label">Active Time Sheets</span></h2>
 
-        <div class="row hidden-xs">
-            <div class="col-md-2 col-sm-2 text-center"><h4>Start Date</h4></div>
-            {{>daysOfWeek}}
-        </div>
-        {{#each getTimesheets}}
-            {{> timesheetInfo}}
-        {{/each}}
-
+    <div class="row hidden-xs">
+      <div class="col-md-2 col-sm-2 text-center"><h4>Start Date</h4></div>
+      {{>daysOfWeek}}
     </div>
+    {{#each getTimesheets}}
+      {{> timesheetInfo}}
+    {{/each}}
+
+  </div>
 </template>
 <template name="projectHoursWrapper">
-    <div class="hidden-xs hidden-sm">
-        {{> projectHours }}
+  <div class="hidden-xs hidden-sm">
+    {{> projectHours }}
+  </div>
+  <div class="hidden-md hidden-lg well">
+    <div class="row">
+      <div class="col-xs-12"><h3>Add Time</h3></div>
     </div>
-    <div class="hidden-md hidden-lg well">
-        <div class="row">
-            <div class="col-xs-12"><h3>Add Time</h3></div>
-        </div>
-        {{> projectHours }}
-    </div>
+    {{> projectHours }}
+  </div>
 </template>
 <template name="projectHours">
-    <div class="row add_row no-gutter">
-        <div class="col-xs-12 hidden-md hidden-lg"><h4>Project</h4></div>
-        <div class="filledRow col-md-2 col-sm-6 col-xs-12" id="projectFilledDrop">{{> projectListDropDown}}</div>
-        <div class="clearfix visible-sm-block visible-xs-block"></div>
-        <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Sun{{day_date 0}}</h5></div>
-        <div class="col-xs-4 col-sm-2 col-md-1"><input id="Sunday" type="text"
-                                              class="large-input form-control enterable {{sentBack}}" value=""></div>
-        <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Mon{{day_date 1}}</h5></div>
-        <div class="col-xs-4 col-sm-2 col-md-1 pull-xs-right"><input id="Monday" type="text"
-                                                            class="large-input form-control enterable {{sentBack}}"
-                                                            value=""></div>
-        <div class="clearfix visible-xs-block"></div>
-        <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Tue{{day_date 2}}</h5></div>
-        <div class="col-xs-4 col-sm-2 col-md-1"><input id="Tuesday" type="text"
-                                              class="large-input form-control enterable {{sentBack}}" value=""></div>
-        <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Wed{{day_date 3}}</h5></div>
-        <div class="col-xs-4 col-sm-2 col-md-1 pull-xs-right"><input id="Wednesday" type="text"
-                                                            class="large-input form-control enterable {{sentBack}}"
-                                                            value=""></div>
-        <div class="clearfix visible-xs-block visible-sm-block"></div>
-        <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Thu{{day_date 4}}</h5></div>
-        <div class="col-xs-4 col-sm-2 col-md-1"><input id="Thursday" type="text"
-                                              class="large-input form-control enterable {{sentBack}}" value=""></div>
-        <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Fri{{day_date 5}}</h5></div>
-        <div class="col-xs-4 col-sm-2 col-md-1 pull-xs-right"><input id="Friday" type="text"
-                                                            class="large-input form-control enterable {{sentBack}}"
-                                                            value=""></div>
-        <div class="clearfix visible-xs-block"></div>
-        <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Sat{{day_date 6}}</h5></div>
-        <div class="col-xs-4 col-sm-2 col-md-1"><input id="Saturday" type="text"
-                                              class="large-input form-control enterable {{sentBack}}" value=""></div>
-        <div class="clearfix visible-xs-block"></div>
-        <div class="col-xs-11 col-sm-12 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg"><h5>Comment</h5></div>
-        <div class="col-md-2 col-sm-offset-0 col-xs-offset-1 col-xs-11 col-sm-11 pull-xs-right"><input id="Comment" type="text"
-                                                                                             class="large-input form-control enterable {{sentBack}}"
-                                                                                             value=""></div>
-        <div class="col-md-1 col-sm-1 col-xs-12">
-            <button type="button" class="btn btn-primary enterable {{sentBack}} pull-right">Add</button>
-        </div>
+  <div class="row add_row no-gutter">
+    <div class="col-xs-12 hidden-md hidden-lg"><h4>Project</h4></div>
+    <div class="filledRow col-md-2 col-sm-6 col-xs-12"
+         id="projectFilledDrop">{{> projectListDropDown}}</div>
+    <div class="clearfix visible-sm-block visible-xs-block"></div>
+    <div
+        class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right">
+      <h5>Sun{{day_date 0}}</h5></div>
+    <div class="col-xs-4 col-sm-2 col-md-1"><input id="Sunday" type="text"
+                                                   class="large-input form-control enterable {{sentBack}}"
+                                                   value=""></div>
+    <div
+        class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right">
+      <h5>Mon{{day_date 1}}</h5></div>
+    <div class="col-xs-4 col-sm-2 col-md-1 pull-xs-right"><input id="Monday"
+                                                                 type="text"
+                                                                 class="large-input form-control enterable {{sentBack}}"
+                                                                 value="">
     </div>
+    <div class="clearfix visible-xs-block"></div>
+    <div
+        class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right">
+      <h5>Tue{{day_date 2}}</h5></div>
+    <div class="col-xs-4 col-sm-2 col-md-1"><input id="Tuesday" type="text"
+                                                   class="large-input form-control enterable {{sentBack}}"
+                                                   value=""></div>
+    <div
+        class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right">
+      <h5>Wed{{day_date 3}}</h5></div>
+    <div class="col-xs-4 col-sm-2 col-md-1 pull-xs-right"><input
+        id="Wednesday" type="text"
+        class="large-input form-control enterable {{sentBack}}"
+        value=""></div>
+    <div class="clearfix visible-xs-block visible-sm-block"></div>
+    <div
+        class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right">
+      <h5>Thu{{day_date 4}}</h5></div>
+    <div class="col-xs-4 col-sm-2 col-md-1"><input id="Thursday" type="text"
+                                                   class="large-input form-control enterable {{sentBack}}"
+                                                   value=""></div>
+    <div
+        class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right">
+      <h5>Fri{{day_date 5}}</h5></div>
+    <div class="col-xs-4 col-sm-2 col-md-1 pull-xs-right"><input id="Friday"
+                                                                 type="text"
+                                                                 class="large-input form-control enterable {{sentBack}}"
+                                                                 value="">
+    </div>
+    <div class="clearfix visible-xs-block"></div>
+    <div
+        class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right">
+      <h5>Sat{{day_date 6}}</h5></div>
+    <div class="col-xs-4 col-sm-2 col-md-1"><input id="Saturday" type="text"
+                                                   class="large-input form-control enterable {{sentBack}}"
+                                                   value=""></div>
+    <div class="clearfix visible-xs-block"></div>
+    <div
+        class="col-xs-11 col-sm-12 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg">
+      <h5>Comment</h5></div>
+    <div
+        class="col-md-2 col-sm-offset-0 col-xs-offset-1 col-xs-11 col-sm-11 pull-xs-right">
+      <input id="Comment" type="text"
+             class="large-input form-control enterable {{sentBack}}"
+             value=""></div>
+    <div class="col-md-1 col-sm-1 col-xs-12">
+      <button type="button"
+              class="btn btn-primary enterable {{sentBack}} pull-right">
+        Add
+      </button>
+    </div>
+  </div>
 </template>
 <template name="totals">
-    <div class="row">
-        <div class="col-xs-2 pull-left left-offset"><underline><strong>Totals</strong></underline></div>
-        <div class="col-xs-1 pull-left left-offset"><strong>{{getDayTotal 0}}</strong></div>
-        <div class="col-xs-1 pull-left left-offset"><strong>{{getDayTotal 1}}</strong></div>
-        <div class="col-xs-1 pull-left left-offset"><strong>{{getDayTotal 2}}</strong></div>
-        <div class="col-xs-1 pull-left left-offset"><strong>{{getDayTotal 3}}</strong></div>
-        <div class="col-xs-1 pull-left left-offset"><strong>{{getDayTotal 4}}</strong></div>
-        <div class="col-xs-1 pull-left left-offset"><strong>{{getDayTotal 5}}</strong></div>
-        <div class="col-xs-1 pull-left left-offset"><strong>{{getDayTotal 6}}</strong></div>
-        <div class="col-xs-3 pull-left hidden-sm hidden-xs left-offset"><strong>Weekly Total: {{getWeekTotal}}</strong></div>
-        <div class="col-xs-3 text-left hidden-md hidden-lg">|&nbsp;&nbsp;&nbsp;&nbsp;<b>{{getWeekTotal}}</b></div>
+  <div class="row">
+    <div class="col-xs-2 pull-left left-offset">
+      <underline><strong>Totals</strong></underline>
     </div>
+    <div class="col-xs-1 pull-left left-offset">
+      <strong>{{getDayTotal 0}}</strong></div>
+    <div class="col-xs-1 pull-left left-offset">
+      <strong>{{getDayTotal 1}}</strong></div>
+    <div class="col-xs-1 pull-left left-offset">
+      <strong>{{getDayTotal 2}}</strong></div>
+    <div class="col-xs-1 pull-left left-offset">
+      <strong>{{getDayTotal 3}}</strong></div>
+    <div class="col-xs-1 pull-left left-offset">
+      <strong>{{getDayTotal 4}}</strong></div>
+    <div class="col-xs-1 pull-left left-offset">
+      <strong>{{getDayTotal 5}}</strong></div>
+    <div class="col-xs-1 pull-left left-offset">
+      <strong>{{getDayTotal 6}}</strong></div>
+    <div class="col-xs-3 pull-left hidden-sm hidden-xs left-offset"><strong>Weekly
+      Total: {{getWeekTotal}}</strong></div>
+    <div class="col-xs-3 text-left hidden-md hidden-lg">|&nbsp;&nbsp;&nbsp;&nbsp;<b>{{getWeekTotal}}</b>
+    </div>
+  </div>
 </template>
 <template name="projectComments">
-    <div class="row top-buffer projectCommentsRow no-gutter">
-        <div class="col-md-12 hidden-lg hidden-md"><h4>Project</h4></div>
-        <div class="col-md-2 col-sm-12" id={{project}}><input id="project_comments_name" type="text"
-                                                              class="large-input form-control" readonly
-                                                              value={{name project}}></div>
-        <div class="col-xs-11 col-sm-offset-1 col-xs-offset-1 hidden-lg hidden-md">This Week's Issues</div>
-        <div class="col-md-3 col-xs-11 col-md-offset-0 col-xs-offset-1"><input id="Issues" type="text"
-                                                                               class="large-input form-control enterable {{sentBack}}"
-                                                                               value={{issues project}}></div>
-        <div class="col-xs-11 col-sm-offset-1 col-xs-offset-1 hidden-lg hidden-md">Goals for Next Week</div>
-        <div class="col-md-3 col-xs-11 col-md-offset-0 col-xs-offset-1"><input id="Next" type="text"
-                                                                               class="large-input form-control enterable {{sentBack}}"
-                                                                               value={{next project}}></div>
-        <div class="col-xs-11 col-sm-offset-1 col-xs-offset-1 hidden-lg hidden-md">Hours</div>
-        <div class="col-md-1 col-xs-11 col-md-offset-0 col-xs-offset-1"><input id="hoursBox" type="text"
-                                                                               class="large-input form-control" disabled
-                                                                               value={{hours project}}></div>
-        <div class="col-xs-11 col-sm-offset-1 col-xs-offset-1 hidden-lg hidden-md">Manager Feedback</div>
-        <div class="col-md-3 col-xs-11 col-md-offset-0 col-xs-offset-1"><input id="managerFeedback" type="text"
-                                                                               class="large-input form-control" disabled
-                                                                               value={{message project}}></div>
+  <div class="row top-buffer projectCommentsRow no-gutter">
+    <div class="col-md-12 hidden-lg hidden-md"><h4>Project</h4></div>
+    <div class="col-md-2 col-sm-12" id={{project}}><input
+        id="project_comments_name" type="text"
+        class="large-input form-control" readonly
+        value={{name project}}></div>
+    <div class="col-xs-11 col-sm-offset-1 col-xs-offset-1 hidden-lg hidden-md">
+      This Week's Issues
     </div>
+    <div class="col-md-3 col-xs-11 col-md-offset-0 col-xs-offset-1"><input
+        id="Issues" type="text"
+        class="large-input form-control enterable {{sentBack}}"
+        value={{issues project}}></div>
+    <div class="col-xs-11 col-sm-offset-1 col-xs-offset-1 hidden-lg hidden-md">
+      Goals for Next Week
+    </div>
+    <div class="col-md-3 col-xs-11 col-md-offset-0 col-xs-offset-1"><input
+        id="Next" type="text"
+        class="large-input form-control enterable {{sentBack}}"
+        value={{next project}}></div>
+    <div class="col-xs-11 col-sm-offset-1 col-xs-offset-1 hidden-lg hidden-md">
+      Hours
+    </div>
+    <div class="col-md-1 col-xs-11 col-md-offset-0 col-xs-offset-1"><input
+        id="hoursBox" type="text"
+        class="large-input form-control" disabled
+        value={{hours project}}></div>
+    <div class="col-xs-11 col-sm-offset-1 col-xs-offset-1 hidden-lg hidden-md">
+      Manager Feedback
+    </div>
+    <div class="col-md-3 col-xs-11 col-md-offset-0 col-xs-offset-1"><input
+        id="managerFeedback" type="text"
+        class="large-input form-control" disabled
+        value={{message project}}></div>
+  </div>
 </template>
 <template name="projectHoursFilled">
-    <div class="row top-buffer no-gutter" id={{rowID}}>
-        <div class="col-xs-12 hidden-md hidden-lg"><h4>Project</h4></div>
-        <div class="filledRow col-md-2 col-sm-6 col-xs-12" id="projectFilledDrop">{{> projectListDropDown}}</div>
-        <div class="clearfix visible-sm-block visible-xs-block"></div>
-        <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Sun{{day_date 0}}</h5></div>
-        <div class="filledRow col-xs-4 col-sm-2 col-md-1"><input id="Sunday" type="text"
-                                                        class="large-input form-control enterable {{sentBack}}"
-                                                        value={{sunday}}></div>
-        <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Mon{{day_date 1}}</h5></div>
-        <div class="filledRow col-xs-4 col-md-1 col-sm-2 pull-xs-right"><input id="Monday" type="text"
-                                                                      class="large-input form-control enterable {{sentBack}}"
-                                                                      value={{monday}}></div>
-        <div class="clearfix visible-xs-block"></div>
-        <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Tue{{day_date 2}}</h5></div>
-        <div class="filledRow col-xs-4 col-sm-2 col-md-1"><input id="Tuesday" type="text"
-                                                        class="large-input form-control enterable {{sentBack}}"
-                                                        value={{tuesday}}></div>
-        <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Wed{{day_date 3}}</h5></div>
-        <div class="filledRow col-xs-4 col-sm-2 col-md-1 pull-xs-right"><input id="Wednesday" type="text"
-                                                                      class="large-input form-control enterable {{sentBack}}"
-                                                                      value={{wednesday}}></div>
-        <div class="clearfix visible-xs-block visible-sm-block"></div>
-        <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Thu{{day_date 4}}</h5></div>
-        <div class="filledRow col-xs-4 col-sm-2 col-md-1"><input id="Thursday" type="text"
-                                                        class="large-input form-control enterable {{sentBack}}"
-                                                        value={{thursday}}></div>
-        <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Fri{{day_date 5}}</h5></div>
-        <div class="filledRow col-xs-4 col-sm-2 col-md-1 pull-xs-right"><input id="Friday" type="text"
-                                                                      class="large-input form-control enterable {{sentBack}}"
-                                                                      value={{friday}}></div>
-        <div class="clearfix visible-xs-block"></div>
-        <div class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right"><h5>Sat{{day_date 6}}</h5></div>
-        <div class="filledRow col-xs-4 col-sm-2 col-md-1"><input id="Saturday" type="text"
-                                                        class="large-input form-control enterable {{sentBack}}"
-                                                        value={{saturday}}></div>
-        <div class="clearfix visible-xs-block"></div>
-        <div class="col-xs-11 col-sm-12 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg"><h5>Comment</h5></div>
-        <div class="filledRow col-md-2 col-sm-offset-0 col-xs-offset-1 col-xs-11 col-sm-11 pull-xs-right"><input id="Comment"
-                                                                                                       type="text"
-                                                                                                       class="large-input form-control enterable {{sentBack}}"
-                                                                                                       value={{comment}}>
-        </div>
-        <div class="col-md-1 col-xs-12 col-sm-1">
-            <button type="button" class="btn btn-primary enterable {{sentBack}} pull-right">Delete</button>
-        </div>
+  <div class="row top-buffer no-gutter" id={{rowID}}>
+    <div class="col-xs-12 hidden-md hidden-lg"><h4>Project</h4></div>
+    <div class="filledRow col-md-2 col-sm-6 col-xs-12"
+         id="projectFilledDrop">{{> projectListDropDown}}</div>
+    <div class="clearfix visible-sm-block visible-xs-block"></div>
+    <div
+        class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right">
+      <h5>Sun{{day_date 0}}</h5></div>
+    <div class="filledRow col-xs-4 col-sm-2 col-md-1"><input id="Sunday"
+                                                             type="text"
+                                                             class="large-input form-control enterable {{sentBack}}"
+                                                             value={{sunday}}>
     </div>
+    <div
+        class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right">
+      <h5>Mon{{day_date 1}}</h5></div>
+    <div class="filledRow col-xs-4 col-md-1 col-sm-2 pull-xs-right"><input
+        id="Monday" type="text"
+        class="large-input form-control enterable {{sentBack}}"
+        value={{monday}}></div>
+    <div class="clearfix visible-xs-block"></div>
+    <div
+        class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right">
+      <h5>Tue{{day_date 2}}</h5></div>
+    <div class="filledRow col-xs-4 col-sm-2 col-md-1"><input id="Tuesday"
+                                                             type="text"
+                                                             class="large-input form-control enterable {{sentBack}}"
+                                                             value={{tuesday}}>
+    </div>
+    <div
+        class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right">
+      <h5>Wed{{day_date 3}}</h5></div>
+    <div class="filledRow col-xs-4 col-sm-2 col-md-1 pull-xs-right"><input
+        id="Wednesday" type="text"
+        class="large-input form-control enterable {{sentBack}}"
+        value={{wednesday}}></div>
+    <div class="clearfix visible-xs-block visible-sm-block"></div>
+    <div
+        class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right">
+      <h5>Thu{{day_date 4}}</h5></div>
+    <div class="filledRow col-xs-4 col-sm-2 col-md-1"><input id="Thursday"
+                                                             type="text"
+                                                             class="large-input form-control enterable {{sentBack}}"
+                                                             value={{thursday}}>
+    </div>
+    <div
+        class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right">
+      <h5>Fri{{day_date 5}}</h5></div>
+    <div class="filledRow col-xs-4 col-sm-2 col-md-1 pull-xs-right"><input
+        id="Friday" type="text"
+        class="large-input form-control enterable {{sentBack}}"
+        value={{friday}}></div>
+    <div class="clearfix visible-xs-block"></div>
+    <div
+        class="col-xs-1 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg text-right">
+      <h5>Sat{{day_date 6}}</h5></div>
+    <div class="filledRow col-xs-4 col-sm-2 col-md-1"><input id="Saturday"
+                                                             type="text"
+                                                             class="large-input form-control enterable {{sentBack}}"
+                                                             value={{saturday}}>
+    </div>
+    <div class="clearfix visible-xs-block"></div>
+    <div
+        class="col-xs-11 col-sm-12 col-xs-offset-1 col-sm-offset-0 hidden-md hidden-lg">
+      <h5>Comment</h5></div>
+    <div
+        class="filledRow col-md-2 col-sm-offset-0 col-xs-offset-1 col-xs-11 col-sm-11 pull-xs-right">
+      <input id="Comment"
+             type="text"
+             class="large-input form-control enterable {{sentBack}}"
+             value={{comment}}>
+    </div>
+    <div class="col-md-1 col-xs-12 col-sm-1">
+      <button type="button"
+              class="btn btn-primary enterable {{sentBack}} pull-right">
+        Delete
+      </button>
+    </div>
+  </div>
 </template>
 <template name="timesheetInfo">
-    <div class="row">
-        <div class="col-xs-12 text-left visible-xs"><h4>Start Date</h4></div>
-        <div class="col-sm-2 col-xs-8"><input id="StartDate" type="text" class="large-input form-control"
-                                              value={{startDate}} readonly></div>
-        <div class="clearfix visible-xs-block"></div>
-        <div class="col-xs-3 text-center visible-xs-block"><h5>Sun</h5></div>
-        <div class="col-xs-3 text-center visible-xs-block"><h5>Mon</h5></div>
-        <div class="col-xs-3 text-center visible-xs-block"><h5>Tue</h5></div>
-        <div class="col-xs-3 text-center visible-xs-block"><h5>Wed</h5></div>
-        <div class="clearfix visible-xs-block"></div>
-        <div class="col-sm-1 col-xs-3"><input id="Sunday" type="text" class="form-control"
-                                              value="{{sun}}" readonly></div>
-        <div class="col-sm-1 col-xs-3"><input id="Monday" type="text" class="form-control"
-                                              value="{{mon}}" readonly></div>
-        <div class="col-sm-1 col-xs-3"><input id="Tuesday" type="text" class="form-control"
-                                              value="{{tue}}" readonly></div>
-        <div class="col-sm-1 col-xs-3"><input id="Wednesday" type="text" class="form-control"
-                                              value="{{wed}}" readonly></div>
-        <div class="clearfix visible-xs-block"></div>
-        <div class="col-xs-3 text-center visible-xs-block"><h5>Thu</h5></div>
-        <div class="col-xs-3 text-center visible-xs-block"><h5>Fri</h5></div>
-        <div class="col-xs-3 text-center visible-xs-block"><h5>Sat</h5></div>
-        <div class="clearfix visible-xs-block"></div>
-        <div class="col-sm-1 col-xs-3"><input id="Thursday" type="text" class="form-control"
-                                              value="{{thu}}" readonly></div>
-        <div class="col-sm-1 col-xs-3"><input id="Friday" type="text" class="form-control"
-                                              value="{{fri}}" readonly></div>
-        <div class="col-sm-1 col-xs-3"><input id="Saturday" type="text" class="form-control"
-                                              value="{{sat}}" readonly></div>
-        <div class="col-sm-2 col-xs-3">
-            <button type="button" class="btn btn-primary">Edit</button>
-        </div>
+  <div class="row">
+    <div class="col-xs-12 text-left visible-xs"><h4>Start Date</h4></div>
+    <div class="col-sm-2 col-xs-8"><input id="StartDate" type="text"
+                                          class="large-input form-control"
+                                          value={{startDate}} readonly>
     </div>
-    <hr class="visible-xs-block">
+    <div class="clearfix visible-xs-block"></div>
+    <div class="col-xs-3 text-center visible-xs-block"><h5>Sun</h5></div>
+    <div class="col-xs-3 text-center visible-xs-block"><h5>Mon</h5></div>
+    <div class="col-xs-3 text-center visible-xs-block"><h5>Tue</h5></div>
+    <div class="col-xs-3 text-center visible-xs-block"><h5>Wed</h5></div>
+    <div class="clearfix visible-xs-block"></div>
+    <div class="col-sm-1 col-xs-3"><input id="Sunday" type="text"
+                                          class="form-control"
+                                          value="{{sun}}" readonly></div>
+    <div class="col-sm-1 col-xs-3"><input id="Monday" type="text"
+                                          class="form-control"
+                                          value="{{mon}}" readonly></div>
+    <div class="col-sm-1 col-xs-3"><input id="Tuesday" type="text"
+                                          class="form-control"
+                                          value="{{tue}}" readonly></div>
+    <div class="col-sm-1 col-xs-3"><input id="Wednesday" type="text"
+                                          class="form-control"
+                                          value="{{wed}}" readonly></div>
+    <div class="clearfix visible-xs-block"></div>
+    <div class="col-xs-3 text-center visible-xs-block"><h5>Thu</h5></div>
+    <div class="col-xs-3 text-center visible-xs-block"><h5>Fri</h5></div>
+    <div class="col-xs-3 text-center visible-xs-block"><h5>Sat</h5></div>
+    <div class="clearfix visible-xs-block"></div>
+    <div class="col-sm-1 col-xs-3"><input id="Thursday" type="text"
+                                          class="form-control"
+                                          value="{{thu}}" readonly></div>
+    <div class="col-sm-1 col-xs-3"><input id="Friday" type="text"
+                                          class="form-control"
+                                          value="{{fri}}" readonly></div>
+    <div class="col-sm-1 col-xs-3"><input id="Saturday" type="text"
+                                          class="form-control"
+                                          value="{{sat}}" readonly></div>
+    <div class="col-sm-2 col-xs-3">
+      <button type="button" class="btn btn-primary">Edit</button>
+    </div>
+  </div>
+  <hr class="visible-xs-block">
 </template>
 <template name="projectListDropDown">
-    <select style='font-weight: bold;' id="project_select" class="form-control enterable {{sentBack}}">
-        {{#each projectsDropdown project}}
-            {{#if selected}}
-                <option id={{id}} value={{name}} selected>{{name}}</option>
-            {{else}}
-                <option id={{id}} value={{name}}>{{name}}</option>
-            {{/if}}
-        {{/each}}
-    </select>
+  <select style='font-weight: bold;' id="project_select"
+          class="form-control enterable {{sentBack}}">
+    {{#each projectsDropdown project}}
+      {{#if selected}}
+        <option id={{id}} value={{name}} selected>{{name}}</option>
+      {{else}}
+        <option id={{id}} value={{name}}>{{name}}</option>
+      {{/if}}
+    {{/each}}
+  </select>
 </template>

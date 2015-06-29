@@ -24,11 +24,11 @@ ProjectService = {
             valid = false;
         }
         if(startDate === ''){
-            ProjectService.addError(row, '#start_date', 'Missing start date');
+            ProjectService.addError(row, '#startDate', 'Missing start date');
             valid = false;
         }
         if(endDate === ''){
-            ProjectService.addError(row, '#end_date', 'Missing end date');
+            ProjectService.addError(row, '#endDate', 'Missing end date');
             valid = false;
         }
         if(manager === ''){
@@ -36,8 +36,8 @@ ProjectService = {
             valid = false;
         }
         if(!ProjectService.datesValid(startDate, endDate)){
-            ProjectService.addError(row, '#start_date', 'End date must be after start date');
-            ProjectService.addError(row, '#end_date', 'End date must be after start date');
+            ProjectService.addError(row, '#startDate', 'End date must be after start date');
+            ProjectService.addError(row, '#endDate', 'End date must be after start date');
             valid = false;
         }
         return valid;

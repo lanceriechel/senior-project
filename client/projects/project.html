@@ -22,7 +22,7 @@
 <template name="activeProjectEntries">
     {{> projectHeader}}
     {{#each projects}}
-        {{#if isActive end_date}}
+        {{#if isActive endDate}}
             {{> projectInfo}}
         {{/if}}
     {{/each}}
@@ -33,8 +33,8 @@
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control charge_number" id="charge_number" value={{id}}></div>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control  project_name" id="project_name" value={{name}}></div>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control  customer" id="customer" value={{customer}}></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"> <input type="text" class="large-input form-control date" id="start_date" value={{start_date}}></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"> <input type="text" class="large-input form-control date" id="end_date" value={{end_date}}></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"> <input type="text" class="large-input form-control date" id="startDate" value={{startDate}}></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"> <input type="text" class="large-input form-control date" id="endDate" value={{endDate}}></div>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control manager" id="manager" value={{manager}}></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary">Make Indirect</button></div>
     </div>
@@ -45,8 +45,8 @@
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control" id="charge_number" placeholder="Job"></div>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control" id="project_name" placeholder="Project Name"></div>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control" id="customer" placeholder="Customer"></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"> <input type="text" class="large-input form-control" id="start_date" placeholder="Start Date"></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"> <input type="text" class="large-input form-control" id="end_date" placeholder="End Date"></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"> <input type="text" class="large-input form-control" id="startDate" placeholder="Start Date"></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"> <input type="text" class="large-input form-control" id="endDate" placeholder="End Date"></div>
         <div class="col-md-2 col-sm-2 col-xs-2">{{> employeesListDropDown}}</div>
         <div class="col-md-3 col-sm-3 col-xs-3 text-center">
             <label>Indirect Project?</label>
@@ -70,7 +70,7 @@
 <template name="archivedProjectsEntries">
     {{> projectHeaderArchive}}
     {{#each projects}}
-        {{#if isArchived end_date}}
+        {{#if isArchived endDate}}
             {{> projectInfo}}
         {{/if}}
     {{/each}}
@@ -103,7 +103,7 @@
 <template name="indirectChargeItems">
     {{> indirectHeader}}
     {{#each projects}}
-        {{#if isActive end_date}}
+        {{#if isActive endDate}}
             {{> indirectInfo}}
          {{/if}}
     {{/each}}
@@ -127,8 +127,8 @@
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" readonly class="large-input form-control indirectjob" id="indirectjob" value=Indirect></div>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control project_name" id="project_name" value={{name}}></div>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control  customer" id="customer" value={{customer}}></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"> <input type="text" class="large-input form-control date" id="start_date" value={{start_date}} disabled={{is_holiday}}></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"> <input type="text" class="large-input form-control date" id="end_date" value={{end_date}} disabled={{is_holiday}}></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"> <input type="text" class="large-input form-control date" id="startDate" value={{startDate}} disabled={{is_holiday}}></div>
+        <div class="col-md-1 col-sm-1 col-xs-1"> <input type="text" class="large-input form-control date" id="endDate" value={{endDate}} disabled={{is_holiday}}></div>
         <div class="col-md-2 col-sm-2 col-xs-2"> <input type="text" class="large-input form-control manager" id="manager" value={{manager}} disabled={{is_holiday}}></div>
         <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="btn btn-primary" disabled={{is_holiday}}>Make Active</button></div>
     </div>

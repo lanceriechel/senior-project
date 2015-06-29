@@ -1,234 +1,366 @@
 <template name="historicalPage">
-    <div class="container-fluid">
-        <h2><span class="label">Historical</span></h2>
-      {{> historicalEntries}}
-    </div>
+  <div class="container-fluid">
+    <h2><span class="label">Historical</span></h2>
+    {{> historicalEntries}}
+  </div>
 </template>
 
 <template name="historicalEntries">
-    {{#if isManager}}
-        {{> historyEmployeeSelect}}
-    {{/if}}
-    {{> historyYearSelect}}
-    {{> historyHeader}}
+  {{#if isManager}}
+    {{> historyEmployeeSelect}}
+  {{/if}}
+  {{> historyYearSelect}}
+  {{> historyHeader}}
 </template>
 
 <template name="historyEmployeeSelect">
-    <div class="row">
-        <div class="text-left col-md-2 col-sm-2 col-xs-2"><h4>Employee</h4></div>
-        <div class="text-left col-md-2 col-sm-2 col-xs-2"><h4>Project</h4></div>
-    </div>
-    <div class="row">
+  <div class="row">
+    <div class="text-left col-md-2 col-sm-2 col-xs-2"><h4>Employee</h4></div>
+    <div class="text-left col-md-2 col-sm-2 col-xs-2"><h4>Project</h4></div>
+  </div>
+  <div class="row">
 
-	<div class="col-md-2 col-sm-2 col-xs-2">
-        <input class="form-control typeahead" name="employee" type="text"
-               onClick="this.setSelectionRange(0, this.value.length)"
-               id="employeeSearch"
-               placeholder="Username"
-               autocomplete="off" spellcheck="off"
-               data-source="auto_employees"/>
-	</div>
-	<div class="col-md-2 col-sm-2 col-xs-2">
-        <input class="form-control typeahead" name="projects" type="text"
-               onClick="this.setSelectionRange(0, this.value.length)"
-               id="projectSearch"
-               placeholder="Project"
-               autocomplete="off" spellcheck="off"
-               data-source="auto_projects"/>
-	</div>
-        <div class="col-md-2 col-sm-2 col-xs-2"><button type="button" class="btn btn-success">Search</button></div>
+    <div class="col-md-2 col-sm-2 col-xs-2">
+      <input class="form-control typeahead" name="employee" type="text"
+             onClick="this.setSelectionRange(0, this.value.length)"
+             id="employeeSearch"
+             placeholder="Username"
+             autocomplete="off" spellcheck="off"
+             data-source="auto_employees"/>
     </div>
+    <div class="col-md-2 col-sm-2 col-xs-2">
+      <input class="form-control typeahead" name="projects" type="text"
+             onClick="this.setSelectionRange(0, this.value.length)"
+             id="projectSearch"
+             placeholder="Project"
+             autocomplete="off" spellcheck="off"
+             data-source="auto_projects"/>
+    </div>
+    <div class="col-md-2 col-sm-2 col-xs-2">
+      <button type="button" class="btn btn-success">Search</button>
+    </div>
+  </div>
 </template>
 
 <template name="historyYearSelect">
-    <h4>Filter by Month</h4>
-    {{> history_month_picker}}
-    &nbsp;
-    &nbsp;
+  <h4>Filter by Month</h4>
+  {{> history_month_picker}}
+  &nbsp;
+  &nbsp;
 </template>
 
 <template name="history_month_picker">
-    <!-- <div class="col-md-2 col-sm-2 col-xs-2">
-        <input type="text" class="form-control" id="month_select" placeholder="mm/yyyy">
-    </div> -->
-    <div class="row">
-        <div class="col-xs-2">
-            <div class="row text-center" style="display:flex;align-items:center;">
-            <div class="pull-left prevYear glyphicon glyphicon-chevron-left no-select" style="cursor: pointer;"></div>
-            &nbsp;
-            <div class="col-xs-12"><h4>{{currentYear}}</h4></div>
-            &nbsp;
-            <div class="pull-right nextYear glyphicon glyphicon-chevron-right no-select" style="cursor: pointer;"></div>
-        </div>
-        </div>
-        <div class="col-md-2 col-sm-2 col-xs-2">
-            <button type="button" class="btn btn-primary">Show All For Year</button>
-        </div>
-    </div>
+  <!-- <div class="col-md-2 col-sm-2 col-xs-2">
+      <input type="text" class="form-control" id="month_select" placeholder="mm/yyyy">
+  </div> -->
+  <div class="row">
     <div class="col-xs-2">
-        <div class="row text-center" style="display:flex;align-items:center;">
-            <div class="pull-left prevMonth glyphicon glyphicon-chevron-left no-select" style="cursor: pointer;"></div>
-            &nbsp;
-            <div class="col-xs-12"><h4>{{currentMonth}}</h4></div>
-            &nbsp;
-            <div class="pull-right nextMonth glyphicon glyphicon-chevron-right no-select" style="cursor: pointer;"></div>
-        </div>
+      <div class="row text-center" style="display:flex;align-items:center;">
+        <div
+            class="pull-left prevYear glyphicon glyphicon-chevron-left no-select"
+            style="cursor: pointer;"></div>
+        &nbsp;
+        <div class="col-xs-12"><h4>{{currentYear}}</h4></div>
+        &nbsp;
+        <div
+            class="pull-right nextYear glyphicon glyphicon-chevron-right no-select"
+            style="cursor: pointer;"></div>
+      </div>
     </div>
+    <div class="col-md-2 col-sm-2 col-xs-2">
+      <button type="button" class="btn btn-primary">Show All For Year</button>
+    </div>
+  </div>
+  <div class="col-xs-2">
+    <div class="row text-center" style="display:flex;align-items:center;">
+      <div
+          class="pull-left prevMonth glyphicon glyphicon-chevron-left no-select"
+          style="cursor: pointer;"></div>
+      &nbsp;
+      <div class="col-xs-12"><h4>{{currentMonth}}</h4></div>
+      &nbsp;
+      <div
+          class="pull-right nextMonth glyphicon glyphicon-chevron-right no-select"
+          style="cursor: pointer;"></div>
+    </div>
+  </div>
 </template>
 
 <template name="historyInfo">
-    <div class="row top-buffer no-gutter">
-        <div class="col-md-2 col-sm-2 col-xs-2"><input id="Employee" type="text" class="large-input form-control" value="{{employee}}" readonly></div>
-        <div class="col-md-2 col-sm-2 col-xs-2"><input id="StartDate" type="text" class="large-input form-control" value="{{startDate}}" readonly></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Sunday" type="text" class="large-input form-control" value="{{sun}}" readonly></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Monday" type="text" class="large-input form-control" value="{{mon}}" readonly></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Tuesday" type="text" class="large-input form-control" value="{{tue}}" readonly></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Wednesday" type="text" class="large-input form-control" value="{{wed}}" readonly></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Thursday" type="text" class="large-input form-control" value="{{thu}}" readonly></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Friday" type="text" class="large-input form-control" value="{{fri}}" readonly></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><input id="Saturday" type="text" class="large-input form-control" value="{{sat}}" readonly></div>
-        <div class="col-md-1 col-sm-1 col-xs-1"><button type="button" class="view btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></div>
+  <div class="row top-buffer no-gutter">
+    <div class="col-md-2 col-sm-2 col-xs-2"><input id="Employee" type="text"
+                                                   class="large-input form-control"
+                                                   value="{{employee}}"
+                                                   readonly></div>
+    <div class="col-md-2 col-sm-2 col-xs-2"><input id="StartDate" type="text"
+                                                   class="large-input form-control"
+                                                   value="{{startDate}}"
+                                                   readonly></div>
+    <div class="col-md-1 col-sm-1 col-xs-1"><input id="Sunday" type="text"
+                                                   class="large-input form-control"
+                                                   value="{{sun}}" readonly>
     </div>
+    <div class="col-md-1 col-sm-1 col-xs-1"><input id="Monday" type="text"
+                                                   class="large-input form-control"
+                                                   value="{{mon}}" readonly>
+    </div>
+    <div class="col-md-1 col-sm-1 col-xs-1"><input id="Tuesday" type="text"
+                                                   class="large-input form-control"
+                                                   value="{{tue}}" readonly>
+    </div>
+    <div class="col-md-1 col-sm-1 col-xs-1"><input id="Wednesday" type="text"
+                                                   class="large-input form-control"
+                                                   value="{{wed}}" readonly>
+    </div>
+    <div class="col-md-1 col-sm-1 col-xs-1"><input id="Thursday" type="text"
+                                                   class="large-input form-control"
+                                                   value="{{thu}}" readonly>
+    </div>
+    <div class="col-md-1 col-sm-1 col-xs-1"><input id="Friday" type="text"
+                                                   class="large-input form-control"
+                                                   value="{{fri}}" readonly>
+    </div>
+    <div class="col-md-1 col-sm-1 col-xs-1"><input id="Saturday" type="text"
+                                                   class="large-input form-control"
+                                                   value="{{sat}}" readonly>
+    </div>
+    <div class="col-md-1 col-sm-1 col-xs-1">
+      <button type="button" class="view btn btn-primary"><span
+          class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+    </div>
+  </div>
 </template>
 
 <template name="historyHeader">
+  <div class="row">
+    <hr>
     <div class="row">
-        <hr>
-        <div class="row">
-                <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Name</h4></div>
-                <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Start Date</h4></div>
-                <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Sun</h4></div>
-                <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Mon</h4></div>
-                <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Tue</h4></div>
-                <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Wed</h4></div>
-                <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Thu</h4></div>
-                <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Fri</h4></div>
-                <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Sat</h4></div>
-            </div>
-        {{#each getProjects}}
-            {{#if getTimesheets _id}}
-                <h3><span class="label">{{name}}</span></h3>
-                <br>
-            {{/if}}
-            {{#each getTimesheets _id}}
-        		<div id="ProjectID" value="{{../id}}">
-                        {{> historyInfo}}
-        		</div>
-            {{/each}}
-	    
-        {{/each}}
+      <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Name</h4></div>
+      <div class="col-md-2 col-sm-2 col-xs-2 text-center"><h4>Start Date</h4>
+      </div>
+      <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Sun</h4></div>
+      <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Mon</h4></div>
+      <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Tue</h4></div>
+      <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Wed</h4></div>
+      <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Thu</h4></div>
+      <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Fri</h4></div>
+      <div class="col-md-1 col-sm-1 col-xs-1 text-center"><h4>Sat</h4></div>
     </div>
-</template>
+    {{#each getProjects}}
+      {{#if getTimesheets _id}}
+        <h3><span class="label">{{name}}</span></h3>
+        <br>
+      {{/if}}
+      {{#each getTimesheets _id}}
+        <div id="ProjectID" value="{{../id}}">
+          {{> historyInfo}}
+        </div>
+      {{/each}}
 
+    {{/each}}
+  </div>
+</template>
 
 
 <template name="SelectedHistoryTimesheet">
-    <div class="col-xs-12 alert-editing">
-        {{employee}}'s timesheet.
+  <div class="col-xs-12 alert-editing">
+    {{employee}}'s timesheet.
+  </div>
+  <br>
+
+  <h2><span class="label">{{date}}</span></h2>
+  <br>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4
+          style='font-weight: bold;'>Project</h4></div>
+      <div class="text-center col-md-1 col-sm-1 col-xs-1"><h4>S</h4></div>
+      <div class="text-center col-md-1 col-sm-1 col-xs-1"><h4>M</h4></div>
+      <div class="text-center col-md-1 col-sm-1 col-xs-1"><h4>T</h4></div>
+      <div class="text-center col-md-1 col-sm-1 col-xs-1"><h4>W</h4></div>
+      <div class="text-center col-md-1 col-sm-1 col-xs-1"><h4>T</h4></div>
+      <div class="text-center col-md-1 col-sm-1 col-xs-1"><h4>F</h4></div>
+      <div class="text-center col-md-1 col-sm-1 col-xs-1"><h4>S</h4></div>
+      <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4>Comment</h4></div>
     </div>
+    {{#each row}}
+      {{> historyProjectHours}}
+    {{/each}}
     <br>
-    <h2><span class="label">{{date}}</span></h2>
+    {{> historical_totals}}
     <br>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4 style='font-weight: bold;'>Project</h4></div>
-            <div class="text-center col-md-1 col-sm-1 col-xs-1"><h4>S</h4></div>
-            <div class="text-center col-md-1 col-sm-1 col-xs-1"><h4>M</h4></div>
-            <div class="text-center col-md-1 col-sm-1 col-xs-1"><h4>T</h4></div>
-            <div class="text-center col-md-1 col-sm-1 col-xs-1"><h4>W</h4></div>
-            <div class="text-center col-md-1 col-sm-1 col-xs-1"><h4>T</h4></div>
-            <div class="text-center col-md-1 col-sm-1 col-xs-1"><h4>F</h4></div>
-            <div class="text-center col-md-1 col-sm-1 col-xs-1"><h4>S</h4></div>
-            <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4>Comment</h4></div>
-        </div>
-        {{#each row}}
-          {{> historyProjectHours}}
-        {{/each}}
-        <br>
-            {{> historical_totals}}
-        <br>
-        <div class="row">
-            <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4>Project</h4></div>
-            <div class="text-center col-md-3 col-sm-3 col-xs-3"><h4>This Week's Issues</h4></div>
-            <div class="text-center col-md-3 col-sm-3 col-xs-3"><h4>Goals for Next Week</h4></div>
-            <div class="text-center col-md-4 col-sm-4 col-xs-4"><h4>Manager Feedback</h4></div>
-        </div>
-        {{#each project}} 
-          {{> historyProjectComments}}
-        {{/each}}
-        {{> historyLastSection}}
-        {{> historyLog}}
+
+    <div class="row">
+      <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4>Project</h4></div>
+      <div class="text-center col-md-3 col-sm-3 col-xs-3"><h4>This Week's
+        Issues</h4></div>
+      <div class="text-center col-md-3 col-sm-3 col-xs-3"><h4>Goals for Next
+        Week</h4></div>
+      <div class="text-center col-md-4 col-sm-4 col-xs-4"><h4>Manager
+        Feedback</h4></div>
     </div>
+    {{#each project}}
+      {{> historyProjectComments}}
+    {{/each}}
+    {{> historyLastSection}}
+    {{> historyLog}}
+  </div>
 </template>
 
 <template name="historyProjectHours">
-    <div class="row no-gutter top-buffer" id={{rowID}}>
-         <div class="filledRow col-md-2 col-sm-2 col-xs-2"><input id="Sunday" type="text" class="large-input form-control enterable {{sentBack}}" style='font-weight: bold;' disabled=true value={{name project}}></div>
-        <div class="filledRow col-md-1 col-sm-1 col-xs-1"><input id="Sunday" type="text" class="large-input form-control enterable {{sentBack}}" disabled=true value={{sunday}}></div>
-        <div class="filledRow col-md-1 col-sm-1 col-xs-1"><input id="Monday" type="text" class="large-input form-control enterable {{sentBack}}" disabled=true value={{monday}}></div>
-        <div class="filledRow col-md-1 col-sm-1 col-xs-1"><input id="Tuesday" type="text" class="large-input form-control enterable {{sentBack}}" disabled=true value={{tuesday}}></div>
-        <div class="filledRow col-md-1 col-sm-1 col-xs-1"><input id="Wednesday" type="text" class="large-input form-control enterable {{sentBack}}" disabled=true value={{wednesday}}></div>
-        <div class="filledRow col-md-1 col-sm-1 col-xs-1"><input id="Thursday" type="text" class="large-input form-control enterable {{sentBack}}" disabled=true value={{thursday}}></div>
-        <div class="filledRow col-md-1 col-sm-1 col-xs-1"><input id="Friday" type="text" class="large-input form-control enterable {{sentBack}}" disabled=true value={{friday}}></div>
-        <div class="filledRow col-md-1 col-sm-1 col-xs-1"><input id="Saturday" type="text" class="large-input form-control enterable {{sentBack}}" disabled=true value={{saturday}}></div>
-        <div class="filledRow col-md-2 col-sm-2 col-xs-2"><input id="Comment" type="text" class="large-input form-control enterable {{sentBack}}" disabled=true value={{comment}}></div>
+  <div class="row no-gutter top-buffer" id={{rowID}}>
+    <div class="filledRow col-md-2 col-sm-2 col-xs-2"><input id="Sunday"
+                                                             type="text"
+                                                             class="large-input form-control enterable {{sentBack}}"
+                                                             style='font-weight: bold;'
+                                                             disabled=true
+                                                             value={{name project}}>
     </div>
+    <div class="filledRow col-md-1 col-sm-1 col-xs-1"><input id="Sunday"
+                                                             type="text"
+                                                             class="large-input form-control enterable {{sentBack}}"
+                                                             disabled=true
+                                                             value={{sunday}}>
+    </div>
+    <div class="filledRow col-md-1 col-sm-1 col-xs-1"><input id="Monday"
+                                                             type="text"
+                                                             class="large-input form-control enterable {{sentBack}}"
+                                                             disabled=true
+                                                             value={{monday}}>
+    </div>
+    <div class="filledRow col-md-1 col-sm-1 col-xs-1"><input id="Tuesday"
+                                                             type="text"
+                                                             class="large-input form-control enterable {{sentBack}}"
+                                                             disabled=true
+                                                             value={{tuesday}}>
+    </div>
+    <div class="filledRow col-md-1 col-sm-1 col-xs-1"><input id="Wednesday"
+                                                             type="text"
+                                                             class="large-input form-control enterable {{sentBack}}"
+                                                             disabled=true
+                                                             value={{wednesday}}>
+    </div>
+    <div class="filledRow col-md-1 col-sm-1 col-xs-1"><input id="Thursday"
+                                                             type="text"
+                                                             class="large-input form-control enterable {{sentBack}}"
+                                                             disabled=true
+                                                             value={{thursday}}>
+    </div>
+    <div class="filledRow col-md-1 col-sm-1 col-xs-1"><input id="Friday"
+                                                             type="text"
+                                                             class="large-input form-control enterable {{sentBack}}"
+                                                             disabled=true
+                                                             value={{friday}}>
+    </div>
+    <div class="filledRow col-md-1 col-sm-1 col-xs-1"><input id="Saturday"
+                                                             type="text"
+                                                             class="large-input form-control enterable {{sentBack}}"
+                                                             disabled=true
+                                                             value={{saturday}}>
+    </div>
+    <div class="filledRow col-md-2 col-sm-2 col-xs-2"><input id="Comment"
+                                                             type="text"
+                                                             class="large-input form-control enterable {{sentBack}}"
+                                                             disabled=true
+                                                             value={{comment}}>
+    </div>
+  </div>
 </template>
 
 <template name="historyProjectComments">
-    <div class="row no-gutter top-buffer projectCommentsRow">
-     <div class="col-md-2 col-sm-2 col-xs-2" id={{project}}><input id="project_comments_name" type="text" class="large-input form-control" readonly value={{name project}}></div> 
-      <div class="col-md-3 col-sm-3 col-xs-3"><input id="Issues" type="text" class="large-input form-control enterable {{sentBack}}" disabled=true value={{issues project}}></div>
-      <div class="col-md-3 col-sm-3 col-xs-3"><input id="Next" type="text" class="large-input form-control enterable {{sentBack}}" disabled=true value={{next project}}></div>
-      <div class="col-md-4 col-sm-4 col-xs-4"><input id="managerFeedback" type="text" class="large-input form-control" readonly value={{message project}}></div>
+  <div class="row no-gutter top-buffer projectCommentsRow">
+    <div class="col-md-2 col-sm-2 col-xs-2" id={{project}}><input
+        id="project_comments_name" type="text" class="large-input form-control"
+        readonly value={{name project}}></div>
+    <div class="col-md-3 col-sm-3 col-xs-3"><input id="Issues" type="text"
+                                                   class="large-input form-control enterable {{sentBack}}"
+                                                   disabled=true
+                                                   value={{issues project}}>
     </div>
+    <div class="col-md-3 col-sm-3 col-xs-3"><input id="Next" type="text"
+                                                   class="large-input form-control enterable {{sentBack}}"
+                                                   disabled=true
+                                                   value={{next project}}></div>
+    <div class="col-md-4 col-sm-4 col-xs-4"><input id="managerFeedback"
+                                                   type="text"
+                                                   class="large-input form-control"
+                                                   readonly
+                                                   value={{message project}}>
+    </div>
+  </div>
 </template>
 
 <template name="historyLastSection">
-    <br>
-    <div class="row">
-        <div class="text-center col-md-6 col-sm-6 col-xs-6"><h4>General Comment</h4></div>
-        <div class="text-center col-md-5 col-sm-5 col-xs-5"><h4>Concerns</h4></div>
+  <br>
+
+  <div class="row">
+    <div class="text-center col-md-6 col-sm-6 col-xs-6"><h4>General Comment</h4>
     </div>
-    <div class="row commentRow">
-        <div class="col-md-6 col-sm-6 col-xs-6"><input id="generalComment" type="text" class="large-input form-control enterable" disabled=true value={{genComment}}></div>       
-        <div class="col-md-5 col-sm-5 col-xs-5"><input id="concerns" type="text" class="large-input form-control enterable" disabled=true value={{concerns}}></div>
-        <div class="col-md-1 col-sm-1 col-xs-1">{{>PDF}}</div>
-    </div>
+    <div class="text-center col-md-5 col-sm-5 col-xs-5"><h4>Concerns</h4></div>
+  </div>
+  <div class="row commentRow">
+    <div class="col-md-6 col-sm-6 col-xs-6"><input id="generalComment"
+                                                   type="text"
+                                                   class="large-input form-control enterable"
+                                                   disabled=true
+                                                   value={{genComment}}></div>
+    <div class="col-md-5 col-sm-5 col-xs-5"><input id="concerns" type="text"
+                                                   class="large-input form-control enterable"
+                                                   disabled=true
+                                                   value={{concerns}}></div>
+    <div class="col-md-1 col-sm-1 col-xs-1">{{>PDF}}</div>
+  </div>
 </template>
 
 <template name="PDF">
-    <button type="button" class="btn btn-primary">PDF</button>
+  <button type="button" class="btn btn-primary">PDF</button>
 </template>
 
 <template name="historyLog">
-    <h2><span class="label">History</span></h2>
-    <div class="container-fluid">
-        <br>
-        <div class="row">
-            <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4>Timestamp</h4></div>
-            <div class="text-center col-md-10 col-sm-10 col-xs-10"><h4>Action</h4></div>
-        </div>
-        {{#each revisions}}
-            <div class="row top-buffer no-gutter">
-                <div class="col-md-2 col-sm-2 col-xs-2"><input type="text" class="large-input form-control" disabled=true value={{timestamp}}></div>
-                <div class="col-md-10 col-sm-10 col-xs-10"><input type="text" class="large-input form-control" disabled=true value={{message}}></div>
-            </div>
-        {{/each}}
+  <h2><span class="label">History</span></h2>
+
+  <div class="container-fluid">
+    <br>
+
+    <div class="row">
+      <div class="text-center col-md-2 col-sm-2 col-xs-2"><h4>Timestamp</h4>
+      </div>
+      <div class="text-center col-md-10 col-sm-10 col-xs-10"><h4>Action</h4>
+      </div>
     </div>
+    {{#each revisions}}
+      <div class="row top-buffer no-gutter">
+        <div class="col-md-2 col-sm-2 col-xs-2"><input type="text"
+                                                       class="large-input form-control"
+                                                       disabled=true
+                                                       value={{timestamp}}>
+        </div>
+        <div class="col-md-10 col-sm-10 col-xs-10"><input type="text"
+                                                          class="large-input form-control"
+                                                          disabled=true
+                                                          value={{message}}>
+        </div>
+      </div>
+    {{/each}}
+  </div>
 </template>
 
 <template name="historical_totals">
-    <div class="row">
-        <div class="col-md-2 col-sm-2 col-xs-2 text-center"><underline>Totals</underline></div>
-        <div class="col-md-1 col-sm-1 col-xs-1 text-center">{{getDayTotal 0}}</div>
-        <div class="col-md-1 col-sm-1 col-xs-1 text-center">{{getDayTotal 1}}</div>
-        <div class="col-md-1 col-sm-1 col-xs-1 text-center">{{getDayTotal 2}}</div>
-        <div class="col-md-1 col-sm-1 col-xs-1 text-center">{{getDayTotal 3}}</div>
-        <div class="col-md-1 col-sm-1 col-xs-1 text-center">{{getDayTotal 4}}</div>
-        <div class="col-md-1 col-sm-1 col-xs-1 text-center">{{getDayTotal 5}}</div>
-        <div class="col-md-1 col-sm-1 col-xs-1 text-center">{{getDayTotal 6}}</div>
-        <div class="col-md-1 col-sm-1 col-xs-1 text-left hidden-sm hidden-xs"> Weekly Total: {{getWeekTotal}}</div>
-        <div class="col-md-1 col-sm-1 col-xs-1 text-left hidden-md hidden-lg">| <b class="text-right">{{getWeekTotal}}</b></div>
+  <div class="row">
+    <div class="col-md-2 col-sm-2 col-xs-2 text-center">
+      <underline>Totals</underline>
     </div>
+    <div class="col-md-1 col-sm-1 col-xs-1 text-center">{{getDayTotal 0}}</div>
+    <div class="col-md-1 col-sm-1 col-xs-1 text-center">{{getDayTotal 1}}</div>
+    <div class="col-md-1 col-sm-1 col-xs-1 text-center">{{getDayTotal 2}}</div>
+    <div class="col-md-1 col-sm-1 col-xs-1 text-center">{{getDayTotal 3}}</div>
+    <div class="col-md-1 col-sm-1 col-xs-1 text-center">{{getDayTotal 4}}</div>
+    <div class="col-md-1 col-sm-1 col-xs-1 text-center">{{getDayTotal 5}}</div>
+    <div class="col-md-1 col-sm-1 col-xs-1 text-center">{{getDayTotal 6}}</div>
+    <div class="col-md-1 col-sm-1 col-xs-1 text-left hidden-sm hidden-xs">
+      Weekly Total: {{getWeekTotal}}</div>
+    <div class="col-md-1 col-sm-1 col-xs-1 text-left hidden-md hidden-lg">| <b
+        class="text-right">{{getWeekTotal}}</b></div>
+  </div>
 </template>

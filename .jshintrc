@@ -15,7 +15,7 @@
     "noempty": true,        // Prohibit use of empty blocks.
     "nonbsp": true,         // Warns about "non-breaking whitespace" characters.
     "nonew": true,          // Prohibit use of constructors for side-effects.
-    "plusplus": true,       // Prohibit use of `++` & `--`.
+    "plusplus": false,       // Prohibit use of `++` & `--`.
     "quotmark": "single",   // Allow only single quotes.
     "undef": true,          // Require all non-global variables be declared before they are used.
     "unused": true,         // Warns when you define and never use your variables.
